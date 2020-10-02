@@ -24,7 +24,9 @@ Pull these docker images
 
 #### Run Loki
 
-`docker run -v $(pwd):/mnt/config -p 3100:3100 grafana/loki:1.6.0 -config.file=/mnt/config/loki-config.yaml`
+```
+docker run -v $(pwd):/mnt/config -p 3100:3100 grafana/loki:1.6.0 -config.file=/mnt/config/loki-config.yaml
+```
 
 Check its status `http://localhost:3100/ready` and start Promtail when it's ready
 
@@ -34,15 +36,21 @@ Check its status `http://localhost:3100/ready` and start Promtail when it's read
 
 The command below attaches volumes to pull the config file and logs. It assumes your Ceramic logs are stored at `usr/local/var/log/ceramic/`.
 
-`docker run -v $(pwd):/mnt/config -v /usr/local/var/log:/var/log grafana/promtail:1.6.0 -config.file=/mnt/config/promtail-config.yaml -log.level debug`
+```
+docker run -v $(pwd):/mnt/config -v /usr/local/var/log:/var/log grafana/promtail:1.6.0 -config.file=/mnt/config/promtail-config.yaml -log.level debug
+```
 
 #### Run Grafana
 
-`docker run -p 3000:3000 grafana/grafana`
+```
+docker run -p 3000:3000 grafana/grafana`
+```
 
 > (Optional)
 > Create a persistent volume for your data in /var/lib/grafana and run with the volume attached
+>
 > `docker volume create grafana-storage`
+>
 > `docker run -p 3000:3000 -v grafana-storage:/var/lib/grafana grafana/grafana`
 
 Login to `http://localhost:3000` with u: admin, p: admin
