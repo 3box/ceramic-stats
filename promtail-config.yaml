@@ -1,0 +1,38 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://docker.for.mac.localhost:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: ceramic
+  pipeline_stages:
+    - regex:
+        expression: "\"request\":.+\"timestamp\":(?P<reqTs>\\d+).+\"method\":+\"(?P<method>\\w+)\".+\"remoteAddress\":+\"(?P<remoteAddress>\\S+)\",.+\"url\":+\"(?P<url>\\S+)\"},\"response\":.+\"timestamp\":(?P<resTs>\\d+).+\"processingTime\":(?P<processingTime>\\d+).+\"body\":(?P<body>.*).+\"statusCode\":(?P<statusCode>\\d+).*"
+        # expression: "\"request\":.+\"timestamp\":(?P<ts>\\d+).+\"method\":+\"(?P<method>\\w+)\".+\"remoteAddress\":+\"(?P<remoteAddress>\\S+)\",.+\"url\":+\"(?P<url>\\S+)\"}"
+        # expression: "\"response\":.+\"timestamp\":(?P<ts>\\d+).+\"processingTime\":(?P<processingTime>\\d+).+\"body\":(?P<body>[.*]).+\"statusCode\":(?P<statusCode>\\d+).*"
+    - labels:
+       reqTs:
+       method:
+       remoteAddress:
+       url:
+       resTs:
+       processingTime:
+       statusCode:
+
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: node
+      __path__: /var/log/ceramic/CeramicDaemon-NODE.plugin.log
+  - targets:
+    - localhost
+    labels:
+      job: gateway
+      __path__: /var/log/ceramic/CeramicDaemon-GATEWAY.plugin.log
+
