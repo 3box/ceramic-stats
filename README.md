@@ -30,6 +30,8 @@ Check its status `http://localhost:3100/ready` and start Promtail when it's read
 
 #### Run Promtail
 
+> Note: If you are not using mac os you should update the client url in `promtail-config.yaml` from docker.for.mac or you must connect your Docker containers to the same network.
+
 The command below attaches volumes to pull the config file and logs. It assumes your Ceramic logs are stored at `usr/local/var/log/ceramic/`.
 
 `docker run -v $(pwd):/mnt/config -v /usr/local/var/log:/var/log grafana/promtail:1.6.0 -config.file=/mnt/config/promtail-config.yaml -log.level debug`
@@ -45,7 +47,7 @@ The command below attaches volumes to pull the config file and logs. It assumes 
 
 Login to `http://localhost:3000` with u: admin, p: admin
 
-Add Loki as a data source with url `http://docker.for.mac.localhost:3100` (may be different for non-mac users) or alternatively connect your Docker containers to the same network
+Add Loki as a data source with url `http://docker.for.mac.localhost:3100` (again, see note above if not on mac os)
 
 #### Create a dashboard
 
