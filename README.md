@@ -1,41 +1,63 @@
 # Ceramic Stats
 
-> An autonomous agent used to collect Ceramic network stats.
+> A Loki/Promtail configuration to collect Ceramic network stats
 
 ## Getting started
 
+This package is designed to visualize data in Grafana. Promtail pulls and labels Ceramic logs then pushes them to Loki, a log aggregation system that built for Grafana.
+
+
 ### Installation
-To install the ceramic cli globally you can run:
-```
-$ npm install -g @ceramicnetwork/ceramic-stats
-```
+
+Each component in this package runs in a Docker container (but can also be run natively on your system by downloading the binaries).
+
+Get started with the Typescript implementation of Ceramic
+[js-ceramic](https://github.com/ceramicnetwork/js-ceramic)
+
+Pull these docker images
+
+[Grafana Docker image](https://grafana.com/docs/grafana/latest/installation/docker/)
+[Loki Docker image](https://grafana.com/docs/loki/latest/installation/docker/)
+[Promtail Docker image](https://grafana.com/docs/loki/latest/clients/promtail/installation/)
 
 ### Usage
-See all commands
-```
-$ ceramic-stats -h
-```
 
-To start the agent, make sure you have a Ceramic daemon running locally:
-```
-$ ceramic daemon
-```
+#### Run Loki
+
+`docker run -v $(pwd):/mnt/config -p 3100:3100 grafana/loki:1.6.0 -config.file=/mnt/config/loki-config.yaml`
+
+Check its status `http://localhost:3100/ready` and start Promtail when it's ready
+
+#### Run Promtail
+
+The command below attaches volumes to pull the config file and logs. It assumes your Ceramic logs are stored at `usr/local/var/log/ceramic/`.
+
+`docker run -v $(pwd):/mnt/config -v /usr/local/var/log:/var/log grafana/promtail:1.6.0 -config.file=/mnt/config/promtail-config.yaml -log.level debug`
+
+#### Run Grafana
+
+`docker run -p 3000:3000 grafana/grafana`
+
+> (Optional)
+> Create a persistent volume for your data in /var/lib/grafana and run with the volume attached
+> `docker volume create grafana-storage`
+> `docker run -p 3000:3000 -v grafana-storage:/var/lib/grafana grafana/grafana`
+
+Login to `http://localhost:3000` with u: admin, p: admin
+
+Add Loki as a data source with url `http://docker.for.mac.localhost:3100` (may be different for non-mac users) or alternatively connect your Docker containers to the same network
+
+#### Create a dashboard
+
+Paste the contents of `dashboard.json` into Grafana `http://localhost:3000/?editview=dashboard_json&orgId=1`
 
 ## Development
 
-### Not yet implemented commands
+#### In Progress
 
-#### `ceramic-stats -h`
-See all available commands.
-
-#### `ceramic-stats daemon`
-Run the agent.
-
-#### `ceramic-stats summary`
-Show a summary of the latest stats collected.
-
-#### `ceramic-stats config show`
-Show the current configuration.
+- Persistent storage for logs (Postgres or S3)
+- Single Dockerfile to start all containers
+- Setup Grafana provisioning with config files 
 
 ## Contributing
 We are happy to accept small and large contributions. Make sure to check out the [Ceramic specifications](https://github.com/ceramicnetwork/specs) for details of how the protocol works.
