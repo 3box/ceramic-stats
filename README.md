@@ -65,7 +65,8 @@ Paste the contents of `dashboard.json` into Grafana `http://localhost:3000/?edit
 
 #### In Progress
 
-- Persistent storage for logs (Postgres or S3)
+- Persistent object storage for compressed Loki chunks (S3 or file system locally)
+- Persistent index storage for labeled logs (DynamoDB or boltdb locally)
 - Single Dockerfile to start all containers
 - Setup Grafana provisioning with config files 
 
