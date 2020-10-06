@@ -86,3 +86,8 @@ scrape_configs:
     labels:
       job: agent/docids
       __path__: /var/log/ceramic/stats-docids.log
+  - targets:
+      - localhost
+    labels:
+      job: agent/3ids
+      __path__: /var/log/ceramic/stats-3ids.log
