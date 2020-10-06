@@ -5,7 +5,7 @@ var watch = require('node-watch')
 
 const set = {}
 
-const logDirectory = '/usr/local/var/log/ceramic/'
+const logDirectory = '/var/log/ceramic/'
 const logFilename = 'stats-docids.log'
 const logPath = logDirectory + logFilename
  
