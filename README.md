@@ -64,7 +64,7 @@ docker run -p 3000:3000 grafana/grafana`
 >
 > `docker run -p 3000:3000 -v grafana-storage:/var/lib/grafana grafana/grafana`
 
-Login to `http://localhost:3000` with u: admin, p: admin
+Login to `http://localhost:3000` with u: admin p: admin
 
 
 ## Usage
@@ -73,7 +73,9 @@ Now that the services are running you can
 
 1. Add Loki as a data source with url `http://loki:3100` (or http://docker.for.mac.localhost:3100 for advanced setup)
 
-2. Paste the contents of `dashboard.json` into Grafana `http://localhost:3000/?editview=dashboard_json&orgId=1`
+2. Click the `+` button on the left of the Grafana page and click "import"
+
+3. Paste the contents of `dashboard.json` into the field
 
 ## Development
 
