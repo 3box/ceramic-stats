@@ -276,7 +276,7 @@
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
-          "h": 9,
+          "h": 8,
           "w": 12,
           "x": 0,
           "y": 8
@@ -310,7 +310,7 @@
         "targets": [
           {
             "expr": "count (sum (count_over_time({topic=\"/ceramic\"}[5m])) by (docId))",
-            "legendFormat": "",
+            "legendFormat": "docids",
             "refId": "A"
           }
         ],
@@ -318,12 +318,25 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "DocIds seen in past 5 minutes",
+        "title": "Total docIds seen in past 5 minutes",
         "tooltip": {
           "shared": true,
           "sort": 0,
           "value_type": "individual"
         },
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "include": {
+                "names": [
+                  "Time",
+                  "docids"
+                ]
+              }
+            }
+          }
+        ],
         "type": "graph",
         "xaxis": {
           "buckets": null,
@@ -339,6 +352,132 @@
             "logBase": 1,
             "max": null,
             "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Loki",
+        "description": "Number of docIds seen in the /ceramic pubsub topic in the last 30 minutes",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "hiddenSeries": false,
+        "id": 8,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.2.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum(count_over_time({job=\"agent/docids\"}[30m])) by (docid)",
+            "legendFormat": "docid count",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Unique docIds in /ceramic PubSub topic",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "transformations": [
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "include": {
+                "names": [
+                  "Time",
+                  "docid count"
+                ]
+              }
+            }
+          }
+        ],
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 0,
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
             "show": true
           },
           {
@@ -370,5 +509,5 @@
     "timezone": "",
     "title": "Default",
     "uid": "o1Dp-kcGz",
-    "version": 3
+    "version": 10
   }

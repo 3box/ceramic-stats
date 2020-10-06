@@ -71,3 +71,18 @@ scrape_configs:
     labels:
       job: pubsub/default
       __path__: /var/log/ceramic/dispatcher-default.log
+
+- job_name: agent
+  pipeline_stages:
+    - regex:
+        expression: "\"timestamp\":(?P<ts>\\d+).+\"docId\":\"(?P<docId>\\S+)\""
+    - labels:
+        ts:
+        docId:
+
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: agent/docids
+      __path__: /var/log/ceramic/stats-docids.log
