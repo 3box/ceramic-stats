@@ -6,6 +6,8 @@
 
 This package is designed to visualize data in Grafana. Promtail pulls and labels Ceramic logs then pushes them to Loki, a log aggregation system built for Grafana.
 
+![diagram](diagram.png?raw=true "Diagram")
+
 ## Installation
 
 Each component in this package runs in a Docker container (but can also be run natively on your system by downloading the binaries).
