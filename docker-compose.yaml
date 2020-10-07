@@ -1,5 +1,9 @@
 version: "3.8"
 services:
+  agent:
+    build: ./agent
+    volumes:
+      - /usr/local/var/log:/var/log
   loki:
     image: "grafana/loki:1.6.0"
     command: -config.file=/mnt/config/loki-config.yaml
