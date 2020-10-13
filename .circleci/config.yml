@@ -7,8 +7,9 @@ workflows:
   build-and-push-agent:
     jobs:
       - aws-ecr/build-and-push-image:
-          repo: "${AWS_RESOURCE_NAME_PREFIX}"
-          tag: "${CIRCLE_SHA1}"
+          repo: "ceramic-stats-agent"
+          tag: "${CIRCLE_SHA1},develop"
+          path: "./agent"
           filters:
             branches:
               only: develop
