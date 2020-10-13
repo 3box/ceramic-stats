@@ -4,6 +4,8 @@
   "description": "> A Loki/Promtail configuration to collect Ceramic network stats",
   "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
+    "clean": "rm -R node_modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +20,9 @@
   },
   "homepage": "https://github.com/3box/ceramic-stats#readme",
   "dependencies": {
-    "better-queue": "^3.8.10",
+    "dag-jose": "^0.3.0",
+    "ipfs": "github:simonovic86/ipfs",
+    "multiformats": "^3.0.3",
     "node-watch": "^0.7.0",
     "read-last-line": "^1.1.0"
   }

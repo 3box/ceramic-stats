@@ -1,10 +1,12 @@
+var dagJose = require('dag-jose')
+var Ipfs = require('ipfs')
 var fs = require('fs')
+var legacy = require('multiformats/legacy')
+var multiformats = require('multiformats/basics')
 var readLastLine = require('read-last-line')
-var Queue = require('better-queue')
 var watch = require('node-watch')
 
 const docIdSet = {}
-const threeIdSet = {}
 
 const logDirectory = '/var/log/ceramic/'
 
@@ -13,22 +15,24 @@ const threeIdLogName = 'stats-3ids.log'
 
 const docIdLogPath = logDirectory + docIdLogName
 const threeIdLogPath = logDirectory + threeIdLogName
+
+// TODO: other tags, schema, owners
  
 async function main() {
+  const ipfs = await createIpfs()
   const watcher = watch(logDirectory, { recursive: true, filter: watchFilter })
-
-  const queue = new Queue(function (input, cb) {
-    logIfNew(input)
-    cb(null, result)
-  })
 
   watcher.on('ready', function() {
     console.log('Watcher is ready.')
   }) 
 
-  watcher.on('change', function(evt, filename) {
+  watcher.on('change', async function(evt, filename) {
     if (evt === 'update') {
-      queue.push(filename)
+      const docId = await getNewDocId(filename)
+      if (docId) {
+        logDocId(docId)
+        await logIf3id(docId, ipfs)
+      }
     }
   })
 
@@ -37,47 +41,30 @@ async function main() {
   })
 }
 
+async function createIpfs() {
+  multiformats.multicodec.add(dagJose.default)
+  const format = legacy(multiformats, dagJose.default.name)
+  console.log('Starting ipfs...')
+  return await Ipfs.create({ ipld: { formats: [format] } })
+}
+
 function watchFilter(filename) {
   return (
     !filename.includes(docIdLogName)
     && !filename.includes(threeIdLogName)
-    && (filename.endsWith('-docids.log') || filename.endsWith('-3ids.log'))
+    && filename.endsWith('-docids.log')
   )
 }
 
-function logIfNew(filename) {
-  let isDocId = filename.endsWith('-docids.log')
-  let is3id = filename.endsWith('-3ids.log')
-
-  let isNew
-  let logPath
-  let logHeader
-  if (isDocId) {
-    isNew = isNewDocId
-    logPath = docIdLogPath
-    logHeader = 'New docId:'
-  } else if (is3id) {
-    isNew = isNew3id
-    logPath = threeIdLogPath
-    logHeader = 'New 3id:'
-  } else {
-    return
-  }
-
-  readLastLine.read(filename, 1)
+async function getNewDocId(filename) {
+  return await readLastLine.read(filename, 1)
     .then(function (lines) {
       lines = lines.trim()
-      handleLine(lines, isNew, logPath, logHeader)
+      return isNewDocId(lines) && lines || null
     })
     .catch(function (err) {
       console.error(err.message)
     })
-}
-
-function handleLine(line, isNew, logPath, logHeader) {
-  if (isNew(line)) {
-    writeStream(line, logPath, logHeader)
-  }
 }
 
 function isNewDocId(docId) {
@@ -90,14 +77,29 @@ function isNewDocId(docId) {
   return false
 }
 
-function isNew3id(docId) {
-  // TODO: Check valid docId format
-  if (threeIdSet[docId] === undefined) {
-    threeIdSet[docId] = 1
-    return true
+function logDocId(docId) {
+  writeStream(docId, docIdLogPath, 'New docId:')
+}
+
+async function logIf3id(docId, ipfs) {
+  const payload = await getDocPayload(docId, ipfs)
+  
+  let is3id = false
+  try {
+    is3id = payload.header.tags.includes('3id')
+  } catch (error) {
+    // pass
   }
-  threeIdSet[docId]++
-  return false
+  if (is3id) {
+    writeStream(docId, threeIdLogPath, 'New 3id:')
+  }
+}
+
+async function getDocPayload(docId, ipfs) {
+  const cidIndex = 2
+  const cid = docId.split('/')[cidIndex]
+  const record = (await ipfs.dag.get(cid)).value
+  return (await ipfs.dag.get(record.link)).value
 }
 
 function writeStream(docId, logPath, logHeader) {
