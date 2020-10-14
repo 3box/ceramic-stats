@@ -1,3 +1,4 @@
+var child_process = require('child_process')
 var dagJose = require('dag-jose')
 var Ipfs = require('ipfs')
 var fs = require('fs')
@@ -20,7 +21,20 @@ const threeIdLogPath = logDirectory + threeIdLogName
  
 async function main() {
   const ipfs = await createIpfs()
-  const watcher = watch(logDirectory, { recursive: true, filter: watchFilter })
+
+  let watcher
+  let watching = false
+
+  while (!watching) {
+    try {
+      watcher = watch(logDirectory, { recursive: true, filter: watchFilter })
+      watching = true
+    } catch (error) {
+      console.error(error)
+      console.log('Will retry instantiating watcher after 10 seconds...')
+      child_process.execSync('sleep 10')
+    }
+  }
 
   watcher.on('ready', function() {
     console.log('Watcher is ready.')
