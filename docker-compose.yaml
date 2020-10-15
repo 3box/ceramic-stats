@@ -9,12 +9,10 @@ services:
     ports:
       - "3100:3100"
   promtail:
-    image: "grafana/promtail:1.6.0"
-    command: -config.file=/mnt/config/promtail-config.yaml -log.level debug
+    build: ./promtail
     ports:
       - "9080:9080"
     volumes:
-      - .:/mnt/config
       - /usr/local/var/log:/var/log
     depends_on:
       - loki
