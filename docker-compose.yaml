@@ -5,12 +5,9 @@ services:
     volumes:
       - /usr/local/var/log:/var/log
   loki:
-    image: "grafana/loki:1.6.0"
-    command: -config.file=/mnt/config/loki-config.yaml
+    build: ./loki
     ports:
       - "3100:3100"
-    volumes:
-      - .:/mnt/config
   promtail:
     image: "grafana/promtail:1.6.0"
     command: -config.file=/mnt/config/promtail-config.yaml -log.level debug
