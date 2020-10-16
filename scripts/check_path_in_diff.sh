@@ -16,5 +16,5 @@ if [ $LATEST_FILE_COMMIT = $LATEST_COMMIT ];
         echo "File $FILE changed in latest commit"
 else
     echo "No change to file $FILE in latest commit"
-    exit 0;
+    exit 1;
 fi
