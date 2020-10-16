@@ -26,8 +26,8 @@ jobs:
       - shellcheck/check
       - run:
           name: check-changes
-          command: |
-            check_path_in_diff.sh << parameters.dockerfile-path >>
+          command:
+            ./scripts/check_path_in_diff.sh << parameters.dockerfile-path >>
       - aws-ecr/build-and-push-image:
           repo: << parameters.ecr-repo >>
           path: << parameters.dockerfile-path >>
@@ -52,7 +52,7 @@ workflows:
           name: "build-and-update-loki"
           ecr-repo: "<< pipeline.parameters.cluster >>-loki"
           dockerfile-path: "./loki"
-          ecs-task-family: "<< pipeline.parameters.cluster >>-loki"
+          ecs-task-family: "<< pipeline.parameters.cluster >>-loki_promtail"
           filters:
             branches:
               only: develop
@@ -60,7 +60,7 @@ workflows:
           name: "build-and-update-promtail"
           ecr-repo: "<< pipeline.parameters.cluster >>-promtail"
           dockerfile-path: "./promtail"
-          ecs-task-family: "<< pipeline.parameters.cluster >>-promtail"
+          ecs-task-family: "<< pipeline.parameters.cluster >>-loki_promtail"
           filters:
             branches:
               only: develop
