@@ -12,8 +12,8 @@ parameters:
 
 jobs:
   build-and-update:
-    docker:
-      - image: alpine:3.7
+    machine: # executor type
+      image: ubuntu-1604:201903-01
     parameters:
       ecr-repo:
         type: string
