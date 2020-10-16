@@ -2,15 +2,65 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
+  aws-ecs: circleci/aws-ecs@1.3.0
+  shellcheck: circleci/shellcheck@2.0.0
+
+parameters:
+  cluster:
+    default: "ceramic-grafana-test"
+    type: string
+
+jobs:
+  build-and-update:
+    docker:
+      - image: alpine:3.7
+    parameters:
+      ecr-repo:
+        type: string
+      dockerfile-path:
+        type: string
+      ecs-task-family:
+        type: string
+    steps:
+      - checkout
+      - shellcheck/check
+      - run:
+          name: check-changes
+          command: |
+            check_path_in_diff.sh << parameters.dockerfile-path >>
+      - aws-ecr/build-and-push-image:
+          repo: << parameters.ecr-repo >>
+          path: << parameters.dockerfile-path >>
+          tag: "${CIRCLE_SHA1},develop,test"
+      - aws-ecs/update-service:
+          family: << parameters.ecs-task-family >>
+          cluster-name: << pipeline.parameters.cluster >>
+    
 
 workflows:
-  build-and-push-agent:
+  build-and-update:
     jobs:
-      - aws-ecr/build-and-push-image:
-          repo: "ceramic-stats-agent"
-          tag: "${CIRCLE_SHA1},develop"
-          path: "./agent"
+      - build-and-update:
+          name: "build-and-update-agent"
+          ecr-repo: "<< pipeline.parameters.cluster >>-agent"
+          dockerfile-path: "./agent"
+          ecs-task-family: "<< pipeline.parameters.cluster >>-agent"
           filters:
             branches:
               only: develop
-
+      - build-and-update:
+          name: "build-and-update-loki"
+          ecr-repo: "<< pipeline.parameters.cluster >>-loki"
+          dockerfile-path: "./loki"
+          ecs-task-family: "<< pipeline.parameters.cluster >>-loki"
+          filters:
+            branches:
+              only: develop
+      - build-and-update:
+          name: "build-and-update-promtail"
+          ecr-repo: "<< pipeline.parameters.cluster >>-promtail"
+          dockerfile-path: "./promtail"
+          ecs-task-family: "<< pipeline.parameters.cluster >>-promtail"
+          filters:
+            branches:
+              only: develop
