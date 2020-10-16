@@ -1,6 +1,5 @@
 #!/bin/sh
 
-set -e
 set -o nounset
 set -o errexit
 set -o pipefail
@@ -13,8 +12,7 @@ LATEST_FILE_COMMIT=$(git log -1 --format=format:%H --full-diff $FILE)
 
 if [ $LATEST_FILE_COMMIT = $LATEST_COMMIT ];
     then
-        echo "File $FILE changed in latest commit"
+        echo 0
 else
-    echo "No change to file $FILE in latest commit"
-    exit 1;
+    echo 1
 fi

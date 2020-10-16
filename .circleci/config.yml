@@ -24,10 +24,14 @@ jobs:
     steps:
       - checkout
       - shellcheck/check
-      - run:
-          name: check-changes
-          command:
-            ./scripts/check_path_in_diff.sh << parameters.dockerfile-path >>
+      - run: |
+            RESULT=$(. ./scripts/check_path_in_diff.sh ./loki)
+            if [[ $RESULT = "1" ]]; then
+              echo "Halt and catch fire"
+              circleci-agent step halt
+            else
+              echo "Continue"
+            fi
       - aws-ecr/build-and-push-image:
           repo: << parameters.ecr-repo >>
           path: << parameters.dockerfile-path >>
