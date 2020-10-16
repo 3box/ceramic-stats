@@ -21,16 +21,17 @@ jobs:
         type: string
       ecs-task-family:
         type: string
+    environment:
+      REVISION_RANGE: << pipeline.git.base_revision >>..<< pipeline.git.revision >>
     steps:
       - checkout
       - shellcheck/check
       - run: |
-            RESULT=$(. ./scripts/check_path_in_diff.sh ./loki)
-            if [[ $RESULT = "1" ]]; then
+            if [[ $(git diff $REVISION_RANGE --name-status | grep << parameters.dockerfile-path >>) ]]; then
+              echo "Changes to relevant files detected."
+            else
               echo "No changes to relevant files detected."
               circleci-agent step halt
-            else
-              echo "Changes to relevant files detected."
             fi
       - aws-ecr/build-and-push-image:
           repo: << parameters.ecr-repo >>
@@ -47,7 +48,7 @@ workflows:
       - build-and-update:
           name: "build-and-update-agent"
           ecr-repo: "<< pipeline.parameters.cluster >>-agent"
-          dockerfile-path: "./agent"
+          dockerfile-path: "agent/"
           ecs-task-family: "<< pipeline.parameters.cluster >>-agent"
           filters:
             branches:
@@ -55,7 +56,7 @@ workflows:
       - build-and-update:
           name: "build-and-update-loki"
           ecr-repo: "<< pipeline.parameters.cluster >>-loki"
-          dockerfile-path: "./loki"
+          dockerfile-path: "loki/"
           ecs-task-family: "<< pipeline.parameters.cluster >>-loki_promtail"
           filters:
             branches:
@@ -63,7 +64,7 @@ workflows:
       - build-and-update:
           name: "build-and-update-promtail"
           ecr-repo: "<< pipeline.parameters.cluster >>-promtail"
-          dockerfile-path: "./promtail"
+          dockerfile-path: "promtail/"
           ecs-task-family: "<< pipeline.parameters.cluster >>-loki_promtail"
           filters:
             branches:
