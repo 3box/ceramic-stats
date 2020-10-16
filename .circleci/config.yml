@@ -27,10 +27,10 @@ jobs:
       - run: |
             RESULT=$(. ./scripts/check_path_in_diff.sh ./loki)
             if [[ $RESULT = "1" ]]; then
-              echo "Halt and catch fire"
+              echo "No changes to relevant files detected."
               circleci-agent step halt
             else
-              echo "Continue"
+              echo "Changes to relevant files detected."
             fi
       - aws-ecr/build-and-push-image:
           repo: << parameters.ecr-repo >>
