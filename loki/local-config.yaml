@@ -18,19 +18,18 @@ ingester:
 schema_config:
   configs:
   - from: 2020-05-15
-    store: boltdb
-    object_store: filesystem
+    store: aws
+    object_store: s3
     schema: v11
     index:
-      prefix: index_
+      prefix: loki_
       period: 168h
 
 storage_config:
-  boltdb:
-    directory: /tmp/loki/index
-
-  filesystem:
-    directory: /tmp/loki/chunks
+  aws:
+    s3: s3://us-west-2/ceramic-grafana-test-loki
+    dynamodb:
+      dynamodb_url: dynamodb://us-west-2
 
 limits_config:
   enforce_metric_name: false
