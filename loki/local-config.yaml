@@ -27,9 +27,9 @@ schema_config:
 
 storage_config:
   aws:
-    s3: s3://us-west-2/ceramic-grafana-test-loki
+    s3: s3://us-east-2/ceramic-grafana-test-loki
     dynamodb:
-      dynamodb_url: dynamodb://us-west-2
+      dynamodb_url: dynamodb://us-east-2
 
 limits_config:
   enforce_metric_name: false
