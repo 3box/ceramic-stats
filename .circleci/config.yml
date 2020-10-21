@@ -27,7 +27,16 @@ jobs:
             namespace=$(echo $CIRCLE_BRANCH | cut -d '/' -f 2)
             echo "export NAMESPACE=$namespace" >> $BASH_ENV
       - run:
+          name: "Check force build"
+          command: |
+            if [[ $(git log -1 --pretty=%B | grep "\[ci build\]") ]]; then
+              echo "Forcing build"
+            else
+              exit 1
+            fi
+      - run:
           name: "Check relevant files changed"
+          when: on_fail
           command: |
             if [[ $(git diff $REVISION_RANGE --name-status | grep << parameters.dockerfile-path >>) ]]; then
               echo "Changes to relevant files detected."
