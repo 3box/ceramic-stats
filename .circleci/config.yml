@@ -10,11 +10,13 @@ jobs:
     machine: # executor type
       image: ubuntu-1604:201903-01
     parameters:
-      ecr-repo-suffix:
-        type: string
       dockerfile-path:
         type: string
+      ecr-repo-suffix:
+        type: string
       ecs-task-family-suffix:
+        type: string
+      trigger-path:
         type: string
     environment:
       REVISION_RANGE: << pipeline.git.base_revision >>..<< pipeline.git.revision >>
@@ -31,19 +33,21 @@ jobs:
           command: |
             if [[ $(git log -1 --pretty=%B | grep "\[ci build\]") ]]; then
               echo "Forcing build"
+              echo "export FORCE_BUILD=true" >> $BASH_ENV
             else
-              exit 1
+              echo "export FORCE_BUILD=false" >> $BASH_ENV
             fi
-      - run:
-          name: "Check relevant files changed"
-          when: on_fail
-          command: |
-            if [[ $(git diff $REVISION_RANGE --name-status | grep << parameters.dockerfile-path >>) ]]; then
-              echo "Changes to relevant files detected."
-            else
-              echo "No changes to relevant files detected."
-              circleci-agent step halt
-            fi
+      - when:
+          condition:
+            equal: [ $FORCE_BUILD, false ]
+          steps:
+            - run: |
+                if [[ $(git diff $REVISION_RANGE --name-status | grep "<< parameters.trigger-path >>") ]]; then
+                  echo "Changes to relevant files detected."
+                else
+                  echo "No changes to relevant files detected."
+                  circleci-agent step halt
+                fi
       - aws-ecr/build-and-push-image:
           repo: "ceramic-grafana-${NAMESPACE}-<< parameters.ecr-repo-suffix >>"
           path: << parameters.dockerfile-path >>
@@ -51,23 +55,25 @@ jobs:
       - aws-ecs/update-service:
           family: "ceramic-grafana-${NAMESPACE}-<< parameters.ecs-task-family-suffix >>"
           cluster-name: "ceramic-grafana-${NAMESPACE}"
-    
 
 workflows:
   build-and-update:
     jobs:
       - build-and-update:
           name: "build-and-update-agent"
-          ecr-repo-suffix: "agent"
           dockerfile-path: "agent/"
+          ecr-repo-suffix: "agent"
           ecs-task-family-suffix: "agent"
+          trigger-path: "agent/"
       - build-and-update:
           name: "build-and-update-loki"
-          ecr-repo-suffix: "loki"
           dockerfile-path: "loki/"
+          ecr-repo-suffix: "loki"
           ecs-task-family-suffix: "loki_promtail"
+          trigger-path: "loki/"
       - build-and-update:
           name: "build-and-update-promtail"
-          ecr-repo-suffix: "promtail"
           dockerfile-path: "promtail/"
+          ecr-repo-suffix: "promtail"
           ecs-task-family-suffix: "loki_promtail"
+          trigger-path: "promtail/"
