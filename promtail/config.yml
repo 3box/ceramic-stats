@@ -29,17 +29,17 @@ scrape_configs:
       - localhost
     labels:
       job: http/node
-      __path__: /var/log/ceramic/ceramicdaemon-node.log
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon-node.log
   - targets:
     - localhost
     labels:
       job: http/gateway
-      __path__: /var/log/ceramic/ceramicdaemon-gateway.log
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon-gateway.log
   - targets:
     - localhost
     labels:
       job: http/default
-      __path__: /var/log/ceramic/ceramicdaemon-default.log
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon-default.log
 
 - job_name: pubsub
   pipeline_stages:
@@ -60,17 +60,17 @@ scrape_configs:
       - localhost
     labels:
       job: pubsub/node
-      __path__: /var/log/ceramic/dispatcher-node.log
+      __path__: /usr/local/var/log/ceramic/dispatcher-node.log
   - targets:
     - localhost
     labels:
       job: pubsub/gateway
-      __path__: /var/log/ceramic/dispatcher-gateway.log
+      __path__: /usr/local/var/log/ceramic/dispatcher-gateway.log
   - targets:
     - localhost
     labels:
       job: pubsub/default
-      __path__: /var/log/ceramic/dispatcher-default.log
+      __path__: /usr/local/var/log/ceramic/dispatcher-default.log
 
 - job_name: agent
   pipeline_stages:
@@ -85,9 +85,9 @@ scrape_configs:
       - localhost
     labels:
       job: agent/docids
-      __path__: /var/log/ceramic/stats-docids.log
+      __path__: /usr/local/var/log/ceramic/stats-docids.log
   - targets:
       - localhost
     labels:
       job: agent/3ids
-      __path__: /var/log/ceramic/stats-3ids.log
+      __path__: /usr/local/var/log/ceramic/stats-3ids.log
