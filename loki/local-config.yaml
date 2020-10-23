@@ -25,12 +25,6 @@ schema_config:
       prefix: loki_
       period: 168h
 
-storage_config:
-  aws:
-    s3: s3://us-east-2/ceramic-grafana-test-loki
-    dynamodb:
-      dynamodb_url: dynamodb://us-east-2
-
 limits_config:
   enforce_metric_name: false
   reject_old_samples: false
