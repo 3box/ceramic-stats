@@ -20,6 +20,7 @@ jobs:
     environment:
       REVISION_RANGE: << pipeline.git.base_revision >>..<< pipeline.git.revision >>
     steps:
+      - checkout
       - run:
           name: "Set namespace"
           command: |
