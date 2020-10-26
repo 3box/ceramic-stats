@@ -7,7 +7,7 @@
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts (Provisioned)",
+          "name": "Annotations & Alerts",
           "type": "dashboard"
         }
       ]
@@ -368,7 +368,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Default",
+    "title": "Ceramic",
     "uid": "o1Dp-kcGz",
-    "version": 3
+    "version": 4
   }
