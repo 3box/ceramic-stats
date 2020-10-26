@@ -6,8 +6,8 @@ orbs:
 
 jobs:
   build-and-update:
-    machine: # executor type
-      image: ubuntu-1604:201903-01
+    docker:
+      - image: docker:stable-git
     parameters:
       dockerfile-path:
         type: string
