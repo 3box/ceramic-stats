@@ -6,8 +6,8 @@ orbs:
 
 jobs:
   build-and-update:
-    docker:
-      - image: docker:stable-git
+    machine: # executor type
+      image: ubuntu-1604:201903-01
     parameters:
       dockerfile-path:
         type: string
@@ -40,7 +40,7 @@ jobs:
           name: "Check relevant file changes"
           command: |
             if [ "$FORCE_BUILD" != true ] ; then
-              if [[ $(git diff "$REVISION_RANGE" --name-status | grep "<< parameters.trigger-path >>") ]]; then
+              if [[ $(git diff $REVISION_RANGE --name-status | grep "<< parameters.trigger-path >>") ]]; then
                 echo "Changes to relevant files detected."
               else
                 echo "No changes to relevant files detected."
