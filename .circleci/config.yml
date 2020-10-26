@@ -67,6 +67,12 @@ workflows:
           ecs-task-family-suffix: "agent"
           trigger-path: "agent/"
       - build-and-update:
+          name: "build-and-update-grafana"
+          dockerfile-path: "grafana/"
+          ecr-repo-suffix: "grafana"
+          ecs-task-family-suffix: "grafana"
+          trigger-path: "grafana/"
+      - build-and-update:
           name: "build-and-update-loki"
           dockerfile-path: "loki/"
           ecr-repo-suffix: "loki"

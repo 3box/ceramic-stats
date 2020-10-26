@@ -1,0 +1,57 @@
+# config file version
+apiVersion: 1
+
+# list of datasources that should be deleted from the database
+# deleteDatasources:
+#   - name: <string>
+#     orgId: <number>
+
+# list of datasources to insert/update depending
+# what's available in the database
+datasources:
+  # <string, required> name of the datasource. Required
+  - name: Loki
+    # <string, required> datasource type. Required
+    type: loki
+    # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
+    access: proxy
+    # <int> org id. will default to orgId 1 if not specified
+    orgId: 1
+    # <string> custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically
+    uid: loki_ds
+    # <string> url
+    url: $LOKI_URL
+    # <string> Deprecated, use secureJsonData.password
+    # password:
+    # <string> database user, if used
+    # user:
+    # <string> database name, if used
+    # database:
+    # <bool> enable/disable basic auth
+    basicAuth: false
+    # <string> basic auth username
+    # basicAuthUser:
+    # <string> Deprecated, use secureJsonData.basicAuthPassword
+    # basicAuthPassword:
+    # <bool> enable/disable with credentials headers
+    withCredentials: false
+    # <bool> mark as default datasource. Max one per org
+    isDefault: true
+    # <map> fields that will be converted to json and stored in jsonData
+    # jsonData:
+    #   graphiteVersion: '1.1'
+    #   tlsAuth: true
+    #   tlsAuthWithCACert: true
+    # <string> json object of data that will be encrypted.
+    # secureJsonData:
+    #   tlsCACert: '...'
+    #   tlsClientCert: '...'
+    #   tlsClientKey: '...'
+    #   # <string> database password, if used
+    #   password:
+    #   # <string> basic auth password
+    #   basicAuthPassword:
+    # <number> increase the version every time this file gets updated
+    version: 1
+    # <bool> allow users to edit datasources from the UI.
+    editable: true
