@@ -10,7 +10,7 @@ apiVersion: 1
 # what's available in the database
 datasources:
   # <string, required> name of the datasource. Required
-  - name: Loki
+  - name: "Loki Production"
     # <string, required> datasource type. Required
     type: loki
     # <string, required> access mode. proxy or direct (Server or Browser in the UI). Required
@@ -18,7 +18,7 @@ datasources:
     # <int> org id. will default to orgId 1 if not specified
     orgId: 1
     # <string> custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically
-    uid: loki_ds
+    uid: loki_prod
     # <string> url
     url: $LOKI_URL
     # <string> Deprecated, use secureJsonData.password
@@ -52,6 +52,6 @@ datasources:
     #   # <string> basic auth password
     #   basicAuthPassword:
     # <number> increase the version every time this file gets updated
-    version: 2
+    version: 3
     # <bool> allow users to edit datasources from the UI.
     editable: true
