@@ -5,81 +5,27 @@ server:
 positions:
   filename: /tmp/positions.yaml
 
-clients:
-  - url: http://127.0.0.1:3100/loki/api/v1/push
-
 scrape_configs:
 - job_name: http
   pipeline_stages:
-    - regex:
-        expression: "\"request\":.+\"timestamp\":(?P<reqTs>\\d+).+\"method\":+\"(?P<method>\\w+)\".+\"remoteAddress\":+\"(?P<remoteAddress>\\S+)\",.+\"url\":+\"(?P<url>\\S+)\"},\"response\":.+\"timestamp\":(?P<resTs>\\d+).+\"processingTime\":(?P<processingTime>\\d+).+\"body\":(?P<body>.*).+\"statusCode\":(?P<statusCode>\\d+).*"
-        # expression: "\"request\":.+\"timestamp\":(?P<ts>\\d+).+\"method\":+\"(?P<method>\\w+)\".+\"remoteAddress\":+\"(?P<remoteAddress>\\S+)\",.+\"url\":+\"(?P<url>\\S+)\"}"
-        # expression: "\"response\":.+\"timestamp\":(?P<ts>\\d+).+\"processingTime\":(?P<processingTime>\\d+).+\"body\":(?P<body>[.*]).+\"statusCode\":(?P<statusCode>\\d+).*"
-    - labels:
-        reqTs:
-        method:
-        remoteAddress:
-        url:
-        resTs:
-        processingTime:
-        statusCode:
-
   static_configs:
   - targets:
       - localhost
     labels:
-      job: http/node
-      __path__: /usr/local/var/log/ceramic/ceramicdaemon-node.log
-  - targets:
-    - localhost
-    labels:
-      job: http/gateway
-      __path__: /usr/local/var/log/ceramic/ceramicdaemon-gateway.log
-  - targets:
-    - localhost
-    labels:
-      job: http/default
-      __path__: /usr/local/var/log/ceramic/ceramicdaemon-default.log
+      job: http
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon.log
 
 - job_name: pubsub
   pipeline_stages:
-    - regex:
-        expression: "\"timestamp\":(?P<ts>\\d+).+\"peer\":\"(?P<peerId>\\w+)\".+\"event\":\"(?P<event>\\w+)\".+\"topic\":\"(?P<topic>\\S+)\".+\"message\":.*(((\"from\":\"(?P<fromId>\\w+).+\"data\":)?.+\"typ\":(?P<messageType>\\d+).+\"id\":\"(?P<docId>.+)\".+\"doctype\":\"(?P<docType>\\w+))|null).*"
-    - labels:
-        ts:
-        peerId:
-        event:
-        topic:
-        fromId:
-        messageType:
-        docId:
-        docType:
-
   static_configs:
   - targets:
       - localhost
     labels:
-      job: pubsub/node
-      __path__: /usr/local/var/log/ceramic/dispatcher-node.log
-  - targets:
-    - localhost
-    labels:
-      job: pubsub/gateway
-      __path__: /usr/local/var/log/ceramic/dispatcher-gateway.log
-  - targets:
-    - localhost
-    labels:
-      job: pubsub/default
-      __path__: /usr/local/var/log/ceramic/dispatcher-default.log
+      job: pubsub
+      __path__: /usr/local/var/log/ceramic/dispatcher.log
 
 - job_name: agent
   pipeline_stages:
-    - regex:
-        expression: "\"timestamp\":(?P<ts>\\d+).+\"docId\":\"(?P<docId>\\S+)\""
-    - labels:
-        ts:
-        docId:
-
   static_configs:
   - targets:
       - localhost
