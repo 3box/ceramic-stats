@@ -8,6 +8,6 @@ USER root
 
 COPY ./provisioning /etc/grafana/provisioning/
 
-RUN chown -R grafana:grafana /etc/grafana
+RUN chown -R grafana:root /etc/grafana
 
 USER grafana

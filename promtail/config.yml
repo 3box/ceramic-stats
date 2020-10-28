@@ -14,6 +14,16 @@ scrape_configs:
     labels:
       job: http
       __path__: /usr/local/var/log/ceramic/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      job: legacy-http/node
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon-node.log
+  - targets:
+      - localhost
+    labels:
+      job: legacy-http/gateway
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon-gateway.log
 
 - job_name: pubsub
   pipeline_stages:
@@ -23,6 +33,16 @@ scrape_configs:
     labels:
       job: pubsub
       __path__: /usr/local/var/log/ceramic/dispatcher.log
+  - targets:
+      - localhost
+    labels:
+      job: legacy-pubsub/node
+      __path__: /usr/local/var/log/ceramic/dispatcher-node.log
+  - targets:
+      - localhost
+    labels:
+      job: legacy-pubsub/gateway
+      __path__: /usr/local/var/log/ceramic/dispatcher-gateway.log
 
 - job_name: agent
   pipeline_stages:

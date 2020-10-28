@@ -19,10 +19,11 @@
   "panels": [
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Loki",
+      "description": "Number of requests per second made to the daemon by a given origin",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -57,22 +58,24 @@
       "hiddenSeries": false,
       "id": 10,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
-        "total": false,
-        "values": false
+        "total": true,
+        "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.3.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -82,21 +85,36 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"http/node\"}[1s])) by (remoteAddress)",
-          "legendFormat": "",
+          "expr": "sum(count_over_time({job=\"http\"} | regexp \"\\\"request\\\":.*\\\"X-Forwarded-For\\\",\\\"(?P<origin>.+?)\\\"\"[1s])) by (origin)",
+          "legendFormat": "{{origin}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum(count_over_time({job=\"legacy-http/node\"} | regexp \"\\\"request\\\":.*\\\"X-Forwarded-For\\\",\\\"(?P<origin>.+?)\\\"\"[1s])) by (origin)",
+          "legendFormat": "{{origin}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Node Requests per Origin",
+      "title": "Requests per Origin / Second",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "pattern": "^(?!origin).*$"
+            }
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -107,20 +125,23 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:271",
+          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:272",
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -130,11 +151,11 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "description": "",
+      "datasource": "Loki",
+      "description": "Number of 5XX responses returned by the daemon per second",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -169,22 +190,24 @@
       "hiddenSeries": false,
       "id": 12,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
         "total": false,
         "values": false
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.3.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -194,21 +217,27 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({statusCode=~\"^5.*\", job=\"http/node\"}[1s])) by (timestamp)",
+          "expr": "count_over_time({job=\"http\"}|json|response_statusCode >= 500[1s])",
           "legendFormat": "",
           "refId": "A"
+        },
+        {
+          "expr": "count_over_time({job=\"legacy-http/node\"}|json|response_statusCode >= 500[1s])",
+          "legendFormat": "",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Node 5XX Responses",
+      "title": "5XX Responses / Second",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -222,7 +251,7 @@
           "$$hashKey": "object:192",
           "decimals": 0,
           "format": "short",
-          "label": null,
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": "0",
@@ -235,7 +264,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -284,12 +313,17 @@
         },
         "showUnfilled": true
       },
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.3.0",
       "targets": [
         {
-          "expr": "topk(10, sum(count_over_time({job=\"http/node\"}[1s])) by (url))",
+          "expr": "topk(10, sum(count_over_time({job=\"http\"}[1s])) by (url))",
           "legendFormat": "",
           "refId": "A"
+        },
+        {
+          "expr": "topk(10, sum(count_over_time({job=\"legacy-http/node\"}[1s])) by (url))",
+          "legendFormat": "",
+          "refId": "B"
         }
       ],
       "timeFrom": null,
@@ -353,7 +387,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.3.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -363,7 +397,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count( sum (count_over_time({topic=\"/ceramic\"}[1s])) by (docId))",
+          "expr": "count( sum (count_over_time({job=\"legacy-pubsub/node\"} | json [1s])) by (docId))",
           "legendFormat": "docids",
           "refId": "A"
         }
@@ -482,7 +516,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.3.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -598,7 +632,7 @@
         "alertThreshold": false
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.3.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -663,7 +697,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Loki",
-      "description": "Number of docIds seen in the /ceramic pubsub topic in the last 30 minutes",
+      "description": "Number of docIds seen in the /ceramic pubsub topic in the past 30 days",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -713,7 +747,7 @@
         "alertThreshold": false
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.3.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -723,8 +757,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"agent/docids\"}[30m])) by (docid)",
-          "legendFormat": "docid count",
+          "expr": "sum(count_over_time({job=\"agent/docids\"}[30d])) by (docId)",
+          "legendFormat": "unique docId count",
           "refId": "A"
         }
       ],
@@ -732,7 +766,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Unique docIds in /ceramic PubSub topic",
+      "title": "DocIds in \"/ceramic\" (past 30 days)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -744,8 +778,8 @@
           "options": {
             "include": {
               "names": [
-                "Time",
-                "docid count"
+                "unique docId count",
+                "Time"
               ]
             }
           }
@@ -761,6 +795,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:63",
           "decimals": 0,
           "format": "short",
           "label": null,
@@ -770,6 +805,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:64",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -789,7 +825,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Loki",
-      "description": "Number of 3ids seen in the /ceramic pubsub topic in the last 30 minutes",
+      "description": "Number of 3ids seen in the /ceramic pubsub topic in the past 30 days",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -839,7 +875,7 @@
         "alertThreshold": false
       },
       "percentage": false,
-      "pluginVersion": "7.2.2",
+      "pluginVersion": "7.3.0",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -849,8 +885,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"agent/3ids\"}[30m])) by (docid)",
-          "legendFormat": "docid count",
+          "expr": "sum(count_over_time({job=\"agent/3ids\"}[30d])) by (docid)",
+          "legendFormat": "unique 3id count",
           "refId": "A"
         }
       ],
@@ -858,7 +894,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Unique 3ids in /ceramic PubSub topic",
+      "title": "3ids in \"/ceramic\" (past 30 days)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -871,7 +907,7 @@
             "include": {
               "names": [
                 "Time",
-                "docid count"
+                "unique 3id count"
               ]
             }
           }
@@ -887,6 +923,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:119",
           "decimals": 0,
           "format": "short",
           "label": null,
@@ -896,6 +933,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:120",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -910,6 +948,7 @@
       }
     }
   ],
+  "refresh": false,
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -924,5 +963,5 @@
   "timezone": "",
   "title": "Node",
   "uid": "prod-node-o1Dp-kcGz",
-  "version": 30
+  "version": 1
 }
