@@ -1,4 +1,4 @@
-FROM grafana/loki:1.6.0 as loki
-COPY local-config.yaml /etc/loki
+FROM grafana/loki:2.0.0 as loki
+COPY config.yaml /etc/loki
 ENTRYPOINT ["/usr/bin/loki"]
-CMD ["-config.file=/etc/loki/local-config.yaml"]
+CMD ["-config.file=/etc/loki/config.yaml"]
