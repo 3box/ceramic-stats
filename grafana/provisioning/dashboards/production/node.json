@@ -276,21 +276,26 @@
       "datasource": "Loki",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "decimals": 0,
           "mappings": [],
+          "min": 1,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -316,14 +321,15 @@
       "pluginVersion": "7.3.0",
       "targets": [
         {
-          "expr": "topk(10, sum(count_over_time({job=\"http\"}[1s])) by (url))",
-          "legendFormat": "",
-          "refId": "A"
+          "expr": "topk(10, sum(count_over_time({job=\"http\"} | json [$__interval])) by (request_url))",
+          "hide": true,
+          "legendFormat": "{{request_url}}",
+          "refId": "B"
         },
         {
-          "expr": "topk(10, sum(count_over_time({job=\"legacy-http/node\"}[1s])) by (url))",
-          "legendFormat": "",
-          "refId": "B"
+          "expr": "topk(10, sum(count_over_time({job=\"legacy-http/node\"} | json [$__interval])) by (request_url))",
+          "legendFormat": "{{request_url}}",
+          "refId": "A"
         }
       ],
       "timeFrom": null,
