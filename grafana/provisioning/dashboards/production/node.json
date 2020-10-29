@@ -465,7 +465,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Loki",
-      "description": "Queries (where message \"typ\" equals 0) to the /ceramic pubsub topic per second",
+      "description": "Queries (i.e. message \"typ\" equals 0) in the /ceramic pubsub topic",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -525,16 +525,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({messageType=\"0\", event=\"received\", job=\"pubsub/gateway\"}[1s])) by (job)",
-          "legendFormat": "queries / second",
+          "expr": "sum(count_over_time({job=\"legacy-pubsub/node\"} | json | message_typ=0 and event=\"received\" [$__interval])) by (job)",
+          "legendFormat": "queries",
           "refId": "A"
+        },
+        {
+          "expr": "sum(count_over_time({job=\"pubsub\"} | json | message_typ=0 and event=\"received\" [$__interval])) by (job)",
+          "legendFormat": "queries",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Queries per Second in /ceramic PubSub Topic",
+      "title": "Queries in /ceramic PubSub Topic",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -567,7 +572,7 @@
           "logBase": 1,
           "max": null,
           "min": "0",
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -581,7 +586,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Loki",
-      "description": "",
+      "description": "Updates (i.e. message \"typ\" equals 1) in the /ceramic pubsub topic",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -641,16 +646,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({messageType=\"1\", job=\"pubsub/node\"}[1s])) by (job)",
-          "legendFormat": "updates / second",
+          "expr": "sum(count_over_time({job=\"legacy-pubsub/node\"} | json | message_typ=1 [$__interval])) by (job)",
+          "legendFormat": "updates",
           "refId": "A"
+        },
+        {
+          "expr": "sum(count_over_time({job=\"pubsub\"} | json | message_typ=1 [$__interval])) by (job)",
+          "legendFormat": "updates",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Updates per Second in /ceramic PubSub Topic",
+      "title": "Updates in /ceramic PubSub Topic",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -682,7 +692,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
