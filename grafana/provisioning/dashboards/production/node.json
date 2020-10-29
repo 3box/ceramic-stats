@@ -333,11 +333,11 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "description": "docIds that appeared in the /ceramic pubsub in the last 30 minutes",
+      "datasource": "Loki",
+      "description": "docIds that appeared in the /ceramic pubsub every 2 minutes",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -372,19 +372,21 @@
       "hiddenSeries": false,
       "id": 2,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
         "total": false,
         "values": false
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
-      "nullPointMode": "null",
+      "nullPointMode": "null as zero",
       "options": {
-        "alertThreshold": true
+        "alertThreshold": false
       },
       "percentage": false,
       "pluginVersion": "7.3.0",
@@ -393,12 +395,12 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count( sum (count_over_time({job=\"legacy-pubsub/node\"} | json [1s])) by (docId))",
-          "legendFormat": "docids",
+          "expr": "sum(count_over_time({job=\"legacy-pubsub/node\"} | json[2m])) by (message_id)",
+          "legendFormat": "{{message_id}}",
           "refId": "A"
         }
       ],
@@ -406,9 +408,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Active docId Count",
+      "title": "Active DocId Count",
       "tooltip": {
-        "shared": true,
+        "shared": false,
         "sort": 0,
         "value_type": "individual"
       },
@@ -417,10 +419,7 @@
           "id": "filterFieldsByName",
           "options": {
             "include": {
-              "names": [
-                "docids",
-                "Time"
-              ]
+              "pattern": "^(?!message_id).*$"
             }
           }
         }
@@ -963,5 +962,5 @@
   "timezone": "",
   "title": "Node",
   "uid": "prod-node-o1Dp-kcGz",
-  "version": 1
+  "version": 2
 }
