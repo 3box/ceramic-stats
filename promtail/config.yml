@@ -1,0 +1,59 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+scrape_configs:
+- job_name: http
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: http
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      job: legacy-http/node
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon-node.log
+  - targets:
+      - localhost
+    labels:
+      job: legacy-http/gateway
+      __path__: /usr/local/var/log/ceramic/ceramicdaemon-gateway.log
+
+- job_name: pubsub
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: pubsub
+      __path__: /usr/local/var/log/ceramic/dispatcher.log
+  - targets:
+      - localhost
+    labels:
+      job: legacy-pubsub/node
+      __path__: /usr/local/var/log/ceramic/dispatcher-node.log
+  - targets:
+      - localhost
+    labels:
+      job: legacy-pubsub/gateway
+      __path__: /usr/local/var/log/ceramic/dispatcher-gateway.log
+
+- job_name: agent
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: agent/docids
+      __path__: /usr/local/var/log/ceramic/stats-docids.log
+  - targets:
+      - localhost
+    labels:
+      job: agent/3ids
+      __path__: /usr/local/var/log/ceramic/stats-3ids.log

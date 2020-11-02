@@ -1,0 +1,86 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.12.2
+  aws-ecs: circleci/aws-ecs@1.3.0
+
+jobs:
+  build-and-update:
+    machine: # executor type
+      image: ubuntu-1604:201903-01
+    parameters:
+      dockerfile-path:
+        type: string
+      ecr-repo-suffix:
+        type: string
+      ecs-task-family-suffix:
+        type: string
+      trigger-path:
+        type: string
+    environment:
+      REVISION_RANGE: << pipeline.git.base_revision >>..<< pipeline.git.revision >>
+    steps:
+      - checkout
+      - run:
+          name: "Set namespace"
+          command: |
+            namespace=$(echo $CIRCLE_BRANCH | cut -d '/' -f 2)
+            echo "export NAMESPACE=$namespace" >> $BASH_ENV
+      - run:
+          name: "Check force build"
+          command: |
+            if [[ $(git log -1 --pretty=%B | grep "\[ci build\]") ]]; then
+              echo "Forcing build."
+              echo "export FORCE_BUILD=true" >> $BASH_ENV
+            else
+              echo "Not forcing build. \"[ci build]\" was not found in commit message."
+              echo "export FORCE_BUILD=false" >> $BASH_ENV
+            fi
+      - run:
+          name: "Check relevant file changes"
+          command: |
+            if [ "$FORCE_BUILD" != true ] ; then
+              if [[ $(git diff $REVISION_RANGE --name-status | grep "<< parameters.trigger-path >>") ]]; then
+                echo "Changes to relevant files detected."
+              else
+                echo "No changes to relevant files detected."
+                circleci-agent step halt
+              fi
+            else
+              echo "Skipping to force build."
+            fi
+      - aws-ecr/build-and-push-image:
+          repo: "ceramic-grafana-${NAMESPACE}-<< parameters.ecr-repo-suffix >>"
+          path: << parameters.dockerfile-path >>
+          tag: "${CIRCLE_SHA1},${NAMESPACE}"
+      - aws-ecs/update-service:
+          family: "ceramic-grafana-${NAMESPACE}-<< parameters.ecs-task-family-suffix >>"
+          cluster-name: "ceramic-grafana-${NAMESPACE}"
+
+workflows:
+  build-and-update:
+    jobs:
+      - build-and-update:
+          name: "build-and-update-agent"
+          dockerfile-path: "agent/"
+          ecr-repo-suffix: "agent"
+          ecs-task-family-suffix: "agent"
+          trigger-path: "agent/"
+      - build-and-update:
+          name: "build-and-update-grafana"
+          dockerfile-path: "grafana/"
+          ecr-repo-suffix: "grafana"
+          ecs-task-family-suffix: "grafana"
+          trigger-path: "grafana/"
+      - build-and-update:
+          name: "build-and-update-loki"
+          dockerfile-path: "loki/"
+          ecr-repo-suffix: "loki"
+          ecs-task-family-suffix: "loki_promtail"
+          trigger-path: "loki/"
+      - build-and-update:
+          name: "build-and-update-promtail"
+          dockerfile-path: "promtail/"
+          ecr-repo-suffix: "promtail"
+          ecs-task-family-suffix: "loki_promtail"
+          trigger-path: "promtail/"

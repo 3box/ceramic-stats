@@ -3,27 +3,26 @@ services:
   agent:
     build: ./agent
     volumes:
-      - /usr/local/var/log:/var/log
+      - /usr/local/var/log:/usr/local/var/log
   loki:
-    image: "grafana/loki:1.6.0"
-    command: -config.file=/mnt/config/loki-config.yaml
+    build: ./loki
     ports:
       - "3100:3100"
-    volumes:
-      - .:/mnt/config
+    command: ["-config.file=/etc/loki/local-config.yaml"]
   promtail:
-    image: "grafana/promtail:1.6.0"
-    command: -config.file=/mnt/config/promtail-config.yaml -log.level debug
+    build: ./promtail
     ports:
       - "9080:9080"
     volumes:
-      - .:/mnt/config
-      - /usr/local/var/log:/var/log
+      - /usr/local/var/log:/usr/local/var/log
+    command: ["-config.file=/etc/promtail/config.yml", "-client.url", "http://loki:3100/loki/api/v1/push"]
     depends_on:
       - loki
   grafana:
-    image: "grafana/grafana"
+    build: ./grafana
     ports:
       - "3000:3000"
+    environment:
+      - LOKI_URL=http://loki:3100
     depends_on:
       - promtail
