@@ -13,12 +13,12 @@ scrape_configs:
       - localhost
     labels:
       job: http/node
-      __path__: /usr/local/var/log/node/ceramic/ceramicdaemon.log
+      __path__: /usr/local/var/log/ceramic/node/ceramicdaemon.log
   - targets:
       - localhost
     labels:
       job: http/gateway
-      __path__: /usr/local/var/log/gateway/ceramic/ceramicdaemon.log
+      __path__: /usr/local/var/log/ceramic/gateway/ceramicdaemon.log
   - targets:
       - localhost
     labels:
@@ -37,12 +37,12 @@ scrape_configs:
       - localhost
     labels:
       job: pubsub/node
-      __path__: /usr/local/var/log/node/ceramic/dispatcher.log
+      __path__: /usr/local/var/log/ceramic/node/dispatcher.log
   - targets:
       - localhost
     labels:
       job: pubsub/gateway
-      __path__: /usr/local/var/log/gateway/ceramic/dispatcher.log
+      __path__: /usr/local/var/log/ceramic/gateway/dispatcher.log
   - targets:
       - localhost
     labels:
@@ -61,19 +61,19 @@ scrape_configs:
       - localhost
     labels:
       job: agent/docids/node
-      __path__: /usr/local/var/log/node/ceramic/stats-docids.log
+      __path__: /usr/local/var/log/ceramic/node/stats-docids.log
   - targets:
       - localhost
     labels:
       job: agent/docids/gateway
-      __path__: /usr/local/var/log/gateway/ceramic/stats-docids.log
+      __path__: /usr/local/var/log/ceramic/gateway/stats-docids.log
   - targets:
       - localhost
     labels:
       job: agent/3ids/node
-      __path__: /usr/local/var/log/node/ceramic/stats-3ids.log
+      __path__: /usr/local/var/log/ceramic/node/stats-3ids.log
   - targets:
       - localhost
     labels:
       job: agent/3ids/gateway
-      __path__: /usr/local/var/log/gateway/ceramic/stats-3ids.log
+      __path__: /usr/local/var/log/ceramic/gateway/stats-3ids.log
