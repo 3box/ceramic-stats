@@ -60,20 +60,10 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      job: agent/docids/node
-      __path__: /usr/local/var/log/ceramic/node/stats-docids.log
+      job: agent/docids
+      __path__: /usr/local/var/log/ceramic/stats-docids.log
   - targets:
       - localhost
     labels:
-      job: agent/docids/gateway
-      __path__: /usr/local/var/log/ceramic/gateway/stats-docids.log
-  - targets:
-      - localhost
-    labels:
-      job: agent/3ids/node
-      __path__: /usr/local/var/log/ceramic/node/stats-3ids.log
-  - targets:
-      - localhost
-    labels:
-      job: agent/3ids/gateway
-      __path__: /usr/local/var/log/ceramic/gateway/stats-3ids.log
+      job: agent/3ids
+      __path__: /usr/local/var/log/ceramic/stats-3ids.log
