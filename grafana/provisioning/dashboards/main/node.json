@@ -85,7 +85,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"http\"} | regexp \"\\\"request\\\":.*\\\"X-Forwarded-For\\\",\\\"(?P<origin>.+?)\\\"\"[1s])) by (origin)",
+          "expr": "sum(count_over_time({job=\"http/node\"} | regexp \"\\\"request\\\":.*\\\"X-Forwarded-For\\\",\\\"(?P<origin>.+?)\\\"\"[1s])) by (origin)",
           "legendFormat": "{{origin}}",
           "refId": "A"
         },
@@ -217,7 +217,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count_over_time({job=\"http\"}|json|response_statusCode >= 500[1s])",
+          "expr": "count_over_time({job=\"http/node\"}|json|response_statusCode >= 500[1s])",
           "legendFormat": "",
           "refId": "A"
         },
@@ -321,7 +321,7 @@
       "pluginVersion": "7.3.0",
       "targets": [
         {
-          "expr": "topk(10, sum(count_over_time({job=\"http\"} | json [$__interval])) by (request_url))",
+          "expr": "topk(10, sum(count_over_time({job=\"http/node\"} | json [$__interval])) by (request_url))",
           "hide": true,
           "legendFormat": "{{request_url}}",
           "refId": "B"
@@ -536,7 +536,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(count_over_time({job=\"pubsub\"} | json | message_typ=0 and event=\"received\" [$__interval])) by (job)",
+          "expr": "sum(count_over_time({job=\"pubsub/node\"} | json | message_typ=0 and event=\"received\" [$__interval])) by (job)",
           "legendFormat": "queries",
           "refId": "B"
         }
@@ -657,7 +657,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(count_over_time({job=\"pubsub\"} | json | message_typ=1 [$__interval])) by (job)",
+          "expr": "sum(count_over_time({job=\"pubsub/node\"} | json | message_typ=1 [$__interval])) by (job)",
           "legendFormat": "updates",
           "refId": "B"
         }
@@ -772,7 +772,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"agent/docids\"}[30d])) by (docId)",
+          "expr": "sum(count_over_time({job=\"agent/docids/node\"}[30d])) by (docId)",
           "legendFormat": "unique docId count",
           "refId": "A"
         }
@@ -900,7 +900,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"agent/3ids\"}[30d])) by (docid)",
+          "expr": "sum(count_over_time({job=\"agent/3ids/node\"}[30d])) by (docid)",
           "legendFormat": "unique 3id count",
           "refId": "A"
         }
@@ -977,6 +977,6 @@
   "timepicker": {},
   "timezone": "",
   "title": "Node",
-  "uid": "prod-node-o1Dp-kcGz",
-  "version": 2
+  "uid": "main-node-o1Dp-kcGz",
+  "version": 3
 }
