@@ -6,53 +6,34 @@ positions:
   filename: /tmp/positions.yaml
 
 scrape_configs:
-- job_name: http
+- job_name: ceramic/node
   pipeline_stages:
   static_configs:
   - targets:
       - localhost
     labels:
-      job: http/node
-      __path__: /usr/local/var/log/ceramic/node/ceramicdaemon.log
-  - targets:
+      job: ceramic/http
+      __path__: /logs/ceramic/node/ceramicdaemon.log
+- targets:
       - localhost
     labels:
-      job: http/gateway
-      __path__: /usr/local/var/log/ceramic/gateway/ceramicdaemon.log
-  - targets:
-      - localhost
-    labels:
-      job: legacy-http/node
-      __path__: /usr/local/var/log/ceramic/node/ceramicdaemon-node.log
-  - targets:
-      - localhost
-    labels:
-      job: legacy-http/gateway
-      __path__: /usr/local/var/log/ceramic/gateway/ceramicdaemon-gateway.log
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/node/dispatcher.log
 
-- job_name: pubsub
+
+- job_name: ceramic/gateway
   pipeline_stages:
   static_configs:
   - targets:
       - localhost
     labels:
-      job: pubsub/node
-      __path__: /usr/local/var/log/ceramic/node/dispatcher.log
+      job: ceramic/http
+      __path__: /logs/ceramic/gateway/ceramicdaemon.log
   - targets:
       - localhost
     labels:
-      job: pubsub/gateway
-      __path__: /usr/local/var/log/ceramic/gateway/dispatcher.log
-  - targets:
-      - localhost
-    labels:
-      job: legacy-pubsub/node
-      __path__: /usr/local/var/log/ceramic/node/dispatcher-node.log
-  - targets:
-      - localhost
-    labels:
-      job: legacy-pubsub/gateway
-      __path__: /usr/local/var/log/ceramic/gateway/dispatcher-gateway.log
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/gateway/dispatcher.log
 
 - job_name: agent
   pipeline_stages:
@@ -61,9 +42,33 @@ scrape_configs:
       - localhost
     labels:
       job: agent/docids
-      __path__: /usr/local/var/log/ceramic/stats-docids.log
+      __path__: /logs/ceramic/stats-docids.log
   - targets:
       - localhost
     labels:
       job: agent/3ids
-      __path__: /usr/local/var/log/ceramic/stats-3ids.log
+      __path__: /logs/ceramic/stats-3ids.log
+
+- job_name: cas
+  pipeline_stages:
+  - regex:
+      expression: \[(?P<timestamp>.*)\]
+  - timestamp:
+      source: timestamp
+      format: RFC1123
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: cas/access
+      __path__: /logs/cas/access.log
+  - targets:
+      - localhost
+    labels:
+      job: cas/events
+      __path__: /logs/cas/events.log
+  - targets:
+      - localhost
+    labels:
+      job: cas/metrics
+      __path__: /logs/cas/metrics.log

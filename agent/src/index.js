@@ -10,7 +10,7 @@ var watch = require('node-watch')
 
 const docIdSet = {}
 
-const logDirectory = '/usr/local/var/log/ceramic/'
+const logDirectory = '/logs/ceramic/'
 
 const docIdLogName = 'stats-docids.log'
 const threeIdLogName = 'stats-3ids.log'
