@@ -514,6 +514,171 @@
           "align": false,
           "alignLevel": null
         }
+      },
+      {
+        "aliasColors": {
+          "3": "red"
+        },
+        "bars": true,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Loki",
+        "decimals": 0,
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "0"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Pending"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "1"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Processing"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "3"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Failed"
+                }
+              ]
+            }
+          ]
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 18
+        },
+        "hiddenSeries": false,
+        "id": 12,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "total": true,
+          "values": true
+        },
+        "lines": false,
+        "linewidth": 1,
+        "nullPointMode": "null as zero",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.3.5",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (docId) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt | type=\"request\" [$__interval]))",
+            "hide": false,
+            "legendFormat": "{{ docId }}",
+            "refId": "B"
+          },
+          {
+            "expr": "count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt | type=\"request\" [$__interval])",
+            "hide": false,
+            "legendFormat": "{{ status }}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Anchor Request Statuses",
+        "tooltip": {
+          "shared": true,
+          "sort": 1,
+          "value_type": "individual"
+        },
+        "transformations": [],
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:574",
+            "decimals": 0,
+            "format": "short",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:575",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
       }
     ],
     "refresh": false,
