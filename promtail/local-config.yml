@@ -1,0 +1,68 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+scrape_configs:
+- job_name: test
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: test
+      __path__: /logs/test/*.log
+
+- job_name: ceramic
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: ceramic/http
+      __path__: /logs/ceramic/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/dispatcher.log
+
+- job_name: agent
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: agent/docids
+      __path__: /logs/ceramic/stats-docids.log
+  - targets:
+      - localhost
+    labels:
+      job: agent/3ids
+      __path__: /logs/ceramic/stats-3ids.log
+
+- job_name: cas
+  pipeline_stages:
+  - regex:
+      expression: \[(?P<timestamp>.*)\]
+  - timestamp:
+      source: timestamp
+      format: RFC1123
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: cas/access
+      __path__: /logs/cas/access.log
+  - targets:
+      - localhost
+    labels:
+      job: cas/events
+      __path__: /logs/cas/events.log
+  - targets:
+      - localhost
+    labels:
+      job: cas/metrics
+      __path__: /logs/cas/metrics.log
