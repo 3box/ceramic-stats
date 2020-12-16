@@ -850,40 +850,36 @@
             {
               "matcher": {
                 "id": "byName",
-                "options": "status (last)"
+                "options": "0"
               },
               "properties": [
                 {
                   "id": "displayName",
-                  "value": "Latest Status"
+                  "value": "Pending"
                 }
               ]
             },
             {
               "matcher": {
                 "id": "byName",
-                "options": "cid"
+                "options": "1"
               },
               "properties": [
                 {
                   "id": "displayName",
-                  "value": "CID"
+                  "value": "Processing"
                 }
               ]
             },
             {
               "matcher": {
                 "id": "byName",
-                "options": "createdAt (last)"
+                "options": "3"
               },
               "properties": [
                 {
-                  "id": "unit",
-                  "value": "dateTimeAsLocal"
-                },
-                {
                   "id": "displayName",
-                  "value": "Latest Update"
+                  "value": "Failed"
                 }
               ]
             }
@@ -897,61 +893,33 @@
         },
         "id": 16,
         "options": {
-          "frameIndex": 2,
-          "showHeader": true,
-          "sortBy": [
-            {
-              "desc": true,
-              "displayName": "Latest Update"
-            }
-          ]
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "distinctCount"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
         },
         "pluginVersion": "7.3.5",
         "targets": [
           {
-            "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
+            "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1s]))",
             "hide": false,
-            "legendFormat": "",
+            "legendFormat": "{{ status }}",
             "refId": "A"
           }
         ],
         "timeFrom": null,
         "timeShift": null,
         "title": "Anchor Statuses (Latest)",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {}
-          },
-          {
-            "id": "groupBy",
-            "options": {
-              "fields": {
-                "cid": {
-                  "aggregations": [],
-                  "operation": "groupby"
-                },
-                "createdAt": {
-                  "aggregations": [
-                    "last"
-                  ],
-                  "operation": "aggregate"
-                },
-                "status": {
-                  "aggregations": [
-                    "last"
-                  ],
-                  "operation": "aggregate"
-                },
-                "ts": {
-                  "aggregations": [],
-                  "operation": null
-                }
-              }
-            }
-          }
-        ],
-        "type": "table"
+        "transformations": [],
+        "type": "stat"
       },
       {
         "datasource": "Loki",
