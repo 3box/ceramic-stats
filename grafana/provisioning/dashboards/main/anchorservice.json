@@ -322,29 +322,47 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"GET\" and status >= 200 and status < 300 [1s])",
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/api/v0/requests\" | logfmt | method=\"GET\" and status >= 200 and status < 300 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "A"
           },
           {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"GET\" and status >= 400 and status < 500 [1s])",
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/api/v0/requests\" | logfmt | method=\"GET\" and status >= 200 and status < 300 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "D"
+          },
+          {
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/api/v0/requests\" | logfmt | method=\"GET\" and status >= 400 and status < 500 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "B"
           },
           {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"GET\" and status >= 500 [1s])",
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/api/v0/requests\" | logfmt | method=\"GET\" and status >= 400 and status < 500 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "E"
+          },
+          {
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/api/v0/requests\" | logfmt | method=\"GET\" and status >= 500 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "C"
+          },
+          {
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/api/v0/requests\" | logfmt | method=\"GET\" and status >= 500 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "F"
           }
         ],
         "thresholds": [],
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Status Requests per Second",
+        "title": "/api/v0/requests GET Requests per Second",
         "tooltip": {
           "shared": false,
           "sort": 0,
@@ -454,29 +472,47 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 200 and status < 300 [1s])",
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 200 and status < 300 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "A"
           },
           {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 400 and status < 500 [1s])",
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 200 and status < 300 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "D"
+          },
+          {
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 400 and status < 500 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "B"
           },
           {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 500 [1s])",
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 400 and status < 500 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "E"
+          },
+          {
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 500 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "C"
+          },
+          {
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/requests\" | logfmt | method=\"POST\" and status >= 500 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "F"
           }
         ],
         "thresholds": [],
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Anchor Requests per Second",
+        "title": "/api/v0/requests POST Requests per Second",
         "tooltip": {
           "shared": false,
           "sort": 0,
@@ -638,6 +674,154 @@
         }
       },
       {
+        "aliasColors": {},
+        "bars": true,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Loki",
+        "decimals": 0,
+        "description": "Number of POST requests to /api/v0/requests each second",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 18
+        },
+        "hiddenSeries": false,
+        "id": 15,
+        "legend": {
+          "alignAsTable": false,
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": false,
+        "linewidth": 1,
+        "nullPointMode": "null as zero",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.3.5",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/api/v0/anchors\" | logfmt | method=\"POST\" and status >= 200 and status < 300 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "A"
+          },
+          {
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/api/v0/anchors\" | logfmt | method=\"POST\" and status >= 200 and status < 300 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ status }}",
+            "refId": "D"
+          },
+          {
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/api/v0/anchors\" | logfmt | method=\"POST\" and status >= 400 and status < 500 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "B"
+          },
+          {
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/api/v0/anchors\" | logfmt | method=\"POST\" and status >= 400 and status < 500 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ status }}",
+            "refId": "E"
+          },
+          {
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} |= \"/api/v0/anchors\" | logfmt | method=\"POST\" and status >= 500 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ ip }}",
+            "refId": "C"
+          },
+          {
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} |= \"/api/v0/anchors\" | logfmt | method=\"POST\" and status >= 500 [1s]))",
+            "hide": false,
+            "legendFormat": "{{ status }}",
+            "refId": "F"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "/api/v0/requests POST Requests per Second",
+        "tooltip": {
+          "shared": false,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "transformations": [],
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 0,
+            "format": "short",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
         "aliasColors": {
           "3": "red"
         },
@@ -713,7 +897,7 @@
           "h": 8,
           "w": 12,
           "x": 12,
-          "y": 18
+          "y": 27
         },
         "hiddenSeries": false,
         "id": 12,
