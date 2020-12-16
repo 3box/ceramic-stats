@@ -707,7 +707,7 @@
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
-          "h": 9,
+          "h": 8,
           "w": 12,
           "x": 12,
           "y": 18
@@ -822,14 +822,7 @@
         }
       },
       {
-        "aliasColors": {
-          "3": "red"
-        },
-        "bars": true,
-        "dashLength": 10,
-        "dashes": false,
         "datasource": "Loki",
-        "decimals": 0,
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -837,6 +830,7 @@
               "align": null,
               "filterable": false
             },
+            "decimals": 0,
             "mappings": [],
             "thresholds": {
               "mode": "absolute",
@@ -856,135 +850,240 @@
             {
               "matcher": {
                 "id": "byName",
-                "options": "0"
+                "options": "status (last)"
               },
               "properties": [
                 {
                   "id": "displayName",
-                  "value": "Pending"
+                  "value": "Latest Status"
                 }
               ]
             },
             {
               "matcher": {
                 "id": "byName",
-                "options": "1"
+                "options": "cid"
               },
               "properties": [
                 {
                   "id": "displayName",
-                  "value": "Processing"
+                  "value": "CID"
                 }
               ]
             },
             {
               "matcher": {
                 "id": "byName",
-                "options": "3"
+                "options": "createdAt (last)"
               },
               "properties": [
                 {
+                  "id": "unit",
+                  "value": "dateTimeAsLocal"
+                },
+                {
                   "id": "displayName",
-                  "value": "Failed"
+                  "value": "Latest Update"
                 }
               ]
             }
           ]
         },
-        "fill": 1,
-        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 26
+        },
+        "id": 16,
+        "options": {
+          "frameIndex": 2,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Latest Update"
+            }
+          ]
+        },
+        "pluginVersion": "7.3.5",
+        "targets": [
+          {
+            "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
+            "hide": false,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Anchor Statuses (Latest)",
+        "transformations": [
+          {
+            "id": "labelsToFields",
+            "options": {}
+          },
+          {
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "cid": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "createdAt": {
+                  "aggregations": [
+                    "last"
+                  ],
+                  "operation": "aggregate"
+                },
+                "status": {
+                  "aggregations": [
+                    "last"
+                  ],
+                  "operation": "aggregate"
+                },
+                "ts": {
+                  "aggregations": [],
+                  "operation": null
+                }
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": "Loki",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "decimals": 0,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "status (last)"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Latest Status"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "cid"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "CID"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "createdAt (last)"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "dateTimeAsLocal"
+                },
+                {
+                  "id": "displayName",
+                  "value": "Latest Update"
+                }
+              ]
+            }
+          ]
+        },
         "gridPos": {
           "h": 8,
           "w": 12,
           "x": 12,
-          "y": 27
+          "y": 26
         },
-        "hiddenSeries": false,
         "id": 12,
-        "legend": {
-          "alignAsTable": true,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": true,
-          "show": true,
-          "total": true,
-          "values": true
-        },
-        "lines": false,
-        "linewidth": 1,
-        "nullPointMode": "null as zero",
         "options": {
-          "alertThreshold": true
+          "frameIndex": 2,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Latest Update"
+            }
+          ]
         },
-        "percentage": false,
         "pluginVersion": "7.3.5",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
         "targets": [
           {
-            "expr": "sum by (docId) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt | type=\"request\" [$__interval]))",
+            "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
             "hide": false,
-            "legendFormat": "{{ docId }}",
-            "refId": "B"
-          },
-          {
-            "expr": "count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt | type=\"request\" [$__interval])",
-            "hide": false,
-            "legendFormat": "{{ status }}",
+            "legendFormat": "",
             "refId": "A"
           }
         ],
-        "thresholds": [],
         "timeFrom": null,
-        "timeRegions": [],
         "timeShift": null,
-        "title": "Anchor Request Statuses",
-        "tooltip": {
-          "shared": true,
-          "sort": 1,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
+        "title": "Anchor Statuses (Latest)",
+        "transformations": [
           {
-            "$$hashKey": "object:574",
-            "decimals": 0,
-            "format": "short",
-            "label": "",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
+            "id": "labelsToFields",
+            "options": {}
           },
           {
-            "$$hashKey": "object:575",
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
+            "id": "groupBy",
+            "options": {
+              "fields": {
+                "cid": {
+                  "aggregations": [],
+                  "operation": "groupby"
+                },
+                "createdAt": {
+                  "aggregations": [
+                    "last"
+                  ],
+                  "operation": "aggregate"
+                },
+                "status": {
+                  "aggregations": [
+                    "last"
+                  ],
+                  "operation": "aggregate"
+                },
+                "ts": {
+                  "aggregations": [],
+                  "operation": null
+                }
+              }
+            }
           }
         ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
+        "type": "table"
       }
     ],
     "refresh": false,
