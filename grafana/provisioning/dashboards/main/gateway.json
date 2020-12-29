@@ -56,6 +56,246 @@
                 "y": 1
             },
             "hiddenSeries": false,
+            "id": 29,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.6",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "AvailabilityZone": "*",
+                        "LoadBalancer": "app/ceramic-dev-gateway/30c5663e092214b7",
+                        "TargetGroup": "*"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "HealthyHostCount",
+                    "namespace": "AWS/ApplicationELB",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "HealthyHostCount (ceramic-dev-gateway)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:155",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:156",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 12,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 30,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.6",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "AvailabilityZone": "*",
+                        "LoadBalancer": "app/ceramic-dev-ipfs-gw-alb-ex/ba27fd6a8f7316a4",
+                        "TargetGroup": "*"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "HealthyHostCount",
+                    "namespace": "AWS/ApplicationELB",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "HealthyHostCount (ceramic-dev-ipfs-gw)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:155",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:156",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 8
+            },
+            "hiddenSeries": false,
             "id": 20,
             "isNew": true,
             "legend": {
@@ -172,7 +412,7 @@
                 "h": 7,
                 "w": 12,
                 "x": 12,
-                "y": 1
+                "y": 8
             },
             "hiddenSeries": false,
             "id": 21,
@@ -291,7 +531,7 @@
                 "h": 7,
                 "w": 12,
                 "x": 0,
-                "y": 8
+                "y": 15
             },
             "hiddenSeries": false,
             "id": 22,
@@ -410,7 +650,7 @@
                 "h": 7,
                 "w": 12,
                 "x": 12,
-                "y": 8
+                "y": 15
             },
             "hiddenSeries": false,
             "id": 23,
@@ -514,7 +754,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 15
+                "y": 22
             },
             "id": 27,
             "panels": [],
@@ -557,7 +797,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 16
+                "y": 23
             },
             "hiddenSeries": false,
             "id": 10,
@@ -689,7 +929,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 16
+                "y": 23
             },
             "hiddenSeries": false,
             "id": 12,
@@ -807,7 +1047,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 24
+                "y": 31
             },
             "id": 14,
             "options": {
@@ -877,7 +1117,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 24
+                "y": 31
             },
             "hiddenSeries": false,
             "id": 2,
@@ -1005,7 +1245,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 32
+                "y": 39
             },
             "hiddenSeries": false,
             "id": 4,
@@ -1126,7 +1366,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 32
+                "y": 39
             },
             "hiddenSeries": false,
             "id": 6,
@@ -1246,7 +1486,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 40
+                "y": 47
             },
             "hiddenSeries": false,
             "id": 8,
@@ -1374,7 +1614,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 40
+                "y": 47
             },
             "hiddenSeries": false,
             "id": 18,
