@@ -9,6 +9,14 @@ apiVersion: 1
 # list of datasources to insert/update depending
 # what's available in the database
 datasources:
+  - name: "CloudWatch"
+    type: cloudwatch
+    jsonData:
+      authType: keys
+      defaultRegion: us-east-2
+    secureJsonData:
+      accessKey: $AWS_ACCESS_KEY
+      secretKey: $AWS_SECRET_KEY
   # <string, required> name of the datasource. Required
   - name: "Loki"
     # <string, required> datasource type. Required
