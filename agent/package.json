@@ -21,7 +21,7 @@
   "homepage": "https://github.com/3box/ceramic-stats#readme",
   "dependencies": {
     "dag-jose": "^0.3.0",
-    "ipfs": "github:simonovic86/ipfs",
+    "ipfs": "^0.52.1",
     "multiformats": "^3.0.3",
     "node-watch": "^0.7.0",
     "read-last-line": "^1.1.0"
