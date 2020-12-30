@@ -1538,11 +1538,11 @@
         },
         {
             "aliasColors": {},
-            "bars": false,
+            "bars": true,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of 3ids seen in the /ceramic pubsub topic in the past 30 days",
+            "description": "Queries (i.e. message \"typ\" equals 0) in the /ceramic pubsub topic",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1575,7 +1575,7 @@
                 "y": 47
             },
             "hiddenSeries": false,
-            "id": 18,
+            "id": 35,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -1585,11 +1585,11 @@
                 "total": false,
                 "values": false
             },
-            "lines": true,
+            "lines": false,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": false
+                "alertThreshold": true
             },
             "percentage": false,
             "pluginVersion": "7.3.6",
@@ -1602,8 +1602,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"agent/3ids/node\"}[30d])) by (docid)",
-                    "legendFormat": "unique 3id count",
+                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | logfmt | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "legendFormat": "queries",
                     "refId": "A"
                 }
             ],
@@ -1611,25 +1611,12 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "3ids in \"/ceramic\" (past 30 days)",
+            "title": "Responses in /ceramic PubSub Topic",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "names": [
-                                "Time",
-                                "unique 3id count"
-                            ]
-                        }
-                    }
-                }
-            ],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1640,23 +1627,24 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:119",
+                    "$$hashKey": "object:295",
                     "decimals": 0,
                     "format": "short",
-                    "label": null,
+                    "label": "",
                     "logBase": 1,
                     "max": null,
                     "min": "0",
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:120",
+                    "$$hashKey": "object:296",
+                    "decimals": 0,
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": null,
-                    "show": true
+                    "min": "0",
+                    "show": false
                 }
             ],
             "yaxis": {
@@ -1779,6 +1767,134 @@
                 },
                 {
                     "$$hashKey": "object:64",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Number of 3ids seen in the /ceramic pubsub topic in the past 30 days",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 55
+            },
+            "hiddenSeries": false,
+            "id": 18,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.6",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum(count_over_time({job=\"agent/3ids/node\"}[30d])) by (docid)",
+                    "legendFormat": "unique 3id count",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "3ids in \"/ceramic\" (past 30 days)",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "names": [
+                                "Time",
+                                "unique 3id count"
+                            ]
+                        }
+                    }
+                }
+            ],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:119",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:120",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
