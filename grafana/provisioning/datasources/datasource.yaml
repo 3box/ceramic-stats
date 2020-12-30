@@ -12,7 +12,7 @@ datasources:
   - name: "CloudWatch"
     type: cloudwatch
     jsonData:
-      authType: keys
+      authType: $AWS_AUTH_TYPE
       defaultRegion: us-east-2
     secureJsonData:
       accessKey: $AWS_ACCESS_KEY
