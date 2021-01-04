@@ -8,7 +8,9 @@ services:
     build: ./loki
     ports:
       - "3100:3100"
-    command: ["-config.file=/etc/loki/local-config.yaml"]
+    environment:
+      - DYNAMODB_PREFIX=loki_
+    command: ["-config.file=/etc/loki/local-config.yaml", "-config.expand-env=true"]
   promtail:
     build: ./promtail
     ports:
