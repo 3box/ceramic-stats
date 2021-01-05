@@ -822,7 +822,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"ceramic/http\"} | logfmt [1s])) by (request_remoteAddress)",
+                    "expr": "sum(count_over_time({job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
                     "legendFormat": "{{ request_remoteAddress }}",
                     "refId": "A"
                 }
@@ -949,7 +949,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({job=\"ceramic/http\"} | logfmt | response_statusCode >= 500[1s])",
+                    "expr": "count_over_time({job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -1067,7 +1067,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"ceramic/http\"} | logfmt [1s])) by (request_url)",
+                    "expr": "sum(count_over_time({job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
                     "legendFormat": "{{ request_url }}",
                     "refId": "A"
                 }
@@ -1245,7 +1245,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | logfmt [$__interval])) by (message_doc)",
+                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_doc)",
                     "legendFormat": "{{ message_doc }}",
                     "refId": "A"
                 }
@@ -1371,7 +1371,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | json | message_typ=0 [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
                     "legendFormat": "updates",
                     "refId": "A"
                 }
@@ -1486,7 +1486,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | logfmt | message_typ=1 and event=\"received\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
                 }
@@ -1602,7 +1602,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | logfmt | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
                 }
@@ -1924,5 +1924,5 @@
     "timezone": "",
     "title": "Node",
     "uid": "main-node-o1Dp-kcGz",
-    "version": 1
+    "version": 2
 }
