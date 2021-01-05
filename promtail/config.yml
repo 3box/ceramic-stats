@@ -14,7 +14,7 @@ scrape_configs:
     labels:
       job: ceramic/http
       __path__: /logs/ceramic/node/ceramicdaemon.log
-- targets:
+  - targets:
       - localhost
     labels:
       job: ceramic/pubsub
