@@ -53,7 +53,7 @@ scrape_configs:
       job: agent/3ids
       __path__: /logs/ceramic/stats-3ids.log
 
-- job_name: cas
+- job_name: cas/server
   pipeline_stages:
   - regex:
       expression: \[(?P<timestamp>.*)\]
@@ -64,15 +64,45 @@ scrape_configs:
   - targets:
       - localhost
     labels:
+      app: server
       job: cas/access
-      __path__: /logs/cas/access.log
+      __path__: /logs/cas/server/access.log
   - targets:
       - localhost
     labels:
+      app: server
       job: cas/events
-      __path__: /logs/cas/events.log
+      __path__: /logs/cas/server/events.log
   - targets:
       - localhost
     labels:
+      app: server
       job: cas/metrics
-      __path__: /logs/cas/metrics.log
+      __path__: /logs/cas/server/metrics.log
+
+- job_name: cas/anchor
+  pipeline_stages:
+  - regex:
+      expression: \[(?P<timestamp>.*)\]
+  - timestamp:
+      source: timestamp
+      format: RFC1123
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: anchor
+      job: cas/access
+      __path__: /logs/cas/anchor/access.log
+  - targets:
+      - localhost
+    labels:
+      app: anchor
+      job: cas/events
+      __path__: /logs/cas/anchor/events.log
+  - targets:
+      - localhost
+    labels:
+      app: anchor
+      job: cas/metrics
+      __path__: /logs/cas/anchor/metrics.log
