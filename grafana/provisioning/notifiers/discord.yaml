@@ -8,4 +8,4 @@ notifiers:
     frequency: 5m
     disable_resolve_message: false
     settings:
-      url: https://discordapp.com/api/webhooks/789509246693539881/yVIHXvknOg2g65aNNqJsN9dGIBpbYrYfYJtFHzBj4nRKkcCNa6Jlr30VRTCD-xSuzAqr # legacy setting since Grafana v7.2 (stored non-encrypted)
+      url: $DISCORD_WEBHOOK_URL # legacy setting since Grafana v7.2 (stored non-encrypted)

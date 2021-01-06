@@ -26,6 +26,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
       - LOKI_URL=http://loki:3100
       - AWS_AUTH_TYPE=keys
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
