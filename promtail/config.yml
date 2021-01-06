@@ -12,11 +12,13 @@ scrape_configs:
   - targets:
       - localhost
     labels:
+      app: node
       job: ceramic/http
       __path__: /logs/ceramic/node/ceramicdaemon.log
   - targets:
       - localhost
     labels:
+      app: node
       job: ceramic/pubsub
       __path__: /logs/ceramic/node/dispatcher.log
 
@@ -27,11 +29,13 @@ scrape_configs:
   - targets:
       - localhost
     labels:
+      app: gateway
       job: ceramic/http
       __path__: /logs/ceramic/gateway/ceramicdaemon.log
   - targets:
       - localhost
     labels:
+      app: gateway
       job: ceramic/pubsub
       __path__: /logs/ceramic/gateway/dispatcher.log
 
