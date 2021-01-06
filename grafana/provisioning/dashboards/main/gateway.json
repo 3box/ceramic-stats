@@ -1025,7 +1025,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of requests per second made to the daemon by a given origin",
+            "description": "Number of requests per second made to the gateway by a given origin",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1058,7 +1058,7 @@
                 "y": 23
             },
             "hiddenSeries": false,
-            "id": 10,
+            "id": 32,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1087,14 +1087,9 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"http/gateway\"} | regexp \"\\\"request\\\":.*\\\"X-Forwarded-For\\\",\\\"(?P<origin>.+?)\\\"\"[1s])) by (origin)",
-                    "legendFormat": "{{origin}}",
+                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
+                    "legendFormat": "{{ request_remoteAddress }}",
                     "refId": "A"
-                },
-                {
-                    "expr": "sum(count_over_time({job=\"legacy-http/gateway\"} | regexp \"\\\"request\\\":.*\\\"X-Forwarded-For\\\",\\\"(?P<origin>.+?)\\\"\"[1s])) by (origin)",
-                    "legendFormat": "{{origin}}",
-                    "refId": "B"
                 }
             ],
             "thresholds": [],
@@ -1112,7 +1107,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!origin).*$"
+                            "pattern": "^(?!request_remoteAddress).*$"
                         }
                     }
                 }
@@ -1157,7 +1152,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of 5XX responses returned by the daemon per second",
+            "description": "Number of 5XX responses returned by the gateway per second",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1190,7 +1185,7 @@
                 "y": 23
             },
             "hiddenSeries": false,
-            "id": 12,
+            "id": 34,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1219,14 +1214,9 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({job=\"http/gateway\"}|json|response_statusCode >= 500[1s])",
+                    "expr": "count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
                     "legendFormat": "",
                     "refId": "A"
-                },
-                {
-                    "expr": "count_over_time({job=\"legacy-http/gateway\"}|json|response_statusCode >= 500[1s])",
-                    "legendFormat": "",
-                    "refId": "B"
                 }
             ],
             "thresholds": [],
@@ -1275,69 +1265,122 @@
             }
         },
         {
+            "aliasColors": {},
+            "bars": true,
+            "dashLength": 10,
+            "dashes": false,
             "datasource": "Loki",
+            "description": "Number of requests per second made to the gateway by endpoint",
             "fieldConfig": {
                 "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
                     "custom": {
                         "align": null,
                         "filterable": false
                     },
-                    "decimals": 0,
                     "mappings": [],
-                    "min": 1,
                     "thresholds": {
                         "mode": "absolute",
                         "steps": [
                             {
                                 "color": "green",
                                 "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
                             }
                         ]
-                    },
-                    "unit": "short"
+                    }
                 },
                 "overrides": []
             },
+            "fill": 1,
+            "fillGradient": 0,
             "gridPos": {
                 "h": 8,
                 "w": 12,
                 "x": 0,
                 "y": 31
             },
-            "id": 14,
-            "options": {
-                "displayMode": "gradient",
-                "orientation": "horizontal",
-                "reduceOptions": {
-                    "calcs": [
-                        "distinctCount"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "showUnfilled": true
+            "hiddenSeries": false,
+            "id": 36,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": true,
+                "values": true
             },
+            "lines": false,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
             "pluginVersion": "7.3.6",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
             "targets": [
                 {
-                    "expr": "topk(10, sum(count_over_time({job=\"http/gateway\"} | json [$__interval])) by (request_url))",
-                    "hide": true,
-                    "legendFormat": "{{request_url}}",
-                    "refId": "B"
-                },
-                {
-                    "expr": "topk(10, sum(count_over_time({job=\"legacy-http/gateway\"} | json [$__interval])) by (request_url))",
-                    "legendFormat": "{{request_url}}",
+                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
+                    "legendFormat": "{{ request_url }}",
                     "refId": "A"
                 }
             ],
+            "thresholds": [],
             "timeFrom": null,
+            "timeRegions": [],
             "timeShift": null,
-            "title": "Top 10 Gateway Requests per Endpoint",
-            "type": "bargauge"
+            "title": "Requests per Endpoint / Second",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:271",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:272",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         },
         {
             "aliasColors": {},
@@ -1345,7 +1388,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "docIds that appeared in the /ceramic pubsub every 2 minutes",
+            "description": "docIds that appeared in the pubsub every 2 minutes",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1378,7 +1421,7 @@
                 "y": 31
             },
             "hiddenSeries": false,
-            "id": 2,
+            "id": 38,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1392,7 +1435,7 @@
             },
             "lines": false,
             "linewidth": 1,
-            "nullPointMode": "null as zero",
+            "nullPointMode": "null",
             "options": {
                 "alertThreshold": false
             },
@@ -1403,12 +1446,12 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"legacy-pubsub/gateway\"} | json[2m])) by (message_id)",
-                    "legendFormat": "{{message_id}}",
+                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_doc)",
+                    "legendFormat": "{{ message_doc }}",
                     "refId": "A"
                 }
             ],
@@ -1427,7 +1470,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!message_id).*$"
+                            "pattern": "^(?!message_doc).*$"
                         }
                     }
                 }
@@ -1473,7 +1516,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Queries (i.e. message \"typ\" equals 0) in the /ceramic pubsub topic",
+            "description": "Queries (i.e. message \"typ\" equals 1 and event is received) in the pubsub topic",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1502,11 +1545,11 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 0,
+                "x": 6,
                 "y": 39
             },
             "hiddenSeries": false,
-            "id": 4,
+            "id": 40,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -1533,21 +1576,16 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"legacy-pubsub/gateway\"} | json | message_typ=0 and event=\"received\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
-                },
-                {
-                    "expr": "sum(count_over_time({job=\"pubsub/gateway\"} | json | message_typ=0 and event=\"received\" [$__interval])) by (job)",
-                    "legendFormat": "queries",
-                    "refId": "B"
                 }
             ],
             "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Queries in /ceramic PubSub Topic",
+            "title": "Queries in PubSub Topic",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -1594,7 +1632,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Updates (i.e. message \"typ\" equals 1) in the /ceramic pubsub topic",
+            "description": "Updates (i.e. message \"typ\" equals 0) in the pubsub topic",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1623,11 +1661,11 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
-                "y": 39
+                "x": 6,
+                "y": 47
             },
             "hiddenSeries": false,
-            "id": 6,
+            "id": 42,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -1654,21 +1692,16 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"legacy-pubsub/gateway\"} | json | message_typ=1 [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
                     "legendFormat": "updates",
                     "refId": "A"
-                },
-                {
-                    "expr": "sum(count_over_time({job=\"pubsub/gateway\"} | json | message_typ=1 [$__interval])) by (job)",
-                    "legendFormat": "updates",
-                    "refId": "B"
                 }
             ],
             "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Updates in /ceramic PubSub Topic",
+            "title": "Updates in PubSub Topic",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -1710,11 +1743,11 @@
         },
         {
             "aliasColors": {},
-            "bars": false,
+            "bars": true,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of docIds seen in the /ceramic pubsub topic in the past 30 days",
+            "description": "Queries (i.e. message \"typ\" is 2 and event is published) in the pubsub topic",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1743,11 +1776,11 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 0,
-                "y": 47
+                "x": 6,
+                "y": 55
             },
             "hiddenSeries": false,
-            "id": 8,
+            "id": 44,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -1757,11 +1790,11 @@
                 "total": false,
                 "values": false
             },
-            "lines": true,
+            "lines": false,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": false
+                "alertThreshold": true
             },
             "percentage": false,
             "pluginVersion": "7.3.6",
@@ -1774,8 +1807,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({job=\"agent/docids/gateway\"}[30d])) by (docId)",
-                    "legendFormat": "unique docId count",
+                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "legendFormat": "responses",
                     "refId": "A"
                 }
             ],
@@ -1783,25 +1816,12 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "DocIds in \"/ceramic\" (past 30 days)",
+            "title": "Responses in PubSub Topic",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "names": [
-                                "unique docId count",
-                                "Time"
-                            ]
-                        }
-                    }
-                }
-            ],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1812,151 +1832,24 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:63",
+                    "$$hashKey": "object:295",
                     "decimals": 0,
                     "format": "short",
-                    "label": null,
+                    "label": "",
                     "logBase": 1,
                     "max": null,
                     "min": "0",
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:64",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "Loki",
-            "description": "Number of 3ids seen in the /ceramic pubsub topic in the past 30 days",
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 12,
-                "y": 47
-            },
-            "hiddenSeries": false,
-            "id": 18,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": false
-            },
-            "percentage": false,
-            "pluginVersion": "7.3.6",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "expr": "sum(count_over_time({job=\"agent/3ids/gateway\"}[30d])) by (docid)",
-                    "legendFormat": "unique 3id count",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "3ids in \"/ceramic\" (past 30 days)",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "transformations": [
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "names": [
-                                "Time",
-                                "unique 3id count"
-                            ]
-                        }
-                    }
-                }
-            ],
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:119",
+                    "$$hashKey": "object:296",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
                     "min": "0",
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:120",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
+                    "show": false
                 }
             ],
             "yaxis": {
