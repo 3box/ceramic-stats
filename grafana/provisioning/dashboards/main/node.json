@@ -32,6 +32,41 @@
             "type": "row"
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "8m",
+                "frequency": "3m",
+                "handler": 1,
+                "name": "HealthyHostCount (ceramic-dev-node) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -74,7 +109,7 @@
             "links": [],
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": true
+                "alertThreshold": false
             },
             "percentage": false,
             "pluginVersion": "7.3.6",
@@ -106,7 +141,15 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "lt",
+                    "value": 1
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
@@ -152,6 +195,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "8m",
+                "frequency": "3m",
+                "handler": 1,
+                "name": "HealthyHostCount (ceramic-dev-ipfs-nd) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -194,7 +272,7 @@
             "links": [],
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": true
+                "alertThreshold": false
             },
             "percentage": false,
             "pluginVersion": "7.3.6",
@@ -226,7 +304,15 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "lt",
+                    "value": 1
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
@@ -272,6 +358,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "name": "CPUUtilization (ceramic-dev-node) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -314,7 +435,7 @@
             "links": [],
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": true
+                "alertThreshold": false
             },
             "percentage": false,
             "pluginVersion": "7.3.6",
@@ -345,7 +466,15 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
@@ -391,6 +520,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "name": "MemoryUtilization (ceramic-dev-node) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -433,7 +597,7 @@
             "links": [],
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": true
+                "alertThreshold": false
             },
             "percentage": false,
             "pluginVersion": "7.3.6",
@@ -464,7 +628,15 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
@@ -509,6 +681,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "name": "CPUUtilization (ceramic-dev-ipfs-nd) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -551,7 +758,7 @@
             "links": [],
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": true
+                "alertThreshold": false
             },
             "percentage": false,
             "pluginVersion": "7.3.6",
@@ -582,7 +789,15 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
@@ -625,6 +840,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "name": "MemoryUtilization (ceramic-dev-ipfs-nd) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -667,7 +917,7 @@
             "links": [],
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": true
+                "alertThreshold": false
             },
             "percentage": false,
             "pluginVersion": "7.3.6",
@@ -698,7 +948,15 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
