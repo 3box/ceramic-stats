@@ -1100,7 +1100,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!origin).*$"
+                            "pattern": "^(?!request_remoteAddress).*$"
                         }
                     }
                 }
@@ -1509,7 +1509,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Queries (i.e. message \"typ\" equals 0) in the pubsub topic",
+            "description": "Queries (i.e. message \"typ\" equals 1 and event is received) in the pubsub topic",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1538,7 +1538,7 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 0,
+                "x": 6,
                 "y": 39
             },
             "hiddenSeries": false,
@@ -1625,7 +1625,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Updates (i.e. message \"typ\" equals 1) in the pubsub topic",
+            "description": "Updates (i.e. message \"typ\" equals 0) in the pubsub topic",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1654,7 +1654,7 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 0,
+                "x": 6,
                 "y": 47
             },
             "hiddenSeries": false,
@@ -1740,7 +1740,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Queries (i.e. message \"typ\" equals 0) in the pubsub topic",
+            "description": "Queries (i.e. message \"typ\" equals 2 and event is published) in the pubsub topic",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1769,7 +1769,7 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 0,
+                "x": 6,
                 "y": 55
             },
             "hiddenSeries": false,
