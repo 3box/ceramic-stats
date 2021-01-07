@@ -3,19 +3,22 @@ services:
   agent:
     build: ./agent
     volumes:
-      - /usr/local/var/log:/usr/local/var/log
+      - ./ceramic:/logs/ceramic
   loki:
     build: ./loki
     ports:
       - "3100:3100"
-    command: ["-config.file=/etc/loki/local-config.yaml"]
+    environment:
+      - DYNAMODB_PREFIX=loki_
+    command: ["-config.file=/etc/loki/local-config.yaml", "-config.expand-env=true"]
   promtail:
     build: ./promtail
     ports:
       - "9080:9080"
     volumes:
-      - /usr/local/var/log:/usr/local/var/log
-    command: ["-config.file=/etc/promtail/config.yml", "-client.url", "http://loki:3100/loki/api/v1/push"]
+      - ./cas:/logs/cas
+      - ./ceramic:/logs/ceramic
+    command: ["-config.file=/etc/promtail/local-config.yml", "-client.url", "http://loki:3100/loki/api/v1/push", "-log.level=debug"]
     depends_on:
       - loki
   grafana:
@@ -23,6 +26,10 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
       - LOKI_URL=http://loki:3100
+      - AWS_AUTH_TYPE=keys
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
     depends_on:
       - promtail

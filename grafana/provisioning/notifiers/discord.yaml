@@ -1,0 +1,11 @@
+notifiers:
+  - name: Discord
+    type: discord
+    uid: discord_1
+    org_id: 1
+    is_default: true
+    send_reminder: false
+    frequency: 5m
+    disable_resolve_message: false
+    settings:
+      url: $DISCORD_WEBHOOK_URL # legacy setting since Grafana v7.2 (stored non-encrypted)
