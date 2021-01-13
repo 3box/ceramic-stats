@@ -14,14 +14,29 @@ scrape_configs:
     labels:
       app: node
       job: ceramic/http
-      __path__: /logs/ceramic/node/ceramicdaemon.log
+      __path__: /logs/ceramic/internal/node/ceramicdaemon.log
   - targets:
       - localhost
     labels:
       app: node
       job: ceramic/pubsub
-      __path__: /logs/ceramic/node/dispatcher.log
+      __path__: /logs/ceramic/internal/node/dispatcher.log
 
+- job_name: ceramic/node-public
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: node-public
+      job: ceramic/http
+      __path__: /logs/ceramic/public/node/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      app: node-public
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/public/node/dispatcher.log
 
 - job_name: ceramic/gateway
   pipeline_stages:
@@ -31,27 +46,45 @@ scrape_configs:
     labels:
       app: gateway
       job: ceramic/http
-      __path__: /logs/ceramic/gateway/ceramicdaemon.log
+      __path__: /logs/ceramic/public/gateway/ceramicdaemon.log
   - targets:
       - localhost
     labels:
       app: gateway
       job: ceramic/pubsub
-      __path__: /logs/ceramic/gateway/dispatcher.log
+      __path__: /logs/ceramic/public/gateway/dispatcher.log
 
-- job_name: agent
+- job_name: agent/internal
   pipeline_stages:
   static_configs:
   - targets:
       - localhost
     labels:
+      app: internal
       job: agent/docids
-      __path__: /logs/ceramic/stats-docids.log
+      __path__: /logs/ceramic/internal/stats-docids.log
   - targets:
       - localhost
     labels:
+      app: internal
       job: agent/3ids
-      __path__: /logs/ceramic/stats-3ids.log
+      __path__: /logs/ceramic/internal/stats-3ids.log
+
+- job_name: agent/public
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: public
+      job: agent/docids
+      __path__: /logs/ceramic/public/stats-docids.log
+  - targets:
+      - localhost
+    labels:
+      app: public
+      job: agent/3ids
+      __path__: /logs/ceramic/public/stats-3ids.log
 
 - job_name: cas/server
   pipeline_stages:
