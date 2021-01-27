@@ -15,37 +15,39 @@ scrape_configs:
       job: test
       __path__: /logs/test/*.log
 
-- job_name: ceramic
+- job_name: agent/external
   pipeline_stages:
   static_configs:
   - targets:
       - localhost
     labels:
-      app: node
-      job: ceramic/http
-      __path__: /logs/ceramic/ceramicdaemon.log
-  - targets:
-      - localhost
-    labels:
-      app: node
-      job: ceramic/pubsub
-      __path__: /logs/ceramic/dispatcher.log
-
-- job_name: agent
-  pipeline_stages:
-  static_configs:
-  - targets:
-      - localhost
-    labels:
+      app: node-external
       job: agent/docids
       __path__: /logs/ceramic/stats-docids.log
   - targets:
       - localhost
     labels:
+      app: node-external
       job: agent/3ids
       __path__: /logs/ceramic/stats-3ids.log
 
-- job_name: cas
+- job_name: agent/internal
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: node-internal
+      job: agent/docids
+      __path__: /logs/ceramic/stats-docids.log
+  - targets:
+      - localhost
+    labels:
+      app: node-internal
+      job: agent/3ids
+      __path__: /logs/ceramic/stats-3ids.log
+
+- job_name: cas/anchor
   pipeline_stages:
   - regex:
       expression: \[(?P<timestamp>.*)\]
@@ -56,15 +58,93 @@ scrape_configs:
   - targets:
       - localhost
     labels:
+      app: anchor
       job: cas/access
       __path__: /logs/cas/access.log
   - targets:
       - localhost
     labels:
+      app: anchor
       job: cas/events
       __path__: /logs/cas/events.log
   - targets:
       - localhost
     labels:
+      app: anchor
       job: cas/metrics
       __path__: /logs/cas/metrics.log
+
+- job_name: cas/api
+  pipeline_stages:
+  - regex:
+      expression: \[(?P<timestamp>.*)\]
+  - timestamp:
+      source: timestamp
+      format: RFC1123
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: api
+      job: cas/access
+      __path__: /logs/cas/access.log
+  - targets:
+      - localhost
+    labels:
+      app: api
+      job: cas/events
+      __path__: /logs/cas/events.log
+  - targets:
+      - localhost
+    labels:
+      app: api
+      job: cas/metrics
+      __path__: /logs/cas/metrics.log
+
+- job_name: ceramic/gateway-external
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: gateway-external
+      job: ceramic/http
+      __path__: /logs/ceramic/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      app: gateway-external
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/dispatcher.log
+
+- job_name: ceramic/node-external
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: node-external
+      job: ceramic/http
+      __path__: /logs/ceramic/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      app: node-external
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/dispatcher.log
+
+- job_name: ceramic/node-internal
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: node-internal
+      job: ceramic/http
+      __path__: /logs/ceramic/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      app: node-internal
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/dispatcher.log

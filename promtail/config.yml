@@ -6,53 +6,21 @@ positions:
   filename: /tmp/positions.yaml
 
 scrape_configs:
-- job_name: ceramic/node
+- job_name: agent/external
   pipeline_stages:
   static_configs:
   - targets:
       - localhost
     labels:
-      app: node
-      job: ceramic/http
-      __path__: /logs/ceramic/internal/node/ceramicdaemon.log
+      app: node-external
+      job: agent/docids
+      __path__: /logs/ceramic/external/stats-docids.log
   - targets:
       - localhost
     labels:
-      app: node
-      job: ceramic/pubsub
-      __path__: /logs/ceramic/internal/node/dispatcher.log
-
-- job_name: ceramic/node-public
-  pipeline_stages:
-  static_configs:
-  - targets:
-      - localhost
-    labels:
-      app: node-public
-      job: ceramic/http
-      __path__: /logs/ceramic/public/node/ceramicdaemon.log
-  - targets:
-      - localhost
-    labels:
-      app: node-public
-      job: ceramic/pubsub
-      __path__: /logs/ceramic/public/node/dispatcher.log
-
-- job_name: ceramic/gateway
-  pipeline_stages:
-  static_configs:
-  - targets:
-      - localhost
-    labels:
-      app: gateway
-      job: ceramic/http
-      __path__: /logs/ceramic/public/gateway/ceramicdaemon.log
-  - targets:
-      - localhost
-    labels:
-      app: gateway
-      job: ceramic/pubsub
-      __path__: /logs/ceramic/public/gateway/dispatcher.log
+      app: node-external
+      job: agent/3ids
+      __path__: /logs/ceramic/external/stats-3ids.log
 
 - job_name: agent/internal
   pipeline_stages:
@@ -60,58 +28,15 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      app: internal
+      app: node-internal
       job: agent/docids
       __path__: /logs/ceramic/internal/stats-docids.log
   - targets:
       - localhost
     labels:
-      app: internal
+      app: node-internal
       job: agent/3ids
       __path__: /logs/ceramic/internal/stats-3ids.log
-
-- job_name: agent/public
-  pipeline_stages:
-  static_configs:
-  - targets:
-      - localhost
-    labels:
-      app: public
-      job: agent/docids
-      __path__: /logs/ceramic/public/stats-docids.log
-  - targets:
-      - localhost
-    labels:
-      app: public
-      job: agent/3ids
-      __path__: /logs/ceramic/public/stats-3ids.log
-
-- job_name: cas/server
-  pipeline_stages:
-  - regex:
-      expression: \[(?P<timestamp>.*)\]
-  - timestamp:
-      source: timestamp
-      format: RFC1123
-  static_configs:
-  - targets:
-      - localhost
-    labels:
-      app: server
-      job: cas/access
-      __path__: /logs/cas/server/access.log
-  - targets:
-      - localhost
-    labels:
-      app: server
-      job: cas/events
-      __path__: /logs/cas/server/events.log
-  - targets:
-      - localhost
-    labels:
-      app: server
-      job: cas/metrics
-      __path__: /logs/cas/server/metrics.log
 
 - job_name: cas/anchor
   pipeline_stages:
@@ -139,3 +64,78 @@ scrape_configs:
       app: anchor
       job: cas/metrics
       __path__: /logs/cas/anchor/metrics.log
+
+- job_name: cas/api
+  pipeline_stages:
+  - regex:
+      expression: \[(?P<timestamp>.*)\]
+  - timestamp:
+      source: timestamp
+      format: RFC1123
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: api
+      job: cas/access
+      __path__: /logs/cas/api/access.log
+  - targets:
+      - localhost
+    labels:
+      app: api
+      job: cas/events
+      __path__: /logs/cas/api/events.log
+  - targets:
+      - localhost
+    labels:
+      app: api
+      job: cas/metrics
+      __path__: /logs/cas/api/metrics.log
+
+- job_name: ceramic/gateway-external
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: gateway-external
+      job: ceramic/http
+      __path__: /logs/ceramic/external/gateway/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      app: gateway-external
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/external/gateway/dispatcher.log
+
+- job_name: ceramic/node-external
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: node-external
+      job: ceramic/http
+      __path__: /logs/ceramic/external/node/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      app: node-external
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/external/node/dispatcher.log
+
+- job_name: ceramic/node-internal
+  pipeline_stages:
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      app: node-internal
+      job: ceramic/http
+      __path__: /logs/ceramic/internal/node/ceramicdaemon.log
+  - targets:
+      - localhost
+    labels:
+      app: node-internal
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/internal/node/dispatcher.log
