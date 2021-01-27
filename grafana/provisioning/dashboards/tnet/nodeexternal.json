@@ -60,10 +60,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "8m",
-                "frequency": "3m",
+                "for": "5m",
+                "frequency": "1m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-tnet-node) alert",
+                "message": "ceramic-tnet-ex-node count below 1",
+                "name": "HealthyHostCount (ceramic-tnet-ex-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -112,7 +113,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -125,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-node/b33861394ee0a796",
+                        "LoadBalancer": "app/ceramic-tnet-ex-node/fc2f712292600cf4",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -153,7 +154,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-tnet-node)",
+            "title": "HealthyHostCount (ceramic-tnet-ex-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -223,10 +224,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "8m",
-                "frequency": "3m",
+                "for": "5m",
+                "frequency": "1m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-tnet-ipfs-nd) alert",
+                "message": "ceramic-tnet-ex-ipfs-nd count below 1",
+                "name": "HealthyHostCount (ceramic-tnet-ex-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -275,7 +277,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -288,7 +290,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-ipfs-nd-alb-ex/56f82abc2e493410",
+                        "LoadBalancer": "app/ceramic-tnet-ex-ipfs-nd-alb-ex/8a71ff1e352abdc7",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -316,7 +318,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-tnet-ipfs-nd)",
+            "title": "HealthyHostCount (ceramic-tnet-ex-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -389,8 +391,9 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "CPUUtilization (ceramic-tnet-node) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-tnet-ex-node CPU over 80%",
+                "name": "CPUUtilization (ceramic-tnet-ex-node) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -438,7 +441,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -450,8 +453,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-node"
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-node"
                     },
                     "expression": "",
                     "id": "",
@@ -478,7 +481,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-tnet-node)",
+            "title": "CPUUtilization (ceramic-tnet-ex-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -551,8 +554,9 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "MemoryUtilization (ceramic-tnet-node) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-tnet-ex-ipfs-nd CPU over 80%",
+                "name": "CPUUtilization (ceramic-tnet-ex-ipfs-nd) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -579,6 +583,166 @@
                 "y": 8
             },
             "hiddenSeries": false,
+            "id": 26,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-ipfs-nd"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "CPUUtilization (ceramic-tnet-ex-ipfs-nd)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "message": "ceramic-tnet-ex-node CPU over 80%",
+                "name": "MemoryUtilization (ceramic-tnet-ex-node) alert",
+                "noDataState": "keep_state",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 15
+            },
+            "hiddenSeries": false,
             "id": 27,
             "isNew": true,
             "legend": {
@@ -600,7 +764,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -612,8 +776,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-node"
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-node"
                     },
                     "expression": "",
                     "id": "",
@@ -640,7 +804,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-tnet-node)",
+            "title": "MemoryUtilization (ceramic-tnet-ex-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -712,167 +876,9 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "CPUUtilization (ceramic-tnet-ipfs-nd) alert",
-                "noDataState": "no_data",
-                "notifications": []
-            },
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "editable": true,
-            "error": false,
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "grid": {},
-            "gridPos": {
-                "h": 7,
-                "w": 12,
-                "x": 0,
-                "y": 15
-            },
-            "hiddenSeries": false,
-            "id": 26,
-            "isNew": true,
-            "legend": {
-                "alignAsTable": true,
-                "avg": true,
-                "current": true,
-                "max": true,
-                "min": true,
-                "rightSide": false,
-                "show": true,
-                "total": false,
-                "values": true
-            },
-            "lines": true,
-            "linewidth": 2,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": false
-            },
-            "percentage": false,
-            "pluginVersion": "7.3.6",
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "",
-                    "dimensions": {
-                        "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-ipfs-nd"
-                    },
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "CPUUtilization",
-                    "namespace": "AWS/ECS",
-                    "period": "",
-                    "refId": "A",
-                    "region": "us-east-2",
-                    "statistics": [
-                        "Average"
-                    ]
-                }
-            ],
-            "thresholds": [
-                {
-                    "colorMode": "critical",
-                    "fill": false,
-                    "line": false,
-                    "op": "gt",
-                    "value": 80
-                }
-            ],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "CPUUtilization (ceramic-tnet-ipfs-nd)",
-            "tooltip": {
-                "msResolution": true,
-                "shared": true,
-                "sort": 0,
-                "value_type": "cumulative"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "format": "percent",
-                    "label": null,
-                    "logBase": 1,
-                    "max": 100,
-                    "min": 0,
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "alert": {
-                "alertRuleTags": {},
-                "conditions": [
-                    {
-                        "evaluator": {
-                            "params": [
-                                80
-                            ],
-                            "type": "gt"
-                        },
-                        "operator": {
-                            "type": "and"
-                        },
-                        "query": {
-                            "params": [
-                                "A",
-                                "5m",
-                                "now"
-                            ]
-                        },
-                        "reducer": {
-                            "params": [],
-                            "type": "avg"
-                        },
-                        "type": "query"
-                    }
-                ],
-                "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "1m",
-                "handler": 1,
-                "name": "MemoryUtilization (ceramic-tnet-ipfs-nd) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-tnet-ex-ipfs-nd CPU over 80%",
+                "name": "MemoryUtilization (ceramic-tnet-ex-ipfs-nd) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -920,7 +926,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -932,8 +938,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-ipfs-nd"
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -960,7 +966,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-tnet-ipfs-nd)",
+            "title": "MemoryUtilization (ceramic-tnet-ex-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1070,7 +1076,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1080,7 +1086,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
                     "legendFormat": "{{ request_remoteAddress }}",
                     "refId": "A"
                 }
@@ -1197,7 +1203,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1207,7 +1213,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
+                    "expr": "count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -1315,7 +1321,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1325,7 +1331,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
                     "legendFormat": "{{ request_url }}",
                     "refId": "A"
                 }
@@ -1433,7 +1439,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1443,8 +1449,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_doc)",
-                    "legendFormat": "{{ message_doc }}",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_data_doc)",
+                    "legendFormat": "{{ message_data_doc }}",
                     "refId": "A"
                 }
             ],
@@ -1463,7 +1469,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!message_doc).*$"
+                            "pattern": "^(?!message_data_doc).*$"
                         }
                     }
                 }
@@ -1559,7 +1565,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1569,7 +1575,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=1 and event=\"received\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
                 }
@@ -1675,7 +1681,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1685,7 +1691,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=0 [$__interval])) by (job)",
                     "legendFormat": "updates",
                     "refId": "A"
                 }
@@ -1790,7 +1796,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1800,7 +1806,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=2 and event=\"published\" [$__interval])) by (job)",
                     "legendFormat": "responses",
                     "refId": "A"
                 }
