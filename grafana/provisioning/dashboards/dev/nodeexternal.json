@@ -63,8 +63,8 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-node count below 1",
-                "name": "HealthyHostCount (ceramic-dev-node) alert",
+                "message": "ceramic-dev-ex-node count below 1",
+                "name": "HealthyHostCount (ceramic-dev-ex-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -126,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-node/1b3982f747048303",
+                        "LoadBalancer": "app/ceramic-dev-ex-node/cc4c6a2363ca2966",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -154,7 +154,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-dev-node)",
+            "title": "HealthyHostCount (ceramic-dev-ex-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -225,10 +225,10 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "2m",
+                "frequency": "1m",
                 "handler": 1,
-                "message": "ceramic-dev-ipfs-nd count below 1",
-                "name": "HealthyHostCount (ceramic-dev-ipfs-nd) alert",
+                "message": "ceramic-dev-ex-ipfs-nd count below 1",
+                "name": "HealthyHostCount (ceramic-dev-ex-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -290,7 +290,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ipfs-nd-alb-ex/ba044e830de8cd2f",
+                        "LoadBalancer": "app/ceramic-dev-ex-ipfs-nd-alb-ex/e87511799d39e468",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -318,7 +318,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-dev-ipfs-nd)",
+            "title": "HealthyHostCount (ceramic-dev-ex-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -389,11 +389,11 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "2m",
+                "frequency": "1m",
                 "handler": 1,
-                "message": "ceramic-dev-node CPU above 80%",
-                "name": "CPUUtilization (ceramic-dev-node) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-dev-ex-node CPU above 80%",
+                "name": "CPUUtilization (ceramic-dev-ex-node) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -453,8 +453,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-node"
+                        "ClusterName": "ceramic-dev-ex",
+                        "ServiceName": "ceramic-dev-ex-node"
                     },
                     "expression": "",
                     "id": "",
@@ -481,7 +481,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-dev-node)",
+            "title": "CPUUtilization (ceramic-dev-ex-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -554,9 +554,9 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "message": "ceramic-dev-ipfs-nd CPU above 80%",
-                "name": "CPUUtilization (ceramic-dev-ipfs-nd) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-dev-ex-ipfs-nd CPU above 80%",
+                "name": "CPUUtilization (ceramic-dev-ex-ipfs-nd) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -616,8 +616,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-ipfs-nd"
+                        "ClusterName": "ceramic-dev-ex",
+                        "ServiceName": "ceramic-dev-ex-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -644,7 +644,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-dev-ipfs-nd)",
+            "title": "CPUUtilization (ceramic-dev-ex-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -714,9 +714,9 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "message": "ceramic-dev-node memory above 80%",
-                "name": "MemoryUtilization (ceramic-dev-node) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-dev-ex-node memory above 80%",
+                "name": "MemoryUtilization (ceramic-dev-ex-node) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -776,8 +776,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-node"
+                        "ClusterName": "ceramic-dev-ex",
+                        "ServiceName": "ceramic-dev-ex-node"
                     },
                     "expression": "",
                     "id": "",
@@ -804,7 +804,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-dev-node)",
+            "title": "MemoryUtilization (ceramic-dev-ex-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -876,9 +876,9 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "message": "ceramic-dev-ipfs-nd memory above 80%",
-                "name": "MemoryUtilization (ceramic-dev-ipfs-nd) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-dev-ex-ipfs-nd memory above 80%",
+                "name": "MemoryUtilization (ceramic-dev-ex-ipfs-nd) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -938,8 +938,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-ipfs-nd"
+                        "ClusterName": "ceramic-dev-ex",
+                        "ServiceName": "ceramic-dev-ex-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -966,7 +966,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-dev-ipfs-nd)",
+            "title": "MemoryUtilization (ceramic-dev-ex-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1086,7 +1086,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
                     "legendFormat": "{{ request_remoteAddress }}",
                     "refId": "A"
                 }
@@ -1213,7 +1213,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
+                    "expr": "count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -1331,7 +1331,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
                     "legendFormat": "{{ request_url }}",
                     "refId": "A"
                 }
@@ -1449,8 +1449,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_doc)",
-                    "legendFormat": "{{ message_doc }}",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_data_doc)",
+                    "legendFormat": "{{ message_data_doc }}",
                     "refId": "A"
                 }
             ],
@@ -1575,7 +1575,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=1 and event=\"received\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
                 }
@@ -1691,7 +1691,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=0 [$__interval])) by (job)",
                     "legendFormat": "updates",
                     "refId": "A"
                 }
@@ -1806,7 +1806,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=2 and event=\"published\" [$__interval])) by (job)",
                     "legendFormat": "responses",
                     "refId": "A"
                 }
