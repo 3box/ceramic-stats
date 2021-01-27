@@ -26,7 +26,7 @@
                 "x": 0,
                 "y": 0
             },
-            "id": 25,
+            "id": 31,
             "panels": [],
             "title": "Containers",
             "type": "row"
@@ -63,7 +63,7 @@
                 "for": "8m",
                 "frequency": "3m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-tnet-gateway) alert",
+                "name": "HealthyHostCount (ceramic-tnet-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -91,7 +91,7 @@
                 "y": 1
             },
             "hiddenSeries": false,
-            "id": 29,
+            "id": 32,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -125,7 +125,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-gateway/30c5663e092214b7",
+                        "LoadBalancer": "app/ceramic-tnet-node/b33861394ee0a796",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -153,7 +153,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-tnet-gateway)",
+            "title": "HealthyHostCount (ceramic-tnet-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -226,7 +226,7 @@
                 "for": "8m",
                 "frequency": "3m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-tnet-ipfs-gw) alert",
+                "name": "HealthyHostCount (ceramic-tnet-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -254,7 +254,7 @@
                 "y": 1
             },
             "hiddenSeries": false,
-            "id": 30,
+            "id": 33,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -288,7 +288,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-ipfs-gw-alb-ex/ba27fd6a8f7316a4",
+                        "LoadBalancer": "app/ceramic-tnet-ipfs-nd-alb-ex/56f82abc2e493410",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -316,7 +316,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-tnet-ipfs-gw)",
+            "title": "HealthyHostCount (ceramic-tnet-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -389,7 +389,7 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "CPUUtilization (ceramic-tnet-gateway) alert",
+                "name": "CPUUtilization (ceramic-tnet-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -417,7 +417,7 @@
                 "y": 8
             },
             "hiddenSeries": false,
-            "id": 20,
+            "id": 28,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -451,7 +451,7 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-gateway"
+                        "ServiceName": "ceramic-tnet-node"
                     },
                     "expression": "",
                     "id": "",
@@ -478,7 +478,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-tnet-gateway)",
+            "title": "CPUUtilization (ceramic-tnet-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -496,7 +496,7 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:155",
-                    "decimals": 0,
+                    "decimals": 2,
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -551,7 +551,7 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "MemoryUtilization (ceramic-tnet-gateway) alert",
+                "name": "MemoryUtilization (ceramic-tnet-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -579,7 +579,7 @@
                 "y": 8
             },
             "hiddenSeries": false,
-            "id": 21,
+            "id": 27,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -613,7 +613,7 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-gateway"
+                        "ServiceName": "ceramic-tnet-node"
                     },
                     "expression": "",
                     "id": "",
@@ -640,7 +640,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-tnet-gateway)",
+            "title": "MemoryUtilization (ceramic-tnet-node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -657,8 +657,7 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
-                    "decimals": 0,
+                    "$$hashKey": "object:184",
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -667,7 +666,7 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
+                    "$$hashKey": "object:185",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -713,7 +712,7 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "CPUUtilization (ceramic-tnet-ipfs-gw) alert",
+                "name": "CPUUtilization (ceramic-tnet-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -741,7 +740,7 @@
                 "y": 15
             },
             "hiddenSeries": false,
-            "id": 22,
+            "id": 26,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -775,7 +774,7 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-ipfs-gw"
+                        "ServiceName": "ceramic-tnet-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -802,7 +801,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-tnet-ipfs-gw)",
+            "title": "CPUUtilization (ceramic-tnet-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -819,8 +818,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
-                    "decimals": 0,
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -829,7 +826,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -875,7 +871,7 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "MemoryUtilization (ceramic-tnet-ipfs-gw) alert",
+                "name": "MemoryUtilization (ceramic-tnet-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -903,7 +899,7 @@
                 "y": 15
             },
             "hiddenSeries": false,
-            "id": 23,
+            "id": 29,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -937,7 +933,7 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-ipfs-gw"
+                        "ServiceName": "ceramic-tnet-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -964,7 +960,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-tnet-ipfs-gw)",
+            "title": "MemoryUtilization (ceramic-tnet-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -981,8 +977,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
-                    "decimals": 0,
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -991,7 +985,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1014,7 +1007,7 @@
                 "x": 0,
                 "y": 22
             },
-            "id": 27,
+            "id": 20,
             "panels": [],
             "title": "App",
             "type": "row"
@@ -1025,7 +1018,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of requests per second made to the gateway by a given origin",
+            "description": "Number of requests per second made to the daemon by a given origin",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1058,7 +1051,7 @@
                 "y": 23
             },
             "hiddenSeries": false,
-            "id": 32,
+            "id": 10,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1087,7 +1080,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
+                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
                     "legendFormat": "{{ request_remoteAddress }}",
                     "refId": "A"
                 }
@@ -1152,7 +1145,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of 5XX responses returned by the gateway per second",
+            "description": "Number of 5XX responses returned by the daemon per second",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1185,7 +1178,7 @@
                 "y": 23
             },
             "hiddenSeries": false,
-            "id": 34,
+            "id": 12,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1214,7 +1207,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
+                    "expr": "count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -1270,7 +1263,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of requests per second made to the gateway by endpoint",
+            "description": "Number of requests per second made to the daemon by endpoint",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1303,7 +1296,7 @@
                 "y": 31
             },
             "hiddenSeries": false,
-            "id": 36,
+            "id": 34,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1332,7 +1325,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
+                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
                     "legendFormat": "{{ request_url }}",
                     "refId": "A"
                 }
@@ -1388,7 +1381,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "docIds that appeared in the pubsub every 2 minutes",
+            "description": "docIds that appeared in the /ceramic pubsub every 2 minutes",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1421,7 +1414,7 @@
                 "y": 31
             },
             "hiddenSeries": false,
-            "id": 38,
+            "id": 2,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1450,7 +1443,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_doc)",
+                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_doc)",
                     "legendFormat": "{{ message_doc }}",
                     "refId": "A"
                 }
@@ -1549,7 +1542,7 @@
                 "y": 39
             },
             "hiddenSeries": false,
-            "id": 40,
+            "id": 4,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -1576,7 +1569,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
                 }
@@ -1665,7 +1658,7 @@
                 "y": 47
             },
             "hiddenSeries": false,
-            "id": 42,
+            "id": 6,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -1747,7 +1740,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Queries (i.e. message \"typ\" is 2 and event is published) in the pubsub topic",
+            "description": "Queries (i.e. message \"typ\" equals 2 and event is published) in the pubsub topic",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1780,7 +1773,7 @@
                 "y": 55
             },
             "hiddenSeries": false,
-            "id": 44,
+            "id": 35,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -1807,7 +1800,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
                     "legendFormat": "responses",
                     "refId": "A"
                 }
@@ -1871,7 +1864,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Gateway",
-    "uid": "tnet-gateway-o1Dp-kcGz",
-    "version": 1
+    "title": "Node (External)",
+    "uid": "tnet-node-ex-o1Dp-kcGz",
+    "version": 2
 }
