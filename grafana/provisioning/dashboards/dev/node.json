@@ -60,9 +60,10 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "8m",
-                "frequency": "3m",
+                "for": "5m",
+                "frequency": "2m",
                 "handler": 1,
+                "message": "ceramic-dev-node count below 1",
                 "name": "HealthyHostCount (ceramic-dev-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -112,7 +113,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -125,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-node/783dd13e60640817",
+                        "LoadBalancer": "app/ceramic-dev-node/1b3982f747048303",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -223,9 +224,10 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "8m",
-                "frequency": "3m",
+                "for": "5m",
+                "frequency": "2m",
                 "handler": 1,
+                "message": "ceramic-dev-ipfs-nd count below 1",
                 "name": "HealthyHostCount (ceramic-dev-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -275,7 +277,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -288,7 +290,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ipfs-nd-alb-ex/efa959167dfa8cc6",
+                        "LoadBalancer": "app/ceramic-dev-ipfs-nd-alb-ex/ba044e830de8cd2f",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -387,8 +389,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
+                "message": "ceramic-dev-node CPU above 80%",
                 "name": "CPUUtilization (ceramic-dev-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -438,7 +441,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -551,7 +554,8 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "MemoryUtilization (ceramic-dev-node) alert",
+                "message": "ceramic-dev-ipfs-nd CPU above 80%",
+                "name": "CPUUtilization (ceramic-dev-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -579,6 +583,166 @@
                 "y": 8
             },
             "hiddenSeries": false,
+            "id": 26,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-dev",
+                        "ServiceName": "ceramic-dev-ipfs-nd"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "CPUUtilization (ceramic-dev-ipfs-nd)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "message": "ceramic-dev-node memory above 80%",
+                "name": "MemoryUtilization (ceramic-dev-node) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 15
+            },
+            "hiddenSeries": false,
             "id": 27,
             "isNew": true,
             "legend": {
@@ -600,7 +764,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -712,165 +876,7 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "CPUUtilization (ceramic-dev-ipfs-nd) alert",
-                "noDataState": "no_data",
-                "notifications": []
-            },
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "editable": true,
-            "error": false,
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "grid": {},
-            "gridPos": {
-                "h": 7,
-                "w": 12,
-                "x": 0,
-                "y": 15
-            },
-            "hiddenSeries": false,
-            "id": 26,
-            "isNew": true,
-            "legend": {
-                "alignAsTable": true,
-                "avg": true,
-                "current": true,
-                "max": true,
-                "min": true,
-                "rightSide": false,
-                "show": true,
-                "total": false,
-                "values": true
-            },
-            "lines": true,
-            "linewidth": 2,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": false
-            },
-            "percentage": false,
-            "pluginVersion": "7.3.6",
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "",
-                    "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-ipfs-nd"
-                    },
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "CPUUtilization",
-                    "namespace": "AWS/ECS",
-                    "period": "",
-                    "refId": "A",
-                    "region": "us-east-2",
-                    "statistics": [
-                        "Average"
-                    ]
-                }
-            ],
-            "thresholds": [
-                {
-                    "colorMode": "critical",
-                    "fill": false,
-                    "line": false,
-                    "op": "gt",
-                    "value": 80
-                }
-            ],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "CPUUtilization (ceramic-dev-ipfs-nd)",
-            "tooltip": {
-                "msResolution": true,
-                "shared": true,
-                "sort": 0,
-                "value_type": "cumulative"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "format": "percent",
-                    "label": null,
-                    "logBase": 1,
-                    "max": 100,
-                    "min": 0,
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "alert": {
-                "alertRuleTags": {},
-                "conditions": [
-                    {
-                        "evaluator": {
-                            "params": [
-                                80
-                            ],
-                            "type": "gt"
-                        },
-                        "operator": {
-                            "type": "and"
-                        },
-                        "query": {
-                            "params": [
-                                "A",
-                                "5m",
-                                "now"
-                            ]
-                        },
-                        "reducer": {
-                            "params": [],
-                            "type": "avg"
-                        },
-                        "type": "query"
-                    }
-                ],
-                "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "1m",
-                "handler": 1,
+                "message": "ceramic-dev-ipfs-nd memory above 80%",
                 "name": "MemoryUtilization (ceramic-dev-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -920,7 +926,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -1070,7 +1076,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1080,7 +1086,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
                     "legendFormat": "{{ request_remoteAddress }}",
                     "refId": "A"
                 }
@@ -1197,7 +1203,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1315,7 +1321,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1433,7 +1439,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1559,7 +1565,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1675,7 +1681,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1790,7 +1796,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
