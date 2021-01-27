@@ -60,10 +60,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "8m",
-                "frequency": "3m",
+                "for": "5m",
+                "frequency": "1m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-tnet-gateway) alert",
+                "message": "ceramic-tnet-ex-gateway count below 1",
+                "name": "HealthyHostCount (ceramic-tnet-ex-gateway) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -112,7 +113,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -125,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-gateway/30c5663e092214b7",
+                        "LoadBalancer": "app/ceramic-tnet-ex-gateway/d3ebb54d4bc43bb0",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -153,7 +154,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-tnet-gateway)",
+            "title": "HealthyHostCount (ceramic-tnet-ex-gateway)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -223,10 +224,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "8m",
-                "frequency": "3m",
+                "for": "5m",
+                "frequency": "1m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-tnet-ipfs-gw) alert",
+                "message": "ceramic-tnet-ex-ipfs-gw count below 1",
+                "name": "HealthyHostCount (ceramic-tnet-ex-ipfs-gw) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -275,7 +277,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -288,7 +290,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-ipfs-gw-alb-ex/ba27fd6a8f7316a4",
+                        "LoadBalancer": "app/ceramic-tnet-ex-ipfs-gw-alb-ex/ab1bb9030931ca33",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -316,7 +318,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-tnet-ipfs-gw)",
+            "title": "HealthyHostCount (ceramic-tnet-ex-ipfs-gw)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -389,8 +391,9 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "CPUUtilization (ceramic-tnet-gateway) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-tnet-ex-gateway CPU over 80%",
+                "name": "CPUUtilization (ceramic-tnet-ex-gateway) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -438,7 +441,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -450,8 +453,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-gateway"
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-gateway"
                     },
                     "expression": "",
                     "id": "",
@@ -478,7 +481,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-tnet-gateway)",
+            "title": "CPUUtilization (ceramic-tnet-ex-gateway)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -551,7 +554,8 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "MemoryUtilization (ceramic-tnet-gateway) alert",
+                "message": "ceramic-tnet-ex-ipfs-gw CPU over 80%",
+                "name": "CPUUtilization (ceramic-tnet-ex-ipfs-gw) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -579,168 +583,6 @@
                 "y": 8
             },
             "hiddenSeries": false,
-            "id": 21,
-            "isNew": true,
-            "legend": {
-                "alignAsTable": true,
-                "avg": true,
-                "current": true,
-                "max": true,
-                "min": true,
-                "rightSide": false,
-                "show": true,
-                "total": false,
-                "values": true
-            },
-            "lines": true,
-            "linewidth": 2,
-            "links": [],
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": false
-            },
-            "percentage": false,
-            "pluginVersion": "7.3.6",
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "",
-                    "dimensions": {
-                        "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-gateway"
-                    },
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "MemoryUtilization",
-                    "namespace": "AWS/ECS",
-                    "period": "",
-                    "refId": "A",
-                    "region": "us-east-2",
-                    "statistics": [
-                        "Average"
-                    ]
-                }
-            ],
-            "thresholds": [
-                {
-                    "colorMode": "critical",
-                    "fill": false,
-                    "line": false,
-                    "op": "gt",
-                    "value": 80
-                }
-            ],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "MemoryUtilization (ceramic-tnet-gateway)",
-            "tooltip": {
-                "msResolution": true,
-                "shared": true,
-                "sort": 0,
-                "value_type": "cumulative"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:155",
-                    "decimals": 0,
-                    "format": "percent",
-                    "label": null,
-                    "logBase": 1,
-                    "max": 100,
-                    "min": 0,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:156",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "alert": {
-                "alertRuleTags": {},
-                "conditions": [
-                    {
-                        "evaluator": {
-                            "params": [
-                                80
-                            ],
-                            "type": "gt"
-                        },
-                        "operator": {
-                            "type": "and"
-                        },
-                        "query": {
-                            "params": [
-                                "A",
-                                "5m",
-                                "now"
-                            ]
-                        },
-                        "reducer": {
-                            "params": [],
-                            "type": "avg"
-                        },
-                        "type": "query"
-                    }
-                ],
-                "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "1m",
-                "handler": 1,
-                "name": "CPUUtilization (ceramic-tnet-ipfs-gw) alert",
-                "noDataState": "no_data",
-                "notifications": []
-            },
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "editable": true,
-            "error": false,
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "grid": {},
-            "gridPos": {
-                "h": 7,
-                "w": 12,
-                "x": 0,
-                "y": 15
-            },
-            "hiddenSeries": false,
             "id": 22,
             "isNew": true,
             "legend": {
@@ -762,7 +604,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -774,8 +616,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-ipfs-gw"
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-ipfs-gw"
                     },
                     "expression": "",
                     "id": "",
@@ -802,7 +644,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-tnet-ipfs-gw)",
+            "title": "CPUUtilization (ceramic-tnet-ex-ipfs-gw)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -875,8 +717,172 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "MemoryUtilization (ceramic-tnet-ipfs-gw) alert",
-                "noDataState": "no_data",
+                "message": "ceramic-tnet-ex-gateway memory over 80%",
+                "name": "MemoryUtilization (ceramic-tnet-ex-gateway) alert",
+                "noDataState": "keep_state",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 15
+            },
+            "hiddenSeries": false,
+            "id": 21,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-gateway"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "MemoryUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "MemoryUtilization (ceramic-tnet-ex-gateway)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:155",
+                    "decimals": 0,
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:156",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "message": "ceramic-tnet-ex-ipfs-gw memory over 80%",
+                "name": "MemoryUtilization (ceramic-tnet-ex-ipfs-gw) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -924,7 +930,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -936,8 +942,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-tnet",
-                        "ServiceName": "ceramic-tnet-ipfs-gw"
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-ipfs-gw"
                     },
                     "expression": "",
                     "id": "",
@@ -964,7 +970,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-tnet-ipfs-gw)",
+            "title": "MemoryUtilization (ceramic-tnet-ex-ipfs-gw)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1077,7 +1083,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1087,7 +1093,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
+                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
                     "legendFormat": "{{ request_remoteAddress }}",
                     "refId": "A"
                 }
@@ -1204,7 +1210,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1214,7 +1220,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
+                    "expr": "count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -1322,7 +1328,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1332,7 +1338,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
+                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
                     "legendFormat": "{{ request_url }}",
                     "refId": "A"
                 }
@@ -1440,7 +1446,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1450,8 +1456,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_doc)",
-                    "legendFormat": "{{ message_doc }}",
+                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_data_doc)",
+                    "legendFormat": "{{ message_data_doc }}",
                     "refId": "A"
                 }
             ],
@@ -1566,7 +1572,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1576,7 +1582,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=1 and event=\"received\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
                 }
@@ -1682,7 +1688,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1692,7 +1698,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=0 [$__interval])) by (job)",
                     "legendFormat": "updates",
                     "refId": "A"
                 }
@@ -1797,7 +1803,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.6",
+            "pluginVersion": "7.3.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1807,7 +1813,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=2 and event=\"published\" [$__interval])) by (job)",
                     "legendFormat": "responses",
                     "refId": "A"
                 }
