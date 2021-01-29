@@ -59,14 +59,7 @@ async function main() {
   // TODO: Should we handle files found on startup? Could result in duplicate counts
   watcher.on('ready', async function () {
     console.log('Watcher is ready.')
-    fs.readdirSync(logDirectory).forEach(async function(file) {
-      if (fs.lstatSync(path.resolve(logDirectory, file)).isDirectory()) {
-        // TODO: Navigate recursively instead of passing here
-      } else {
-        watchFilter(file) && await handleFile(logDirectory + file, ipfs)
-      }
-    })
-  }) 
+  })
 
   watcher.on('change', async function (evt, filePath) {
     if (evt === 'update') {
