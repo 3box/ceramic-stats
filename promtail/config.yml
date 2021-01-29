@@ -16,32 +16,8 @@ scrape_configs:
       - localhost
     labels:
       app: node-external
-      job: agent/cid
-      __path__: /logs/ceramic/external/stats-cid.log
-  - targets:
-      - localhost
-    labels:
-      app: node-external
-      job: agent/controller
-      __path__: /logs/ceramic/external/stats-controller.log
-  - targets:
-      - localhost
-    labels:
-      app: node-external
-      job: agent/docid
-      __path__: /logs/ceramic/external/stats-docid.log
-  - targets:
-      - localhost
-    labels:
-      app: node-external
-      job: agent/family
-      __path__: /logs/ceramic/external/stats-family.log
-  - targets:
-      - localhost
-    labels:
-      app: node-external
-      job: agent/schema
-      __path__: /logs/ceramic/external/stats-schema.log
+      job: agent
+      __path__: /logs/ceramic/external/stats*.log
 
 - job_name: agent/internal
   pipeline_stages:
@@ -53,32 +29,8 @@ scrape_configs:
       - localhost
     labels:
       app: node-internal
-      job: agent/cid
-      __path__: /logs/ceramic/internal/stats-cid.log
-  - targets:
-      - localhost
-    labels:
-      app: node-internal
-      job: agent/controller
-      __path__: /logs/ceramic/internal/stats-controller.log
-  - targets:
-      - localhost
-    labels:
-      app: node-internal
-      job: agent/docid
-      __path__: /logs/ceramic/internal/stats-docid.log
-  - targets:
-      - localhost
-    labels:
-      app: node-internal
-      job: agent/family
-      __path__: /logs/ceramic/internal/stats-family.log
-  - targets:
-      - localhost
-    labels:
-      app: node-internal
-      job: agent/schema
-      __path__: /logs/ceramic/internal/stats-schema.log
+      job: agent
+      __path__: /logs/ceramic/internal/stats*.log
 
 - job_name: cas/anchor
   pipeline_stages:
