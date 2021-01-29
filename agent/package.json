@@ -1,7 +1,7 @@
 {
   "name": "ceramic-stats",
   "version": "0.0.1",
-  "description": "> A Loki/Promtail configuration to collect Ceramic network stats",
+  "description": "Monitors Ceramic pubsub and produces metrics from documents",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
@@ -12,16 +12,25 @@
     "type": "git",
     "url": "git+https://github.com/3box/ceramic-stats.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "ceramic",
+    "ceramicnetwork",
+    "ipfs",
+    "pubsub"
+  ],
+  "author": "val@3box.io",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/3box/ceramic-stats/issues"
   },
   "homepage": "https://github.com/3box/ceramic-stats#readme",
   "dependencies": {
+    "@ceramicnetwork/docid": "^0.4.5",
     "dag-jose": "^0.3.0",
-    "ipfs": "^0.52.1",
+    "ipfs": "^0.53.2",
+    "ipfs-http-client": "^48.2.2",
+    "level": "^6.0.1",
+    "logfmt": "^1.3.2",
     "multiformats": "^3.0.3",
     "node-watch": "^0.7.0",
     "read-last-line": "^1.1.0"
