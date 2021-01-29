@@ -22,13 +22,15 @@ const docIdOutputFile = 'stats-docid.log'
 const familyOutputFile = 'stats-family.log'
 const controllerOutputFile = 'stats-controller.log'
 const schemaOutputFile = 'stats-schema.log'
+const tagOutputFile = 'stats-tag.log'
 
 const outputFiles = [
   cidOutputFile,
   docIdOutputFile,
   familyOutputFile,
   controllerOutputFile,
-  schemaOutputFile
+  schemaOutputFile,
+  tagOutputFile
 ]
 
 const cidOutputPath = LOG_PATH + cidOutputFile
@@ -36,6 +38,7 @@ const docIdOutputPath = LOG_PATH + docIdOutputFile
 const familyOutputPath = LOG_PATH + familyOutputFile
 const controllerOutputPath = LOG_PATH + controllerOutputFile
 const schemaOutputPath = LOG_PATH + schemaOutputFile
+const tagOutputPath = LOG_PATH + tagOutputFile
 
 let watcher
 
@@ -107,7 +110,6 @@ function watchFilter(filename) {
  * @param {IPFS} ipfs
  */
 async function handleFile(filePath, ipfs) {
-  console.log('Handling file', filePath)
   try {
     const docId = await handleNewDocId(filePath)
     if (docId) {
@@ -167,7 +169,10 @@ async function handleHeader(cid, ipfs) {
 async function getDocPayload(cid, ipfs) {
   try {
     const record = (await ipfs.dag.get(cid)).value
-    return (await ipfs.dag.get(record.link)).value
+    if (record.link) {
+      return (await ipfs.dag.get(record.link)).value
+    }
+    return record
   } catch (error) {
     console.error(error)
     return null
@@ -186,7 +191,7 @@ async function logHeader(header) {
   try {
     const { family } = header
     if (family) {
-      const occurrences = await save(family)
+      const occurrences = await save(family, 'family')
       writeStream({ family, occurrences }, familyOutputPath)
     }
   } catch (error) {
@@ -208,11 +213,23 @@ async function logHeader(header) {
   try {
     const { schema } = header
     if (schema) {
-      const occurrences = await save(schema)
+      const occurrences = await save(schema, 'schema')
       writeStream({ schema, occurrences}, schemaOutputPath)
     }
   } catch (error) {
     console.warn('Failed to save schema', error.message)
+  }
+
+  try {
+    const { tags } = header
+    if (tags) {
+      for (tag of tags) {
+        const occurrences = await save(tag, 'tag')
+        writeStream({ tag, occurrences }, tagOutputPath)
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to save tag', error.message)
   }
 }
 
@@ -220,7 +237,10 @@ async function logHeader(header) {
  * Adds key to db and returns number of occurrences.
  * @param {string} key
  */
-async function save(key) {
+async function save(key, prefix) {
+  if (prefix) {
+    key = prefix + ':' + key
+  }
   try {
     const value = await db.get(key)
     const nextValue = value + 1
