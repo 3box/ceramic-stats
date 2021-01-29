@@ -1,34 +1,53 @@
-var child_process = require('child_process')
-var dagJose = require('dag-jose')
-var Ipfs = require('ipfs')
-var fs = require('fs')
-var legacy = require('multiformats/legacy')
-var multiformats = require('multiformats/basics')
-var path = require('path')
-var readLastLine = require('read-last-line')
-var watch = require('node-watch')
+const child_process = require('child_process')
+const fs = require('fs')
+const path = require('path')
 
-const docIdSet = {}
+const DocId = require('@ceramicnetwork/docid')
+const dagJose = require('dag-jose')
+const Ipfs = require('ipfs')
+const IpfsHttpClient = require('ipfs-http-client')
+const logfmt = require('logfmt')
+const multiformats = require('multiformats/basics')
+const legacy = require('multiformats/legacy')
+const watch = require('node-watch')
+const readLastLine = require('read-last-line')
 
-const logDirectory = '/logs/ceramic/'
+const db = require('./db')
 
-const docIdLogName = 'stats-docids.log'
-const threeIdLogName = 'stats-3ids.log'
+let LOG_PATH = process.env.LOG_PATH || '/logs/ceramic/'
+const { IPFS_API_URL } = process.env
 
-const docIdLogPath = logDirectory + docIdLogName
-const threeIdLogPath = logDirectory + threeIdLogName
+const cidOutputFile = 'stats-cid.log'
+const docIdOutputFile = 'stats-docid.log'
+const familyOutputFile = 'stats-family.log'
+const controllerOutputFile = 'stats-controller.log'
+const schemaOutputFile = 'stats-schema.log'
 
-// TODO: other tags, schema, owners
- 
+const outputFiles = [
+  cidOutputFile,
+  docIdOutputFile,
+  familyOutputFile,
+  controllerOutputFile,
+  schemaOutputFile
+]
+
+const cidOutputPath = LOG_PATH + cidOutputFile
+const docIdOutputPath = LOG_PATH + docIdOutputFile
+const familyOutputPath = LOG_PATH + familyOutputFile
+const controllerOutputPath = LOG_PATH + controllerOutputFile
+const schemaOutputPath = LOG_PATH + schemaOutputFile
+
+let watcher
+
 async function main() {
-  const ipfs = await createIpfs()
+  if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
+  const ipfs = await createIpfs(IPFS_API_URL)
 
-  let watcher
   let watching = false
 
   while (!watching) {
     try {
-      watcher = watch(logDirectory, { recursive: true, filter: watchFilter })
+      watcher = watch(LOG_PATH, { recursive: true, filter: watchFilter })
       watching = true
     } catch (error) {
       console.error(error)
@@ -37,7 +56,8 @@ async function main() {
     }
   }
 
-  watcher.on('ready', async function() {
+  // TODO: Should we handle files found on startup? Could result in duplicate counts
+  watcher.on('ready', async function () {
     console.log('Watcher is ready.')
     fs.readdirSync(logDirectory).forEach(async function(file) {
       if (fs.lstatSync(path.resolve(logDirectory, file)).isDirectory()) {
@@ -48,87 +68,110 @@ async function main() {
     })
   }) 
 
-  watcher.on('change', async function(evt, filePath) {
+  watcher.on('change', async function (evt, filePath) {
     if (evt === 'update') {
       await handleFile(filePath, ipfs)
     }
   })
 
-  watcher.on('error', function(err) {
+  watcher.on('error', function (err) {
     console.error(err)
   })
 }
 
-async function createIpfs() {
+/**
+ * Returns IPFS instance. Given url, uses ipfs http client.
+ */
+async function createIpfs(url) {
+  let ipfs
+
   multiformats.multicodec.add(dagJose.default)
   const format = legacy(multiformats, dagJose.default.name)
+  let ipld = { formats: [format] }
+
   console.log('Starting ipfs...')
-  return await Ipfs.create({ ipld: { formats: [format] } })
+  if (url) {
+    ipfs = await IpfsHttpClient({ url, ipld })
+  } else {
+    ipfs = await Ipfs.create({ ipld, repo: path.join(__dirname, '../ipfs') })
+  }
+  return ipfs
 }
 
+/**
+ * Returns true if this file should be watched.
+ * @param {string} filename
+ */
 function watchFilter(filename) {
   return (
-    !filename.includes(docIdLogName)
-    && !filename.includes(threeIdLogName)
-    && filename.endsWith('-docids.log')
+    !outputFiles.includes(path.basename(filename)) && filename.endsWith('-docids.log')
   )
 }
 
+/**
+ * Gets any docId from the file and logs it to output files.
+ * @param {string} filePath
+ * @param {IPFS} ipfs
+ */
 async function handleFile(filePath, ipfs) {
-  const docId = await getNewDocId(filePath)
-  if (docId) {
-    logDocId(docId)
-    await logIf3id(docId, ipfs)
+  console.log('Handling file', filePath)
+  try {
+    const docId = await handleNewDocId(filePath)
+    if (docId) {
+      const cid = await handleNewCid(docId)
+      if (cid) {
+        await handleHeader(cid, ipfs)
+      }
+    }
+  } catch (error) {
+    console.error(error)
   }
 }
 
-async function getNewDocId(filePath) {
+/**
+ * Parses last line of file and returns it if it is a docId.
+ * @param {string} filePath
+ * @returns {DocId}
+ */
+async function handleNewDocId(filePath) {
   return await readLastLine.read(filePath, 1)
-    .then(function (lines) {
+    .then(async function (lines) {
       lines = lines.trim()
-      return isNewDocId(lines) && lines || null
-    })
-    .catch(function (err) {
-      console.error(err.message)
+      const docId = DocId.default.fromString(lines)
+      const docIdString = docId.toString()
+      const occurrences = await save(docIdString)
+      logDocId(docIdString, occurrences)
+      return docId
     })
 }
 
-function isNewDocId(docId) {
-  // TODO: Check valid docId format
-  console.log('docId', docId)
-  if (docIdSet[docId] === undefined) {
-    docIdSet[docId] = 1
-    console.log('new')
-    return true
+/**
+ * Returns cid from given docId if it is new.
+ * @param {DocId} docId
+ * @returns {string | null}
+ */
+async function handleNewCid(docId) {
+  const cid = docId.cid.toString()
+  const occurrences = await save(cid)
+  logCid(cid, occurrences)
+  if (occurrences == 1) {
+    return cid
   }
-  docIdSet[docId]++
-  console.log('not new')
-  return false
 }
 
-function logDocId(docId) {
-  writeStream(docId, docIdLogPath, 'New docId:')
-}
-
-async function logIf3id(docId, ipfs) {
-  const payload = await getDocPayload(docId, ipfs)
-  
-  let is3id = false
+/**
+ * Gets payload of cid and logs header contents.
+ * @param {string} cid
+ * @param {IPFS} ipfs
+ */
+async function handleHeader(cid, ipfs) {
+  const payload = await getDocPayload(cid, ipfs)
   if (payload) {
-    try {
-      is3id = payload.header.tags.includes('3id')
-    } catch (error) {
-      // pass
-    }
-    if (is3id) {
-      writeStream(docId, threeIdLogPath, 'New 3id:')
-    }
+    await logHeader(payload.header, ipfs)
   }
 }
 
-async function getDocPayload(docId, ipfs) {
-  const cidIndex = 2
-  const cid = docId.split('/')[cidIndex]
+async function getDocPayload(cid, ipfs) {
   try {
     const record = (await ipfs.dag.get(cid)).value
     return (await ipfs.dag.get(record.link)).value
@@ -138,19 +181,85 @@ async function getDocPayload(docId, ipfs) {
   }
 }
 
-function writeStream(docId, logPath, logHeader) {
-  const logMessage = JSON.stringify({timestamp: Date.now(), docId})
+function logDocId(docId, occurrences) {
+  writeStream({ docId: docId.toString(), occurrences }, docIdOutputPath)
+}
+
+function logCid(cid, occurrences) {
+  writeStream({ cid: cid.toString(), occurrences }, cidOutputPath)
+}
+
+async function logHeader(header) {
+  try {
+    const { family } = header
+    if (family) {
+      const occurrences = await save(family)
+      writeStream({ family, occurrences }, familyOutputPath)
+    }
+  } catch (error) {
+    console.warn('Failed to save family', error.message)
+  }
+
+  try {
+    const { controllers } = header
+    if (controllers) {
+      for (controller of controllers) {
+        const occurrences = await save(controller)
+        writeStream({ controller, occurrences }, controllerOutputPath)
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to save controllers', error.message)
+  }
+
+  try {
+    const { schema } = header
+    if (schema) {
+      const occurrences = await save(schema)
+      writeStream({ schema, occurrences}, schemaOutputPath)
+    }
+  } catch (error) {
+    console.warn('Failed to save schema', error.message)
+  }
+}
+
+/**
+ * Adds key to db and returns number of occurrences.
+ * @param {string} key
+ */
+async function save(key) {
+  try {
+    const value = await db.get(key)
+    const nextValue = value + 1
+    await db.put(key, nextValue)
+    return nextValue
+  } catch (error) {
+    if (error.notFound) {
+      const nextValue = 1
+      await db.put(key, nextValue)
+      return nextValue
+    } else {
+      throw error
+    }
+  }
+}
+
+function writeStream(data, logPath) {
+  const logMessage = logfmt.stringify({ ts: Date.now(), ...data })
 
   const stream = fs.createWriteStream(logPath, { flags: 'a' })
   stream.write(logMessage + '\n')
   stream.end()
 
-  console.log(logHeader, logMessage)
+  console.log(logMessage)
 }
 
 main()
-  .then(function () {})
-  .catch(function (err) {
-      console.error(err)
-      process.exit(1)
+  .then(function () { })
+  .catch(async function (err) {
+    if (watcher) {
+      await watcher.close()
+    }
+    console.error(err)
+    process.exit(1)
   })
