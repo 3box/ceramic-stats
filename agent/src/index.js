@@ -20,9 +20,10 @@ const { IPFS_API_URL } = process.env
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 
 const cidOutputPath = outputPath('cid')
+const controllerOutputPath = outputPath('controller')
 const docIdOutputPath = outputPath('docid')
 const familyOutputPath = outputPath('family')
-const controllerOutputPath = outputPath('controller')
+const idxOutputPath = outputPath('idx')
 const schemaOutputPath = outputPath('schema')
 const tagOutputPath = outputPath('tag')
 
@@ -99,12 +100,10 @@ async function handleMessage(message) {
   const { doc, tip } = parsedMessageData
 
   try {
-    const isNewDocId = await handleNewDocId(doc)
-    if (isNewDocId) {
-      const isNewCid = await handleNewCid(tip)
-      if (isNewCid) {
-        await handleHeader(cid, ipfs)
-      }
+    await handleNewDocId(doc)
+    const isNewCid = await handleNewCid(tip)
+    if (isNewCid) {
+      await handleHeader(doc, tip, ipfs)
     }
   } catch (error) {
     console.error(error)
@@ -117,6 +116,7 @@ async function handleMessage(message) {
  * @returns {boolean}
  */
 async function handleNewDocId(docIdString) {
+  if (!docIdString) return false
   const { occurrences, totalUnique } = await save(docIdString, 'docId')
   logDocId(docIdString, occurrences, totalUnique)
   return occurrences == 1
@@ -128,6 +128,7 @@ async function handleNewDocId(docIdString) {
  * @returns {boolean}
  */
 async function handleNewCid(cidString) {
+  if (!cidString) return false
   const { occurrences, totalUnique } = await save(cidString, 'cid')
   logCid(cidString, occurrences, totalUnique)
   return occurrences == 1
@@ -135,17 +136,18 @@ async function handleNewCid(cidString) {
 
 /**
  * Gets payload of cid and logs header contents.
+ * @param {string} docId
  * @param {string} cid
  * @param {IPFS} ipfs
  */
-async function handleHeader(cid, ipfs) {
-  const payload = await getDocPayload(cid, ipfs)
+async function handleHeader(docId, cid, ipfs) {
+  const payload = await getPayload(cid, ipfs)
   if (payload) {
-    await logHeader(payload.header, ipfs)
+    await logHeader(payload.header, docId)
   }
 }
 
-async function getDocPayload(cid, ipfs) {
+async function getPayload(cid, ipfs) {
   try {
     const record = (await ipfs.dag.get(cid)).value
     if (record.link) {
@@ -159,20 +161,26 @@ async function getDocPayload(cid, ipfs) {
 }
 
 function logDocId(docId, occurrences, totalUnique) {
-  writeStream({ docId: docId.toString(), occurrences, totalUnique }, docIdOutputPath)
+  writeStream({ docId, occurrences, totalUnique }, docIdOutputPath)
 }
 
 function logCid(cid, occurrences, totalUnique) {
-  writeStream({ cid: cid.toString(), occurrences, totalUnique }, cidOutputPath)
+  writeStream({ cid, occurrences, totalUnique }, cidOutputPath)
 }
 
-async function logHeader(header) {
+async function logHeader(header, docId) {
   try {
     const { family } = header
     if (family) {
       const { occurrences, totalUnique } = await save(family, 'family')
       writeStream({ family, occurrences, totalUnique }, familyOutputPath)
     }
+
+    if (family.toLowerCase() == 'idx') {
+      const { occurrences, totalUnique } = await save(docId, 'family:idx')
+      writeStream({ docId, occurrences, totalUnique }, idxOutputPath)
+    }
+
   } catch (error) {
     console.warn('Failed to save family', error.message)
   }
