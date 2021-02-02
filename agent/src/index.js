@@ -26,6 +26,7 @@ const familyOutputPath = outputPath('family')
 const idxOutputPath = outputPath('idx')
 const schemaOutputPath = outputPath('schema')
 const tagOutputPath = outputPath('tag')
+const threeIdOutputPath = outputPath('3id')
 
 function outputPath(suffix) {
   return `${LOG_PATH}stats-'${suffix}.log`
@@ -179,6 +180,9 @@ async function logHeader(header, docId) {
     if (family.toLowerCase() == 'idx') {
       const { occurrences, totalUnique } = await save(docId, 'family:idx')
       writeStream({ docId, occurrences, totalUnique }, idxOutputPath)
+    } else if (family.toLowerCase() == '3id') {
+      const { occurrences, totalUnique } = await save(docId, 'family:3id')
+      writeStream({ docId, occurrences, totalUnique }, threeIdOutputPath)
     }
 
   } catch (error) {
