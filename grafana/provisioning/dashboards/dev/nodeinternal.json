@@ -1397,7 +1397,7 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -1446,9 +1446,9 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": false
             },
@@ -1516,7 +1516,7 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -1565,9 +1565,9 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": false
             },
@@ -1661,14 +1661,14 @@
             },
             "gridPos": {
                 "h": 8,
-                "w": 12,
+                "w": 6,
                 "x": 0,
                 "y": 48
             },
             "id": 37,
             "options": {
                 "colorMode": "value",
-                "graphMode": "area",
+                "graphMode": "none",
                 "justifyMode": "center",
                 "orientation": "auto",
                 "reduceOptions": {
@@ -1691,6 +1691,67 @@
             "timeFrom": null,
             "timeShift": null,
             "title": "DocIds",
+            "transformations": [],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 6,
+                "y": 48
+            },
+            "id": 38,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "sum"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.3.7",
+            "targets": [
+                {
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | controller != \"\" [$__interval])) by (job)",
+                    "legendFormat": "Controllers",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Controllers",
             "transformations": [],
             "type": "stat"
         },
@@ -1985,67 +2046,6 @@
                 "align": false,
                 "alignLevel": null
             }
-        },
-        {
-            "datasource": "Loki",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 0,
-                "y": 64
-            },
-            "id": 38,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "center",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "sum"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "textMode": "value_and_name"
-            },
-            "pluginVersion": "7.3.7",
-            "targets": [
-                {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | controller != \"\" [$__interval])) by (job)",
-                    "legendFormat": "Controllers",
-                    "refId": "A"
-                }
-            ],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "Controllers",
-            "transformations": [],
-            "type": "stat"
         },
         {
             "aliasColors": {},
