@@ -101,6 +101,11 @@ scrape_configs:
 
 - job_name: ceramic/gateway-external
   pipeline_stages:
+  - regex:
+      expression: request.timestamp=(?P<timestamp>\d*)
+  - timestamp:
+      source: timestamp
+      format: UnixMs
   static_configs:
   - targets:
       - localhost
@@ -117,6 +122,11 @@ scrape_configs:
 
 - job_name: ceramic/node-external
   pipeline_stages:
+  - regex:
+      expression: request.timestamp=(?P<timestamp>\d*)
+  - timestamp:
+      source: timestamp
+      format: UnixMs
   static_configs:
   - targets:
       - localhost
@@ -133,6 +143,11 @@ scrape_configs:
 
 - job_name: ceramic/node-internal
   pipeline_stages:
+  - regex:
+      expression: request.timestamp=(?P<timestamp>\d*)
+  - timestamp:
+      source: timestamp
+      format: UnixMs
   static_configs:
   - targets:
       - localhost

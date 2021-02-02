@@ -1020,7 +1020,7 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -1069,9 +1069,9 @@
                 "total": true,
                 "values": true
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": true
             },
@@ -1147,7 +1147,7 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -1196,9 +1196,9 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": true
             },
@@ -1213,7 +1213,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
+                    "expr": "count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -1265,7 +1265,7 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -1314,7 +1314,7 @@
                 "total": true,
                 "values": true
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
@@ -1331,7 +1331,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
                     "legendFormat": "{{ request_url }}",
                     "refId": "A"
                 }
@@ -1448,7 +1448,7 @@
             },
             "lines": true,
             "linewidth": 1,
-            "nullPointMode": "connected",
+            "nullPointMode": "null",
             "options": {
                 "alertThreshold": false
             },
@@ -1932,7 +1932,7 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -1979,9 +1979,9 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": false
             },
@@ -1996,7 +1996,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
                     "legendFormat": "updates",
                     "refId": "A"
                 }
@@ -2047,7 +2047,7 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -2094,9 +2094,9 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": true
             },
@@ -2111,7 +2111,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
                 }
@@ -2163,7 +2163,7 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -2210,7 +2210,7 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
@@ -2227,7 +2227,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
                     "legendFormat": "responses",
                     "refId": "A"
                 }
