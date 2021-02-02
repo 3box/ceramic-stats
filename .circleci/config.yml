@@ -4,7 +4,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
 
 jobs:
-  build-and-update:
+  build-and-push:
     machine: # executor type
       image: ubuntu-1604:201903-01
     parameters:
