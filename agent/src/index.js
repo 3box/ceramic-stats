@@ -134,8 +134,8 @@ async function handleNewDocId(filePath) {
       lines = lines.trim()
       const docId = DocId.default.fromString(lines)
       const docIdString = docId.toString()
-      const occurrences = await save(docIdString)
-      logDocId(docIdString, occurrences)
+      const { occurrences, totalUnique } = await save(docIdString, 'docId')
+      logDocId(docIdString, occurrences, totalUnique)
       return docId
     })
 }
@@ -147,8 +147,8 @@ async function handleNewDocId(filePath) {
  */
 async function handleNewCid(docId) {
   const cid = docId.cid.toString()
-  const occurrences = await save(cid)
-  logCid(cid, occurrences)
+  const { occurrences, totalUnique } = await save(cid, 'cid')
+  logCid(cid, occurrences, totalUnique)
   if (occurrences == 1) {
     return cid
   }
@@ -179,20 +179,20 @@ async function getDocPayload(cid, ipfs) {
   }
 }
 
-function logDocId(docId, occurrences) {
-  writeStream({ docId: docId.toString(), occurrences }, docIdOutputPath)
+function logDocId(docId, occurrences, totalUnique) {
+  writeStream({ docId: docId.toString(), occurrences, totalUnique }, docIdOutputPath)
 }
 
-function logCid(cid, occurrences) {
-  writeStream({ cid: cid.toString(), occurrences }, cidOutputPath)
+function logCid(cid, occurrences, totalUnique) {
+  writeStream({ cid: cid.toString(), occurrences, totalUnique }, cidOutputPath)
 }
 
 async function logHeader(header) {
   try {
     const { family } = header
     if (family) {
-      const occurrences = await save(family, 'family')
-      writeStream({ family, occurrences }, familyOutputPath)
+      const { occurrences, totalUnique } = await save(family, 'family')
+      writeStream({ family, occurrences, totalUnique }, familyOutputPath)
     }
   } catch (error) {
     console.warn('Failed to save family', error.message)
@@ -202,8 +202,8 @@ async function logHeader(header) {
     const { controllers } = header
     if (controllers) {
       for (controller of controllers) {
-        const occurrences = await save(controller)
-        writeStream({ controller, occurrences }, controllerOutputPath)
+        const { occurrences, totalUnique } = await save(controller, 'controller')
+        writeStream({ controller, occurrences, totalUnique }, controllerOutputPath)
       }
     }
   } catch (error) {
@@ -213,8 +213,8 @@ async function logHeader(header) {
   try {
     const { schema } = header
     if (schema) {
-      const occurrences = await save(schema, 'schema')
-      writeStream({ schema, occurrences}, schemaOutputPath)
+      const { occurrences, totalUnique } = await save(schema, 'schema')
+      writeStream({ schema, occurrences, totalUnique }, schemaOutputPath)
     }
   } catch (error) {
     console.warn('Failed to save schema', error.message)
@@ -224,8 +224,8 @@ async function logHeader(header) {
     const { tags } = header
     if (tags) {
       for (tag of tags) {
-        const occurrences = await save(tag, 'tag')
-        writeStream({ tag, occurrences }, tagOutputPath)
+        const { occurrences, totalUnique } = await save(tag, 'tag')
+        writeStream({ tag, occurrences, totalUnique }, tagOutputPath)
       }
     }
   } catch (error) {
@@ -234,15 +234,30 @@ async function logHeader(header) {
 }
 
 /**
- * Adds key to db and returns number of occurrences.
+ * Adds key to db and returns number of occurrences and number of total unique
+ * values with the given prefix.
  * @param {string} key
  */
-async function save(key, prefix) {
-  if (prefix) {
+async function save(key, prefix = '') {
+  let totalUnique
+  let occurrences
+
+  if (prefix != '') {
     key = prefix + ':' + key
   }
+
+  occurrences = await _save(key)
+  totalUnique = await _save(prefix, occurrences == 1)
+
+  return { occurrences, totalUnique }
+}
+
+async function _save(key, increment = true) {
   try {
     const value = await db.get(key)
+    if (!increment) {
+      return value
+    }
     const nextValue = value + 1
     await db.put(key, nextValue)
     return nextValue

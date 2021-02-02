@@ -1649,15 +1649,24 @@
                             {
                                 "color": "green",
                                 "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
                             }
                         ]
                     }
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "DocIds"
+                            }
+                        ]
+                    }
+                ]
             },
             "gridPos": {
                 "h": 8,
@@ -1668,12 +1677,12 @@
             "id": 37,
             "options": {
                 "colorMode": "value",
-                "graphMode": "none",
+                "graphMode": "area",
                 "justifyMode": "center",
                 "orientation": "auto",
                 "reduceOptions": {
                     "calcs": [
-                        "sum"
+                        "max"
                     ],
                     "fields": "",
                     "values": false
@@ -1683,15 +1692,90 @@
             "pluginVersion": "7.3.7",
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | docId != \"\" [$__interval])) by (job)",
+                    "expr": "sum_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | docId != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
                     "legendFormat": "DocIds",
                     "refId": "A"
                 }
             ],
             "timeFrom": null,
             "timeShift": null,
-            "title": "DocIds",
-            "transformations": [],
+            "title": "Total Unique DocIds",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "Misc"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName"
+                        },
+                        "properties": []
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 6,
+                "y": 48
+            },
+            "id": 39,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "max"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.3.7",
+            "targets": [
+                {
+                    "expr": "sum_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | family != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
+                    "legendFormat": "Families",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Unique Families",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
             "type": "stat"
         },
         {
@@ -1718,23 +1802,30 @@
                         ]
                     }
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName"
+                        },
+                        "properties": []
+                    }
+                ]
             },
             "gridPos": {
                 "h": 8,
                 "w": 6,
-                "x": 6,
+                "x": 12,
                 "y": 48
             },
-            "id": 38,
+            "id": 43,
             "options": {
                 "colorMode": "value",
-                "graphMode": "none",
+                "graphMode": "area",
                 "justifyMode": "center",
                 "orientation": "auto",
                 "reduceOptions": {
                     "calcs": [
-                        "sum"
+                        "max"
                     ],
                     "fields": "",
                     "values": false
@@ -1744,15 +1835,99 @@
             "pluginVersion": "7.3.7",
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | controller != \"\" [$__interval])) by (job)",
+                    "expr": "sum_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | schema != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
+                    "legendFormat": "Schema",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Unique Schema",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Controllers"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 18,
+                "y": 48
+            },
+            "id": 38,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "max"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.3.7",
+            "targets": [
+                {
+                    "expr": "sum_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | controller != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
                     "legendFormat": "Controllers",
                     "refId": "A"
                 }
             ],
             "timeFrom": null,
             "timeShift": null,
-            "title": "Controllers",
-            "transformations": [],
+            "title": "Total Unique Controllers",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
             "type": "stat"
         },
         {
@@ -1790,8 +1965,8 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
-                "y": 48
+                "x": 0,
+                "y": 56
             },
             "hiddenSeries": false,
             "id": 6,
@@ -1871,67 +2046,6 @@
             }
         },
         {
-            "datasource": "Loki",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 0,
-                "y": 56
-            },
-            "id": 39,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "center",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "sum"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "textMode": "value_and_name"
-            },
-            "pluginVersion": "7.3.7",
-            "targets": [
-                {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | family != \"\" [$__interval])) by (family)",
-                    "legendFormat": "{{ family }}",
-                    "refId": "A"
-                }
-            ],
-            "timeFrom": null,
-            "timeShift": null,
-            "title": "DocIds by Family",
-            "transformations": [],
-            "type": "stat"
-        },
-        {
             "aliasColors": {},
             "bars": true,
             "dashLength": 10,
@@ -1966,8 +2080,8 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
-                "y": 56
+                "x": 0,
+                "y": 64
             },
             "hiddenSeries": false,
             "id": 4,
@@ -2082,8 +2196,8 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
-                "y": 64
+                "x": 0,
+                "y": 72
             },
             "hiddenSeries": false,
             "id": 35,
