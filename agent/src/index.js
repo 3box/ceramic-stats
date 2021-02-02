@@ -99,6 +99,7 @@ async function createIpfs(url) {
  * @param {string} filename
  */
 function watchFilter(filename) {
+  console.log('watchFilter saw', filename)
   return (
     !outputFiles.includes(path.basename(filename)) && filename.endsWith('-docids.log')
   )

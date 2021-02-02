@@ -19,7 +19,7 @@ scrape_configs:
     labels:
       app: node-external
       job: agent
-      __path__: /logs/ceramic/external/stats*.log
+      __path__: /logs/ceramic/external/node/stats*.log
 
 - job_name: agent/internal
   pipeline_stages:
@@ -34,7 +34,7 @@ scrape_configs:
     labels:
       app: node-internal
       job: agent
-      __path__: /logs/ceramic/internal/stats*.log
+      __path__: /logs/ceramic/internal/node/stats*.log
 
 - job_name: cas/anchor
   pipeline_stages:
