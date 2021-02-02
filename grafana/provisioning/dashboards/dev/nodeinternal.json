@@ -1382,12 +1382,26 @@
             }
         },
         {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 39
+            },
+            "id": 42,
+            "panels": [],
+            "title": "PubSub",
+            "type": "row"
+        },
+        {
             "aliasColors": {},
             "bars": true,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "docIds that appeared in the /ceramic pubsub every 2 minutes",
+            "description": "DocIds logged by this node during this time frame",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1416,8 +1430,8 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
-                "y": 31
+                "x": 0,
+                "y": 40
             },
             "hiddenSeries": false,
             "id": 2,
@@ -1449,8 +1463,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_doc)",
-                    "legendFormat": "{{ message_doc }}",
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | docId != \"\" [$__interval])) by (docId)",
+                    "legendFormat": "{{ docId }}",
                     "refId": "A"
                 }
             ],
@@ -1458,22 +1472,13 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Active DocId Count",
+            "title": "DocIds Active",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "pattern": "^(?!message_doc).*$"
-                        }
-                    }
-                }
-            ],
+            "transformations": [],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1515,6 +1520,362 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
+            "description": "Cids logged by this node during this time frame",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 40
+            },
+            "hiddenSeries": false,
+            "id": 40,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": false,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | cid != \"\" [$__interval])) by (cid)",
+                    "legendFormat": "{{ cid }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Cids Active",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:245",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:246",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 48
+            },
+            "id": 37,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "sum"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.3.7",
+            "targets": [
+                {
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | docId != \"\" [$__interval])) by (job)",
+                    "legendFormat": "DocIds",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "DocIds",
+            "transformations": [],
+            "type": "stat"
+        },
+        {
+            "aliasColors": {},
+            "bars": true,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Updates (i.e. message \"typ\" equals 0) in the pubsub topic",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 48
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": false,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
+                    "legendFormat": "updates",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Updates in PubSub Topic",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:345",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:346",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 56
+            },
+            "id": 39,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "sum"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.3.7",
+            "targets": [
+                {
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | family != \"\" [$__interval])) by (family)",
+                    "legendFormat": "{{ family }}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "DocIds by Family",
+            "transformations": [],
+            "type": "stat"
+        },
+        {
+            "aliasColors": {},
+            "bars": true,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
             "description": "Queries (i.e. message \"typ\" equals 1 and event is received) in the pubsub topic",
             "fieldConfig": {
                 "defaults": {
@@ -1544,8 +1905,8 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 6,
-                "y": 39
+                "x": 12,
+                "y": 56
             },
             "hiddenSeries": false,
             "id": 4,
@@ -1626,12 +1987,8 @@
             }
         },
         {
-            "aliasColors": {},
-            "bars": true,
-            "dashLength": 10,
-            "dashes": false,
             "datasource": "Loki",
-            "description": "Updates (i.e. message \"typ\" equals 0) in the pubsub topic",
+            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1655,90 +2012,40 @@
                 },
                 "overrides": []
             },
-            "fill": 1,
-            "fillGradient": 0,
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 6,
-                "y": 47
+                "x": 0,
+                "y": 64
             },
-            "hiddenSeries": false,
-            "id": 6,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": false,
-            "linewidth": 1,
-            "nullPointMode": "null",
+            "id": 38,
             "options": {
-                "alertThreshold": false
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "sum"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value_and_name"
             },
-            "percentage": false,
             "pluginVersion": "7.3.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
-                    "legendFormat": "updates",
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | controller != \"\" [$__interval])) by (job)",
+                    "legendFormat": "Controllers",
                     "refId": "A"
                 }
             ],
-            "thresholds": [],
             "timeFrom": null,
-            "timeRegions": [],
             "timeShift": null,
-            "title": "Updates in PubSub Topic",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:345",
-                    "decimals": 0,
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:346",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
+            "title": "Controllers",
+            "transformations": [],
+            "type": "stat"
         },
         {
             "aliasColors": {},
@@ -1775,8 +2082,8 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 6,
-                "y": 55
+                "x": 12,
+                "y": 64
             },
             "hiddenSeries": false,
             "id": 35,
