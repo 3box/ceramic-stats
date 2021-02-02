@@ -17,35 +17,29 @@ scrape_configs:
 
 - job_name: agent/external
   pipeline_stages:
+  - timestamp:
+      source: ts
+      format: UnixMs
   static_configs:
   - targets:
       - localhost
     labels:
       app: node-external
-      job: agent/docids
-      __path__: /logs/ceramic/stats-docids.log
-  - targets:
-      - localhost
-    labels:
-      app: node-external
-      job: agent/3ids
-      __path__: /logs/ceramic/stats-3ids.log
+      job: agent
+      __path__: /logs/ceramic/stats*.log
 
 - job_name: agent/internal
   pipeline_stages:
+  - timestamp:
+      source: ts
+      format: UnixMs
   static_configs:
   - targets:
       - localhost
     labels:
       app: node-internal
-      job: agent/docids
-      __path__: /logs/ceramic/stats-docids.log
-  - targets:
-      - localhost
-    labels:
-      app: node-internal
-      job: agent/3ids
-      __path__: /logs/ceramic/stats-3ids.log
+      job: agent
+      __path__: /logs/ceramic/stats*.log
 
 - job_name: cas/anchor
   pipeline_stages:
