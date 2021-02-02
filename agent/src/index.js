@@ -2,132 +2,107 @@ const child_process = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
-const DocId = require('@ceramicnetwork/docid')
 const dagJose = require('dag-jose')
 const Ipfs = require('ipfs')
 const IpfsHttpClient = require('ipfs-http-client')
 const logfmt = require('logfmt')
+const LRUMap = require('lrumap')
 const multiformats = require('multiformats/basics')
 const legacy = require('multiformats/legacy')
-const watch = require('node-watch')
-const readLastLine = require('read-last-line')
+const u8a = require('uint8arrays')
 
 const db = require('./db')
 
 let LOG_PATH = process.env.LOG_PATH || '/logs/ceramic/'
+if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
+
 const { IPFS_API_URL } = process.env
+const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 
-const cidOutputFile = 'stats-cid.log'
-const docIdOutputFile = 'stats-docid.log'
-const familyOutputFile = 'stats-family.log'
-const controllerOutputFile = 'stats-controller.log'
-const schemaOutputFile = 'stats-schema.log'
-const tagOutputFile = 'stats-tag.log'
+const cidOutputPath = outputPath('cid')
+const docIdOutputPath = outputPath('docid')
+const familyOutputPath = outputPath('family')
+const controllerOutputPath = outputPath('controller')
+const schemaOutputPath = outputPath('schema')
+const tagOutputPath = outputPath('tag')
 
-const outputFiles = [
-  cidOutputFile,
-  docIdOutputFile,
-  familyOutputFile,
-  controllerOutputFile,
-  schemaOutputFile,
-  tagOutputFile
+function outputPath(suffix) {
+  return `${LOG_PATH}stats-'${suffix}.log`
+}
+
+const bootstrapList = {
+  '/ceramic/testnet-clay': [
+    '/dns4/ipfs-clay-internal.3boxlabs.com/tcp/4012/wss/p2p/QmQotCKxiMWt935TyCBFTN23jaivxwrZ3uD58wNxeg5npi'
+],
+'/ceramic/dev-unstable': [
+    '/dns4/ipfs-dev-internal.3boxlabs.com/tcp/4012/wss/p2p/QmYkpxusRem2iup8ZAfVGYv7iq1ks1yyq2XxQh3z2a8xXq'
 ]
+}
 
-const cidOutputPath = LOG_PATH + cidOutputFile
-const docIdOutputPath = LOG_PATH + docIdOutputFile
-const familyOutputPath = LOG_PATH + familyOutputFile
-const controllerOutputPath = LOG_PATH + controllerOutputFile
-const schemaOutputPath = LOG_PATH + schemaOutputFile
-const tagOutputPath = LOG_PATH + tagOutputFile
+const handledMessages = new LRUMap({ limit: 10000 })
 
-let watcher
+let ipfs
 
 async function main() {
   if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
-  const ipfs = await createIpfs(IPFS_API_URL)
-
-  let watching = false
-
-  while (!watching) {
-    try {
-      watcher = watch(LOG_PATH, { recursive: true, filter: watchFilter })
-      watching = true
-    } catch (error) {
-      console.error(error)
-      console.log('Will retry instantiating watcher after 10 seconds...')
-      child_process.execSync('sleep 10')
-    }
-  }
-
-  // TODO: Should we handle files found on startup? Could result in duplicate counts
-  watcher.on('ready', async function () {
-    console.log('Watcher is ready.')
-    checkFilesToWatch(LOG_PATH)
-  })
-
-  watcher.on('change', async function (evt, filePath) {
-    if (evt === 'update') {
-      await handleFile(filePath, ipfs)
-    }
-  })
-
-  watcher.on('error', function (err) {
-    console.error(err)
-  })
-}
-
-function checkFilesToWatch(dir) {
-  fs.readdirSync(dir).forEach(async function(file) {
-      if (fs.lstatSync(path.resolve(dir, file)).isDirectory()) {
-        // TODO: Navigate recursively instead of passing here
-      } else {
-        if (watchFilter(file)) {
-          console.log('Watching', file)
-        }
-      }
-    })
+  ipfs = await createIpfs(IPFS_API_URL)
+  await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
+  console.log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC, '\nReady')
 }
 
 /**
  * Returns IPFS instance. Given url, uses ipfs http client.
+ * 
+ * NOTE: IPFS nodes are not designed for multi-client usage. When using pubsub,
+ * the IPFS url should not be shared between multiple clients.
  */
 async function createIpfs(url) {
   let ipfs
 
   multiformats.multicodec.add(dagJose.default)
   const format = legacy(multiformats, dagJose.default.name)
-  let ipld = { formats: [format] }
+
+  const config = { Bootstrap: bootstrapList[IPFS_PUBSUB_TOPIC] }
+  const ipld = { formats: [format] }
+  const libp2p = { config: { dht: { enabled: false } } }
 
   console.log('Starting ipfs...')
   if (url) {
     ipfs = await IpfsHttpClient({ url, ipld })
   } else {
-    ipfs = await Ipfs.create({ ipld, repo: path.join(__dirname, '../ipfs') })
+    ipfs = await Ipfs.create({
+      config,
+      ipld,
+      libp2p,
+      repo: path.join(__dirname, '../ipfs'),
+    })
   }
   return ipfs
 }
 
-/**
- * Returns true if this file should be watched.
- * @param {string} filename
- */
-function watchFilter(filename) {
-  return (
-    !outputFiles.includes(path.basename(filename)) && filename.endsWith('-docids.log')
-  )
-}
+async function handleMessage(message) {
+  // dedupe
+  const seqno = u8a.toString(message.seqno, 'base16')
+  if (handledMessages.get(seqno)) {
+    return
+  } else {
+    handledMessages.set(seqno, true)
+  }
 
-/**
- * Gets any docId from the file and logs it to output files.
- * @param {string} filePath
- * @param {IPFS} ipfs
- */
-async function handleFile(filePath, ipfs) {
+  let parsedMessageData
+  if (typeof message.data == 'string') {
+    parsedMessageData = JSON.parse(message.data)
+  } else {
+    parsedMessageData = JSON.parse(new TextDecoder('utf-8').decode(message.data))
+  }
+
+  const { doc, tip } = parsedMessageData
+
   try {
-    const docId = await handleNewDocId(filePath)
-    if (docId) {
-      const cid = await handleNewCid(docId)
-      if (cid) {
+    const isNewDocId = await handleNewDocId(doc)
+    if (isNewDocId) {
+      const isNewCid = await handleNewCid(tip)
+      if (isNewCid) {
         await handleHeader(cid, ipfs)
       }
     }
@@ -137,34 +112,25 @@ async function handleFile(filePath, ipfs) {
 }
 
 /**
- * Parses last line of file and returns it if it is a docId.
- * @param {string} filePath
- * @returns {DocId}
+ * Tracks docId counts, logs, and returns true if it is new.
+ * @param {string} docIdString
+ * @returns {boolean}
  */
-async function handleNewDocId(filePath) {
-  return await readLastLine.read(filePath, 1)
-    .then(async function (lines) {
-      lines = lines.trim()
-      const docId = DocId.default.fromString(lines)
-      const docIdString = docId.toString()
-      const { occurrences, totalUnique } = await save(docIdString, 'docId')
-      logDocId(docIdString, occurrences, totalUnique)
-      return docId
-    })
+async function handleNewDocId(docIdString) {
+  const { occurrences, totalUnique } = await save(docIdString, 'docId')
+  logDocId(docIdString, occurrences, totalUnique)
+  return occurrences == 1
 }
 
 /**
- * Returns cid from given docId if it is new.
- * @param {DocId} docId
- * @returns {string | null}
+ * Tracks cid counts, logs, and returns true if it is new.
+ * @param {string} cidString
+ * @returns {boolean}
  */
-async function handleNewCid(docId) {
-  const cid = docId.cid.toString()
-  const { occurrences, totalUnique } = await save(cid, 'cid')
-  logCid(cid, occurrences, totalUnique)
-  if (occurrences == 1) {
-    return cid
-  }
+async function handleNewCid(cidString) {
+  const { occurrences, totalUnique } = await save(cidString, 'cid')
+  logCid(cidString, occurrences, totalUnique)
+  return occurrences == 1
 }
 
 /**
@@ -298,8 +264,8 @@ function writeStream(data, logPath) {
 main()
   .then(function () { })
   .catch(async function (err) {
-    if (watcher) {
-      await watcher.close()
+    if (ipfs) {
+      await ipfs.shutdown()
     }
     console.error(err)
     process.exit(1)
