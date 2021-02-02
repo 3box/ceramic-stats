@@ -17,8 +17,10 @@ scrape_configs:
 
 - job_name: agent/external
   pipeline_stages:
+  - regex:
+      expression: ts=(?P<timestamp>\d*)
   - timestamp:
-      source: ts
+      source: timestamp
       format: UnixMs
   static_configs:
   - targets:
@@ -30,8 +32,10 @@ scrape_configs:
 
 - job_name: agent/internal
   pipeline_stages:
+  - regex:
+      expression: ts=(?P<timestamp>\d*)
   - timestamp:
-      source: ts
+      source: timestamp
       format: UnixMs
   static_configs:
   - targets:
