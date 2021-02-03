@@ -29,7 +29,7 @@ const tagOutputPath = outputPath('tag')
 const threeIdOutputPath = outputPath('3id')
 
 function outputPath(suffix) {
-  return `${LOG_PATH}stats-'${suffix}.log`
+  return `${LOG_PATH}stats-${suffix}.log`
 }
 
 const bootstrapList = {
