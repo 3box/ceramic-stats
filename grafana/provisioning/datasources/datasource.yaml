@@ -62,4 +62,4 @@ datasources:
     # <number> increase the version every time this file gets updated
     version: 3
     # <bool> allow users to edit datasources from the UI.
-    editable: true
+    editable: false
