@@ -125,7 +125,7 @@
             "alias": "",
             "dimensions": {
               "AvailabilityZone": "*",
-              "LoadBalancer": "app/ceramic-tnet-cas-alb/84ca78f457827a59",
+              "LoadBalancer": "app/ceramic-tnet-cas-alb/9dc9b1fdc8635f40",
               "TargetGroup": "*"
             },
             "expression": "",
@@ -288,7 +288,7 @@
             "alias": "",
             "dimensions": {
               "AvailabilityZone": "*",
-              "LoadBalancer": "app/ceramic-tnet-cas-ipfs-alb-ex/9caf335933530fac",
+              "LoadBalancer": "app/ceramic-tnet-cas-ipfs-alb-ex/7f93e83d06cb19d2",
               "TargetGroup": "*"
             },
             "expression": "",
