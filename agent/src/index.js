@@ -179,10 +179,10 @@ async function logHeader(header, docId) {
 
     if (family.toLowerCase() == 'idx') {
       const { occurrences, totalUnique } = await save(docId, 'family:idx')
-      writeStream({ docId, occurrences, totalUnique }, idxOutputPath)
+      writeStream({ idx: docId, occurrences, totalUnique }, idxOutputPath)
     } else if (family.toLowerCase() == '3id') {
       const { occurrences, totalUnique } = await save(docId, 'family:3id')
-      writeStream({ docId, occurrences, totalUnique }, threeIdOutputPath)
+      writeStream({ threeId: docId, occurrences, totalUnique }, threeIdOutputPath)
     }
 
   } catch (error) {
