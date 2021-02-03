@@ -12,11 +12,11 @@ providers:
     # <string> provider type. Default to 'file'
     type: file
     # <bool> disable dashboard deletion
-    disableDeletion: true
+    disableDeletion: false
     # <int> how often Grafana will scan for changed dashboards
     updateIntervalSeconds: 10
     # <bool> allow updating provisioned dashboards from the UI
-    allowUiUpdates: false
+    allowUiUpdates: true
     options:
       # <string, required> path to dashboard files on disk. Required when using the 'file' type
       path: $DASHBOARDS_PATH
