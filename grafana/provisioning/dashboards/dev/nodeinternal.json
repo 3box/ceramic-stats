@@ -1079,7 +1079,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node-internal\", job=\"ceramic/http\"} [$__interval])",
+                    "expr": "count_over_time({app=\"node-internal\", job=\"ceramic/http\"} [1s])",
                     "legendFormat": "Total requests/second",
                     "refId": "A"
                 }
@@ -1142,7 +1142,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "",
+            "description": "Responses by status / second, stacked",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1204,22 +1204,22 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 200 and response_statusCode < 300 [$__interval]))",
+                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 200 and response_statusCode < 300 [1s]))",
                     "legendFormat": "{{ response_statusCode }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 300 and response_statusCode < 400 [$__interval]))",
+                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 300 and response_statusCode < 400 [1s]))",
                     "legendFormat": "{{ response_statusCode }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 400 and response_statusCode < 500 [$__interval]))",
+                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 400 and response_statusCode < 500 [1s]))",
                     "legendFormat": "{{ response_statusCode }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500 [$__interval]))",
+                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500 [1s]))",
                     "legendFormat": "{{ response_statusCode }}",
                     "refId": "D"
                 }
@@ -1460,7 +1460,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_method) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | request_method=\"POST\" [$__interval]))",
+                    "expr": "sum by (request_method) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | request_method=\"POST\" [1s]))",
                     "legendFormat": "POST requests/second",
                     "refId": "A"
                 }
@@ -1514,7 +1514,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "",
+            "description": "Requests per endpoint per second, stacked",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1630,7 +1630,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "",
+            "description": "Requests per origin per second, stacked",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1755,7 +1755,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "",
+            "description": "Requests per origin per endpoint per second, stacked",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -3040,5 +3040,5 @@
     "timezone": "",
     "title": "Node (Internal)",
     "uid": "dev-node-o1Dp-kcGz",
-    "version": 6378
+    "version": 6380
 }
