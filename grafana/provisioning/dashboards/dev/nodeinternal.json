@@ -1945,7 +1945,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Origins",
+            "title": "# of Unique Origins Active",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -2038,7 +2038,7 @@
                 "y": 72
             },
             "hiddenSeries": false,
-            "id": 2,
+            "id": 53,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -2067,7 +2067,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | docId != \"\" [$__interval])) by (docId)",
+                    "expr": "sum by (docId) (count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | docId != \"\" [1s]))",
                     "legendFormat": "{{ docId }}",
                     "refId": "A"
                 }
@@ -2234,6 +2234,240 @@
             }
         },
         {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 80
+            },
+            "hiddenSeries": false,
+            "id": 2,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count by (Value) (sum by (docId) (count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | docId != \"\" [1s])))",
+                    "legendFormat": "Unique docIds / second",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "# of Unique DocIds Active",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 80
+            },
+            "hiddenSeries": false,
+            "id": 54,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count by (Value) (sum by (cid) (count_over_time({app=\"node-internal\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | cid != \"\" [1s])))",
+                    "legendFormat": "Unique cids / second",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "# of Unique Cids Active",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
             "datasource": "Loki",
             "description": "",
             "fieldConfig": {
@@ -2272,7 +2506,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 0,
-                "y": 80
+                "y": 88
             },
             "id": 37,
             "options": {
@@ -2351,7 +2585,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 4,
-                "y": 80
+                "y": 88
             },
             "id": 38,
             "options": {
@@ -2420,7 +2654,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 8,
-                "y": 80
+                "y": 88
             },
             "id": 43,
             "options": {
@@ -2495,7 +2729,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 12,
-                "y": 80
+                "y": 88
             },
             "id": 49,
             "options": {
@@ -2571,7 +2805,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 16,
-                "y": 80
+                "y": 88
             },
             "id": 39,
             "options": {
@@ -2647,7 +2881,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 20,
-                "y": 80
+                "y": 88
             },
             "id": 50,
             "options": {
@@ -2719,7 +2953,7 @@
                 "h": 8,
                 "w": 8,
                 "x": 0,
-                "y": 88
+                "y": 96
             },
             "hiddenSeries": false,
             "id": 6,
@@ -2832,7 +3066,7 @@
                 "h": 8,
                 "w": 8,
                 "x": 8,
-                "y": 88
+                "y": 96
             },
             "hiddenSeries": false,
             "id": 4,
@@ -2946,7 +3180,7 @@
                 "h": 8,
                 "w": 8,
                 "x": 16,
-                "y": 88
+                "y": 96
             },
             "hiddenSeries": false,
             "id": 35,
@@ -3040,5 +3274,5 @@
     "timezone": "",
     "title": "Node (Internal)",
     "uid": "dev-node-o1Dp-kcGz",
-    "version": 6380
+    "version": 6381
 }
