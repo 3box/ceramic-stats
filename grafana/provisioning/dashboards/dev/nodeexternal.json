@@ -15,6 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
+    "id": 75,
     "links": [],
     "panels": [
         {
@@ -63,7 +64,7 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-node count below 1",
+                "message": "",
                 "name": "HealthyHostCount (ceramic-dev-ex-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -171,7 +172,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -181,7 +181,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -225,9 +224,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-ipfs-nd count below 1",
+                "message": "",
                 "name": "HealthyHostCount (ceramic-dev-ex-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -335,7 +334,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -345,7 +343,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -389,9 +386,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-node CPU above 80%",
+                "message": "",
                 "name": "CPUUtilization (ceramic-dev-ex-node) alert",
                 "noDataState": "keep_state",
                 "notifications": []
@@ -498,7 +495,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 2,
                     "format": "percent",
                     "label": null,
@@ -508,7 +504,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -552,9 +547,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-ipfs-nd CPU above 80%",
+                "message": "",
                 "name": "CPUUtilization (ceramic-dev-ex-ipfs-nd) alert",
                 "noDataState": "keep_state",
                 "notifications": []
@@ -712,9 +707,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-node memory above 80%",
+                "message": "",
                 "name": "MemoryUtilization (ceramic-dev-ex-node) alert",
                 "noDataState": "keep_state",
                 "notifications": []
@@ -821,7 +816,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:184",
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -830,7 +824,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:185",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -874,9 +867,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-ipfs-nd memory above 80%",
+                "message": "",
                 "name": "MemoryUtilization (ceramic-dev-ex-ipfs-nd) alert",
                 "noDataState": "keep_state",
                 "notifications": []
@@ -1121,7 +1114,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:271",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1131,7 +1123,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:272",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1239,7 +1230,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:192",
                     "decimals": 0,
                     "format": "short",
                     "label": "",
@@ -1249,7 +1239,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:193",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1357,7 +1346,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:271",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1367,7 +1355,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:272",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1484,7 +1471,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:245",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1494,7 +1480,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:246",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1600,7 +1585,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:295",
                     "decimals": 0,
                     "format": "short",
                     "label": "",
@@ -1610,7 +1594,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:296",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1716,7 +1699,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:345",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1726,7 +1708,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:346",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1831,7 +1812,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:295",
                     "decimals": 0,
                     "format": "short",
                     "label": "",
@@ -1841,7 +1821,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:296",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1872,5 +1851,5 @@
     "timezone": "",
     "title": "Node (External)",
     "uid": "dev-node-ex-o1Dp-kcGz",
-    "version": 2
+    "version": 6
 }

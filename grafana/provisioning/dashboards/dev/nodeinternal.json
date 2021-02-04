@@ -64,7 +64,7 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-node count below 1",
+                "message": "",
                 "name": "HealthyHostCount (ceramic-dev-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -388,9 +388,9 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-node CPU above 80%",
+                "message": "",
                 "name": "CPUUtilization (ceramic-dev-node) alert",
-                "noDataState": "no_data",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -547,11 +547,11 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ipfs-nd CPU above 80%",
+                "message": "",
                 "name": "CPUUtilization (ceramic-dev-ipfs-nd) alert",
-                "noDataState": "no_data",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -707,11 +707,11 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-node memory above 80%",
+                "message": "",
                 "name": "MemoryUtilization (ceramic-dev-node) alert",
-                "noDataState": "no_data",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -867,11 +867,11 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ipfs-nd memory above 80%",
+                "message": "",
                 "name": "MemoryUtilization (ceramic-dev-ipfs-nd) alert",
-                "noDataState": "no_data",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -3040,5 +3040,5 @@
     "timezone": "",
     "title": "Node (Internal)",
     "uid": "dev-node-o1Dp-kcGz",
-    "version": 6377
+    "version": 6378
 }
