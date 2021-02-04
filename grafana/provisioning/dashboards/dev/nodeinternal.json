@@ -1755,7 +1755,6 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "decimals": null,
             "description": "",
             "fieldConfig": {
                 "defaults": {
@@ -1787,6 +1786,123 @@
                 "w": 24,
                 "x": 0,
                 "y": 55
+            },
+            "hiddenSeries": false,
+            "id": 52,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (request_url, request_headers_x_forwarded_for) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ request_headers_x_forwarded_for }}, {{ request_url }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Origin per Endpoint",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 63
             },
             "hiddenSeries": false,
             "id": 51,
@@ -1876,7 +1992,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 63
+                "y": 71
             },
             "id": 42,
             "panels": [],
@@ -1919,7 +2035,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 64
+                "y": 72
             },
             "hiddenSeries": false,
             "id": 2,
@@ -2036,7 +2152,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 64
+                "y": 72
             },
             "hiddenSeries": false,
             "id": 40,
@@ -2156,7 +2272,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 0,
-                "y": 72
+                "y": 80
             },
             "id": 37,
             "options": {
@@ -2235,7 +2351,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 4,
-                "y": 72
+                "y": 80
             },
             "id": 38,
             "options": {
@@ -2304,7 +2420,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 8,
-                "y": 72
+                "y": 80
             },
             "id": 43,
             "options": {
@@ -2379,7 +2495,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 12,
-                "y": 72
+                "y": 80
             },
             "id": 49,
             "options": {
@@ -2455,7 +2571,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 16,
-                "y": 72
+                "y": 80
             },
             "id": 39,
             "options": {
@@ -2531,7 +2647,7 @@
                 "h": 8,
                 "w": 4,
                 "x": 20,
-                "y": 72
+                "y": 80
             },
             "id": 50,
             "options": {
@@ -2603,7 +2719,7 @@
                 "h": 8,
                 "w": 8,
                 "x": 0,
-                "y": 80
+                "y": 88
             },
             "hiddenSeries": false,
             "id": 6,
@@ -2716,7 +2832,7 @@
                 "h": 8,
                 "w": 8,
                 "x": 8,
-                "y": 80
+                "y": 88
             },
             "hiddenSeries": false,
             "id": 4,
@@ -2830,7 +2946,7 @@
                 "h": 8,
                 "w": 8,
                 "x": 16,
-                "y": 80
+                "y": 88
             },
             "hiddenSeries": false,
             "id": 35,
@@ -2924,5 +3040,5 @@
     "timezone": "",
     "title": "Node (Internal)",
     "uid": "dev-node-o1Dp-kcGz",
-    "version": 6376
+    "version": 6377
 }
