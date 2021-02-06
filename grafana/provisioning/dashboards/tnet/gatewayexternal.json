@@ -15,6 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
+    "id": 2,
     "links": [],
     "panels": [
         {
@@ -61,9 +62,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-tnet-ex-gateway count below 1",
+                "message": "",
                 "name": "HealthyHostCount (ceramic-tnet-ex-gateway) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -171,7 +172,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -181,7 +181,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -225,9 +224,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-tnet-ex-ipfs-gw count below 1",
+                "message": "",
                 "name": "HealthyHostCount (ceramic-tnet-ex-ipfs-gw) alert",
                 "noDataState": "no_data",
                 "notifications": []
@@ -335,7 +334,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -345,7 +343,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -389,9 +386,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-tnet-ex-gateway CPU over 80%",
+                "message": "",
                 "name": "CPUUtilization (ceramic-tnet-ex-gateway) alert",
                 "noDataState": "keep_state",
                 "notifications": []
@@ -498,7 +495,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 0,
                     "format": "percent",
                     "label": null,
@@ -508,7 +504,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -552,11 +547,11 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-tnet-ex-ipfs-gw CPU over 80%",
+                "message": "",
                 "name": "CPUUtilization (ceramic-tnet-ex-ipfs-gw) alert",
-                "noDataState": "no_data",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -661,7 +656,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 0,
                     "format": "percent",
                     "label": null,
@@ -671,7 +665,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -715,9 +708,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-tnet-ex-gateway memory over 80%",
+                "message": "",
                 "name": "MemoryUtilization (ceramic-tnet-ex-gateway) alert",
                 "noDataState": "keep_state",
                 "notifications": []
@@ -824,7 +817,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 0,
                     "format": "percent",
                     "label": null,
@@ -834,7 +826,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -878,9 +869,9 @@
                 ],
                 "executionErrorState": "alerting",
                 "for": "5m",
-                "frequency": "1m",
+                "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-tnet-ex-ipfs-gw memory over 80%",
+                "message": "",
                 "name": "MemoryUtilization (ceramic-tnet-ex-ipfs-gw) alert",
                 "noDataState": "keep_state",
                 "notifications": []
@@ -987,7 +978,6 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:155",
                     "decimals": 0,
                     "format": "percent",
                     "label": null,
@@ -997,7 +987,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:156",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1027,11 +1016,11 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of requests per second made to the gateway by a given origin",
+            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1064,21 +1053,21 @@
                 "y": 23
             },
             "hiddenSeries": false,
-            "id": 32,
+            "id": 46,
             "legend": {
                 "alignAsTable": true,
-                "avg": false,
+                "avg": true,
                 "current": false,
                 "max": false,
                 "min": false,
-                "rightSide": true,
+                "rightSide": false,
                 "show": true,
                 "total": true,
                 "values": true
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": true
             },
@@ -1093,8 +1082,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_remoteAddress)",
-                    "legendFormat": "{{ request_remoteAddress }}",
+                    "expr": "count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} [1s])",
+                    "legendFormat": "Total requests/second",
                     "refId": "A"
                 }
             ],
@@ -1102,9 +1091,9 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Requests per Origin / Second",
+            "title": "Requests",
             "tooltip": {
-                "shared": false,
+                "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
@@ -1128,9 +1117,8 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:271",
                     "decimals": 0,
-                    "format": "short",
+                    "format": "string",
                     "label": null,
                     "logBase": 1,
                     "max": null,
@@ -1138,7 +1126,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:272",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1153,12 +1140,14 @@
             }
         },
         {
-            "aliasColors": {},
-            "bars": true,
+            "aliasColors": {
+                "404": "yellow"
+            },
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of 5XX responses returned by the gateway per second",
+            "description": "Responses by status / second, stacked",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1191,7 +1180,7 @@
                 "y": 23
             },
             "hiddenSeries": false,
-            "id": 34,
+            "id": 48,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1200,12 +1189,12 @@
                 "min": false,
                 "rightSide": true,
                 "show": true,
-                "total": false,
-                "values": false
+                "total": true,
+                "values": true
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": true
             },
@@ -1216,26 +1205,50 @@
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": false,
+            "stack": true,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500[1s])",
-                    "legendFormat": "",
+                    "expr": "sum by (response_statusCode) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 200 and response_statusCode < 300 [1s]))",
+                    "legendFormat": "{{ response_statusCode }}",
                     "refId": "A"
+                },
+                {
+                    "expr": "sum by (response_statusCode) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 300 and response_statusCode < 400 [1s]))",
+                    "legendFormat": "{{ response_statusCode }}",
+                    "refId": "B"
+                },
+                {
+                    "expr": "sum by (response_statusCode) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 400 and response_statusCode < 500 [1s]))",
+                    "legendFormat": "{{ response_statusCode }}",
+                    "refId": "C"
+                },
+                {
+                    "expr": "sum by (response_statusCode) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500 [1s]))",
+                    "legendFormat": "{{ response_statusCode }}",
+                    "refId": "D"
                 }
             ],
             "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "5XX Responses / Second",
+            "title": "Responses by Status",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!response_statusCode).*$"
+                        }
+                    }
+                }
+            ],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1246,17 +1259,15 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:192",
                     "decimals": 0,
                     "format": "short",
-                    "label": "",
+                    "label": null,
                     "logBase": 1,
                     "max": null,
                     "min": "0",
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:193",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1272,11 +1283,11 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Number of requests per second made to the gateway by endpoint",
+            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1309,21 +1320,21 @@
                 "y": 31
             },
             "hiddenSeries": false,
-            "id": 36,
+            "id": 50,
             "legend": {
                 "alignAsTable": true,
-                "avg": false,
+                "avg": true,
                 "current": false,
                 "max": false,
                 "min": false,
-                "rightSide": true,
+                "rightSide": false,
                 "show": true,
                 "total": true,
                 "values": true
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": true
             },
@@ -1338,8 +1349,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
-                    "legendFormat": "{{ request_url }}",
+                    "expr": "sum by (request_method) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | request_method=\"GET\" [1s]))",
+                    "legendFormat": "GET requests/second",
                     "refId": "A"
                 }
             ],
@@ -1347,9 +1358,9 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Requests per Endpoint / Second",
+            "title": "GET Requests",
             "tooltip": {
-                "shared": false,
+                "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
@@ -1364,9 +1375,8 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:271",
                     "decimals": 0,
-                    "format": "short",
+                    "format": "string",
                     "label": null,
                     "logBase": 1,
                     "max": null,
@@ -1374,7 +1384,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:272",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1390,11 +1399,11 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "docIds that appeared in the pubsub every 2 minutes",
+            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1427,147 +1436,21 @@
                 "y": 31
             },
             "hiddenSeries": false,
-            "id": 38,
+            "id": 52,
             "legend": {
                 "alignAsTable": true,
-                "avg": false,
+                "avg": true,
                 "current": false,
                 "max": false,
                 "min": false,
-                "rightSide": true,
+                "rightSide": false,
                 "show": true,
-                "total": false,
-                "values": false
+                "total": true,
+                "values": true
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": false
-            },
-            "percentage": false,
-            "pluginVersion": "7.3.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" [$__interval])) by (message_data_doc)",
-                    "legendFormat": "{{ message_data_doc }}",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Active DocId Count",
-            "tooltip": {
-                "shared": false,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "transformations": [
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "pattern": "^(?!message_doc).*$"
-                        }
-                    }
-                }
-            ],
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:245",
-                    "decimals": 0,
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:246",
-                    "decimals": 0,
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": true,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "Loki",
-            "description": "Queries (i.e. message \"typ\" equals 1 and event is received) in the pubsub topic",
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 6,
-                "y": 39
-            },
-            "hiddenSeries": false,
-            "id": 40,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": false,
-            "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": true
             },
@@ -1582,8 +1465,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=1 and event=\"received\" [$__interval])) by (job)",
-                    "legendFormat": "queries",
+                    "expr": "sum by (request_method) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | request_method=\"POST\" [1s]))",
+                    "legendFormat": "POST requests/second",
                     "refId": "A"
                 }
             ],
@@ -1591,12 +1474,13 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Queries in PubSub Topic",
+            "title": "POST Requests",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
+            "transformations": [],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1607,125 +1491,8 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:295",
                     "decimals": 0,
-                    "format": "short",
-                    "label": "",
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:296",
-                    "decimals": 0,
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": true,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "Loki",
-            "description": "Updates (i.e. message \"typ\" equals 0) in the pubsub topic",
-            "fieldConfig": {
-                "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 6,
-                "y": 47
-            },
-            "hiddenSeries": false,
-            "id": 42,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": false,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": false
-            },
-            "percentage": false,
-            "pluginVersion": "7.3.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=0 [$__interval])) by (job)",
-                    "legendFormat": "updates",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Updates in PubSub Topic",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:345",
-                    "decimals": 0,
-                    "format": "short",
+                    "format": "string",
                     "label": null,
                     "logBase": 1,
                     "max": null,
@@ -1733,7 +1500,6 @@
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:346",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1749,11 +1515,11 @@
         },
         {
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Queries (i.e. message \"typ\" is 2 and event is published) in the pubsub topic",
+            "description": "Requests per endpoint per second, stacked",
             "fieldConfig": {
                 "defaults": {
                     "custom": {
@@ -1781,24 +1547,386 @@
             "fillGradient": 0,
             "gridPos": {
                 "h": 8,
-                "w": 12,
-                "x": 6,
-                "y": 55
+                "w": 24,
+                "x": 0,
+                "y": 39
             },
             "hiddenSeries": false,
-            "id": 44,
+            "id": 54,
             "legend": {
+                "alignAsTable": true,
                 "avg": false,
                 "current": false,
                 "max": false,
                 "min": false,
+                "rightSide": true,
                 "show": true,
-                "total": false,
-                "values": false
+                "total": true,
+                "values": true
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
-            "nullPointMode": "null",
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (request_url) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ request_url }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Endpoint",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Requests per origin per second, stacked",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 47
+            },
+            "hiddenSeries": false,
+            "id": 56,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (request_headers_x_forwarded_for) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ request_headers_x_forwarded_for }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Origin",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!request_headers_x_forwarded_for).*$"
+                        }
+                    }
+                }
+            ],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Requests per origin per endpoint per second, stacked",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 55
+            },
+            "hiddenSeries": false,
+            "id": 58,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (request_url, request_headers_x_forwarded_for) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ request_headers_x_forwarded_for }}, {{ request_url }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Origin per Endpoint",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 63
+            },
+            "hiddenSeries": false,
+            "id": 60,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "hideEmpty": false,
+                "hideZero": false,
+                "max": true,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
             "options": {
                 "alertThreshold": true
             },
@@ -1813,8 +1941,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_data_typ=2 and event=\"published\" [$__interval])) by (job)",
-                    "legendFormat": "responses",
+                    "expr": "count by (Value) (sum by (request_headers_x_forwarded_for) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
+                    "legendFormat": "Unique origins / second",
                     "refId": "A"
                 }
             ],
@@ -1822,15 +1950,17 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Responses in PubSub Topic",
+            "title": "# of Unique Origins Active",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
+            "transformations": [],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
+                "min": null,
                 "mode": "time",
                 "name": null,
                 "show": true,
@@ -1838,23 +1968,20 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:295",
                     "decimals": 0,
-                    "format": "short",
-                    "label": "",
+                    "format": "string",
+                    "label": null,
                     "logBase": 1,
                     "max": null,
                     "min": "0",
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:296",
-                    "decimals": 0,
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
+                    "min": null,
                     "show": false
                 }
             ],
