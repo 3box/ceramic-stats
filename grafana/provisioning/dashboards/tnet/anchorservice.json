@@ -15,6 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
+    "id": 1,
     "links": [],
     "panels": [
       {
@@ -170,7 +171,6 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:155",
             "decimals": 0,
             "format": "short",
             "label": null,
@@ -180,7 +180,6 @@
             "show": true
           },
           {
-            "$$hashKey": "object:156",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -333,7 +332,6 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:155",
             "decimals": 0,
             "format": "short",
             "label": null,
@@ -343,7 +341,6 @@
             "show": true
           },
           {
-            "$$hashKey": "object:156",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -513,7 +510,6 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:155",
             "decimals": 2,
             "format": "percent",
             "label": null,
@@ -523,7 +519,6 @@
             "show": true
           },
           {
-            "$$hashKey": "object:156",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -852,7 +847,6 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:184",
             "format": "percent",
             "label": null,
             "logBase": 1,
@@ -861,7 +855,6 @@
             "show": true
           },
           {
-            "$$hashKey": "object:185",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1280,7 +1273,6 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:396",
             "decimals": 0,
             "format": "short",
             "label": "",
@@ -1290,7 +1282,6 @@
             "show": true
           },
           {
-            "$$hashKey": "object:397",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1619,7 +1610,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Requests by Endpoint",
+        "title": "Requests per Endpoint",
         "tooltip": {
           "shared": false,
           "sort": 0,
@@ -1636,7 +1627,6 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:396",
             "decimals": 0,
             "format": "short",
             "label": "",
@@ -1646,7 +1636,6 @@
             "show": true
           },
           {
-            "$$hashKey": "object:397",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1729,7 +1718,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt [$__interval]))",
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt [1s]))",
             "hide": false,
             "legendFormat": "{{ ip }}",
             "refId": "A"
@@ -1739,7 +1728,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Requests by IP",
+        "title": "Requests per Origin",
         "tooltip": {
           "shared": false,
           "sort": 0,
@@ -1756,7 +1745,6 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:396",
             "decimals": 0,
             "format": "short",
             "label": "",
@@ -1766,7 +1754,242 @@
             "show": true
           },
           {
-            "$$hashKey": "object:397",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Loki",
+        "description": "Requests per origin per endpoint per second, stacked",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 59
+        },
+        "hiddenSeries": false,
+        "id": 40,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "total": true,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.3.7",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (request_url, request_headers_x_forwarded_for) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+            "legendFormat": "{{ request_headers_x_forwarded_for }}, {{ request_url }}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Requests per Origin per Endpoint",
+        "tooltip": {
+          "shared": false,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "transformations": [],
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 0,
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Loki",
+        "decimals": null,
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 67
+        },
+        "hiddenSeries": false,
+        "id": 42,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": false,
+          "hideEmpty": false,
+          "hideZero": false,
+          "max": true,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": true,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.3.7",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "count by (Value) (sum by (request_headers_x_forwarded_for) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
+            "legendFormat": "Unique origins / second",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "# of Unique Origins Active",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "transformations": [],
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "min": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 0,
+            "format": "string",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1787,7 +2010,7 @@
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 59
+          "y": 75
         },
         "id": 38,
         "panels": [],
@@ -1862,7 +2085,7 @@
           "h": 8,
           "w": 12,
           "x": 0,
-          "y": 60
+          "y": 76
         },
         "id": 16,
         "options": {
@@ -1966,7 +2189,7 @@
           "h": 8,
           "w": 12,
           "x": 12,
-          "y": 60
+          "y": 76
         },
         "id": 12,
         "options": {
@@ -2047,7 +2270,7 @@
           "h": 8,
           "w": 24,
           "x": 0,
-          "y": 68
+          "y": 84
         },
         "hiddenSeries": false,
         "id": 14,
@@ -2090,7 +2313,6 @@
         ],
         "thresholds": [
           {
-            "$$hashKey": "object:189",
             "colorMode": "critical",
             "fill": true,
             "line": true,
@@ -2124,7 +2346,6 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:140",
             "decimals": 6,
             "format": "short",
             "label": "gwei",
@@ -2134,7 +2355,6 @@
             "show": true
           },
           {
-            "$$hashKey": "object:141",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -2164,5 +2384,5 @@
     "timezone": "",
     "title": "Anchor Service",
     "uid": "tnet-U93a07JMz",
-    "version": 1
+    "version": 2
   }
