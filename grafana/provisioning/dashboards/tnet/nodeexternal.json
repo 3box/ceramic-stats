@@ -1945,7 +1945,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Origins",
+            "title": "# of Unique Origins Active",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
