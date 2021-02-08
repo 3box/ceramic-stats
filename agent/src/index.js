@@ -35,10 +35,10 @@ function outputPath(suffix) {
 const bootstrapList = {
   '/ceramic/testnet-clay': [
     '/dns4/ipfs-clay-internal.3boxlabs.com/tcp/4012/wss/p2p/QmQotCKxiMWt935TyCBFTN23jaivxwrZ3uD58wNxeg5npi'
-],
-'/ceramic/dev-unstable': [
+  ],
+  '/ceramic/dev-unstable': [
     '/dns4/ipfs-dev-internal.3boxlabs.com/tcp/4012/wss/p2p/QmYkpxusRem2iup8ZAfVGYv7iq1ks1yyq2XxQh3z2a8xXq'
-]
+  ]
 }
 
 const handledMessages = new LRUMap({ limit: 10000 })
@@ -101,10 +101,13 @@ async function handleMessage(message) {
   const { doc, tip } = parsedMessageData
 
   try {
-    await handleNewDocId(doc)
-    const isNewCid = await handleNewCid(tip)
-    if (isNewCid) {
-      await handleHeader(doc, tip, ipfs)
+    if (await isNewCid(tip)) {
+      const header = await getHeader(tip)
+      if (header && !isTestDoc(doc, header)) {
+        await handleDocId(doc)
+        await handleCid(tip)
+        await handleHeader(header, doc)
+      }
     }
   } catch (error) {
     console.error(error)
@@ -112,11 +115,85 @@ async function handleMessage(message) {
 }
 
 /**
+ * Returns true if the cid is not already in the db.
+ * @param {string} cidString
+ */
+async function isNewCid(cidString) {
+  if (cidString) return await isNewToDb(cidString, 'cid')
+  return false
+}
+
+async function isNewToDb(key, prefix = '') {
+  key = getPrefixedKey(key, prefix)
+  try {
+    await db.get(key)
+  } catch (error) {
+    if (error.notFound) {
+      return true
+    }
+  }
+  return false
+}
+
+/**
+ * Returns the header from cid payload or null
+ * @param {string} cidString
+ * @returns {Promise<any>} Header or null
+ */
+async function getHeader(cidString) {
+  if (!cidString) return null
+  const payload = await getPayload(cidString, ipfs)
+  if (payload) return payload.header || null
+  return null
+}
+
+/**
+ * Returns cid payload from ipfs or null.
+ * @param {string} cidString
+ * @param {IPFS} ipfs
+ */
+async function getPayload(cidString, ipfs) {
+  try {
+    const record = (await ipfs.dag.get(cidString)).value
+    if (record.link) {
+      return (await ipfs.dag.get(record.link)).value
+    }
+    return record
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+/**
+ * Returns true if family in header matches "test" family format
+ * @param {any} header
+ */
+function isTestDoc(docIdString, header) {
+  if (!header) return false
+  if (!header.family) return false
+  if (header.family.match(/test-(\d+)/)) {
+    console.log('Skipping test doc with family', header.family, docIdString)
+    return true
+  }
+  return false
+}
+
+/**
+ * Logs header contents.
+ * @param {any} header
+ * @param {string} docId
+ */
+async function handleHeader(header, docId) {
+  if (header && docId) await logHeader(header, docId)
+}
+
+/**
  * Tracks docId counts, logs, and returns true if it is new.
  * @param {string} docIdString
  * @returns {boolean}
  */
-async function handleNewDocId(docIdString) {
+async function handleDocId(docIdString) {
   if (!docIdString) return false
   const { occurrences, totalUnique } = await save(docIdString, 'docId')
   logDocId(docIdString, occurrences, totalUnique)
@@ -128,7 +205,7 @@ async function handleNewDocId(docIdString) {
  * @param {string} cidString
  * @returns {boolean}
  */
-async function handleNewCid(cidString) {
+async function handleCid(cidString) {
   if (!cidString) return false
   const { occurrences, totalUnique } = await save(cidString, 'cid')
   logCid(cidString, occurrences, totalUnique)
@@ -136,39 +213,10 @@ async function handleNewCid(cidString) {
 }
 
 /**
- * Gets payload of cid and logs header contents.
+ * Parses and logs header contents.
+ * @param {any} header
  * @param {string} docId
- * @param {string} cid
- * @param {IPFS} ipfs
  */
-async function handleHeader(docId, cid, ipfs) {
-  const payload = await getPayload(cid, ipfs)
-  if (payload) {
-    await logHeader(payload.header, docId)
-  }
-}
-
-async function getPayload(cid, ipfs) {
-  try {
-    const record = (await ipfs.dag.get(cid)).value
-    if (record.link) {
-      return (await ipfs.dag.get(record.link)).value
-    }
-    return record
-  } catch (error) {
-    console.error(error)
-    return null
-  }
-}
-
-function logDocId(docId, occurrences, totalUnique) {
-  writeStream({ docId, occurrences, totalUnique }, docIdOutputPath)
-}
-
-function logCid(cid, occurrences, totalUnique) {
-  writeStream({ cid, occurrences, totalUnique }, cidOutputPath)
-}
-
 async function logHeader(header, docId) {
   try {
     const { family } = header
@@ -224,6 +272,14 @@ async function logHeader(header, docId) {
   }
 }
 
+function logDocId(docId, occurrences, totalUnique) {
+  writeStream({ docId, occurrences, totalUnique }, docIdOutputPath)
+}
+
+function logCid(cid, occurrences, totalUnique) {
+  writeStream({ cid, occurrences, totalUnique }, cidOutputPath)
+}
+
 /**
  * Adds key to db and returns number of occurrences and number of total unique
  * values with the given prefix.
@@ -233,14 +289,19 @@ async function save(key, prefix = '') {
   let totalUnique
   let occurrences
 
-  if (prefix != '') {
-    key = prefix + ':' + key
-  }
+  key = getPrefixedKey(key, prefix)
 
   occurrences = await _save(key)
   totalUnique = await _save(prefix, occurrences == 1)
 
   return { occurrences, totalUnique }
+}
+
+function getPrefixedKey(key, prefix) {
+  if (prefix != '') {
+    key = prefix + ':' + key
+  }
+  return key
 }
 
 async function _save(key, increment = true) {
