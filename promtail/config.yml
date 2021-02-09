@@ -76,19 +76,19 @@ scrape_configs:
     labels:
       app: api
       job: cas/access
-      __path__: /logs/cas/api/access.log
+      __path__: /logs/cas/server/access.log
   - targets:
       - localhost
     labels:
       app: api
       job: cas/events
-      __path__: /logs/cas/api/events.log
+      __path__: /logs/cas/server/events.log
   - targets:
       - localhost
     labels:
       app: api
       job: cas/metrics
-      __path__: /logs/cas/api/metrics.log
+      __path__: /logs/cas/server/metrics.log
 
 - job_name: ceramic/gateway-external
   pipeline_stages:
