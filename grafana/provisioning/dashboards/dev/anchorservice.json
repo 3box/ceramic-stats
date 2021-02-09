@@ -1945,27 +1945,16 @@
       },
       {
         "datasource": "Loki",
-        "description": "",
         "fieldConfig": {
           "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
             "custom": {},
-            "decimals": 0,
-            "mappings": [],
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
+              "steps": []
+            },
+            "mappings": [],
+            "color": {
+              "mode": "thresholds"
             }
           },
           "overrides": [
@@ -1996,6 +1985,18 @@
             {
               "matcher": {
                 "id": "byName",
+                "options": "2"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Completed"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
                 "options": "3"
               },
               "properties": [
@@ -2015,31 +2016,31 @@
         },
         "id": 16,
         "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
           "reduceOptions": {
+            "values": false,
             "calcs": [
               "distinctCount"
             ],
-            "fields": "",
-            "values": false
+            "fields": ""
           },
+          "orientation": "auto",
           "text": {},
-          "textMode": "auto"
+          "textMode": "value_and_name",
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "center"
         },
         "pluginVersion": "7.4.0",
         "targets": [
           {
-            "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1s]))",
+            "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1m]))",
             "hide": false,
             "legendFormat": "{{ status }}",
-            "refId": "A"
+            "refId": "A",
+            "instant": false,
+            "range": true
           }
         ],
-        "timeFrom": null,
-        "timeShift": null,
         "title": "Anchor Statuses (Latest)",
         "transformations": [],
         "type": "stat"
@@ -2183,9 +2184,7 @@
         "aliasColors": {
           "balance": "blue"
         },
-        "bars": false,
         "dashLength": 10,
-        "dashes": false,
         "datasource": "Loki",
         "description": "Ethereum balance of anchor service wallet in gwei",
         "fieldConfig": {
@@ -2195,23 +2194,25 @@
           "overrides": []
         },
         "fill": 1,
-        "fillGradient": 0,
         "gridPos": {
           "h": 8,
           "w": 24,
           "x": 0,
           "y": 84
         },
-        "hiddenSeries": false,
         "id": 14,
         "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
           "show": true,
           "total": false,
-          "values": false
+          "values": true,
+          "rightSide": false,
+          "alignAsTable": true,
+          "hideEmpty": false,
+          "hideZero": false
         },
         "lines": true,
         "linewidth": 1,
@@ -2219,10 +2220,8 @@
         "options": {
           "alertThreshold": true
         },
-        "percentage": false,
         "pluginVersion": "7.4.0",
         "pointradius": 2,
-        "points": false,
         "renderer": "flot",
         "seriesOverrides": [
           {
@@ -2231,13 +2230,11 @@
           }
         ],
         "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
         "targets": [
           {
-            "expr": "sum_over_time({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | unwrap balance [1s])",
+            "expr": "sum_over_time({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | unwrap balance [1h])",
             "hide": false,
-            "legendFormat": "{{ balance }}",
+            "legendFormat": "",
             "refId": "A"
           }
         ],
@@ -2251,9 +2248,7 @@
             "yaxis": "left"
           }
         ],
-        "timeFrom": null,
         "timeRegions": [],
-        "timeShift": null,
         "title": "ETH Balance in Gwei",
         "tooltip": {
           "shared": true,
@@ -2264,6 +2259,16 @@
           {
             "id": "seriesToRows",
             "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {},
+              "indexByName": {},
+              "renameByName": {
+                "Value": "Balance / hr"
+              }
+            }
           }
         ],
         "type": "graph",
@@ -2282,7 +2287,8 @@
             "logBase": 1,
             "max": null,
             "min": "0",
-            "show": true
+            "show": true,
+            "$$hashKey": "object:111"
           },
           {
             "format": "short",
@@ -2290,13 +2296,25 @@
             "logBase": 1,
             "max": null,
             "min": null,
-            "show": false
+            "show": false,
+            "$$hashKey": "object:112"
           }
         ],
         "yaxis": {
           "align": false,
           "alignLevel": null
-        }
+        },
+        "bars": false,
+        "dashes": false,
+        "fillGradient": 0,
+        "hiddenSeries": false,
+        "percentage": false,
+        "points": false,
+        "stack": false,
+        "steppedLine": false,
+        "timeFrom": null,
+        "timeShift": null,
+        "decimals": null
       }
     ],
     "refresh": false,
