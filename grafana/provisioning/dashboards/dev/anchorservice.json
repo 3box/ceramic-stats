@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 1,
+    "id": 4,
     "links": [],
     "panels": [
       {
@@ -113,7 +113,7 @@
           "alertThreshold": false
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -148,7 +148,8 @@
             "fill": false,
             "line": false,
             "op": "lt",
-            "value": 1
+            "value": 1,
+            "visible": true
           }
         ],
         "timeFrom": null,
@@ -274,7 +275,7 @@
           "alertThreshold": false
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -309,7 +310,8 @@
             "fill": false,
             "line": false,
             "op": "lt",
-            "value": 1
+            "value": 1,
+            "visible": true
           }
         ],
         "timeFrom": null,
@@ -435,7 +437,7 @@
           "alertThreshold": false
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -487,7 +489,8 @@
             "fill": false,
             "line": false,
             "op": "gt",
-            "value": 80
+            "value": 80,
+            "visible": true
           }
         ],
         "timeFrom": null,
@@ -613,7 +616,7 @@
           "alertThreshold": false
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -647,7 +650,8 @@
             "fill": false,
             "line": false,
             "op": "gt",
-            "value": 80
+            "value": 80,
+            "visible": true
           }
         ],
         "timeFrom": null,
@@ -772,7 +776,7 @@
           "alertThreshold": false
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -824,7 +828,8 @@
             "fill": false,
             "line": false,
             "op": "gt",
-            "value": 80
+            "value": 80,
+            "visible": true
           }
         ],
         "timeFrom": null,
@@ -949,7 +954,7 @@
           "alertThreshold": false
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -983,7 +988,8 @@
             "fill": false,
             "line": false,
             "op": "gt",
-            "value": 80
+            "value": 80,
+            "visible": true
           }
         ],
         "timeFrom": null,
@@ -1047,27 +1053,14 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "Loki",
-        "decimals": 0,
+        "decimals": 2,
         "description": "Total requests per second",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
+            "custom": {},
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
+              "steps": []
             }
           },
           "overrides": []
@@ -1083,15 +1076,15 @@
         "hiddenSeries": false,
         "id": 3,
         "legend": {
-          "alignAsTable": false,
-          "avg": false,
+          "alignAsTable": true,
+          "avg": true,
           "current": false,
-          "max": false,
-          "min": false,
+          "max": true,
+          "min": true,
           "rightSide": false,
           "show": true,
-          "total": false,
-          "values": false
+          "total": true,
+          "values": true
         },
         "lines": true,
         "linewidth": 1,
@@ -1100,7 +1093,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1110,7 +1103,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "count_over_time({job=\"cas/access\"} [$__interval])",
+            "expr": "count_over_time({job=\"cas/access\"} [1s])",
             "hide": false,
             "legendFormat": "requests per second",
             "refId": "A"
@@ -1137,7 +1130,8 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
+            "$$hashKey": "object:108",
+            "decimals": 1,
             "format": "short",
             "label": "",
             "logBase": 1,
@@ -1146,6 +1140,7 @@
             "show": true
           },
           {
+            "$$hashKey": "object:109",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1160,32 +1155,23 @@
         }
       },
       {
-        "aliasColors": {},
+        "aliasColors": {
+          "200": "green",
+          "201": "green",
+          "404": "yellow"
+        },
         "bars": false,
         "dashLength": 10,
         "dashes": false,
         "datasource": "Loki",
-        "decimals": 0,
+        "decimals": 2,
         "description": "",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
+            "custom": {},
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
+              "steps": []
             }
           },
           "overrides": []
@@ -1201,15 +1187,15 @@
         "hiddenSeries": false,
         "id": 34,
         "legend": {
-          "alignAsTable": false,
-          "avg": false,
+          "alignAsTable": true,
+          "avg": true,
           "current": false,
           "max": false,
           "min": false,
-          "rightSide": false,
+          "rightSide": true,
           "show": true,
-          "total": false,
-          "values": false
+          "total": true,
+          "values": true
         },
         "lines": true,
         "linewidth": 1,
@@ -1218,7 +1204,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1228,25 +1214,27 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | status >= 200 and status < 300 [$__interval]))",
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 200 and status < 300 [1s]))",
             "hide": false,
+            "instant": false,
             "legendFormat": "{{ status }}",
+            "range": true,
             "refId": "A"
           },
           {
-            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 300 and status < 400 [$__interval]))",
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | method=\"GET\" and status >= 300 and status < 400 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "B"
           },
           {
-            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 400 and status < 500 [$__interval]))",
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | method=\"GET\" and status >= 400 and status < 500 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "C"
           },
           {
-            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 500 [$__interval]))",
+            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | method=\"GET\" and status >= 500 [1s]))",
             "hide": false,
             "legendFormat": "{{ status }}",
             "refId": "D"
@@ -1256,7 +1244,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Requests by Status",
+        "title": "Responses by Status",
         "tooltip": {
           "shared": false,
           "sort": 0,
@@ -1273,7 +1261,8 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
+            "$$hashKey": "object:180",
+            "decimals": 1,
             "format": "short",
             "label": "",
             "logBase": 1,
@@ -1282,6 +1271,7 @@
             "show": true
           },
           {
+            "$$hashKey": "object:181",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1301,27 +1291,14 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "Loki",
-        "decimals": 0,
+        "decimals": 2,
         "description": "Number of GET requests each second",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
+            "custom": {},
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
+              "steps": []
             }
           },
           "overrides": []
@@ -1337,15 +1314,15 @@
         "hiddenSeries": false,
         "id": 33,
         "legend": {
-          "alignAsTable": false,
-          "avg": false,
+          "alignAsTable": true,
+          "avg": true,
           "current": false,
-          "max": false,
-          "min": false,
+          "max": true,
+          "min": true,
           "rightSide": false,
           "show": true,
-          "total": false,
-          "values": false
+          "total": true,
+          "values": true
         },
         "lines": true,
         "linewidth": 1,
@@ -1354,7 +1331,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1364,7 +1341,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"method=GET\" [$__interval])",
+            "expr": "count_over_time({job=\"cas/access\"} |= \"method=GET\" [1s])",
             "hide": false,
             "legendFormat": "requests per second",
             "refId": "A"
@@ -1391,7 +1368,8 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
+            "$$hashKey": "object:549",
+            "decimals": 1,
             "format": "short",
             "label": "",
             "logBase": 1,
@@ -1400,6 +1378,7 @@
             "show": true
           },
           {
+            "$$hashKey": "object:550",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1419,27 +1398,14 @@
         "dashLength": 10,
         "dashes": false,
         "datasource": "Loki",
-        "decimals": 0,
+        "decimals": 2,
         "description": "Number of POST requests each second",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
+            "custom": {},
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
+              "steps": []
             }
           },
           "overrides": []
@@ -1455,15 +1421,15 @@
         "hiddenSeries": false,
         "id": 6,
         "legend": {
-          "alignAsTable": false,
-          "avg": false,
+          "alignAsTable": true,
+          "avg": true,
           "current": false,
-          "max": false,
-          "min": false,
+          "max": true,
+          "min": true,
           "rightSide": false,
           "show": true,
-          "total": false,
-          "values": false
+          "total": true,
+          "values": true
         },
         "lines": true,
         "linewidth": 1,
@@ -1472,7 +1438,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1482,7 +1448,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"method=POST\" [$__interval])",
+            "expr": "count_over_time({job=\"cas/access\"} |= \"method=POST\" [1s])",
             "hide": false,
             "legendFormat": "requests per second",
             "refId": "A"
@@ -1509,7 +1475,8 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
+            "$$hashKey": "object:574",
+            "decimals": 1,
             "format": "short",
             "label": "",
             "logBase": 1,
@@ -1518,6 +1485,7 @@
             "show": true
           },
           {
+            "$$hashKey": "object:575",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1541,24 +1509,13 @@
         "description": "",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
+            "color": {},
+            "custom": {},
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
+              "steps": []
+            },
+            "unit": "short"
           },
           "overrides": []
         },
@@ -1573,15 +1530,15 @@
         "hiddenSeries": false,
         "id": 36,
         "legend": {
-          "alignAsTable": false,
-          "avg": false,
+          "alignAsTable": true,
+          "avg": true,
           "current": false,
           "max": false,
           "min": false,
-          "rightSide": false,
+          "rightSide": true,
           "show": true,
-          "total": false,
-          "values": false
+          "total": true,
+          "values": true
         },
         "lines": true,
         "linewidth": 1,
@@ -1590,7 +1547,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1600,7 +1557,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum by (path) (count_over_time({job=\"cas/access\"} | logfmt [$__interval]))",
+            "expr": "sum by (path) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" [1s]))",
             "hide": false,
             "legendFormat": "{{ path }}",
             "refId": "A"
@@ -1627,7 +1584,8 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
+            "$$hashKey": "object:635",
+            "decimals": 1,
             "format": "short",
             "label": "",
             "logBase": 1,
@@ -1636,6 +1594,7 @@
             "show": true
           },
           {
+            "$$hashKey": "object:636",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1659,23 +1618,10 @@
         "description": "",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
+            "custom": {},
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
+              "steps": []
             }
           },
           "overrides": []
@@ -1691,15 +1637,15 @@
         "hiddenSeries": false,
         "id": 35,
         "legend": {
-          "alignAsTable": false,
-          "avg": false,
+          "alignAsTable": true,
+          "avg": true,
           "current": false,
           "max": false,
           "min": false,
-          "rightSide": false,
+          "rightSide": true,
           "show": true,
-          "total": false,
-          "values": false
+          "total": true,
+          "values": true
         },
         "lines": true,
         "linewidth": 1,
@@ -1708,7 +1654,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1718,7 +1664,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt [1s]))",
+            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" [1s]))",
             "hide": false,
             "legendFormat": "{{ ip }}",
             "refId": "A"
@@ -1745,7 +1691,8 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
+            "$$hashKey": "object:1185",
+            "decimals": 1,
             "format": "short",
             "label": "",
             "logBase": 1,
@@ -1754,6 +1701,7 @@
             "show": true
           },
           {
+            "$$hashKey": "object:1186",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1776,23 +1724,10 @@
         "description": "Requests per origin per endpoint per second, stacked",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
+            "custom": {},
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
+              "steps": []
             }
           },
           "overrides": []
@@ -1809,7 +1744,7 @@
         "id": 40,
         "legend": {
           "alignAsTable": true,
-          "avg": false,
+          "avg": true,
           "current": false,
           "max": false,
           "min": false,
@@ -1825,7 +1760,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1835,8 +1770,8 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "sum by (request_url, request_headers_x_forwarded_for) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
-            "legendFormat": "{{ request_headers_x_forwarded_for }}, {{ request_url }}",
+            "expr": "sum by (ip, path) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+            "legendFormat": "{{ ip }}, {{ path }}",
             "refId": "A"
           }
         ],
@@ -1861,7 +1796,8 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
+            "$$hashKey": "object:1247",
+            "decimals": 1,
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1870,6 +1806,7 @@
             "show": true
           },
           {
+            "$$hashKey": "object:1248",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -1893,23 +1830,10 @@
         "description": "",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
+            "custom": {},
             "thresholds": {
               "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
+              "steps": []
             }
           },
           "overrides": []
@@ -1944,7 +1868,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1954,7 +1878,7 @@
         "steppedLine": false,
         "targets": [
           {
-            "expr": "count by (Value) (sum by (request_headers_x_forwarded_for) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
+            "expr": "count by (Value) (sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
             "legendFormat": "Unique origins / second",
             "refId": "A"
           }
@@ -1981,7 +1905,8 @@
         },
         "yaxes": [
           {
-            "decimals": 0,
+            "$$hashKey": "object:1295",
+            "decimals": 1,
             "format": "string",
             "label": null,
             "logBase": 1,
@@ -1990,6 +1915,7 @@
             "show": true
           },
           {
+            "$$hashKey": "object:1296",
             "format": "short",
             "label": null,
             "logBase": 1,
@@ -2022,10 +1948,10 @@
         "description": "",
         "fieldConfig": {
           "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
+            "color": {
+              "mode": "thresholds"
             },
+            "custom": {},
             "decimals": 0,
             "mappings": [],
             "thresholds": {
@@ -2100,9 +2026,10 @@
             "fields": "",
             "values": false
           },
+          "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "targets": [
           {
             "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1s]))",
@@ -2122,6 +2049,9 @@
         "description": "",
         "fieldConfig": {
           "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
             "custom": {
               "align": null,
               "filterable": false
@@ -2202,7 +2132,7 @@
             }
           ]
         },
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "targets": [
           {
             "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
@@ -2290,7 +2220,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.3.7",
+        "pluginVersion": "7.4.0",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -2370,19 +2300,19 @@
       }
     ],
     "refresh": false,
-    "schemaVersion": 26,
+    "schemaVersion": 27,
     "style": "dark",
     "tags": [],
     "templating": {
       "list": []
     },
     "time": {
-      "from": "now-30m",
+      "from": "now-12h",
       "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Anchor Service",
     "uid": "dev-U93a07JMz",
-    "version": 1
+    "version": 6618
   }
