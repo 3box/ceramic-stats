@@ -1,0 +1,9 @@
+groups:
+  - name: EthBalance
+    interval: 0s
+    rules:
+      - alert: LowEthBalance
+        expr: "sum by (job) (rate({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | balance < 1000000 [1s])) > 1"
+        labels:
+            severity: critical
+            category: cas

@@ -4,6 +4,14 @@ services:
     build: ./agent
     volumes:
       - ./ceramic:/logs/ceramic
+  alertmanager:
+    build: ./alertmanager
+    ports:
+      - "9093:9093"
+  alertmanager-discord:
+    image: benjojo/alertmanager-discord
+    environment:
+      - DISCORD_WEBHOOK=${DISCORD_WEBHOOK_URL}
   loki:
     build: ./loki
     ports:

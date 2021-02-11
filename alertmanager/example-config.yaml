@@ -1,0 +1,55 @@
+global:
+  # The default SMTP From header field.
+  [ smtp_from: <tmpl_string> ]
+  # The default SMTP smarthost used for sending emails, including port number.
+  # Port number usually is 25, or 587 for SMTP over TLS (sometimes referred to as STARTTLS).
+  # Example: smtp.example.org:587
+  [ smtp_smarthost: <string> ]
+  # The default hostname to identify to the SMTP server.
+  [ smtp_hello: <string> | default = "localhost" ]
+  # SMTP Auth using CRAM-MD5, LOGIN and PLAIN. If empty, Alertmanager doesn't authenticate to the SMTP server.
+  [ smtp_auth_username: <string> ]
+  # SMTP Auth using LOGIN and PLAIN.
+  [ smtp_auth_password: <secret> ]
+  # SMTP Auth using PLAIN.
+  [ smtp_auth_identity: <string> ]
+  # SMTP Auth using CRAM-MD5.
+  [ smtp_auth_secret: <secret> ]
+  # The default SMTP TLS requirement.
+  # Note that Go does not support unencrypted connections to remote SMTP endpoints.
+  [ smtp_require_tls: <bool> | default = true ]
+
+  # The API URL to use for Slack notifications.
+  [ slack_api_url: <secret> ]
+  [ victorops_api_key: <secret> ]
+  [ victorops_api_url: <string> | default = "https://alert.victorops.com/integrations/generic/20131114/alert/" ]
+  [ pagerduty_url: <string> | default = "https://events.pagerduty.com/v2/enqueue" ]
+  [ opsgenie_api_key: <secret> ]
+  [ opsgenie_api_url: <string> | default = "https://api.opsgenie.com/" ]
+  [ wechat_api_url: <string> | default = "https://qyapi.weixin.qq.com/cgi-bin/" ]
+  [ wechat_api_secret: <secret> ]
+  [ wechat_api_corp_id: <string> ]
+
+  # The default HTTP client configuration
+  [ http_config: <http_config> ]
+
+  # ResolveTimeout is the default value used by alertmanager if the alert does
+  # not include EndsAt, after this time passes it can declare the alert as resolved if it has not been updated.
+  # This has no impact on alerts from Prometheus, as they always include EndsAt.
+  [ resolve_timeout: <duration> | default = 5m ]
+
+# Files from which custom notification template definitions are read.
+# The last component may use a wildcard matcher, e.g. 'templates/*.tmpl'.
+templates:
+  [ - <filepath> ... ]
+
+# The root node of the routing tree.
+route: <route>
+
+# A list of notification receivers.
+receivers:
+  - <receiver> ...
+
+# A list of inhibition rules.
+inhibit_rules:
+  [ - <inhibit_rule> ... ]

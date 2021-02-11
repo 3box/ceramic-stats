@@ -56,10 +56,11 @@ ruler:
   storage:
     type: local
     local:
-      directory: /loki/rules
+      directory: /etc/loki/rules
   rule_path: /loki/rules-temp
-  alertmanager_url: http://localhost:9093
+  alertmanager_url: http://alertmanager:9093
   ring:
     kvstore:
       store: inmemory
   enable_api: true
+  enable_alertmanager_v2: true

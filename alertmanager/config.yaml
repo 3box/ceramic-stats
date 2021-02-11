@@ -1,0 +1,56 @@
+global:
+  smtp_smarthost: 'localhost:25'
+  smtp_from: 'alertmanager@example.org'
+  smtp_auth_username: 'alertmanager'
+  smtp_auth_password: 'password'
+
+templates:
+- '/etc/alertmanager/template/*.tmpl'
+
+route:
+  # The labels by which incoming alerts are grouped together. For example,
+  # multiple alerts coming in for cluster=A and alertname=LatencyHigh would
+  # be batched into a single group.
+  #
+  # To aggregate by all possible labels use '...' as the sole label name.
+  # This effectively disables aggregation entirely, passing through all
+  # alerts as-is. This is unlikely to be what you want, unless you have
+  # a very low alert volume or your upstream notification system performs
+  # its own grouping. Example: group_by: [...]
+  group_by: [...]
+
+  group_wait: 30s
+
+  group_interval: 5m
+
+  repeat_interval: 2h
+
+  receiver: discord
+
+  # All the above attributes are inherited by all child routes and can
+  # overwritten on each.
+
+  routes:
+  - match:
+      severity: critical
+    receiver: discord
+    routes:
+    - match_re:
+        category: .*(cas).*
+      receiver: discord
+
+inhibit_rules:
+- source_match:
+    severity: 'critical'
+  target_match:
+    severity: 'warning'
+  # CAUTION:
+  #   If all label names listed in `equal` are missing
+  #   from both the source and target alerts,
+  #   the inhibition rule will apply!
+  equal: ['alertname', 'cluster', 'service']
+
+receivers:
+- name: 'discord'
+  webhook_configs:
+  - url: http://alertmanager-discord:9094

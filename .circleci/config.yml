@@ -60,6 +60,11 @@ workflows:
           ecr-repo-suffix: "agent"
           trigger-path: "agent/"
       - build-and-push:
+          name: "build-and-push-alertmanager"
+          dockerfile-path: "alertmanager/"
+          ecr-repo-suffix: "alertmanager"
+          trigger-path: "alertmanager/"
+      - build-and-push:
           name: "build-and-push-grafana"
           dockerfile-path: "grafana/"
           ecr-repo-suffix: "grafana"
