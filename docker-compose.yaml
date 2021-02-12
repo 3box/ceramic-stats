@@ -9,7 +9,9 @@ services:
     ports:
       - "9093:9093"
   alertmanager-discord:
-    image: benjojo/alertmanager-discord
+    build: ./alertmanager-discord
+    ports:
+      - "9094:9094"
     environment:
       - DISCORD_WEBHOOK=${DISCORD_WEBHOOK_URL}
   loki:

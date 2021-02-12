@@ -65,6 +65,11 @@ workflows:
           ecr-repo-suffix: "alertmanager"
           trigger-path: "alertmanager/"
       - build-and-push:
+          name: "build-and-push-alertmanager-discord"
+          dockerfile-path: "alertmanager-discord/"
+          ecr-repo-suffix: "alertmanager-discord"
+          trigger-path: "alertmanager-discord/"
+      - build-and-push:
           name: "build-and-push-grafana"
           dockerfile-path: "grafana/"
           ecr-repo-suffix: "grafana"

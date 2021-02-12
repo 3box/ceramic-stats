@@ -17,9 +17,9 @@ route:
   # alerts as-is. This is unlikely to be what you want, unless you have
   # a very low alert volume or your upstream notification system performs
   # its own grouping. Example: group_by: [...]
-  group_by: [...]
+  group_by: ['alertname']
 
-  group_wait: 30s
+  group_wait: 10s
 
   group_interval: 5m
 
@@ -52,5 +52,5 @@ inhibit_rules:
 
 receivers:
 - name: 'discord'
-  webhook_configs:
-  - url: http://alertmanager-discord:9094
+  slack_configs:
+  - api_url: http://127.0.0.1:9094
