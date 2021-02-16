@@ -19,7 +19,7 @@ COPY --from=builder /etc/passwd /etc/passwd
 # Copy our static executable
 COPY --from=builder /go/bin/alertmanager-discord /go/bin/alertmanager-discord
 
-ENV LISTEN_ADDRESS=0.0.0.0:9094
-EXPOSE 9094
+ENV LISTEN_ADDRESS=0.0.0.0:9095
+EXPOSE 9095
 USER appuser
 ENTRYPOINT ["/go/bin/alertmanager-discord"]

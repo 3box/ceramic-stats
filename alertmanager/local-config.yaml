@@ -111,7 +111,7 @@ receivers:
 - name: 'discord'
   slack_configs:
   # - send_resolved: true
-  - api_url: http://alertmanager-discord:9094
+  - api_url: http://alertmanager-discord:9095
   # url: $DISCORD_WEBHOOK_URL
   # - max_alerts: 5
 

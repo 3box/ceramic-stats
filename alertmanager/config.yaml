@@ -53,4 +53,4 @@ inhibit_rules:
 receivers:
 - name: 'discord'
   slack_configs:
-  - api_url: http://127.0.0.1:9094
+  - api_url: http://127.0.0.1:9095
