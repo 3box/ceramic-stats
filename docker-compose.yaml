@@ -8,10 +8,11 @@ services:
     build: ./alertmanager
     ports:
       - "9093:9093"
+    command: ["--config.file=/etc/alertmanager/local-config.yaml"]
   alertmanager-discord:
     build: ./alertmanager-discord
     ports:
-      - "9094:9094"
+      - "9095:9095"
     environment:
       - DISCORD_WEBHOOK=${DISCORD_WEBHOOK_URL}
   loki:
