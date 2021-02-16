@@ -1,9 +1,15 @@
 groups:
-  - name: EthBalance
-    interval: 0s
+  - name: CASEthBalance
+    interval: 1s
     rules:
-      - alert: LowEthBalance
-        expr: "sum by (job) (count_over_time({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | __error__!="LogfmtParserErr" | balance < 1000000 [1s])) > 1"
+      - alert: CASLowEthBalance
+        expr: |
+          sum by (job)
+            (count_over_time({job="cas/metrics"} |= "walletBalance" | logfmt | balance < 1000000 [1s]))
+            > 1
+        for: 1s
         labels:
             severity: critical
             category: cas
+        annotations:
+          summary: "CAS ETH balance is below 1M gwei"

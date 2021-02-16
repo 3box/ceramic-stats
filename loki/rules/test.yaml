@@ -3,7 +3,10 @@ groups:
     interval: 1s
     rules:
       - alert: TestCASRequests
-        expr: "sum by (job) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" | method = \"GET\" [1s])) > 1"
+        expr: |
+          sum by (job)
+            (count_over_time({job="cas/access"} | logfmt | method = "GET" [1s]))
+            > 1
         for: 1s
         labels:
             severity: critical
