@@ -1,12 +1,12 @@
 groups:
   - name: CASEthBalance
-    interval: 1s
+    interval: 10s
     rules:
       - alert: CASLowEthBalance
         expr: |
           sum by (job)
-            (count_over_time({job="cas/metrics"} |= "walletBalance" | logfmt | balance > 1000000 [1s]))
-            > 1
+            (count_over_time({job="cas/metrics"} |= "walletBalance" | logfmt | balance < 20000000000 [1h]))
+            > 0
         for: 1s
         labels:
             severity: critical
