@@ -20,6 +20,7 @@ services:
     ports:
       - "3100:3100"
     environment:
+      - ALERTMANAGER_URL=http://alertmanager:9093
       - DYNAMODB_PREFIX=loki_
     command: ["-config.file=/etc/loki/local-config.yaml", "-config.expand-env=true"]
   promtail:

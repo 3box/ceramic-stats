@@ -49,3 +49,16 @@ chunk_store_config:
 table_manager:
   retention_deletes_enabled: false
   retention_period: 720h
+
+ruler:
+  storage:
+    type: local
+    local:
+      directory: /etc/loki/rules
+  rule_path: /loki/rules-temp
+  alertmanager_url: ${ALERTMANAGER_URL}
+  ring:
+    kvstore:
+      store: inmemory
+  enable_api: true
+  enable_alertmanager_v2: true
