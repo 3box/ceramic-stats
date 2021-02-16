@@ -5,7 +5,7 @@ groups:
       - alert: CASLowEthBalance
         expr: |
           sum by (job)
-            (count_over_time({job="cas/metrics"} |= "walletBalance" | logfmt | balance < 1000000 [1s]))
+            (count_over_time({job="cas/metrics"} |= "walletBalance" | logfmt | balance > 1000000 [1s]))
             > 1
         for: 1s
         labels:
