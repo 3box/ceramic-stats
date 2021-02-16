@@ -7,5 +7,5 @@
 receivers:
 - name: 'discord'
   slack_configs:
-  - api_url: http://alertmanager-discord:9095
+  - api_url: http://alertmanager-discord:9096
 ```

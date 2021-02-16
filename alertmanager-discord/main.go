@@ -29,7 +29,7 @@ type alertManagerAttachment struct {
 	Title string `json:"title"`
 }
 
-const defaultListenAddress = "127.0.0.1:9095"
+const defaultListenAddress = "127.0.0.1:9096"
 
 func main() {
 	envWhURL := os.Getenv("DISCORD_WEBHOOK")
