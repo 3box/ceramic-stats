@@ -3,7 +3,7 @@ groups:
     interval: 0s
     rules:
       - alert: LowEthBalance
-        expr: "sum by (job) (rate({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | balance < 1000000 [1s])) > 1"
+        expr: "sum by (job) (count_over_time({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | __error__!="LogfmtParserErr" | balance < 1000000 [1s])) > 1"
         labels:
             severity: critical
             category: cas

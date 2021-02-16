@@ -1,0 +1,12 @@
+groups:
+  - name: TestCASRequests
+    interval: 1s
+    rules:
+      - alert: TestCASRequests
+        expr: "sum by (job) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" | method = \"GET\" [1s])) > 1"
+        for: 1s
+        labels:
+            severity: critical
+            category: cas
+        annotations:
+          summary: "This is a test rule from Loki"
