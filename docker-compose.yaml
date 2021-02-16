@@ -8,7 +8,7 @@ services:
     build: ./alertmanager
     ports:
       - "9093:9093"
-    command: ["--config.file=/etc/alertmanager/local-config.yaml"]
+    command: ["--config.file=/etc/alertmanager/local-config.yaml", "--cluster.listen-address=\"\"", "--log.level=debug"]
   alertmanager-discord:
     build: ./alertmanager-discord
     ports:
