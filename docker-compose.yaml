@@ -15,7 +15,7 @@ services:
       - "9096:9096"
     environment:
       - LISTEN_ADDRESS=0.0.0.0:9096
-      - DISCORD_WEBHOOK=${DISCORD_WEBHOOK_URL}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
       - ENV=dev
   loki:
     build: ./loki

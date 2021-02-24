@@ -46,25 +46,24 @@ const defaultListenAddress = "127.0.0.1:9096"
 
 func main() {
 	env := os.Getenv("ENV")
-	discordWebhookUrl := os.Getenv("DISCORD_WEBHOOK")
+	discordWebhookUrl := os.Getenv("DISCORD_WEBHOOK_URL")
 	listenAddress := os.Getenv("LISTEN_ADDRESS")
 
 	if env == "" {
 		env = "DEV"
-	} else {
-		env = strings.ToUpper(env)
 	}
+	env = strings.ToUpper(env)
 
 	if discordWebhookUrl == "" {
-		log.Fatalf("Environment variable 'DISCORD_WEBHOOK' not found.")
+		log.Fatalf("Environment variable DISCORD_WEBHOOK_URL not found.")
 	}
 	_, err := url.Parse(discordWebhookUrl)
 	if err != nil {
-		log.Fatalf("Invalid url for DISCORD_WEBHOOK.")
+		log.Fatalf("Invalid url for DISCORD_WEBHOOK_URL.")
 	}
 	re := regexp.MustCompile(`https://discord(?:app)?.com/api/webhooks/[0-9]{18}/[a-zA-Z0-9_-]+`)
 	if ok := re.Match([]byte(discordWebhookUrl)); !ok {
-		log.Printf("Invalid url for DISCORD_WEBHOOK.")
+		log.Printf("Invalid url for DISCORD_WEBHOOK_URL.")
 	}
 
 	if listenAddress == "" {
