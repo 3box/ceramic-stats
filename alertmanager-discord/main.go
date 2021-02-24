@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"flag"
 	"io"
 	"io/ioutil"
 	"log"
@@ -11,6 +10,7 @@ import (
 	"net/url"
 	"os"
 	"regexp"
+	"strings"
 )
 
 // Discord color values
@@ -20,6 +20,17 @@ const (
 	ColorGrey  = 9807270
 )
 
+type discordMessage struct {
+	Username string         `json:"username"`
+	Embeds   []discordEmbed `json:"embeds"`
+}
+
+type discordEmbed struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Color       int    `json:"color"`
+}
+
 type alertManagerData struct {
 	Username    string                   `json:"username"`
 	Attachments []alertManagerAttachment `json:"attachments"`
@@ -27,45 +38,45 @@ type alertManagerData struct {
 
 type alertManagerAttachment struct {
 	Title string `json:"title"`
+	Text  string `json:"text"`
+	Color string `json:"color"`
 }
 
 const defaultListenAddress = "127.0.0.1:9096"
 
 func main() {
-	envWhURL := os.Getenv("DISCORD_WEBHOOK")
-	whURL := flag.String("webhook.url", envWhURL, "Discord WebHook URL.")
+	env := os.Getenv("ENV")
+	discordWebhookUrl := os.Getenv("DISCORD_WEBHOOK_URL")
+	listenAddress := os.Getenv("LISTEN_ADDRESS")
 
-	envListenAddress := os.Getenv("LISTEN_ADDRESS")
-	listenAddress := flag.String("listen.address", envListenAddress, "Address:Port to listen on.")
-
-	flag.Parse()
-
-	if *whURL == "" {
-		log.Fatalf("Environment variable 'DISCORD_WEBHOOK' or CLI parameter 'webhook.url' not found.")
+	if env == "" {
+		env = "DEV"
 	}
+	env = strings.ToUpper(env)
 
-	if *listenAddress == "" {
-		*listenAddress = defaultListenAddress
+	if discordWebhookUrl == "" {
+		log.Fatalf("Environment variable DISCORD_WEBHOOK_URL not found.")
 	}
-
-	_, err := url.Parse(*whURL)
+	_, err := url.Parse(discordWebhookUrl)
 	if err != nil {
-		log.Fatalf("The Discord WebHook URL doesn't seem to be a valid URL.")
+		log.Fatalf("Invalid url for DISCORD_WEBHOOK_URL.")
 	}
-
 	re := regexp.MustCompile(`https://discord(?:app)?.com/api/webhooks/[0-9]{18}/[a-zA-Z0-9_-]+`)
-	if ok := re.Match([]byte(*whURL)); !ok {
-		log.Printf("The Discord WebHook URL doesn't seem to be valid.")
+	if ok := re.Match([]byte(discordWebhookUrl)); !ok {
+		log.Printf("Invalid url for DISCORD_WEBHOOK_URL.")
 	}
 
-	log.Printf("Listening on: %s", *listenAddress)
-	http.ListenAndServe(*listenAddress, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	if listenAddress == "" {
+		listenAddress = defaultListenAddress
+	}
+	log.Printf("Listening on: %s", listenAddress)
+	http.ListenAndServe(listenAddress, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Received request")
 		requestBody, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			panic(err)
 		} else {
-			log.Printf("Payload: %s", requestBody)
+			log.Printf("Request body: %s", requestBody)
 		}
 
 		data := alertManagerData{}
@@ -74,17 +85,29 @@ func main() {
 			panic(err)
 		}
 
-		postBody, _ := json.Marshal(map[string][]alertManagerAttachment{
-			"embeds": data.Attachments,
-		})
-		payload := bytes.NewBuffer(postBody)
-		handlePost(*whURL, payload)
+		var embeds []discordEmbed
+		for _, obj := range data.Attachments {
+			var color = ColorGreen
+			if obj.Color == "danger" {
+				color = ColorRed
+			}
+			embed := discordEmbed{
+				env + " " + obj.Title,
+				obj.Text,
+				color,
+			}
+			embeds = append(embeds, embed)
+		}
 
-		// testBody, _ := json.Marshal(map[string]string{
-		// 	"content": "Testy test test",
-		// })
-		// testPayload := bytes.NewBuffer(testBody)
-		// handlePost(*whURL, testPayload)
+		message := discordMessage{
+			data.Username,
+			embeds,
+		}
+
+		responseBody, _ := json.Marshal(message)
+		log.Printf("Response body: %s", responseBody)
+		payload := bytes.NewBuffer(responseBody)
+		handlePost(discordWebhookUrl, payload)
 	}))
 }
 

@@ -8,13 +8,15 @@ services:
     build: ./alertmanager
     ports:
       - "9093:9093"
-    command: ["--config.file=/etc/alertmanager/local-config.yaml", "--cluster.listen-address=\"\"", "--log.level=debug"]
+    command: ["--config.file=/etc/alertmanager/local-config.yaml", "--cluster.listen-address=", "--log.level=debug"]
   alertmanager-discord:
     build: ./alertmanager-discord
     ports:
       - "9096:9096"
     environment:
-      - DISCORD_WEBHOOK=${DISCORD_WEBHOOK_URL}
+      - LISTEN_ADDRESS=0.0.0.0:9096
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+      - ENV=dev
   loki:
     build: ./loki
     ports:

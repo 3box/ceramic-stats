@@ -54,3 +54,5 @@ receivers:
 - name: 'discord'
   slack_configs:
   - api_url: http://127.0.0.1:9096
+    title: "[{{ toUpper .Status }}:{{ len .Alerts }}] {{ .GroupLabels.alertname }}"
+    text: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}\n\n{{ end }}"

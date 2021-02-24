@@ -112,6 +112,8 @@ receivers:
   slack_configs:
   # - send_resolved: true
   - api_url: http://alertmanager-discord:9096
+    title: "[{{ toUpper .Status }}:{{ len .Alerts }}] {{ .GroupLabels.alertname }}"
+    text: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}\n{{ end }}"
   # url: $DISCORD_WEBHOOK_URL
   # - max_alerts: 5
 
