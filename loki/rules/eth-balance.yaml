@@ -12,4 +12,5 @@ groups:
             severity: critical
             category: cas
         annotations:
-          summary: "CAS ETH balance is below 1M gwei"
+          description: "CAS ETH balance in gwei: {{ $labels.balance }}"
+          summary: "CAS ETH balance below 2B gwei"
