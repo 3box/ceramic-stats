@@ -4,13 +4,13 @@ groups:
     rules:
       - alert: CASLowEthBalance
         expr: |
-          sum by (job)
-            (count_over_time({job="cas/metrics"} |= "walletBalance" | logfmt | balance < 20000000000 [1h]))
+          sum by (job, balance)
+            (count_over_time({job="cas/metrics"} |= "walletBalance" | logfmt | balance < 20000000000 [10m]))
             > 0
         for: 1s
         labels:
             severity: critical
             category: cas
         annotations:
-          description: "CAS ETH balance in gwei: {{ $labels.balance }}"
           summary: "CAS ETH balance below 2B gwei"
+          description: "Balance (gwei): {{ $labels.balance }}"
