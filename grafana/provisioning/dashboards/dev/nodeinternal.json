@@ -1280,23 +1280,10 @@
             "description": "",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1329,7 +1316,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1339,7 +1326,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_method) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | request_method=\"GET\" [$__interval]))",
+                    "expr": "sum by (method) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [1s]))",
                     "legendFormat": "GET requests/second",
                     "refId": "A"
                 }
@@ -1396,23 +1383,10 @@
             "description": "",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1445,7 +1419,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1455,7 +1429,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_method) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | request_method=\"POST\" [1s]))",
+                    "expr": "sum by (method) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [1s]))",
                     "legendFormat": "POST requests/second",
                     "refId": "A"
                 }
