@@ -1145,23 +1145,10 @@
             "description": "Responses by status / second, stacked",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1194,7 +1181,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1204,23 +1191,23 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 200 and response_statusCode < 300 [1s]))",
-                    "legendFormat": "{{ response_statusCode }}",
+                    "expr": "sum by (status) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 300 and response_statusCode < 400 [1s]))",
-                    "legendFormat": "{{ response_statusCode }}",
+                    "expr": "sum by (status) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 400 and response_statusCode < 500 [1s]))",
-                    "legendFormat": "{{ response_statusCode }}",
+                    "expr": "sum by (status) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500 [1s]))",
-                    "legendFormat": "{{ response_statusCode }}",
+                    "expr": "sum by (status) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "legendFormat": "{{ status }}",
                     "refId": "D"
                 }
             ],
@@ -1239,7 +1226,15 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!response_statusCode).*$"
+                            "pattern": "^(?!status).*$"
+                        }
+                    }
+                },
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!-).*$"
                         }
                     }
                 }
