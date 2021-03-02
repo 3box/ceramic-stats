@@ -1486,23 +1486,10 @@
             "description": "Requests per endpoint per second, stacked",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1535,7 +1522,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1545,8 +1532,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (request_url)",
-                    "legendFormat": "{{ request_url }}",
+                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (path)",
+                    "legendFormat": "{{ path }}",
                     "refId": "A"
                 }
             ],
@@ -1560,7 +1547,16 @@
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!path).*$"
+                        }
+                    }
+                }
+            ],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
