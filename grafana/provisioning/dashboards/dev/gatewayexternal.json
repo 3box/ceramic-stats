@@ -495,7 +495,7 @@
             },
             "yaxes": [
                 {
-                    "decimals": 0,
+                    "decimals": 2,
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -656,7 +656,6 @@
             },
             "yaxes": [
                 {
-                    "decimals": 0,
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -817,7 +816,6 @@
             },
             "yaxes": [
                 {
-                    "decimals": 0,
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -978,7 +976,6 @@
             },
             "yaxes": [
                 {
-                    "decimals": 0,
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -1140,9 +1137,7 @@
             }
         },
         {
-            "aliasColors": {
-                "404": "yellow"
-            },
+            "aliasColors": {},
             "bars": false,
             "dashLength": 10,
             "dashes": false,
@@ -1150,23 +1145,10 @@
             "description": "Responses by status / second, stacked",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1199,7 +1181,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1209,23 +1191,23 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 200 and response_statusCode < 300 [1s]))",
-                    "legendFormat": "{{ response_statusCode }}",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 300 and response_statusCode < 400 [1s]))",
-                    "legendFormat": "{{ response_statusCode }}",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 400 and response_statusCode < 500 [1s]))",
-                    "legendFormat": "{{ response_statusCode }}",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (response_statusCode) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | response_statusCode >= 500 [1s]))",
-                    "legendFormat": "{{ response_statusCode }}",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "legendFormat": "{{ status }}",
                     "refId": "D"
                 }
             ],
@@ -1244,7 +1226,15 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!response_statusCode).*$"
+                            "pattern": "^(?!status).*$"
+                        }
+                    }
+                },
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!-).*$"
                         }
                     }
                 }
@@ -1290,23 +1280,10 @@
             "description": "",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1339,7 +1316,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1349,7 +1326,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_method) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | request_method=\"GET\" [$__interval]))",
+                    "expr": "sum by (method) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [1s]))",
                     "legendFormat": "GET requests/second",
                     "refId": "A"
                 }
@@ -1406,23 +1383,10 @@
             "description": "",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1455,7 +1419,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1465,7 +1429,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_method) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | request_method=\"POST\" [1s]))",
+                    "expr": "sum by (method) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [1s]))",
                     "legendFormat": "POST requests/second",
                     "refId": "A"
                 }
@@ -1522,23 +1486,10 @@
             "description": "Requests per endpoint per second, stacked",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1571,7 +1522,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1581,8 +1532,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_url) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
-                    "legendFormat": "{{ request_url }}",
+                    "expr": "sum by (path) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ path }}",
                     "refId": "A"
                 }
             ],
@@ -1596,7 +1547,16 @@
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!path).*$"
+                        }
+                    }
+                }
+            ],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1638,23 +1598,10 @@
             "description": "Requests per origin per second, stacked",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1687,7 +1634,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1697,8 +1644,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_headers_x_forwarded_for) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
-                    "legendFormat": "{{ request_headers_x_forwarded_for }}",
+                    "expr": "sum by (ip) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ ip }}",
                     "refId": "A"
                 }
             ],
@@ -1717,7 +1664,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!request_headers_x_forwarded_for).*$"
+                            "pattern": "^(?!ip).*$"
                         }
                     }
                 }
@@ -1763,23 +1710,10 @@
             "description": "Requests per origin per endpoint per second, stacked",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1812,7 +1746,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1822,8 +1756,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_url, request_headers_x_forwarded_for) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
-                    "legendFormat": "{{ request_headers_x_forwarded_for }}, {{ request_url }}",
+                    "expr": "sum by (ip, path) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ ip }}, {{ path }}",
                     "refId": "A"
                 }
             ],
@@ -1837,7 +1771,16 @@
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!ip, path).*$"
+                        }
+                    }
+                }
+            ],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1880,23 +1823,10 @@
             "description": "",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1931,7 +1861,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1941,7 +1871,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (request_headers_x_forwarded_for) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
                     "legendFormat": "Unique origins / second",
                     "refId": "A"
                 }
