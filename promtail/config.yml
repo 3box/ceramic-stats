@@ -49,7 +49,7 @@ scrape_configs:
     labels:
       app: anchor
       job: cas/access
-      __path__: /logs/cas/anchor/access.log
+      __path__: /logs/cas/anchor/http-access.log
   - targets:
       - localhost
     labels:
@@ -76,7 +76,7 @@ scrape_configs:
     labels:
       app: api
       job: cas/access
-      __path__: /logs/cas/server/access.log
+      __path__: /logs/cas/server/http-access.log
   - targets:
       - localhost
     labels:
@@ -98,13 +98,13 @@ scrape_configs:
     labels:
       app: gateway-external
       job: ceramic/http
-      __path__: /logs/ceramic/external/gateway/ceramicdaemon.log
+      __path__: /logs/ceramic/external/gateway/http-access.log
   - targets:
       - localhost
     labels:
       app: gateway-external
       job: ceramic/pubsub
-      __path__: /logs/ceramic/external/gateway/dispatcher.log
+      __path__: /logs/ceramic/external/gateway/pubsub.log
 
 - job_name: ceramic/node-external
   pipeline_stages:
@@ -114,13 +114,13 @@ scrape_configs:
     labels:
       app: node-external
       job: ceramic/http
-      __path__: /logs/ceramic/external/node/ceramicdaemon.log
+      __path__: /logs/ceramic/external/node/http-access.log
   - targets:
       - localhost
     labels:
       app: node-external
       job: ceramic/pubsub
-      __path__: /logs/ceramic/external/node/dispatcher.log
+      __path__: /logs/ceramic/external/node/pubsub.log
 
 - job_name: ceramic/node-internal
   pipeline_stages:
@@ -130,10 +130,10 @@ scrape_configs:
     labels:
       app: node-internal
       job: ceramic/http
-      __path__: /logs/ceramic/internal/node/ceramicdaemon.log
+      __path__: /logs/ceramic/internal/node/http-access.log
   - targets:
       - localhost
     labels:
       app: node-internal
       job: ceramic/pubsub
-      __path__: /logs/ceramic/internal/node/dispatcher.log
+      __path__: /logs/ceramic/internal/node/pubsub.log

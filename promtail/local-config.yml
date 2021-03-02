@@ -58,7 +58,7 @@ scrape_configs:
     labels:
       app: anchor
       job: cas/access
-      __path__: /logs/cas/access.log
+      __path__: /logs/cas/http-access.log
   - targets:
       - localhost
     labels:
