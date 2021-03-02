@@ -85,7 +85,7 @@ scrape_configs:
     labels:
       app: api
       job: cas/access
-      __path__: /logs/cas/access.log
+      __path__: /logs/cas/http-access.log
   - targets:
       - localhost
     labels:
@@ -112,52 +112,52 @@ scrape_configs:
     labels:
       app: gateway-external
       job: ceramic/http
-      __path__: /logs/ceramic/ceramicdaemon.log
+      __path__: /logs/ceramic/http-access.log
   - targets:
       - localhost
     labels:
       app: gateway-external
       job: ceramic/pubsub
-      __path__: /logs/ceramic/dispatcher.log
+      __path__: /logs/ceramic/pubsub.log
 
 - job_name: ceramic/node-external
   pipeline_stages:
   - regex:
-      expression: request.timestamp=(?P<timestamp>\d*)
+      expression: \[(?P<timestamp>.*)\]
   - timestamp:
       source: timestamp
-      format: UnixMs
+      format: RFC1123
   static_configs:
   - targets:
       - localhost
     labels:
       app: node-external
       job: ceramic/http
-      __path__: /logs/ceramic/ceramicdaemon.log
+      __path__: /logs/ceramic/http-access.log
   - targets:
       - localhost
     labels:
       app: node-external
       job: ceramic/pubsub
-      __path__: /logs/ceramic/dispatcher.log
+      __path__: /logs/ceramic/pubsub.log
 
 - job_name: ceramic/node-internal
   pipeline_stages:
   - regex:
-      expression: request.timestamp=(?P<timestamp>\d*)
+      expression: \[(?P<timestamp>.*)\]
   - timestamp:
       source: timestamp
-      format: UnixMs
+      format: RFC1123
   static_configs:
   - targets:
       - localhost
     labels:
       app: node-internal
       job: ceramic/http
-      __path__: /logs/ceramic/ceramicdaemon.log
+      __path__: /logs/ceramic/http-access.log
   - targets:
       - localhost
     labels:
       app: node-internal
       job: ceramic/pubsub
-      __path__: /logs/ceramic/dispatcher.log
+      __path__: /logs/ceramic/pubsub.log
