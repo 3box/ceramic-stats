@@ -1598,23 +1598,10 @@
             "description": "Requests per origin per second, stacked",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1647,7 +1634,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1657,8 +1644,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_headers_x_forwarded_for) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
-                    "legendFormat": "{{ request_headers_x_forwarded_for }}",
+                    "expr": "sum by (ip) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ ip }}",
                     "refId": "A"
                 }
             ],
@@ -1677,7 +1664,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!request_headers_x_forwarded_for).*$"
+                            "pattern": "^(?!ip).*$"
                         }
                     }
                 }
@@ -1723,23 +1710,10 @@
             "description": "Requests per origin per endpoint per second, stacked",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1772,7 +1746,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1782,8 +1756,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (request_url, request_headers_x_forwarded_for) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
-                    "legendFormat": "{{ request_headers_x_forwarded_for }}, {{ request_url }}",
+                    "expr": "sum by (ip, path) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ ip }}, {{ path }}",
                     "refId": "A"
                 }
             ],
@@ -1797,7 +1771,16 @@
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!ip, path).*$"
+                        }
+                    }
+                }
+            ],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1840,23 +1823,10 @@
             "description": "",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
+                    "custom": {},
                     "thresholds": {
                         "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
+                        "steps": []
                     }
                 },
                 "overrides": []
@@ -1891,7 +1861,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1901,7 +1871,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (request_headers_x_forwarded_for) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
                     "legendFormat": "Unique origins / second",
                     "refId": "A"
                 }
