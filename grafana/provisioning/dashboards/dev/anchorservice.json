@@ -1553,9 +1553,9 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "topk(10, sum by (base_url) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" [1s])))",
+                    "expr": "topk(10, sum by (original_url) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" [1s])))",
                     "hide": false,
-                    "legendFormat": "{{ base_url }}",
+                    "legendFormat": "{{ original_url }}",
                     "refId": "A"
                 }
             ],
@@ -1569,7 +1569,16 @@
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!original_url).*$"
+                        }
+                    }
+                }
+            ],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -1775,8 +1784,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "topk(10, sum by (ip, base_url) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
-                    "legendFormat": "{{ ip }}, {{ base_url }}",
+                    "expr": "topk(10, sum by (ip, original_url) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
+                    "legendFormat": "{{ ip }}, {{ original_url }}",
                     "refId": "A"
                 }
             ],
@@ -1796,6 +1805,14 @@
                     "options": {
                         "include": {
                             "pattern": "^(?!\\:\\:ffff).*$"
+                        }
+                    }
+                },
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!ip, original_url).*$"
                         }
                     }
                 }
