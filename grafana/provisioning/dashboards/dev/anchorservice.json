@@ -1131,7 +1131,7 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:93",
-                    "decimals": 1,
+                    "decimals": 0,
                     "format": "short",
                     "label": "",
                     "logBase": 1,
@@ -1260,7 +1260,7 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:196",
-                    "decimals": 1,
+                    "decimals": 0,
                     "format": "short",
                     "label": "",
                     "logBase": 1,
@@ -1367,7 +1367,7 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:279",
-                    "decimals": 1,
+                    "decimals": 0,
                     "format": "short",
                     "label": "",
                     "logBase": 1,
@@ -1503,7 +1503,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "decimals": 0,
+            "decimals": 1,
             "description": "",
             "fieldConfig": {
                 "defaults": {
@@ -1581,7 +1581,7 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:441",
-                    "decimals": 1,
+                    "decimals": 0,
                     "format": "short",
                     "label": "",
                     "logBase": 1,
@@ -1610,7 +1610,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "decimals": 0,
+            "decimals": 1,
             "description": "",
             "fieldConfig": {
                 "defaults": {
@@ -1697,7 +1697,7 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:609",
-                    "decimals": 1,
+                    "decimals": 0,
                     "format": "short",
                     "label": "",
                     "logBase": 1,
@@ -1811,7 +1811,7 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:692",
-                    "decimals": 1,
+                    "decimals": 0,
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1840,7 +1840,7 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "decimals": null,
+            "decimals": 2,
             "description": "",
             "fieldConfig": {
                 "defaults": {
@@ -1920,7 +1920,7 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:779",
-                    "decimals": 1,
+                    "decimals": 0,
                     "format": "string",
                     "label": null,
                     "logBase": 1,
