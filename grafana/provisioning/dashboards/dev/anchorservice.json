@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 4,
     "links": [],
     "panels": [
         {
@@ -113,7 +113,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -275,7 +275,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -437,7 +437,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -616,7 +616,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -776,7 +776,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -954,7 +954,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -1093,7 +1093,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1204,7 +1204,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1329,7 +1329,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1436,7 +1436,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1543,7 +1543,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1650,7 +1650,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1765,7 +1765,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1882,7 +1882,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -2043,7 +2043,7 @@
                 "text": {},
                 "textMode": "auto"
             },
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "targets": [
                 {
                     "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1s]))",
@@ -2146,7 +2146,7 @@
                     }
                 ]
             },
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "targets": [
                 {
                     "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
@@ -2242,7 +2242,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.1",
+            "pluginVersion": "7.4.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -2340,5 +2340,5 @@
     "timezone": "",
     "title": "Anchor Service",
     "uid": "dev-U93a07JMz",
-    "version": 6618
+    "version": 6631
 }
