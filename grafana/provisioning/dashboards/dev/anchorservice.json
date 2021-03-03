@@ -1693,6 +1693,14 @@
                             "pattern": "^(?!\\:\\:ffff).*$"
                         }
                     }
+                },
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!ip).*$"
+                        }
+                    }
                 }
             ],
             "type": "graph",
