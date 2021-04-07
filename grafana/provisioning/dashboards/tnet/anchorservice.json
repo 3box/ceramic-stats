@@ -1,16 +1,16 @@
 {
     "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": "-- Grafana --",
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "type": "dashboard"
-        }
-      ]
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": "-- Grafana --",
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
     },
     "editable": true,
     "gnetId": null,
@@ -18,2371 +18,2371 @@
     "id": 1,
     "links": [],
     "panels": [
-      {
-        "collapsed": false,
-        "datasource": null,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 0
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 20,
+            "panels": [],
+            "title": "Containers",
+            "type": "row"
         },
-        "id": 20,
-        "panels": [],
-        "title": "Containers",
-        "type": "row"
-      },
-      {
-        "alert": {
-          "alertRuleTags": {},
-          "conditions": [
-            {
-              "evaluator": {
-                "params": [
-                  1
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
                 ],
-                "type": "lt"
-              },
-              "operator": {
-                "type": "and"
-              },
-              "query": {
-                "params": [
-                  "A",
-                  "5m",
-                  "now"
-                ]
-              },
-              "reducer": {
-                "params": [],
-                "type": "avg"
-              },
-              "type": "query"
-            }
-          ],
-          "executionErrorState": "alerting",
-          "for": "5m",
-          "frequency": "2m",
-          "handler": 1,
-          "name": "HealthyHostCount (ceramic-tnet-cas) alert",
-          "noDataState": "no_data",
-          "notifications": []
-        },
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "CloudWatch",
-        "description": "",
-        "editable": true,
-        "error": false,
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "grid": {},
-        "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 0,
-          "y": 1
-        },
-        "hiddenSeries": false,
-        "id": 22,
-        "isNew": true,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": true,
-          "min": true,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": false
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "alias": "",
-            "dimensions": {
-              "AvailabilityZone": "*",
-              "LoadBalancer": "app/ceramic-tnet-cas-alb/9dc9b1fdc8635f40",
-              "TargetGroup": "*"
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "HealthyHostCount (ceramic-tnet-cas) alert",
+                "noDataState": "no_data",
+                "notifications": []
             },
-            "expression": "",
-            "id": "",
-            "matchExact": true,
-            "metricName": "HealthyHostCount",
-            "namespace": "AWS/ApplicationELB",
-            "period": "",
-            "refId": "A",
-            "region": "us-east-2",
-            "statistics": [
-              "Average"
-            ]
-          }
-        ],
-        "thresholds": [
-          {
-            "colorMode": "critical",
-            "fill": false,
-            "line": false,
-            "op": "lt",
-            "value": 1
-          }
-        ],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "HealthyHostCount (ceramic-tnet-cas)",
-        "tooltip": {
-          "msResolution": true,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": 0,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "alert": {
-          "alertRuleTags": {},
-          "conditions": [
-            {
-              "evaluator": {
-                "params": [
-                  1
-                ],
-                "type": "lt"
-              },
-              "operator": {
-                "type": "and"
-              },
-              "query": {
-                "params": [
-                  "A",
-                  "5m",
-                  "now"
-                ]
-              },
-              "reducer": {
-                "params": [],
-                "type": "avg"
-              },
-              "type": "query"
-            }
-          ],
-          "executionErrorState": "alerting",
-          "for": "5m",
-          "frequency": "2m",
-          "handler": 1,
-          "name": "HealthyHostCount (ceramic-tnet-cas-ipfs) alert",
-          "noDataState": "no_data",
-          "notifications": []
-        },
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "CloudWatch",
-        "description": "",
-        "editable": true,
-        "error": false,
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "grid": {},
-        "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 12,
-          "y": 1
-        },
-        "hiddenSeries": false,
-        "id": 24,
-        "isNew": true,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": true,
-          "min": true,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": false
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "alias": "",
-            "dimensions": {
-              "AvailabilityZone": "*",
-              "LoadBalancer": "app/ceramic-tnet-cas-ipfs-alb-ex/7f93e83d06cb19d2",
-              "TargetGroup": "*"
-            },
-            "expression": "",
-            "id": "",
-            "matchExact": true,
-            "metricName": "HealthyHostCount",
-            "namespace": "AWS/ApplicationELB",
-            "period": "",
-            "refId": "A",
-            "region": "us-east-2",
-            "statistics": [
-              "Average"
-            ]
-          }
-        ],
-        "thresholds": [
-          {
-            "colorMode": "critical",
-            "fill": false,
-            "line": false,
-            "op": "lt",
-            "value": 1
-          }
-        ],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "HealthyHostCount (ceramic-tnet-cas-ipfs)",
-        "tooltip": {
-          "msResolution": true,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": 0,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "alert": {
-          "alertRuleTags": {},
-          "conditions": [
-            {
-              "evaluator": {
-                "params": [
-                  80
-                ],
-                "type": "gt"
-              },
-              "operator": {
-                "type": "and"
-              },
-              "query": {
-                "params": [
-                  "A",
-                  "5m",
-                  "now"
-                ]
-              },
-              "reducer": {
-                "params": [],
-                "type": "avg"
-              },
-              "type": "query"
-            }
-          ],
-          "executionErrorState": "alerting",
-          "for": "5m",
-          "frequency": "2m",
-          "handler": 1,
-          "name": "CPUUtilization (ceramic-tnet-cas-api) alert",
-          "noDataState": "no_data",
-          "notifications": []
-        },
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "CloudWatch",
-        "description": "",
-        "editable": true,
-        "error": false,
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "grid": {},
-        "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 0,
-          "y": 8
-        },
-        "hiddenSeries": false,
-        "id": 26,
-        "isNew": true,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": true,
-          "min": true,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": false
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "alias": "CPUUtilization_Average ({{ ServiceName }})",
-            "dimensions": {
-              "ClusterName": "ceramic-tnet-cas",
-              "ServiceName": "ceramic-tnet-cas-api"
-            },
-            "expression": "",
-            "id": "",
-            "matchExact": true,
-            "metricName": "CPUUtilization",
-            "namespace": "AWS/ECS",
-            "period": "",
-            "refId": "A",
-            "region": "us-east-2",
-            "statistics": [
-              "Average"
-            ]
-          },
-          {
-            "alias": "CPUUtilization_Average ({{ ServiceName }})",
-            "dimensions": {
-              "ClusterName": "ceramic-tnet-cas",
-              "ServiceName": "ceramic-tnet-cas-anchor"
-            },
-            "expression": "",
-            "id": "",
-            "matchExact": true,
-            "metricName": "CPUUtilization",
-            "namespace": "AWS/ECS",
-            "period": "",
-            "refId": "B",
-            "region": "us-east-2",
-            "statistics": [
-              "Average"
-            ]
-          }
-        ],
-        "thresholds": [
-          {
-            "colorMode": "critical",
-            "fill": false,
-            "line": false,
-            "op": "gt",
-            "value": 80
-          }
-        ],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "CPUUtilization (ceramic-tnet-cas)",
-        "tooltip": {
-          "msResolution": true,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 2,
-            "format": "percent",
-            "label": null,
-            "logBase": 1,
-            "max": 100,
-            "min": 0,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "alert": {
-          "alertRuleTags": {},
-          "conditions": [
-            {
-              "evaluator": {
-                "params": [
-                  80
-                ],
-                "type": "gt"
-              },
-              "operator": {
-                "type": "and"
-              },
-              "query": {
-                "params": [
-                  "A",
-                  "5m",
-                  "now"
-                ]
-              },
-              "reducer": {
-                "params": [],
-                "type": "avg"
-              },
-              "type": "query"
-            }
-          ],
-          "executionErrorState": "alerting",
-          "for": "5m",
-          "frequency": "2m",
-          "handler": 1,
-          "name": "CPUUtilization (ceramic-tnet-cas-ipfs) alert",
-          "noDataState": "no_data",
-          "notifications": []
-        },
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "CloudWatch",
-        "description": "",
-        "editable": true,
-        "error": false,
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "grid": {},
-        "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 12,
-          "y": 8
-        },
-        "hiddenSeries": false,
-        "id": 28,
-        "isNew": true,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": true,
-          "min": true,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": false
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "alias": "",
-            "dimensions": {
-              "ClusterName": "ceramic-tnet-cas",
-              "ServiceName": "ceramic-tnet-cas-ipfs"
-            },
-            "expression": "",
-            "id": "",
-            "matchExact": true,
-            "metricName": "CPUUtilization",
-            "namespace": "AWS/ECS",
-            "period": "",
-            "refId": "A",
-            "region": "us-east-2",
-            "statistics": [
-              "Average"
-            ]
-          }
-        ],
-        "thresholds": [
-          {
-            "colorMode": "critical",
-            "fill": false,
-            "line": false,
-            "op": "gt",
-            "value": 80
-          }
-        ],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "CPUUtilization (ceramic-tnet-cas-ipfs)",
-        "tooltip": {
-          "msResolution": true,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "percent",
-            "label": null,
-            "logBase": 1,
-            "max": 100,
-            "min": 0,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "alert": {
-          "alertRuleTags": {},
-          "conditions": [
-            {
-              "evaluator": {
-                "params": [
-                  80
-                ],
-                "type": "gt"
-              },
-              "operator": {
-                "type": "and"
-              },
-              "query": {
-                "params": [
-                  "A",
-                  "5m",
-                  "now"
-                ]
-              },
-              "reducer": {
-                "params": [],
-                "type": "avg"
-              },
-              "type": "query"
-            }
-          ],
-          "executionErrorState": "alerting",
-          "for": "5m",
-          "frequency": "2m",
-          "handler": 1,
-          "name": "MemoryUtilization (ceramic-tnet-cas-api) alert",
-          "noDataState": "no_data",
-          "notifications": []
-        },
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "CloudWatch",
-        "description": "",
-        "editable": true,
-        "error": false,
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "grid": {},
-        "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 0,
-          "y": 15
-        },
-        "hiddenSeries": false,
-        "id": 30,
-        "isNew": true,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": true,
-          "min": true,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": false
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "alias": "MemoryUtilization_Average ({{ ServiceName }}) ",
-            "dimensions": {
-              "ClusterName": "ceramic-tnet-cas",
-              "ServiceName": "ceramic-tnet-cas-api"
-            },
-            "expression": "",
-            "id": "",
-            "matchExact": true,
-            "metricName": "MemoryUtilization",
-            "namespace": "AWS/ECS",
-            "period": "",
-            "refId": "A",
-            "region": "us-east-2",
-            "statistics": [
-              "Average"
-            ]
-          },
-          {
-            "alias": "MemoryUtilization_Average ({{ ServiceName }})",
-            "dimensions": {
-              "ClusterName": "ceramic-tnet-cas",
-              "ServiceName": "ceramic-tnet-cas-anchor"
-            },
-            "expression": "",
-            "id": "",
-            "matchExact": true,
-            "metricName": "MemoryUtilization",
-            "namespace": "AWS/ECS",
-            "period": "",
-            "refId": "B",
-            "region": "us-east-2",
-            "statistics": [
-              "Average"
-            ]
-          }
-        ],
-        "thresholds": [
-          {
-            "colorMode": "critical",
-            "fill": false,
-            "line": false,
-            "op": "gt",
-            "value": 80
-          }
-        ],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "MemoryUtilization (ceramic-tnet-cas)",
-        "tooltip": {
-          "msResolution": true,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "percent",
-            "label": null,
-            "logBase": 1,
-            "max": 100,
-            "min": 0,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "alert": {
-          "alertRuleTags": {},
-          "conditions": [
-            {
-              "evaluator": {
-                "params": [
-                  80
-                ],
-                "type": "gt"
-              },
-              "operator": {
-                "type": "and"
-              },
-              "query": {
-                "params": [
-                  "A",
-                  "5m",
-                  "now"
-                ]
-              },
-              "reducer": {
-                "params": [],
-                "type": "avg"
-              },
-              "type": "query"
-            }
-          ],
-          "executionErrorState": "alerting",
-          "for": "5m",
-          "frequency": "2m",
-          "handler": 1,
-          "name": "MemoryUtilization (ceramic-tnet-cas-ipfs) alert",
-          "noDataState": "no_data",
-          "notifications": []
-        },
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "CloudWatch",
-        "description": "",
-        "editable": true,
-        "error": false,
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "grid": {},
-        "gridPos": {
-          "h": 7,
-          "w": 12,
-          "x": 12,
-          "y": 15
-        },
-        "hiddenSeries": false,
-        "id": 32,
-        "isNew": true,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": true,
-          "max": true,
-          "min": true,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 2,
-        "links": [],
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": false
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 5,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "alias": "",
-            "dimensions": {
-              "ClusterName": "ceramic-tnet-cas",
-              "ServiceName": "ceramic-tnet-cas-ipfs"
-            },
-            "expression": "",
-            "id": "",
-            "matchExact": true,
-            "metricName": "MemoryUtilization",
-            "namespace": "AWS/ECS",
-            "period": "",
-            "refId": "A",
-            "region": "us-east-2",
-            "statistics": [
-              "Average"
-            ]
-          }
-        ],
-        "thresholds": [
-          {
-            "colorMode": "critical",
-            "fill": false,
-            "line": false,
-            "op": "gt",
-            "value": 80
-          }
-        ],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "MemoryUtilization (ceramic-tnet-cas-ipfs)",
-        "tooltip": {
-          "msResolution": true,
-          "shared": true,
-          "sort": 0,
-          "value_type": "cumulative"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "format": "percent",
-            "label": null,
-            "logBase": 1,
-            "max": 100,
-            "min": 0,
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "collapsed": false,
-        "datasource": null,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 22
-        },
-        "id": 18,
-        "panels": [],
-        "title": "API",
-        "type": "row"
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "decimals": 0,
-        "description": "Total requests per second",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
                 },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 9,
-          "w": 12,
-          "x": 0,
-          "y": 23
-        },
-        "hiddenSeries": false,
-        "id": 3,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "count_over_time({job=\"cas/access\"} [$__interval])",
-            "hide": false,
-            "legendFormat": "requests per second",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Requests",
-        "tooltip": {
-          "shared": false,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": "",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "decimals": 0,
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
+                "overrides": []
             },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 9,
-          "w": 12,
-          "x": 12,
-          "y": 23
-        },
-        "hiddenSeries": false,
-        "id": 34,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | status >= 200 and status < 300 [$__interval]))",
-            "hide": false,
-            "legendFormat": "{{ status }}",
-            "refId": "A"
-          },
-          {
-            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 300 and status < 400 [$__interval]))",
-            "hide": false,
-            "legendFormat": "{{ status }}",
-            "refId": "B"
-          },
-          {
-            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 400 and status < 500 [$__interval]))",
-            "hide": false,
-            "legendFormat": "{{ status }}",
-            "refId": "C"
-          },
-          {
-            "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 500 [$__interval]))",
-            "hide": false,
-            "legendFormat": "{{ status }}",
-            "refId": "D"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Requests by Status",
-        "tooltip": {
-          "shared": false,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": "",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "decimals": 0,
-        "description": "Number of GET requests each second",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 1
             },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 9,
-          "w": 12,
-          "x": 0,
-          "y": 32
-        },
-        "hiddenSeries": false,
-        "id": 33,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"method=GET\" [$__interval])",
-            "hide": false,
-            "legendFormat": "requests per second",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "GET Requests",
-        "tooltip": {
-          "shared": false,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": "",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "decimals": 0,
-        "description": "Number of POST requests each second",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
+            "hiddenSeries": false,
+            "id": 22,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
             },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 9,
-          "w": 12,
-          "x": 12,
-          "y": 32
-        },
-        "hiddenSeries": false,
-        "id": 6,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "count_over_time({job=\"cas/access\"} |= \"method=POST\" [$__interval])",
-            "hide": false,
-            "legendFormat": "requests per second",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "POST Requests",
-        "tooltip": {
-          "shared": false,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": "",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "decimals": 0,
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 9,
-          "w": 24,
-          "x": 0,
-          "y": 41
-        },
-        "hiddenSeries": false,
-        "id": 36,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "sum by (path) (count_over_time({job=\"cas/access\"} | logfmt [$__interval]))",
-            "hide": false,
-            "legendFormat": "{{ path }}",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Requests per Endpoint",
-        "tooltip": {
-          "shared": false,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": "",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "decimals": 0,
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 9,
-          "w": 24,
-          "x": 0,
-          "y": 50
-        },
-        "hiddenSeries": false,
-        "id": 35,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt [1s]))",
-            "hide": false,
-            "legendFormat": "{{ ip }}",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Requests per Origin",
-        "tooltip": {
-          "shared": false,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": "",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "description": "Requests per origin per endpoint per second, stacked",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 8,
-          "w": 24,
-          "x": 0,
-          "y": 59
-        },
-        "hiddenSeries": false,
-        "id": 40,
-        "legend": {
-          "alignAsTable": true,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": true,
-          "show": true,
-          "total": true,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": true,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "sum by (request_url, request_headers_x_forwarded_for) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
-            "legendFormat": "{{ request_headers_x_forwarded_for }}, {{ request_url }}",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Requests per Origin per Endpoint",
-        "tooltip": {
-          "shared": false,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "decimals": null,
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 8,
-          "w": 24,
-          "x": 0,
-          "y": 67
-        },
-        "hiddenSeries": false,
-        "id": 42,
-        "legend": {
-          "alignAsTable": true,
-          "avg": true,
-          "current": false,
-          "hideEmpty": false,
-          "hideZero": false,
-          "max": true,
-          "min": false,
-          "rightSide": false,
-          "show": true,
-          "total": true,
-          "values": true
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "count by (Value) (sum by (request_headers_x_forwarded_for) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
-            "legendFormat": "Unique origins / second",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "# of Unique Origins Active",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "transformations": [],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "min": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "decimals": 0,
-            "format": "string",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "collapsed": false,
-        "datasource": null,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 75
-        },
-        "id": 38,
-        "panels": [],
-        "title": "Anchor",
-        "type": "row"
-      },
-      {
-        "datasource": "Loki",
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "0"
-              },
-              "properties": [
-                {
-                  "id": "displayName",
-                  "value": "Pending"
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "1"
-              },
-              "properties": [
-                {
-                  "id": "displayName",
-                  "value": "Processing"
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "3"
-              },
-              "properties": [
-                {
-                  "id": "displayName",
-                  "value": "Failed"
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 76
-        },
-        "id": 16,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "distinctCount"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "7.3.7",
-        "targets": [
-          {
-            "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1s]))",
-            "hide": false,
-            "legendFormat": "{{ status }}",
-            "refId": "A"
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Anchor Statuses (Latest)",
-        "transformations": [],
-        "type": "stat"
-      },
-      {
-        "datasource": "Loki",
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {
-              "align": null,
-              "filterable": false
-            },
-            "decimals": 0,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": [
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "status (last)"
-              },
-              "properties": [
-                {
-                  "id": "displayName",
-                  "value": "Latest Status"
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "cid"
-              },
-              "properties": [
-                {
-                  "id": "displayName",
-                  "value": "CID"
-                }
-              ]
-            },
-            {
-              "matcher": {
-                "id": "byName",
-                "options": "createdAt (last)"
-              },
-              "properties": [
-                {
-                  "id": "unit",
-                  "value": "dateTimeAsLocal"
-                },
-                {
-                  "id": "displayName",
-                  "value": "Latest Update"
-                }
-              ]
-            }
-          ]
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
-          "y": 76
-        },
-        "id": 12,
-        "options": {
-          "frameIndex": 2,
-          "showHeader": true,
-          "sortBy": [
-            {
-              "desc": true,
-              "displayName": "Latest Update"
-            }
-          ]
-        },
-        "pluginVersion": "7.3.7",
-        "targets": [
-          {
-            "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
-            "hide": false,
-            "legendFormat": "",
-            "refId": "A"
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Anchor Statuses (Latest)",
-        "transformations": [
-          {
-            "id": "labelsToFields",
-            "options": {}
-          },
-          {
-            "id": "groupBy",
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
             "options": {
-              "fields": {
-                "cid": {
-                  "aggregations": [],
-                  "operation": "groupby"
-                },
-                "createdAt": {
-                  "aggregations": [
-                    "last"
-                  ],
-                  "operation": "aggregate"
-                },
-                "status": {
-                  "aggregations": [
-                    "last"
-                  ],
-                  "operation": "aggregate"
-                },
-                "ts": {
-                  "aggregations": [],
-                  "operation": null
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "AvailabilityZone": "*",
+                        "LoadBalancer": "app/ceramic-tnet-cas-alb/9dc9b1fdc8635f40",
+                        "TargetGroup": "*"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "HealthyHostCount",
+                    "namespace": "AWS/ApplicationELB",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
                 }
-              }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "lt",
+                    "value": 1
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "HealthyHostCount (ceramic-tnet-cas)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
             }
-          }
-        ],
-        "type": "table"
-      },
-      {
-        "aliasColors": {
-          "balance": "blue"
         },
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "Loki",
-        "description": "Ethereum balance of anchor service wallet in gwei",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "HealthyHostCount (ceramic-tnet-cas-ipfs) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 12,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 24,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "AvailabilityZone": "*",
+                        "LoadBalancer": "app/ceramic-tnet-cas-ipfs-alb-ex/7f93e83d06cb19d2",
+                        "TargetGroup": "*"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "HealthyHostCount",
+                    "namespace": "AWS/ApplicationELB",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "lt",
+                    "value": 1
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "HealthyHostCount (ceramic-tnet-cas-ipfs)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         },
-        "fill": 1,
-        "fillGradient": 0,
-        "gridPos": {
-          "h": 8,
-          "w": 24,
-          "x": 0,
-          "y": 84
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "CPUUtilization (ceramic-tnet-cas-api) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 8
+            },
+            "hiddenSeries": false,
+            "id": 26,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "CPUUtilization_Average ({{ ServiceName }})",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-cas",
+                        "ServiceName": "ceramic-tnet-cas-api"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                },
+                {
+                    "alias": "CPUUtilization_Average ({{ ServiceName }})",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-cas",
+                        "ServiceName": "ceramic-tnet-cas-anchor"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "B",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "CPUUtilization (ceramic-tnet-cas)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 2,
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         },
-        "hiddenSeries": false,
-        "id": 14,
-        "legend": {
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "show": true,
-          "total": false,
-          "values": false
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "CPUUtilization (ceramic-tnet-cas-ipfs) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 12,
+                "y": 8
+            },
+            "hiddenSeries": false,
+            "id": 28,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-cas",
+                        "ServiceName": "ceramic-tnet-cas-ipfs"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "CPUUtilization (ceramic-tnet-cas-ipfs)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "connected",
-        "options": {
-          "alertThreshold": true
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "MemoryUtilization (ceramic-tnet-cas-api) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 0,
+                "y": 15
+            },
+            "hiddenSeries": false,
+            "id": 30,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "MemoryUtilization_Average ({{ ServiceName }}) ",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-cas",
+                        "ServiceName": "ceramic-tnet-cas-api"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "MemoryUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                },
+                {
+                    "alias": "MemoryUtilization_Average ({{ ServiceName }})",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-cas",
+                        "ServiceName": "ceramic-tnet-cas-anchor"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "MemoryUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "B",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "MemoryUtilization (ceramic-tnet-cas)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         },
-        "percentage": false,
-        "pluginVersion": "7.3.7",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [
-          {
-            "alias": "balance",
-            "yaxis": 1
-          }
-        ],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "expr": "sum_over_time({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | unwrap balance [1s])",
-            "hide": false,
-            "legendFormat": "{{ balance }}",
-            "refId": "A"
-          }
-        ],
-        "thresholds": [
-          {
-            "colorMode": "critical",
-            "fill": true,
-            "line": true,
-            "op": "lt",
-            "value": 0.1,
-            "yaxis": "left"
-          }
-        ],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "ETH Balance in Gwei",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "MemoryUtilization (ceramic-tnet-cas-ipfs) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 12,
+                "x": 12,
+                "y": 15
+            },
+            "hiddenSeries": false,
+            "id": 32,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-cas",
+                        "ServiceName": "ceramic-tnet-cas-ipfs"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "MemoryUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "MemoryUtilization (ceramic-tnet-cas-ipfs)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         },
-        "transformations": [
-          {
-            "id": "seriesToRows",
-            "options": {}
-          }
-        ],
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 22
+            },
+            "id": 18,
+            "panels": [],
+            "title": "API",
+            "type": "row"
         },
-        "yaxes": [
-          {
-            "decimals": 6,
-            "format": "short",
-            "label": "gwei",
-            "logBase": 1,
-            "max": null,
-            "min": "0",
-            "show": true
-          },
-          {
-            "format": "short",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": false
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": 0,
+            "description": "Total requests per second",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 0,
+                "y": 23
+            },
+            "hiddenSeries": false,
+            "id": 3,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count_over_time({job=\"cas/access\"} [$__interval])",
+                    "hide": false,
+                    "legendFormat": "requests per second",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": 0,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 23
+            },
+            "hiddenSeries": false,
+            "id": 34,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | status >= 200 and status < 300 [$__interval]))",
+                    "hide": false,
+                    "legendFormat": "{{ status }}",
+                    "refId": "A"
+                },
+                {
+                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 300 and status < 400 [$__interval]))",
+                    "hide": false,
+                    "legendFormat": "{{ status }}",
+                    "refId": "B"
+                },
+                {
+                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 400 and status < 500 [$__interval]))",
+                    "hide": false,
+                    "legendFormat": "{{ status }}",
+                    "refId": "C"
+                },
+                {
+                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | method=\"GET\" and status >= 500 [$__interval]))",
+                    "hide": false,
+                    "legendFormat": "{{ status }}",
+                    "refId": "D"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests by Status",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": 0,
+            "description": "Number of GET requests each second",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 0,
+                "y": 32
+            },
+            "hiddenSeries": false,
+            "id": 33,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count_over_time({job=\"cas/access\"} |= \"method=GET\" [$__interval])",
+                    "hide": false,
+                    "legendFormat": "requests per second",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "GET Requests",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": 0,
+            "description": "Number of POST requests each second",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 32
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count_over_time({job=\"cas/access\"} |= \"method=POST\" [$__interval])",
+                    "hide": false,
+                    "legendFormat": "requests per second",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "POST Requests",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": 0,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 41
+            },
+            "hiddenSeries": false,
+            "id": 36,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (path) (count_over_time({job=\"cas/access\"} | logfmt [$__interval]))",
+                    "hide": false,
+                    "legendFormat": "{{ path }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Endpoint",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": 0,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 24,
+                "x": 0,
+                "y": 50
+            },
+            "hiddenSeries": false,
+            "id": 35,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt [1s]))",
+                    "hide": false,
+                    "legendFormat": "{{ ip }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Origin",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Requests per origin per endpoint per second, stacked",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 59
+            },
+            "hiddenSeries": false,
+            "id": 40,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (request_url, request_headers_x_forwarded_for) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "legendFormat": "{{ request_headers_x_forwarded_for }}, {{ request_url }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Origin per Endpoint",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 67
+            },
+            "hiddenSeries": false,
+            "id": 42,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "hideEmpty": false,
+                "hideZero": false,
+                "max": true,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count by (Value) (sum by (request_headers_x_forwarded_for) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
+                    "legendFormat": "Unique origins / second",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "# of Unique Origins Active",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "min": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "string",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 75
+            },
+            "id": 38,
+            "panels": [],
+            "title": "Anchor",
+            "type": "row"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "decimals": 0,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "0"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Pending"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "1"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Processing"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "3"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Failed"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 76
+            },
+            "id": 16,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "distinctCount"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "7.3.7",
+            "targets": [
+                {
+                    "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1s]))",
+                    "hide": false,
+                    "legendFormat": "{{ status }}",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Anchor Statuses (Latest)",
+            "transformations": [],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": null,
+                        "filterable": false
+                    },
+                    "decimals": 0,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "status (last)"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Latest Status"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "cid"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "CID"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "createdAt (last)"
+                        },
+                        "properties": [
+                            {
+                                "id": "unit",
+                                "value": "dateTimeAsLocal"
+                            },
+                            {
+                                "id": "displayName",
+                                "value": "Latest Update"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 76
+            },
+            "id": 12,
+            "options": {
+                "frameIndex": 2,
+                "showHeader": true,
+                "sortBy": [
+                    {
+                        "desc": true,
+                        "displayName": "Latest Update"
+                    }
+                ]
+            },
+            "pluginVersion": "7.3.7",
+            "targets": [
+                {
+                    "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
+                    "hide": false,
+                    "legendFormat": "",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Anchor Statuses (Latest)",
+            "transformations": [
+                {
+                    "id": "labelsToFields",
+                    "options": {}
+                },
+                {
+                    "id": "groupBy",
+                    "options": {
+                        "fields": {
+                            "cid": {
+                                "aggregations": [],
+                                "operation": "groupby"
+                            },
+                            "createdAt": {
+                                "aggregations": [
+                                    "last"
+                                ],
+                                "operation": "aggregate"
+                            },
+                            "status": {
+                                "aggregations": [
+                                    "last"
+                                ],
+                                "operation": "aggregate"
+                            },
+                            "ts": {
+                                "aggregations": [],
+                                "operation": null
+                            }
+                        }
+                    }
+                }
+            ],
+            "type": "table"
+        },
+        {
+            "aliasColors": {
+                "balance": "blue"
+            },
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Ethereum balance of anchor service wallet in gwei",
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {}
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 84
+            },
+            "hiddenSeries": false,
+            "id": 14,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.3.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+                {
+                    "alias": "balance",
+                    "yaxis": 1
+                }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum_over_time({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | unwrap balance [1s])",
+                    "hide": false,
+                    "legendFormat": "{{ balance }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": true,
+                    "line": true,
+                    "op": "lt",
+                    "value": 0.1,
+                    "yaxis": "left"
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "ETH Balance in Gwei",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 6,
+                    "format": "short",
+                    "label": "gwei",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         }
-      }
     ],
     "refresh": false,
     "schemaVersion": 26,
     "style": "dark",
     "tags": [],
     "templating": {
-      "list": []
+        "list": []
     },
     "time": {
-      "from": "now-30m",
-      "to": "now"
+        "from": "now-30m",
+        "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Anchor Service",
     "uid": "tnet-U93a07JMz",
     "version": 2
-  }
+}
