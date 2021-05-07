@@ -1013,26 +1013,7 @@
             "datasource": "Loki",
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
