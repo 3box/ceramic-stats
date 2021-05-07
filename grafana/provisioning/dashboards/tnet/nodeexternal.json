@@ -78,9 +78,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -114,7 +112,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -149,7 +147,8 @@
                     "fill": false,
                     "line": false,
                     "op": "lt",
-                    "value": 1
+                    "value": 1,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -240,9 +239,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -276,7 +273,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -311,7 +308,8 @@
                     "fill": false,
                     "line": false,
                     "op": "lt",
-                    "value": 1
+                    "value": 1,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -402,9 +400,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -438,7 +434,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -472,7 +468,8 @@
                     "fill": false,
                     "line": false,
                     "op": "gt",
-                    "value": 80
+                    "value": 80,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -563,9 +560,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -599,7 +594,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -633,7 +628,8 @@
                     "fill": false,
                     "line": false,
                     "op": "gt",
-                    "value": 80
+                    "value": 80,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -723,9 +719,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -759,7 +753,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -793,7 +787,8 @@
                     "fill": false,
                     "line": false,
                     "op": "gt",
-                    "value": 80
+                    "value": 80,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -883,9 +878,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -919,7 +912,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.3",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -953,7 +946,8 @@
                     "fill": false,
                     "line": false,
                     "op": "gt",
-                    "value": 80
+                    "value": 80,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -1069,7 +1063,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1079,7 +1073,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node-external\", job=\"ceramic/http\"} [1s])",
+                    "expr": "count_over_time({app=\"node-external\", job=\"ceramic/http\"} [$bucket])",
                     "legendFormat": "Total requests/second",
                     "refId": "A"
                 }
@@ -1114,6 +1108,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:247",
                     "decimals": 0,
                     "format": "string",
                     "label": null,
@@ -1123,6 +1118,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:248",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1144,13 +1140,7 @@
             "datasource": "Loki",
             "description": "Responses by status / second, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1181,32 +1171,32 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
-            "stack": true,
+            "stack": false,
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "D"
                 }
@@ -1217,7 +1207,7 @@
             "timeShift": null,
             "title": "Responses by Status",
             "tooltip": {
-                "shared": false,
+                "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
@@ -1242,6 +1232,7 @@
             "type": "graph",
             "xaxis": {
                 "buckets": null,
+                "min": null,
                 "mode": "time",
                 "name": null,
                 "show": true,
@@ -1249,6 +1240,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:95",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1258,6 +1250,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:96",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1279,13 +1272,7 @@
             "datasource": "Loki",
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1316,7 +1303,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1326,7 +1313,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [1s]))",
+                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
                     "legendFormat": "GET requests/second",
                     "refId": "A"
                 }
@@ -1352,6 +1339,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:296",
                     "decimals": 0,
                     "format": "string",
                     "label": null,
@@ -1361,6 +1349,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:297",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1382,13 +1371,7 @@
             "datasource": "Loki",
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1419,7 +1402,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1429,7 +1412,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [1s]))",
+                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
                     "legendFormat": "POST requests/second",
                     "refId": "A"
                 }
@@ -1455,6 +1438,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:392",
                     "decimals": 0,
                     "format": "string",
                     "label": null,
@@ -1464,6 +1448,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:393",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1485,13 +1470,7 @@
             "datasource": "Loki",
             "description": "Requests per endpoint per second, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1522,7 +1501,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1532,7 +1511,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (path)",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])) by (path)",
                     "legendFormat": "{{ path }}",
                     "refId": "A"
                 }
@@ -1567,6 +1546,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:488",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1576,6 +1556,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:489",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1597,13 +1578,7 @@
             "datasource": "Loki",
             "description": "Requests per origin per second, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1634,7 +1609,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1644,7 +1619,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "expr": "sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}",
                     "refId": "A"
                 }
@@ -1679,6 +1654,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:584",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1688,6 +1664,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:585",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1709,13 +1686,7 @@
             "datasource": "Loki",
             "description": "Requests per origin per endpoint per second, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1746,7 +1717,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1756,7 +1727,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip, path) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "expr": "sum by (ip, path) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}, {{ path }}",
                     "refId": "A"
                 }
@@ -1791,6 +1762,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:680",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -1800,6 +1772,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:681",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1822,13 +1795,7 @@
             "decimals": null,
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1861,7 +1828,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1871,7 +1838,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
                     "legendFormat": "Unique origins / second",
                     "refId": "A"
                 }
@@ -1898,6 +1865,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:729",
                     "decimals": 0,
                     "format": "string",
                     "label": null,
@@ -1907,6 +1875,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:730",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1922,11 +1891,83 @@
         }
     ],
     "refresh": false,
-    "schemaVersion": 26,
+    "schemaVersion": 27,
     "style": "dark",
     "tags": [],
     "templating": {
-        "list": []
+        "list": [
+            {
+                "auto": false,
+                "auto_count": 30,
+                "auto_min": "10s",
+                "current": {
+                    "selected": false,
+                    "text": "1m",
+                    "value": "1m"
+                },
+                "description": null,
+                "error": null,
+                "hide": 0,
+                "label": null,
+                "name": "bucket",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "1m",
+                        "value": "1m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "10m",
+                        "value": "10m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "30m",
+                        "value": "30m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "1h",
+                        "value": "1h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "6h",
+                        "value": "6h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "12h",
+                        "value": "12h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "1d",
+                        "value": "1d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "7d",
+                        "value": "7d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "14d",
+                        "value": "14d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "30d",
+                        "value": "30d"
+                    }
+                ],
+                "query": "1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+                "refresh": 2,
+                "skipUrlSync": false,
+                "type": "interval"
+            }
+        ]
     },
     "time": {
         "from": "now-12h",
@@ -1936,5 +1977,5 @@
     "timezone": "",
     "title": "Node (External)",
     "uid": "tnet-node-ex-o1Dp-kcGz",
-    "version": 3
+    "version": 7
 }
