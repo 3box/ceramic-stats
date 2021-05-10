@@ -77,9 +77,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -113,7 +111,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -239,9 +237,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -275,7 +271,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -401,9 +397,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -437,7 +431,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -580,9 +574,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -616,7 +608,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -740,9 +732,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -776,7 +766,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -918,9 +908,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -954,7 +942,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -1054,15 +1042,9 @@
             "dashes": false,
             "datasource": "Loki",
             "decimals": 2,
-            "description": "Total requests per second",
+            "description": "Total requests per $bucket",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1093,7 +1075,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1103,9 +1085,9 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({job=\"cas/access\"} [1s])",
+                    "expr": "count_over_time({job=\"cas/access\"} [$bucket])",
                     "hide": false,
-                    "legendFormat": "requests per second",
+                    "legendFormat": "requests per $bucket",
                     "refId": "A"
                 }
             ],
@@ -1167,13 +1149,7 @@
             "decimals": 2,
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1204,7 +1180,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1214,25 +1190,25 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 200 and status < 300 [1s]))",
+                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 200 and status < 300 [$bucket]))",
                     "hide": false,
                     "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 300 and status < 400 [1s]))",
+                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 300 and status < 400 [$bucket]))",
                     "hide": false,
                     "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 400 and status < 500 [1s]))",
+                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 400 and status < 500 [$bucket]))",
                     "hide": false,
                     "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 500 [1s]))",
+                    "expr": "sum by (status) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" | status >= 500 [$bucket]))",
                     "hide": false,
                     "legendFormat": "{{ status }}",
                     "refId": "D"
@@ -1290,15 +1266,9 @@
             "dashes": false,
             "datasource": "Loki",
             "decimals": 2,
-            "description": "Number of GET requests each second",
+            "description": "Number of GET requests each $bucket",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1329,7 +1299,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1339,9 +1309,9 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({job=\"cas/access\"} |= \"method=GET\" [1s])",
+                    "expr": "count_over_time({job=\"cas/access\"} |= \"method=GET\" [$bucket])",
                     "hide": false,
-                    "legendFormat": "requests per second",
+                    "legendFormat": "requests per $bucket",
                     "refId": "A"
                 }
             ],
@@ -1397,15 +1367,9 @@
             "dashes": false,
             "datasource": "Loki",
             "decimals": 2,
-            "description": "Number of POST requests each second",
+            "description": "Number of POST requests each $bucket",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1436,7 +1400,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1446,9 +1410,9 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({job=\"cas/access\"} |= \"method=POST\" [1s])",
+                    "expr": "count_over_time({job=\"cas/access\"} |= \"method=POST\" [$bucket])",
                     "hide": false,
-                    "legendFormat": "requests per second",
+                    "legendFormat": "requests per $bucket",
                     "refId": "A"
                 }
             ],
@@ -1506,13 +1470,7 @@
             "decimals": 1,
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1543,7 +1501,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1553,9 +1511,9 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "topk(10, sum by (original_url) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" [1s])))",
+                    "expr": "topk(10, sum by (base_url) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" [$bucket])))",
                     "hide": false,
-                    "legendFormat": "{{ original_url }}",
+                    "legendFormat": "{{ base_url }}",
                     "refId": "A"
                 }
             ],
@@ -1574,7 +1532,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!original_url).*$"
+                            "pattern": "^(?!base_url).*$"
                         }
                     }
                 }
@@ -1622,13 +1580,7 @@
             "decimals": 1,
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1659,7 +1611,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1669,7 +1621,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "topk(10, sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" [1s])))",
+                    "expr": "topk(10, sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt | __error__ != \"LogfmtParserErr\" [$bucket])))",
                     "hide": false,
                     "legendFormat": "{{ ip }}",
                     "refId": "A"
@@ -1743,15 +1695,9 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Requests per origin per endpoint per second, stacked",
+            "description": "Requests per origin per endpoint per $bucket, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1782,7 +1728,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1792,8 +1738,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "topk(10, sum by (ip, original_url) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
-                    "legendFormat": "{{ ip }}, {{ original_url }}",
+                    "expr": "topk(10, sum by (ip, base_url) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
+                    "legendFormat": "{{ ip }}, {{ base_url }}",
                     "refId": "A"
                 }
             ],
@@ -1820,7 +1766,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!ip, original_url).*$"
+                            "pattern": "^(?!ip, base_url).*$"
                         }
                     }
                 }
@@ -1868,13 +1814,7 @@
             "decimals": 2,
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1907,7 +1847,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1917,8 +1857,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
-                    "legendFormat": "Unique origins / second",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({job=\"cas/access\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
+                    "legendFormat": "Unique origins / $bucket",
                     "refId": "A"
                 }
             ],
@@ -1990,7 +1930,6 @@
                     "color": {
                         "mode": "thresholds"
                     },
-                    "custom": {},
                     "decimals": 0,
                     "mappings": [],
                     "thresholds": {
@@ -2068,7 +2007,7 @@
                 "text": {},
                 "textMode": "auto"
             },
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "targets": [
                 {
                     "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1s]))",
@@ -2171,7 +2110,7 @@
                     }
                 ]
             },
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "targets": [
                 {
                     "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
@@ -2236,9 +2175,7 @@
             "datasource": "Loki",
             "description": "Ethereum balance of anchor service wallet in gwei",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -2267,7 +2204,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.4.3",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -2355,7 +2292,79 @@
     "style": "dark",
     "tags": [],
     "templating": {
-        "list": []
+        "list": [
+            {
+                "auto": false,
+                "auto_count": 30,
+                "auto_min": "10s",
+                "current": {
+                    "selected": false,
+                    "text": "1m",
+                    "value": "1m"
+                },
+                "description": null,
+                "error": null,
+                "hide": 0,
+                "label": null,
+                "name": "bucket",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "1m",
+                        "value": "1m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "10m",
+                        "value": "10m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "30m",
+                        "value": "30m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "1h",
+                        "value": "1h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "6h",
+                        "value": "6h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "12h",
+                        "value": "12h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "1d",
+                        "value": "1d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "7d",
+                        "value": "7d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "14d",
+                        "value": "14d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "30d",
+                        "value": "30d"
+                    }
+                ],
+                "query": "1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+                "refresh": 2,
+                "skipUrlSync": false,
+                "type": "interval"
+            }
+        ]
     },
     "time": {
         "from": "now-12h",

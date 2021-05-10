@@ -15,7 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 75,
+    "id": 5,
+    "iteration": 1620394111592,
     "links": [],
     "panels": [
         {
@@ -78,9 +79,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -114,7 +113,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -149,7 +148,8 @@
                     "fill": false,
                     "line": false,
                     "op": "lt",
-                    "value": 1
+                    "value": 1,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -240,9 +240,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -276,7 +274,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -311,7 +309,8 @@
                     "fill": false,
                     "line": false,
                     "op": "lt",
-                    "value": 1
+                    "value": 1,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -402,9 +401,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -438,7 +435,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -472,7 +469,8 @@
                     "fill": false,
                     "line": false,
                     "op": "gt",
-                    "value": 80
+                    "value": 80,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -563,9 +561,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -599,7 +595,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -633,7 +629,8 @@
                     "fill": false,
                     "line": false,
                     "op": "gt",
-                    "value": 80
+                    "value": 80,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -723,9 +720,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -759,7 +754,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -793,7 +788,8 @@
                     "fill": false,
                     "line": false,
                     "op": "gt",
-                    "value": 80
+                    "value": 80,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -883,9 +879,7 @@
             "editable": true,
             "error": false,
             "fieldConfig": {
-                "defaults": {
-                    "custom": {}
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -919,7 +913,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.5",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -953,7 +947,8 @@
                     "fill": false,
                     "line": false,
                     "op": "gt",
-                    "value": 80
+                    "value": 80,
+                    "visible": true
                 }
             ],
             "timeFrom": null,
@@ -1019,26 +1014,7 @@
             "datasource": "Loki",
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {
-                        "align": null,
-                        "filterable": false
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1069,7 +1045,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.7",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1079,8 +1055,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node-external\", job=\"ceramic/http\"} [1s])",
-                    "legendFormat": "Total requests/second",
+                    "expr": "count_over_time({app=\"node-external\", job=\"ceramic/http\"} [$bucket])",
+                    "legendFormat": "Total requests/$bucket",
                     "refId": "A"
                 }
             ],
@@ -1142,15 +1118,9 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Responses by status / second, stacked",
+            "description": "Responses by status / $bucket, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1181,7 +1151,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1191,22 +1161,22 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [1s]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "D"
                 }
@@ -1279,13 +1249,7 @@
             "datasource": "Loki",
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1316,7 +1280,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1326,8 +1290,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [1s]))",
-                    "legendFormat": "GET requests/second",
+                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
+                    "legendFormat": "GET requests/$bucket",
                     "refId": "A"
                 }
             ],
@@ -1382,13 +1346,7 @@
             "datasource": "Loki",
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1419,7 +1377,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1429,8 +1387,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [1s]))",
-                    "legendFormat": "POST requests/second",
+                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
+                    "legendFormat": "POST requests/$bucket",
                     "refId": "A"
                 }
             ],
@@ -1483,15 +1441,9 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Requests per endpoint per second, stacked",
+            "description": "Requests per endpoint per $bucket, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1522,7 +1474,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1532,8 +1484,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])) by (path)",
-                    "legendFormat": "{{ path }}",
+                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])) by (base_url)",
+                    "legendFormat": "{{ base_url }}",
                     "refId": "A"
                 }
             ],
@@ -1552,7 +1504,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!path).*$"
+                            "pattern": "^(?!base_url).*$"
                         }
                     }
                 }
@@ -1595,15 +1547,9 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Requests per origin per second, stacked",
+            "description": "Requests per origin per $bucket, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1634,7 +1580,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1644,7 +1590,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
+                    "expr": "sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}",
                     "refId": "A"
                 }
@@ -1707,15 +1653,9 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Requests per origin per endpoint per second, stacked",
+            "description": "Requests per origin per endpoint per $bucket, stacked",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1746,7 +1686,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1756,8 +1696,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip, path) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s]))",
-                    "legendFormat": "{{ ip }}, {{ path }}",
+                    "expr": "sum by (ip, base_url) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "legendFormat": "{{ ip }}, {{ base_url }}",
                     "refId": "A"
                 }
             ],
@@ -1822,13 +1762,7 @@
             "decimals": null,
             "description": "",
             "fieldConfig": {
-                "defaults": {
-                    "custom": {},
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": []
-                    }
-                },
+                "defaults": {},
                 "overrides": []
             },
             "fill": 1,
@@ -1861,7 +1795,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "",
+            "pluginVersion": "7.5.5",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1871,8 +1805,8 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [1s])))",
-                    "legendFormat": "Unique origins / second",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
+                    "legendFormat": "Unique origins / $bucket",
                     "refId": "A"
                 }
             ],
@@ -1922,11 +1856,83 @@
         }
     ],
     "refresh": false,
-    "schemaVersion": 26,
+    "schemaVersion": 27,
     "style": "dark",
     "tags": [],
     "templating": {
-        "list": []
+        "list": [
+            {
+                "auto": false,
+                "auto_count": 30,
+                "auto_min": "10s",
+                "current": {
+                    "selected": false,
+                    "text": "1m",
+                    "value": "1m"
+                },
+                "description": null,
+                "error": null,
+                "hide": 0,
+                "label": null,
+                "name": "bucket",
+                "options": [
+                    {
+                        "selected": true,
+                        "text": "1m",
+                        "value": "1m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "10m",
+                        "value": "10m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "30m",
+                        "value": "30m"
+                    },
+                    {
+                        "selected": false,
+                        "text": "1h",
+                        "value": "1h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "6h",
+                        "value": "6h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "12h",
+                        "value": "12h"
+                    },
+                    {
+                        "selected": false,
+                        "text": "1d",
+                        "value": "1d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "7d",
+                        "value": "7d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "14d",
+                        "value": "14d"
+                    },
+                    {
+                        "selected": false,
+                        "text": "30d",
+                        "value": "30d"
+                    }
+                ],
+                "query": "1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+                "refresh": 2,
+                "skipUrlSync": false,
+                "type": "interval"
+            }
+        ]
     },
     "time": {
         "from": "now-12h",
