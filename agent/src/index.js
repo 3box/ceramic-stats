@@ -33,12 +33,15 @@ function outputPath(suffix) {
 }
 
 const bootstrapList = {
+  '/ceramic/mainnet': [
+    '/dns4/ipfs-ceramic-private-mainnet-external.3boxlabs.com/tcp/4012/wss/p2p/QmXALVsXZwPWTUbsT8G6VVzzgTJaAWRUD7FWL5f7d5ubAL'
+  ],
   '/ceramic/testnet-clay': [
-    '/dns4/ipfs-clay-internal.3boxlabs.com/tcp/4012/wss/p2p/QmQotCKxiMWt935TyCBFTN23jaivxwrZ3uD58wNxeg5npi'
+    '/dns4/ipfs-ceramic-private-clay-external.3boxlabs.com/tcp/4012/wss/p2p/QmQotCKxiMWt935TyCBFTN23jaivxwrZ3uD58wNxeg5npi'
   ],
   '/ceramic/dev-unstable': [
-    '/dns4/ipfs-dev-internal.3boxlabs.com/tcp/4012/wss/p2p/QmYkpxusRem2iup8ZAfVGYv7iq1ks1yyq2XxQh3z2a8xXq'
-  ]
+    '/dns4/ipfs-ceramic-private-dev-external.3boxlabs.com/tcp/4012/wss/p2p/Qmdb7UeJeid2Wf481g9Wvx2MPcPGVBc6rAj2PPiz9mnnqC'
+  ],
 }
 
 const handledMessages = new LRUMap({ limit: 10000 })
