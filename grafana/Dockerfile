@@ -1,6 +1,6 @@
 # Modified from https://github.com/grafana/grafana/blob/master/packaging/docker/custom/Dockerfile
 
-ARG GRAFANA_VERSION="latest"
+ARG GRAFANA_VERSION="7.5.7"
 
 FROM grafana/grafana:${GRAFANA_VERSION}
 
