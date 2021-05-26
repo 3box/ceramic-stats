@@ -340,7 +340,7 @@
                 "notifications": []
             },
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -370,7 +370,7 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
@@ -379,7 +379,7 @@
             "percentage": false,
             "pluginVersion": "7.5.7",
             "pointradius": 5,
-            "points": true,
+            "points": false,
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
@@ -387,7 +387,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s])",
+                    "expr": "count by (event) (count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -485,7 +485,7 @@
                 "notifications": []
             },
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -515,7 +515,7 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
@@ -524,7 +524,7 @@
             "percentage": false,
             "pluginVersion": "7.5.7",
             "pointradius": 5,
-            "points": true,
+            "points": false,
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
@@ -532,7 +532,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s])",
+                    "expr": "count by (event) (count_over_time({app=\"node-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -630,7 +630,7 @@
                 "notifications": []
             },
             "aliasColors": {},
-            "bars": true,
+            "bars": false,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -660,7 +660,7 @@
                 "total": false,
                 "values": false
             },
-            "lines": false,
+            "lines": true,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
@@ -669,7 +669,7 @@
             "percentage": false,
             "pluginVersion": "7.5.7",
             "pointradius": 5,
-            "points": true,
+            "points": false,
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
@@ -677,7 +677,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s])",
+                    "expr": "count by (event) (count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -753,5 +753,5 @@
     "timezone": "",
     "title": "PubSub",
     "uid": "pubsub-MQ-WJ_YGz",
-    "version": 9
+    "version": 11
 }
