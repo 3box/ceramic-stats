@@ -55,7 +55,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.6",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -149,7 +149,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.6",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -244,7 +244,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.6",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -336,11 +336,11 @@
                 "handler": 1,
                 "message": "No received pubsub messages for at least 5 minutes",
                 "name": "Received PubSub (ceramic-dev-node) alert",
-                "noDataState": "keep_state",
+                "noDataState": "alerting",
                 "notifications": []
             },
             "aliasColors": {},
-            "bars": false,
+            "bars": true,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -370,16 +370,16 @@
                 "total": false,
                 "values": false
             },
-            "lines": true,
+            "lines": false,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.6",
-            "pointradius": 2,
-            "points": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 5,
+            "points": true,
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
@@ -481,11 +481,11 @@
                 "handler": 1,
                 "message": "No received pubsub messages for at least 5 minutes",
                 "name": "Received PubSub (ceramic-dev-ex-node) alert",
-                "noDataState": "no_data",
+                "noDataState": "alerting",
                 "notifications": []
             },
             "aliasColors": {},
-            "bars": false,
+            "bars": true,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -515,16 +515,16 @@
                 "total": false,
                 "values": false
             },
-            "lines": true,
+            "lines": false,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.6",
-            "pointradius": 2,
-            "points": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 5,
+            "points": true,
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
@@ -626,11 +626,11 @@
                 "handler": 1,
                 "message": "No received pubsub messages for at least 5 minutes",
                 "name": "Received PubSub (ceramic-dev-ex-gateway) alert",
-                "noDataState": "no_data",
+                "noDataState": "alerting",
                 "notifications": []
             },
             "aliasColors": {},
-            "bars": false,
+            "bars": true,
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
@@ -660,16 +660,16 @@
                 "total": false,
                 "values": false
             },
-            "lines": true,
+            "lines": false,
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.6",
-            "pointradius": 2,
-            "points": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 5,
+            "points": true,
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
@@ -738,6 +738,7 @@
             }
         }
     ],
+    "refresh": false,
     "schemaVersion": 27,
     "style": "dark",
     "tags": [],
@@ -752,5 +753,5 @@
     "timezone": "",
     "title": "PubSub",
     "uid": "pubsub-MQ-WJ_YGz",
-    "version": 7
+    "version": 9
 }
