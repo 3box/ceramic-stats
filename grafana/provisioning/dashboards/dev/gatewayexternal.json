@@ -15,7 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 4,
+    "id": 2,
+    "iteration": 1622143399561,
     "links": [],
     "panels": [
         {
@@ -112,7 +113,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -154,7 +155,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-dev-ex-gateway)",
+            "title": "HealthyHostCount ( ceramic-dev / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -273,7 +274,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -300,6 +301,26 @@
                     "statistics": [
                         "Average"
                     ]
+                },
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "AvailabilityZone": "*",
+                        "LoadBalancer": "app/ceramic-dev-ex-ipfs-gw-alb-in/458f985ffc75f1ee",
+                        "TargetGroup": "*"
+                    },
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "HealthyHostCount",
+                    "namespace": "AWS/ApplicationELB",
+                    "period": "",
+                    "refId": "B",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
                 }
             ],
             "thresholds": [
@@ -315,7 +336,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-dev-ex-ipfs-gw)",
+            "title": "HealthyHostCount ( ipfs-ceramic-dev / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -434,7 +455,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -475,7 +496,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-dev-ex-gateway)",
+            "title": "CPUUtilization ( ceramic-dev / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -594,7 +615,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -635,7 +656,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-dev-ex-ipfs-gw)",
+            "title": "CPUUtilization ( ipfs-ceramic-dev / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -753,7 +774,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -794,7 +815,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-dev-ex-gateway)",
+            "title": "MemoryUtilization ( ceramic-dev / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -912,7 +933,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -953,7 +974,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-dev-ex-ipfs-gw )",
+            "title": "MemoryUtilization ( ipfs-ceramic-dev /gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1044,7 +1065,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1150,7 +1171,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1279,7 +1300,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1376,7 +1397,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1473,7 +1494,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1579,7 +1600,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1685,7 +1706,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1794,7 +1815,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1939,7 +1960,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Gateway (External)",
+    "title": "Gateway",
     "uid": "dev-gateway-o1Dp-kcGz",
-    "version": 6626
+    "version": 6635
 }
