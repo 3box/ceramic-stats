@@ -74,7 +74,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Updates in PubSub Topic",
+            "title": "Updates in PubSub Topic ( ceramic-private-dev )",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -168,7 +168,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Queries in PubSub Topic",
+            "title": "Queries in PubSub Topic ( ceramic-private-dev )",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -263,7 +263,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Responses in PubSub Topic",
+            "title": "Responses in PubSub Topic ( ceramic-private-dev )",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -405,7 +405,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Received PubSub (ceramic-dev-node)",
+            "title": "Received PubSub ( ceramic-private-dev )",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
@@ -550,7 +550,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Received PubSub (ceramic-dev-ex-node)",
+            "title": "Received PubSub ( ceramic-dev / public )",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
@@ -695,7 +695,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Received PubSub (ceramic-dev-ex-gateway)",
+            "title": "Received PubSub ( ceramic-dev / gateway )",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
@@ -753,5 +753,5 @@
     "timezone": "",
     "title": "PubSub",
     "uid": "pubsub-MQ-WJ_YGz",
-    "version": 11
+    "version": 14
 }
