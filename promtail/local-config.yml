@@ -15,7 +15,7 @@ scrape_configs:
       job: test
       __path__: /logs/test/*.log
 
-- job_name: agent/external
+- job_name: agent/public
   pipeline_stages:
   - regex:
       expression: ts=(?P<timestamp>\d*)
@@ -26,11 +26,11 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      app: node-external
+      app: node-public
       job: agent
       __path__: /logs/ceramic/stats*.log
 
-- job_name: agent/internal
+- job_name: agent/private
   pipeline_stages:
   - regex:
       expression: ts=(?P<timestamp>\d*)
@@ -41,7 +41,7 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      app: node-internal
+      app: node-private
       job: agent
       __path__: /logs/ceramic/stats*.log
 
@@ -99,7 +99,7 @@ scrape_configs:
       job: cas/metrics
       __path__: /logs/cas/metrics.log
 
-- job_name: ceramic/gateway-external
+- job_name: ceramic/gateway-public
   pipeline_stages:
   - regex:
       expression: \[(?P<timestamp>.*)\]
@@ -110,17 +110,17 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      app: gateway-external
+      app: gateway-public
       job: ceramic/http
       __path__: /logs/ceramic/http-access.log
   - targets:
       - localhost
     labels:
-      app: gateway-external
+      app: gateway-public
       job: ceramic/pubsub
       __path__: /logs/ceramic/pubsub.log
 
-- job_name: ceramic/node-external
+- job_name: ceramic/node-public
   pipeline_stages:
   - regex:
       expression: \[(?P<timestamp>.*)\]
@@ -131,17 +131,17 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      app: node-external
+      app: node-public
       job: ceramic/http
       __path__: /logs/ceramic/http-access.log
   - targets:
       - localhost
     labels:
-      app: node-external
+      app: node-public
       job: ceramic/pubsub
       __path__: /logs/ceramic/pubsub.log
 
-- job_name: ceramic/node-internal
+- job_name: ceramic/node-private
   pipeline_stages:
   - regex:
       expression: \[(?P<timestamp>.*)\]
@@ -152,12 +152,12 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      app: node-internal
+      app: node-private
       job: ceramic/http
       __path__: /logs/ceramic/http-access.log
   - targets:
       - localhost
     labels:
-      app: node-internal
+      app: node-private
       job: ceramic/pubsub
       __path__: /logs/ceramic/pubsub.log
