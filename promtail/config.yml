@@ -131,6 +131,18 @@ scrape_configs:
       app: node-public
       job: ceramic/pubsub
       __path__: /logs/ceramic/external/node/pubsub.log
+  - targets:
+      - localhost
+    labels:
+      app: partners
+      job: ceramic/http
+      __path__: /logs/ceramic/external/ceramic-*/http-access.log
+  - targets:
+      - localhost
+    labels:
+      app: partners
+      job: ceramic/pubsub
+      __path__: /logs/ceramic/external/ceramic-*/pubsub.log
 
 - job_name: ceramic/node-private
   pipeline_stages:

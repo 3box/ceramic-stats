@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 76,
+    "id": 5,
     "links": [],
     "panels": [
         {
@@ -406,6 +406,180 @@
             "timeRegions": [],
             "timeShift": null,
             "title": "Received PubSub ( ceramic-private )",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:129",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:130",
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    },
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "or"
+                        },
+                        "query": {
+                            "params": [
+                                "B",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "message": "No received pubsub messages for at least 5 minutes",
+                "name": "Received PubSub ( partners ) alert",
+                "noDataState": "alerting",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Pubsub messages logged on the Ceramic partner nodes with event `received`",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 8,
+                "x": 8,
+                "y": 9
+            },
+            "hiddenSeries": false,
+            "id": 32,
+            "legend": {
+                "alignAsTable": false,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": false,
+                "show": false,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 1,
+            "points": true,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count by (event) (count_over_time({app=\"partners\", job=\"ceramic/pubsub\", filename=\"/logs/ceramic/external/ceramic-elp-1-1/pubsub.log\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
+                    "legendFormat": "cohort 1 node 1",
+                    "refId": "A"
+                },
+                {
+                    "expr": "count by (event) (count_over_time({app=\"partners\", job=\"ceramic/pubsub\", filename=\"/logs/ceramic/external/ceramic-elp-1-2/pubsub.log\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
+                    "hide": false,
+                    "legendFormat": "cohort 1 node 2",
+                    "refId": "B"
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "lt",
+                    "value": 1,
+                    "visible": true
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Received PubSub ( partners )",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
