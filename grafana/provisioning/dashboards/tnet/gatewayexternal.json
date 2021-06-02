@@ -1054,7 +1054,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} [$bucket])",
+                    "expr": "count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} [$bucket])",
                     "legendFormat": "Total requests/$bucket",
                     "refId": "A"
                 }
@@ -1162,22 +1162,22 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "D"
                 }
@@ -1291,7 +1291,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
+                    "expr": "sum by (method) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
                     "legendFormat": "GET requests/$bucket",
                     "refId": "A"
                 }
@@ -1388,7 +1388,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
+                    "expr": "sum by (method) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
                     "legendFormat": "POST requests/$bucket",
                     "refId": "A"
                 }
@@ -1485,7 +1485,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (base_url) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (base_url) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ base_url }}",
                     "refId": "A"
                 }
@@ -1591,7 +1591,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (ip) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}",
                     "refId": "A"
                 }
@@ -1697,7 +1697,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip, base_url) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (ip, base_url) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}, {{ base_url }}",
                     "refId": "A"
                 }
@@ -1806,7 +1806,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"gateway-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
                     "legendFormat": "Unique origins / $bucket",
                     "refId": "A"
                 }
@@ -1941,7 +1941,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Gateway (External)",
+    "title": "Gateway",
     "uid": "tnet-gateway-o1Dp-kcGz",
     "version": 4
 }
