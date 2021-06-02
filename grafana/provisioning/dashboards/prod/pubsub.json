@@ -65,7 +65,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-private\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
                     "legendFormat": "updates",
                     "refId": "A"
                 }
@@ -159,7 +159,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-private\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
                     "legendFormat": "queries",
                     "refId": "A"
                 }
@@ -254,7 +254,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
+                    "expr": "sum(count_over_time({app=\"node-private\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
                     "legendFormat": "responses",
                     "refId": "A"
                 }
@@ -387,7 +387,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (event) (count_over_time({app=\"node-internal\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
+                    "expr": "count by (event) (count_over_time({app=\"node-private\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
                     "legendFormat": "",
                     "refId": "A"
                 }
@@ -532,7 +532,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (event) (count_over_time({app=\"gateway-external\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
+                    "expr": "count by (event) (count_over_time({app=\"gateway-public\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
                     "legendFormat": "",
                     "refId": "A"
                 }

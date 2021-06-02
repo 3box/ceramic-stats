@@ -1054,7 +1054,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node-external\", job=\"ceramic/http\"} [$bucket])",
+                    "expr": "count_over_time({app=\"node-public\", job=\"ceramic/http\"} [$bucket])",
                     "legendFormat": "Total requests/second",
                     "refId": "A"
                 }
@@ -1162,22 +1162,22 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "D"
                 }
@@ -1294,7 +1294,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
+                    "expr": "sum by (method) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
                     "legendFormat": "GET requests/second",
                     "refId": "A"
                 }
@@ -1393,7 +1393,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
+                    "expr": "sum by (method) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
                     "legendFormat": "POST requests/second",
                     "refId": "A"
                 }
@@ -1492,7 +1492,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])) by (path)",
+                    "expr": "sum(count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])) by (path)",
                     "legendFormat": "{{ path }}",
                     "refId": "A"
                 }
@@ -1600,7 +1600,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (ip) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}",
                     "refId": "A"
                 }
@@ -1708,7 +1708,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip, path) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (ip, path) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}, {{ path }}",
                     "refId": "A"
                 }
@@ -1819,7 +1819,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-external\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
                     "legendFormat": "Unique origins / second",
                     "refId": "A"
                 }
@@ -1956,7 +1956,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Node (External)",
+    "title": "Node (Public)",
     "uid": "prod-node-ex-o1Dp-kcGz",
     "version": 1
 }

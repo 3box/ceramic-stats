@@ -1055,7 +1055,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node-internal\", job=\"ceramic/http\"} [$bucket])",
+                    "expr": "count_over_time({app=\"node-private\", job=\"ceramic/http\"} [$bucket])",
                     "legendFormat": "Total requests/$bucket",
                     "refId": "A"
                 }
@@ -1161,22 +1161,22 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "D"
                 }
@@ -1290,7 +1290,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
+                    "expr": "sum by (method) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
                     "legendFormat": "GET requests/$bucket",
                     "refId": "A"
                 }
@@ -1387,7 +1387,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
+                    "expr": "sum by (method) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
                     "legendFormat": "POST requests/$bucket",
                     "refId": "A"
                 }
@@ -1484,7 +1484,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])) by (path)",
+                    "expr": "sum(count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])) by (path)",
                     "legendFormat": "{{ path }}",
                     "refId": "A"
                 }
@@ -1590,7 +1590,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (ip) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}",
                     "refId": "A"
                 }
@@ -1696,7 +1696,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip, path) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (ip, path) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}, {{ path }}",
                     "refId": "A"
                 }
@@ -1805,7 +1805,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-internal\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-private\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
                     "legendFormat": "Unique origins / $bucket",
                     "refId": "A"
                 }
@@ -1940,7 +1940,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Node (Internal)",
+    "title": "Node (Private)",
     "uid": "prod-node-o1Dp-kcGz",
     "version": 1
 }
