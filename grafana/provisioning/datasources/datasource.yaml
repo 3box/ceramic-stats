@@ -60,6 +60,6 @@ datasources:
     #   # <string> basic auth password
     #   basicAuthPassword:
     # <number> increase the version every time this file gets updated
-    version: 3
+    version: 4
     # <bool> allow users to edit datasources from the UI.
     editable: false
