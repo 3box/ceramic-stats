@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 8,
-    "iteration": 1624279460231,
+    "iteration": 1624307701454,
     "links": [],
     "panels": [
         {
@@ -66,7 +66,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "HealthyHostCount (ceramic-prod-ex-node) alert",
+                "name": "HealthyHostCount ( 1-1-node ) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -227,7 +227,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "HealthyHostCount (ceramic-prod-ex-ipfs-nd) alert",
+                "name": "HealthyHostCount ( 1-1-ipfs ) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -376,6 +376,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "HealthyHostCount ( 1-2-node ) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -448,7 +483,16 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "lt",
+                    "value": 1,
+                    "visible": true
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
@@ -492,6 +536,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "HealthyHostCount ( 1-2-ipfs ) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -584,7 +663,16 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "lt",
+                    "value": 1,
+                    "visible": true
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
@@ -660,7 +748,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "CPUUtilization (ceramic-prod-ex-node) alert",
+                "name": "CPUUtilization ( 1-1-node ) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -748,7 +836,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-elp-1-1-node)",
+            "title": "CPUUtilization ( 1-1-node )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -788,6 +876,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "CPUUtilization ( 1-2-node ) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -859,11 +982,20 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80,
+                    "visible": true
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-elp-1-2-node)",
+            "title": "CPUUtilization ( 1-2-node )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -935,7 +1067,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "MemoryUtilization (ceramic-prod-ex-node) alert",
+                "name": "MemoryUtilization ( 1-1-node ) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -1023,7 +1155,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-elp-1-1-node)",
+            "title": "MemoryUtilization ( 1-1-node )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1062,6 +1194,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "MemoryUtilization ( 1-2-node ) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -1133,11 +1300,20 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80,
+                    "visible": true
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-elp-1-2-node)",
+            "title": "MemoryUtilization ( 1-2-node )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1208,7 +1384,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "CPUUtilization (ceramic-prod-ex-ipfs-nd) alert",
+                "name": "CPUUtilization ( 1-1-ipfs ) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -1296,7 +1472,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-elp-1-1-ipfs-nd)",
+            "title": "CPUUtilization ( 1-1-ipfs )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1335,6 +1511,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "CPUUtilization ( 1-2-ipfs ) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -1406,11 +1617,20 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80,
+                    "visible": true
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-elp-1-2-ipfs-nd)",
+            "title": "CPUUtilization ( 1-2-ipfs )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1481,7 +1701,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "MemoryUtilization (ceramic-prod-ex-ipfs-nd) alert",
+                "name": "MemoryUtilization ( 1-1-ipfs ) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -1569,7 +1789,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-elp-1-1-ipfs-nd)",
+            "title": "MemoryUtilization ( 1-1-ipfs )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1608,6 +1828,41 @@
             }
         },
         {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "MemoryUtilization ( 1-2-ipfs ) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
@@ -1679,11 +1934,20 @@
                     ]
                 }
             ],
-            "thresholds": [],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80,
+                    "visible": true
+                }
+            ],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-elp-1-2-ipfs-nd)",
+            "title": "MemoryUtilization ( 1-2-ipfs )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -3561,5 +3825,5 @@
     "timezone": "",
     "title": "Node (ELP)",
     "uid": "prod-node-elp-o1Dp-kcGz",
-    "version": 1
+    "version": 2
 }
