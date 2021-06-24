@@ -2,8 +2,8 @@ const child_process = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
+const { IpfsDaemon } = require('@ceramicnetwork/ipfs-daemon')
 const dagJose = require('dag-jose')
-const Ipfs = require('ipfs')
 const IpfsHttpClient = require('ipfs-http-client')
 const logfmt = require('logfmt')
 const LRUMap = require('lrumap')
@@ -16,6 +16,8 @@ const db = require('./db')
 let LOG_PATH = process.env.LOG_PATH || '/logs/ceramic/'
 if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
 
+const DEBUG = process.env.NODE_ENV == 'debug'
+const CERAMIC_NETWORK = process.env.CERAMIC_NETWORK || 'dev-unstable'
 const { IPFS_API_URL } = process.env
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 
@@ -30,18 +32,6 @@ const threeIdOutputPath = outputPath('3id')
 
 function outputPath(suffix) {
   return `${LOG_PATH}stats-${suffix}.log`
-}
-
-const bootstrapList = {
-  '/ceramic/mainnet': [
-    '/dns4/ipfs-ceramic-private-mainnet-external.3boxlabs.com/tcp/4012/wss/p2p/QmXALVsXZwPWTUbsT8G6VVzzgTJaAWRUD7FWL5f7d5ubAL'
-  ],
-  '/ceramic/testnet-clay': [
-    '/dns4/ipfs-ceramic-private-clay-external.3boxlabs.com/tcp/4012/wss/p2p/QmQotCKxiMWt935TyCBFTN23jaivxwrZ3uD58wNxeg5npi'
-  ],
-  '/ceramic/dev-unstable': [
-    '/dns4/ipfs-ceramic-private-dev-external.3boxlabs.com/tcp/4012/wss/p2p/Qmdb7UeJeid2Wf481g9Wvx2MPcPGVBc6rAj2PPiz9mnnqC'
-  ],
 }
 
 const handledMessages = new LRUMap({ limit: 10000 })
@@ -67,25 +57,27 @@ async function createIpfs(url) {
   multiformats.multicodec.add(dagJose.default)
   const format = legacy(multiformats, dagJose.default.name)
 
-  const config = { Bootstrap: bootstrapList[IPFS_PUBSUB_TOPIC] }
   const ipld = { formats: [format] }
-  const libp2p = { config: { dht: { enabled: false } } }
 
   console.log('Starting ipfs...')
   if (url) {
     ipfs = await IpfsHttpClient({ url, ipld })
   } else {
-    ipfs = await Ipfs.create({
-      config,
-      ipld,
-      libp2p,
-      repo: path.join(__dirname, '../ipfs'),
-    })
+    const config = {
+      ipfsPath: path.join(__dirname, '../ipfs'),
+      ipfsEnablePubsub: false, // disabled because connectivity is unreliable
+      ceramicNetwork: CERAMIC_NETWORK
+    }
+    ipfsDaemon = await IpfsDaemon.create(config)
+    await ipfsDaemon.start()
+    ipfs = ipfsDaemon.ipfs
   }
   return ipfs
 }
 
 async function handleMessage(message) {
+  if (DEBUG) console.log(message)
+
   // dedupe
   const seqno = u8a.toString(message.seqno, 'base16')
   if (handledMessages.get(seqno)) {

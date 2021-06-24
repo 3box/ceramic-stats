@@ -26,6 +26,7 @@
   "homepage": "https://github.com/3box/ceramic-stats#readme",
   "dependencies": {
     "@ceramicnetwork/docid": "^0.4.5",
+    "@ceramicnetwork/ipfs-daemon": "^1.0.7",
     "dag-jose": "^0.3.0",
     "ipfs": "^0.53.2",
     "ipfs-http-client": "^48.2.2",
