@@ -80,8 +80,6 @@ async function createIpfs(url) {
 }
 
 async function handleMessage(message) {
-  if (DEBUG) console.log(message)
-
   // dedupe
   const seqno = u8a.toString(message.seqno, 'base16')
   if (handledMessages.get(seqno)) {
@@ -103,7 +101,6 @@ async function handleMessage(message) {
     if (await isNewCid(tip)) {
       const header = await getHeader(tip)
       if (header && !isTestStream(stream, header)) {
-        log(header)
         await handleStreamId(stream)
         await handleCid(tip)
         await handleHeader(header, stream)
@@ -130,7 +127,6 @@ async function isNewToDb(key, prefix = '') {
   } catch (err) {
     error(err)
     if (err.notFound) {
-      log('Is new to db')
       return true
     }
   }
