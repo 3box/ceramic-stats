@@ -6,7 +6,7 @@ const dagJose = require('dag-jose')
 const debug = require('debug')
 const IpfsHttpClient = require('ipfs-http-client')
 const logfmt = require('logfmt')
-const LRUMap = require('lru_map')
+const { LRUMap } = require('lru_map')
 const multiformats = require('multiformats/basics')
 const legacy = require('multiformats/legacy')
 const u8a = require('uint8arrays')
@@ -20,7 +20,6 @@ log.log = console.log.bind(console)
 let LOG_PATH = process.env.LOG_PATH || '/logs/ceramic/'
 if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
 
-const DEBUG = process.env.NODE_ENV == 'debug'
 const CERAMIC_NETWORK = process.env.CERAMIC_NETWORK || 'dev-unstable'
 const { IPFS_API_URL } = process.env
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
@@ -125,10 +124,10 @@ async function isNewToDb(key, prefix = '') {
   try {
     await db.get(key)
   } catch (err) {
-    error(err)
     if (err.notFound) {
       return true
     }
+    error(err)
   }
   return false
 }
