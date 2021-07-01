@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "clean": "rm -R node_modules",
+    "clean": "rm -R node_modules && rm package-lock.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
