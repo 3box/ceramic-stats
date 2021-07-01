@@ -2,13 +2,13 @@ const fs = require('fs')
 const path = require('path')
 
 const { IpfsDaemon } = require('@ceramicnetwork/ipfs-daemon')
+const { convert } = require('blockcodec-to-ipld-format')
+const CID = require('cids')
 const dagJose = require('dag-jose')
 const debug = require('debug')
 const IpfsHttpClient = require('ipfs-http-client')
 const logfmt = require('logfmt')
 const { LRUMap } = require('lru_map')
-const multiformats = require('multiformats/basics')
-const legacy = require('multiformats/legacy')
 const u8a = require('uint8arrays')
 
 const db = require('./db')
@@ -58,14 +58,15 @@ async function main() {
 async function createIpfs(url) {
   let ipfs
 
-  multiformats.multicodec.add(dagJose.default)
-  const format = legacy(multiformats, dagJose.default.name)
-
-  const ipld = { formats: [format] }
-
   log('Starting ipfs...')
   if (url) {
-    ipfs = await IpfsHttpClient({ url, ipld })
+    const dagJoseFormat = convert(dagJose)
+    const ipld = { formats: [dagJoseFormat] }
+    const config = {
+      url,
+      ipld
+    }
+    ipfs = await IpfsHttpClient(config)
   } else {
     const config = {
       ipfsPath: path.join(__dirname, '../ipfs'),
@@ -151,7 +152,7 @@ async function getHeader(cidString) {
  */
 async function getPayload(cidString, ipfs) {
   try {
-    const record = (await ipfs.dag.get(cidString)).value
+    const record = (await ipfs.dag.get(new CID(cidString))).value
     if (record.link) {
       return (await ipfs.dag.get(record.link)).value
     }
