@@ -13,8 +13,8 @@ const u8a = require('uint8arrays')
 
 const db = require('./db')
 
-const error = debug('agent:error')
-const log = debug('agent:log')
+const error = debug('ceramic:agent:error')
+const log = debug('ceramic:agent:log')
 log.log = console.log.bind(console)
 
 let LOG_PATH = process.env.LOG_PATH || '/logs/ceramic/'
@@ -106,7 +106,7 @@ async function handleMessage(message) {
       }
     }
   } catch (err) {
-    error(err)
+    error('at handleMessage', err)
   }
 }
 
@@ -127,7 +127,7 @@ async function isNewToDb(key, prefix = '') {
     if (err.notFound) {
       return true
     }
-    error(err)
+    error('at isNewToDb', err)
   }
   return false
 }
@@ -157,7 +157,7 @@ async function getPayload(cidString, ipfs) {
     }
     return record
   } catch (err) {
-    error(err)
+    error('at getPayload', err)
     return null
   }
 }
@@ -231,7 +231,7 @@ async function logHeader(header, streamId) {
     }
 
   } catch (err) {
-    error('Failed to save family', err.message)
+    error('at logHeader', 'Failed to save family', err.message)
   }
 
   try {
@@ -243,7 +243,7 @@ async function logHeader(header, streamId) {
       }
     }
   } catch (err) {
-    error('Failed to save controllers', err.message)
+    error('at logHeader', 'Failed to save controllers', err.message)
   }
 
   try {
@@ -253,7 +253,7 @@ async function logHeader(header, streamId) {
       writeStream({ schema, occurrences, totalUnique }, schemaOutputPath)
     }
   } catch (err) {
-    error('Failed to save schema', err.message)
+    error('at logHeader', 'Failed to save schema', err.message)
   }
 
   try {
@@ -265,7 +265,7 @@ async function logHeader(header, streamId) {
       }
     }
   } catch (err) {
-    error('Failed to save tag', err.message)
+    error('at logHeader', 'Failed to save tag', err.message)
   }
 }
 
@@ -337,6 +337,6 @@ main()
     if (ipfs) {
       await ipfs.shutdown()
     }
-    error(err)
+    console.error(err)
     process.exit(1)
   })
