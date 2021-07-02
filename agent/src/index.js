@@ -1,27 +1,32 @@
-const child_process = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
+const { IpfsDaemon } = require('@ceramicnetwork/ipfs-daemon')
+const { convert } = require('blockcodec-to-ipld-format')
+const CID = require('cids')
 const dagJose = require('dag-jose')
-const Ipfs = require('ipfs')
+const debug = require('debug')
 const IpfsHttpClient = require('ipfs-http-client')
 const logfmt = require('logfmt')
-const LRUMap = require('lrumap')
-const multiformats = require('multiformats/basics')
-const legacy = require('multiformats/legacy')
+const { LRUMap } = require('lru_map')
 const u8a = require('uint8arrays')
 
 const db = require('./db')
 
+const error = debug('ceramic:agent:error')
+const log = debug('ceramic:agent:log')
+log.log = console.log.bind(console)
+
 let LOG_PATH = process.env.LOG_PATH || '/logs/ceramic/'
 if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
 
+const CERAMIC_NETWORK = process.env.CERAMIC_NETWORK || 'dev-unstable'
 const { IPFS_API_URL } = process.env
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 
 const cidOutputPath = outputPath('cid')
 const controllerOutputPath = outputPath('controller')
-const docIdOutputPath = outputPath('docid')
+const streamIdOutputPath = outputPath('streamid')
 const familyOutputPath = outputPath('family')
 const idxOutputPath = outputPath('idx')
 const schemaOutputPath = outputPath('schema')
@@ -32,19 +37,7 @@ function outputPath(suffix) {
   return `${LOG_PATH}stats-${suffix}.log`
 }
 
-const bootstrapList = {
-  '/ceramic/mainnet': [
-    '/dns4/ipfs-ceramic-private-mainnet-external.3boxlabs.com/tcp/4012/wss/p2p/QmXALVsXZwPWTUbsT8G6VVzzgTJaAWRUD7FWL5f7d5ubAL'
-  ],
-  '/ceramic/testnet-clay': [
-    '/dns4/ipfs-ceramic-private-clay-external.3boxlabs.com/tcp/4012/wss/p2p/QmQotCKxiMWt935TyCBFTN23jaivxwrZ3uD58wNxeg5npi'
-  ],
-  '/ceramic/dev-unstable': [
-    '/dns4/ipfs-ceramic-private-dev-external.3boxlabs.com/tcp/4012/wss/p2p/Qmdb7UeJeid2Wf481g9Wvx2MPcPGVBc6rAj2PPiz9mnnqC'
-  ],
-}
-
-const handledMessages = new LRUMap({ limit: 10000 })
+const handledMessages = new LRUMap(10000)
 
 let ipfs
 
@@ -52,7 +45,8 @@ async function main() {
   if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
   ipfs = await createIpfs(IPFS_API_URL)
   await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
-  console.log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC, '\nReady')
+  log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
+  log('Ready')
 }
 
 /**
@@ -64,23 +58,23 @@ async function main() {
 async function createIpfs(url) {
   let ipfs
 
-  multiformats.multicodec.add(dagJose.default)
-  const format = legacy(multiformats, dagJose.default.name)
-
-  const config = { Bootstrap: bootstrapList[IPFS_PUBSUB_TOPIC] }
-  const ipld = { formats: [format] }
-  const libp2p = { config: { dht: { enabled: false } } }
-
-  console.log('Starting ipfs...')
+  log('Starting ipfs...')
   if (url) {
-    ipfs = await IpfsHttpClient({ url, ipld })
+    const dagJoseFormat = convert(dagJose)
+    const ipld = { formats: [dagJoseFormat] }
+    const config = {
+      url,
+      ipld
+    }
+    ipfs = await IpfsHttpClient(config)
   } else {
-    ipfs = await Ipfs.create({
-      config,
-      ipld,
-      libp2p,
-      repo: path.join(__dirname, '../ipfs'),
-    })
+    const config = {
+      ipfsPath: path.join(__dirname, '../ipfs'),
+      ceramicNetwork: CERAMIC_NETWORK
+    }
+    ipfsDaemon = await IpfsDaemon.create(config)
+    await ipfsDaemon.start()
+    ipfs = ipfsDaemon.ipfs
   }
   return ipfs
 }
@@ -101,19 +95,19 @@ async function handleMessage(message) {
     parsedMessageData = JSON.parse(new TextDecoder('utf-8').decode(message.data))
   }
 
-  const { doc, tip } = parsedMessageData
+  const { stream, tip } = parsedMessageData
 
   try {
     if (await isNewCid(tip)) {
       const header = await getHeader(tip)
-      if (header && !isTestDoc(doc, header)) {
-        await handleDocId(doc)
+      if (header && !isTestStream(stream, header)) {
+        await handleStreamId(stream)
         await handleCid(tip)
-        await handleHeader(header, doc)
+        await handleHeader(header, stream)
       }
     }
-  } catch (error) {
-    console.error(error)
+  } catch (err) {
+    error('at handleMessage', err)
   }
 }
 
@@ -130,10 +124,11 @@ async function isNewToDb(key, prefix = '') {
   key = getPrefixedKey(key, prefix)
   try {
     await db.get(key)
-  } catch (error) {
-    if (error.notFound) {
+  } catch (err) {
+    if (err.notFound) {
       return true
     }
+    error('at isNewToDb', err)
   }
   return false
 }
@@ -157,13 +152,13 @@ async function getHeader(cidString) {
  */
 async function getPayload(cidString, ipfs) {
   try {
-    const record = (await ipfs.dag.get(cidString)).value
+    const record = (await ipfs.dag.get(new CID(cidString))).value
     if (record.link) {
       return (await ipfs.dag.get(record.link)).value
     }
     return record
-  } catch (error) {
-    console.error(error)
+  } catch (err) {
+    error('at getPayload', err)
     return null
   }
 }
@@ -172,11 +167,11 @@ async function getPayload(cidString, ipfs) {
  * Returns true if family in header matches "test" family format
  * @param {any} header
  */
-function isTestDoc(docIdString, header) {
+function isTestStream(streamIdString, header) {
   if (!header) return false
   if (!header.family) return false
   if (header.family.match(/test-(\d+)/)) {
-    console.log('Skipping test doc with family', header.family, docIdString)
+    log('Skipping test stream with family', header.family, streamIdString)
     return true
   }
   return false
@@ -185,21 +180,21 @@ function isTestDoc(docIdString, header) {
 /**
  * Logs header contents.
  * @param {any} header
- * @param {string} docId
+ * @param {string} streamId
  */
-async function handleHeader(header, docId) {
-  if (header && docId) await logHeader(header, docId)
+async function handleHeader(header, streamId) {
+  if (header && streamId) await logHeader(header, streamId)
 }
 
 /**
- * Tracks docId counts, logs, and returns true if it is new.
- * @param {string} docIdString
+ * Tracks streamId counts, logs, and returns true if it is new.
+ * @param {string} streamIdString
  * @returns {boolean}
  */
-async function handleDocId(docIdString) {
-  if (!docIdString) return false
-  const { occurrences, totalUnique } = await save(docIdString, 'docId')
-  logDocId(docIdString, occurrences, totalUnique)
+async function handleStreamId(streamIdString) {
+  if (!streamIdString) return false
+  const { occurrences, totalUnique } = await save(streamIdString, 'streamId')
+  logStreamId(streamIdString, occurrences, totalUnique)
   return occurrences == 1
 }
 
@@ -218,9 +213,9 @@ async function handleCid(cidString) {
 /**
  * Parses and logs header contents.
  * @param {any} header
- * @param {string} docId
+ * @param {string} streamId
  */
-async function logHeader(header, docId) {
+async function logHeader(header, streamId) {
   try {
     const { family } = header
     if (family) {
@@ -229,15 +224,15 @@ async function logHeader(header, docId) {
     }
 
     if (family.toLowerCase() == 'idx') {
-      const { occurrences, totalUnique } = await save(docId, 'family:idx')
-      writeStream({ idx: docId, occurrences, totalUnique }, idxOutputPath)
+      const { occurrences, totalUnique } = await save(streamId, 'family:idx')
+      writeStream({ idx: streamId, occurrences, totalUnique }, idxOutputPath)
     } else if (family.toLowerCase() == '3id') {
-      const { occurrences, totalUnique } = await save(docId, 'family:3id')
-      writeStream({ threeId: docId, occurrences, totalUnique }, threeIdOutputPath)
+      const { occurrences, totalUnique } = await save(streamId, 'family:3id')
+      writeStream({ threeId: streamId, occurrences, totalUnique }, threeIdOutputPath)
     }
 
-  } catch (error) {
-    console.warn('Failed to save family', error.message)
+  } catch (err) {
+    error('at logHeader', 'Failed to save family', err.message)
   }
 
   try {
@@ -248,8 +243,8 @@ async function logHeader(header, docId) {
         writeStream({ controller, occurrences, totalUnique }, controllerOutputPath)
       }
     }
-  } catch (error) {
-    console.warn('Failed to save controllers', error.message)
+  } catch (err) {
+    error('at logHeader', 'Failed to save controllers', err.message)
   }
 
   try {
@@ -258,8 +253,8 @@ async function logHeader(header, docId) {
       const { occurrences, totalUnique } = await save(schema, 'schema')
       writeStream({ schema, occurrences, totalUnique }, schemaOutputPath)
     }
-  } catch (error) {
-    console.warn('Failed to save schema', error.message)
+  } catch (err) {
+    error('at logHeader', 'Failed to save schema', err.message)
   }
 
   try {
@@ -270,13 +265,13 @@ async function logHeader(header, docId) {
         writeStream({ tag, occurrences, totalUnique }, tagOutputPath)
       }
     }
-  } catch (error) {
-    console.warn('Failed to save tag', error.message)
+  } catch (err) {
+    error('at logHeader', 'Failed to save tag', err.message)
   }
 }
 
-function logDocId(docId, occurrences, totalUnique) {
-  writeStream({ docId, occurrences, totalUnique }, docIdOutputPath)
+function logStreamId(streamId, occurrences, totalUnique) {
+  writeStream({ streamId, occurrences, totalUnique }, streamIdOutputPath)
 }
 
 function logCid(cid, occurrences, totalUnique) {
@@ -316,13 +311,13 @@ async function _save(key, increment = true) {
     const nextValue = value + 1
     await db.put(key, nextValue)
     return nextValue
-  } catch (error) {
-    if (error.notFound) {
+  } catch (err) {
+    if (err.notFound) {
       const nextValue = 1
       await db.put(key, nextValue)
       return nextValue
     } else {
-      throw error
+      throw err
     }
   }
 }
@@ -334,7 +329,7 @@ function writeStream(data, logPath) {
   stream.write(logMessage + '\n')
   stream.end()
 
-  console.log(logMessage)
+  log(logMessage)
 }
 
 main()

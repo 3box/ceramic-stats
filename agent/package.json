@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "clean": "rm -R node_modules",
+    "clean": "rm -R node_modules && rm package-lock.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,14 +25,16 @@
   },
   "homepage": "https://github.com/3box/ceramic-stats#readme",
   "dependencies": {
-    "@ceramicnetwork/docid": "^0.4.5",
+    "@ceramicnetwork/ipfs-daemon": "^1.0.7",
+    "@ceramicnetwork/streamid": "^1.0.2",
+    "blockcodec-to-ipld-format": "^1.0.0",
+    "cids": "^1.1.7",
     "dag-jose": "^0.3.0",
-    "ipfs": "^0.53.2",
-    "ipfs-http-client": "^48.2.2",
+    "debug": "^4.3.1",
+    "ipfs-http-client": "^50.1.2",
     "level": "^6.0.1",
     "logfmt": "^1.3.2",
-    "lrumap": "^1.0.0",
-    "multiformats": "^3.0.3",
-    "uint8arrays": "^2.0.5"
+    "lru_map": "^0.4.1",
+    "uint8arrays": "^2.1.5"
   }
 }
