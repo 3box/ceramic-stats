@@ -125,7 +125,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-ex-gateway/d3ebb54d4bc43bb0",
+                        "LoadBalancer": "app/ceramic-prod-ex-gateway/21b4da817aed5447",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -286,7 +286,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-ex-ipfs-gw-alb-ex/ab1bb9030931ca33",
+                        "LoadBalancer": "",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -1529,6 +1529,118 @@
                     "show": true
                 },
                 {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "decimals": 2,
+            "description": "Response times per endpoint",
+            "fieldConfig": {
+                "defaults": {
+                    "unit": "ms"
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 55
+            },
+            "hiddenSeries": false,
+            "id": 61,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "sideWidth": null,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "avg by (original_url) (avg_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | __error__!=\" SampleExtractionErr\" |= \"/api/v0\" | unwrap elapsed_ms | __error__!=\"SampleExtractionErr\" [$bucket]))",
+                    "legendFormat": "{{ original_url }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Response Times per Endpoint",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!original_url).*$"
+                        }
+                    }
+                }
+            ],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:96",
+                    "decimals": 2,
+                    "format": "ms",
+                    "label": "ms",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:97",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
