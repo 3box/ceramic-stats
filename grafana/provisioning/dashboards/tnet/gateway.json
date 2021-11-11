@@ -1568,14 +1568,14 @@
             "id": 61,
             "legend": {
                 "alignAsTable": true,
-                "avg": false,
+                "avg": true,
                 "current": false,
                 "max": false,
                 "min": false,
                 "rightSide": true,
                 "show": true,
                 "sideWidth": null,
-                "total": true,
+                "total": false,
                 "values": true
             },
             "lines": true,
