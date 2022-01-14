@@ -46,5 +46,6 @@ services:
       - AWS_AUTH_TYPE=keys
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
       - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - CLOUDWATCH_METRICS_NAMESPACES=pubsub-dev
     depends_on:
       - promtail

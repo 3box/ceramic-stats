@@ -15,7 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 76,
+    "id": 4,
+    "iteration": 1642172189689,
     "links": [],
     "panels": [
         {
@@ -23,8 +24,8 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "Loki",
-            "description": "Updates (i.e. message \"typ\" equals 0) in the pubsub topic",
+            "datasource": "CloudWatch",
+            "description": "",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -33,12 +34,12 @@
             "fillGradient": 0,
             "gridPos": {
                 "h": 9,
-                "w": 8,
+                "w": 12,
                 "x": 0,
                 "y": 0
             },
             "hiddenSeries": false,
-            "id": 24,
+            "id": 38,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -50,9 +51,9 @@
             },
             "lines": true,
             "linewidth": 1,
-            "nullPointMode": "connected",
+            "nullPointMode": "null",
             "options": {
-                "alertThreshold": false
+                "alertThreshold": true
             },
             "percentage": false,
             "pluginVersion": "7.5.7",
@@ -65,16 +66,74 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-private\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=0 [$__interval])) by (job)",
-                    "legendFormat": "updates",
-                    "refId": "A"
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-rcv-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-rcv-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-rcv-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-rcv-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
                 }
             ],
             "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Updates in PubSub Topic ( ceramic-private-dev )",
+            "title": "Received in $pubsub_topic ( gateway )",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -90,116 +149,22 @@
             },
             "yaxes": [
                 {
-                    "decimals": 0,
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": true
-                },
-                {
+                    "$$hashKey": "object:75",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
                     "min": null,
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "Loki",
-            "description": "Queries (i.e. message \"typ\" equals 1 and event is received) in the pubsub topic",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 8,
-                "x": 8,
-                "y": 0
-            },
-            "hiddenSeries": false,
-            "id": 26,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "connected",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "expr": "sum(count_over_time({app=\"node-private\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=1 and event=\"received\" [$__interval])) by (job)",
-                    "legendFormat": "queries",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Queries in PubSub Topic ( ceramic-private-clay )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "decimals": 0,
-                    "format": "short",
-                    "label": "",
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
                     "show": true
                 },
                 {
-                    "decimals": 0,
+                    "$$hashKey": "object:76",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
-                    "show": false
+                    "min": null,
+                    "show": true
                 }
             ],
             "yaxis": {
@@ -212,8 +177,8 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "Loki",
-            "description": "Queries (i.e. message \"typ\" equals 2 and event is published) in the pubsub topic",
+            "datasource": "CloudWatch",
+            "description": "",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -222,12 +187,12 @@
             "fillGradient": 0,
             "gridPos": {
                 "h": 9,
-                "w": 8,
-                "x": 16,
+                "w": 12,
+                "x": 12,
                 "y": 0
             },
             "hiddenSeries": false,
-            "id": 28,
+            "id": 40,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -254,16 +219,74 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-private\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | message_typ=2 and event=\"published\" [$__interval])) by (job)",
-                    "legendFormat": "responses",
-                    "refId": "A"
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-snd-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-snd-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-snd-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-snd-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
                 }
             ],
             "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Responses in PubSub Topic ( ceramic-private-clay )",
+            "title": "Published in $pubsub_topic ( gateway )",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -279,22 +302,22 @@
             },
             "yaxes": [
                 {
-                    "decimals": 0,
-                    "format": "short",
-                    "label": "",
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": true
-                },
-                {
-                    "decimals": 0,
+                    "$$hashKey": "object:75",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
-                    "show": false
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:76",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
                 }
             ],
             "yaxis": {
@@ -303,48 +326,12 @@
             }
         },
         {
-            "alert": {
-                "alertRuleTags": {},
-                "conditions": [
-                    {
-                        "evaluator": {
-                            "params": [
-                                1
-                            ],
-                            "type": "lt"
-                        },
-                        "operator": {
-                            "type": "and"
-                        },
-                        "query": {
-                            "params": [
-                                "A",
-                                "5m",
-                                "now"
-                            ]
-                        },
-                        "reducer": {
-                            "params": [],
-                            "type": "avg"
-                        },
-                        "type": "query"
-                    }
-                ],
-                "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "1m",
-                "handler": 1,
-                "message": "No received pubsub messages for at least 5 minutes",
-                "name": "Received PubSub (ceramic-tnet-node) alert",
-                "noDataState": "alerting",
-                "notifications": []
-            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "Loki",
-            "description": "Pubsub messages logged on the Ceramic private node with event `received`",
+            "datasource": "CloudWatch",
+            "description": "",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -353,20 +340,18 @@
             "fillGradient": 0,
             "gridPos": {
                 "h": 9,
-                "w": 8,
+                "w": 12,
                 "x": 0,
                 "y": 9
             },
             "hiddenSeries": false,
-            "id": 4,
+            "id": 39,
             "legend": {
-                "alignAsTable": false,
                 "avg": false,
                 "current": false,
                 "max": false,
                 "min": false,
-                "rightSide": false,
-                "show": false,
+                "show": true,
                 "total": false,
                 "values": false
             },
@@ -374,11 +359,11 @@
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": false
+                "alertThreshold": true
             },
             "percentage": false,
             "pluginVersion": "7.5.7",
-            "pointradius": 5,
+            "pointradius": 2,
             "points": false,
             "renderer": "flot",
             "seriesOverrides": [],
@@ -387,31 +372,79 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (event) (count_over_time({app=\"node-private\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
-                    "legendFormat": "",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-private-rcv-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
                 {
-                    "colorMode": "critical",
-                    "fill": false,
-                    "line": false,
-                    "op": "lt",
-                    "value": 1,
-                    "visible": true
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-private-rcv-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-private-rcv-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-private-rcv-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
                 }
             ],
+            "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Received PubSub ( ceramic-private-clay )",
+            "title": "Received in $pubsub_topic ( private )",
             "tooltip": {
-                "shared": false,
+                "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -422,23 +455,21 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:129",
-                    "decimals": 0,
+                    "$$hashKey": "object:75",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
+                    "min": null,
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:130",
-                    "decimals": 0,
+                    "$$hashKey": "object:76",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
+                    "min": null,
                     "show": true
                 }
             ],
@@ -448,48 +479,12 @@
             }
         },
         {
-            "alert": {
-                "alertRuleTags": {},
-                "conditions": [
-                    {
-                        "evaluator": {
-                            "params": [
-                                1
-                            ],
-                            "type": "lt"
-                        },
-                        "operator": {
-                            "type": "and"
-                        },
-                        "query": {
-                            "params": [
-                                "A",
-                                "5m",
-                                "now"
-                            ]
-                        },
-                        "reducer": {
-                            "params": [],
-                            "type": "avg"
-                        },
-                        "type": "query"
-                    }
-                ],
-                "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "1m",
-                "handler": 1,
-                "message": "No received pubsub messages for at least 5 minutes",
-                "name": "Received PubSub (ceramic-tnet-ex-node) alert",
-                "noDataState": "alerting",
-                "notifications": []
-            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "Loki",
-            "description": "Pubsub messages logged on the Ceramic public node with event `received`",
+            "datasource": "CloudWatch",
+            "description": "",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -498,20 +493,18 @@
             "fillGradient": 0,
             "gridPos": {
                 "h": 9,
-                "w": 8,
-                "x": 8,
+                "w": 12,
+                "x": 12,
                 "y": 9
             },
             "hiddenSeries": false,
-            "id": 30,
+            "id": 45,
             "legend": {
-                "alignAsTable": false,
                 "avg": false,
                 "current": false,
                 "max": false,
                 "min": false,
-                "rightSide": false,
-                "show": false,
+                "show": true,
                 "total": false,
                 "values": false
             },
@@ -519,11 +512,11 @@
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": false
+                "alertThreshold": true
             },
             "percentage": false,
             "pluginVersion": "7.5.7",
-            "pointradius": 5,
+            "pointradius": 2,
             "points": false,
             "renderer": "flot",
             "seriesOverrides": [],
@@ -532,31 +525,79 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (event) (count_over_time({app=\"node-public\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
-                    "legendFormat": "",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-private-snd-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
                 {
-                    "colorMode": "critical",
-                    "fill": false,
-                    "line": false,
-                    "op": "lt",
-                    "value": 1,
-                    "visible": true
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-private-snd-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-private-snd-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-public-snd-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
                 }
             ],
+            "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Received PubSub ( ceramic-clay / public )",
+            "title": "Published in $pubsub_topic ( private )",
             "tooltip": {
-                "shared": false,
+                "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -567,23 +608,21 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:129",
-                    "decimals": 0,
+                    "$$hashKey": "object:75",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
+                    "min": null,
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:130",
-                    "decimals": 0,
+                    "$$hashKey": "object:76",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
+                    "min": null,
                     "show": true
                 }
             ],
@@ -593,48 +632,12 @@
             }
         },
         {
-            "alert": {
-                "alertRuleTags": {},
-                "conditions": [
-                    {
-                        "evaluator": {
-                            "params": [
-                                1
-                            ],
-                            "type": "lt"
-                        },
-                        "operator": {
-                            "type": "and"
-                        },
-                        "query": {
-                            "params": [
-                                "A",
-                                "5m",
-                                "now"
-                            ]
-                        },
-                        "reducer": {
-                            "params": [],
-                            "type": "avg"
-                        },
-                        "type": "query"
-                    }
-                ],
-                "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "1m",
-                "handler": 1,
-                "message": "No received pubsub messages for at least 5 minutes",
-                "name": "Received PubSub (ceramic-tnet-ex-gateway) alert",
-                "noDataState": "alerting",
-                "notifications": []
-            },
             "aliasColors": {},
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "Loki",
-            "description": "Pubsub messages logged on the Ceramic gateway with event `received`",
+            "datasource": "CloudWatch",
+            "description": "",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -643,20 +646,18 @@
             "fillGradient": 0,
             "gridPos": {
                 "h": 9,
-                "w": 8,
-                "x": 16,
-                "y": 9
+                "w": 12,
+                "x": 0,
+                "y": 18
             },
             "hiddenSeries": false,
-            "id": 31,
+            "id": 44,
             "legend": {
-                "alignAsTable": false,
                 "avg": false,
                 "current": false,
                 "max": false,
                 "min": false,
-                "rightSide": false,
-                "show": false,
+                "show": true,
                 "total": false,
                 "values": false
             },
@@ -664,11 +665,11 @@
             "linewidth": 1,
             "nullPointMode": "null",
             "options": {
-                "alertThreshold": false
+                "alertThreshold": true
             },
             "percentage": false,
             "pluginVersion": "7.5.7",
-            "pointradius": 5,
+            "pointradius": 2,
             "points": false,
             "renderer": "flot",
             "seriesOverrides": [],
@@ -677,31 +678,79 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (event) (count_over_time({app=\"gateway-public\", job=\"ceramic/pubsub\"} | logfmt | __error__!=\"LogfmtParserErr\" | event = \"received\" [1s]))",
-                    "legendFormat": "",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-cas-rcv-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
                 {
-                    "colorMode": "critical",
-                    "fill": false,
-                    "line": false,
-                    "op": "lt",
-                    "value": 1,
-                    "visible": true
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-cas-rcv-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-cas-rcv-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-cas-rcv-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
                 }
             ],
+            "thresholds": [],
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Received PubSub ( ceramic-clay / gateway )",
+            "title": "Received in $pubsub_topic ( CAS )",
             "tooltip": {
-                "shared": false,
+                "shared": true,
                 "sort": 0,
                 "value_type": "individual"
             },
-            "transformations": [],
             "type": "graph",
             "xaxis": {
                 "buckets": null,
@@ -712,23 +761,782 @@
             },
             "yaxes": [
                 {
-                    "$$hashKey": "object:129",
-                    "decimals": 0,
+                    "$$hashKey": "object:75",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
+                    "min": null,
                     "show": true
                 },
                 {
-                    "$$hashKey": "object:130",
-                    "decimals": 0,
+                    "$$hashKey": "object:76",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
                     "max": null,
-                    "min": "0",
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 18
+            },
+            "hiddenSeries": false,
+            "id": 41,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-cas-snd-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-cas-snd-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-cas-snd-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-tnet-cas-snd-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Published in $pubsub_topic ( CAS )",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:75",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:76",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 0,
+                "y": 27
+            },
+            "hiddenSeries": false,
+            "id": 36,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-rcv-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-rcv-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-rcv-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-rcv-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Received in $pubsub_topic ( elp-1-1 )",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:75",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:76",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 27
+            },
+            "hiddenSeries": false,
+            "id": 42,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-snd-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-snd-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-snd-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-snd-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Published in $pubsub_topic ( elp-1-1 )",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:75",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:76",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 0,
+                "y": 36
+            },
+            "hiddenSeries": false,
+            "id": 37,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-2-rcv-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-1-snd-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-2-rcv-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-2-rcv-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Received in $pubsub_topic ( elp-1-2 )",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:75",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:76",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 36
+            },
+            "hiddenSeries": false,
+            "id": 43,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "update",
+                    "dimensions": {},
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-2-snd-upd",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "query",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-2-snd-qry",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "B",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "response",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-2-snd-rsp",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "C",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                },
+                {
+                    "alias": "keepalive",
+                    "dimensions": {},
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "pubsub-elp-1-2-snd-alv",
+                    "namespace": "pubsub-tnet",
+                    "period": "",
+                    "refId": "D",
+                    "region": "default",
+                    "statistics": [
+                        "Sum"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Published in $pubsub_topic ( elp-1-2 )",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:75",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:76",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
                     "show": true
                 }
             ],
@@ -743,7 +1551,18 @@
     "style": "dark",
     "tags": [],
     "templating": {
-        "list": []
+        "list": [
+            {
+                "description": null,
+                "error": null,
+                "hide": 2,
+                "label": null,
+                "name": "pubsub_topic",
+                "query": "/ceramic/mainnet",
+                "skipUrlSync": false,
+                "type": "constant"
+            }
+        ]
     },
     "time": {
         "from": "now-12h",
