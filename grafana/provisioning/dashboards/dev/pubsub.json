@@ -1558,7 +1558,7 @@
                 "hide": 2,
                 "label": null,
                 "name": "pubsub_topic",
-                "query": "/ceramic/mainnet",
+                "query": "/ceramic/dev-unstable",
                 "skipUrlSync": false,
                 "type": "constant"
             }
