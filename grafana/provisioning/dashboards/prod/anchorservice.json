@@ -15,7 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 4,
+    "id": 5,
+    "iteration": 1642715174863,
     "links": [],
     "panels": [
         {
@@ -85,7 +86,7 @@
             "grid": {},
             "gridPos": {
                 "h": 7,
-                "w": 12,
+                "w": 6,
                 "x": 0,
                 "y": 1
             },
@@ -111,7 +112,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -124,7 +125,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-cas-alb/9dc9b1fdc8635f40",
+                        "LoadBalancer": "app/ceramic-prod-cas-alb-internal/0151c21c6938b52e",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -153,7 +154,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-prod-cas)",
+            "title": "HealthyHostCount (CAS)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -221,11 +222,171 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
-                "frequency": "2m",
+                "for": "15m",
+                "frequency": "4m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-prod-cas-ipfs) alert",
-                "noDataState": "no_data",
+                "name": "HealthyHostCount (Ceramic Node) alert",
+                "noDataState": "keep_state",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 6,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 43,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "AvailabilityZone": "*",
+                        "LoadBalancer": "app/ceramic-prod-cas-node/510fe8a12c8143de",
+                        "TargetGroup": "*"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "HealthyHostCount",
+                    "namespace": "AWS/ApplicationELB",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "lt",
+                    "value": 1,
+                    "visible": true
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "HealthyHostCount (CAS Ceramic Node)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "15m",
+                "frequency": "4m",
+                "handler": 1,
+                "name": "HealthyHostCount (ceramic-prod-cas-ipfs-nd) alert",
+                "noDataState": "keep_state",
                 "notifications": []
             },
             "aliasColors": {},
@@ -266,25 +427,25 @@
             "lines": true,
             "linewidth": 2,
             "links": [],
-            "nullPointMode": "null",
+            "nullPointMode": "null as zero",
             "options": {
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
             "seriesOverrides": [],
             "spaceLength": 10,
             "stack": false,
-            "steppedLine": false,
+            "steppedLine": true,
             "targets": [
                 {
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-tnet-cas-ipfs-alb-ex/7f93e83d06cb19d2",
+                        "LoadBalancer": "app/ceramic-prod-cas-ipfs-nd-alb-ex/ea019eb553e00e04",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -294,6 +455,26 @@
                     "namespace": "AWS/ApplicationELB",
                     "period": "",
                     "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                },
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "AvailabilityZone": "*",
+                        "LoadBalancer": "app/ceramic-prod-cas-ipfs-nd-alb-in/11372f4d87973fa8",
+                        "TargetGroup": "*"
+                    },
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "HealthyHostCount",
+                    "namespace": "AWS/ApplicationELB",
+                    "period": "",
+                    "refId": "B",
                     "region": "us-east-2",
                     "statistics": [
                         "Average"
@@ -313,7 +494,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount (ceramic-prod-cas-ipfs)",
+            "title": "HealthyHostCount (ceramic-prod-cas-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -405,7 +586,7 @@
             "grid": {},
             "gridPos": {
                 "h": 7,
-                "w": 12,
+                "w": 6,
                 "x": 0,
                 "y": 8
             },
@@ -431,7 +612,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -490,7 +671,166 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-prod-cas)",
+            "title": "CPUUtilization (CAS)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 2,
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "CPUUtilization (Ceramic Node) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 6,
+                "y": 8
+            },
+            "hiddenSeries": false,
+            "id": 44,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "CPUUtilization_Average ({{ ServiceName }})",
+                    "dimensions": {
+                        "ClusterName": "ceramic-prod-cas",
+                        "ServiceName": "ceramic-prod-cas-node"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80,
+                    "visible": true
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "CPUUtilization (Ceramic Node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -608,7 +948,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -621,7 +961,7 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-prod-cas",
-                        "ServiceName": "ceramic-prod-cas-ipfs"
+                        "ServiceName": "ceramic-prod-cas-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -649,7 +989,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization (ceramic-prod-cas-ipfs)",
+            "title": "CPUUtilization (ceramic-prod-cas-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -740,7 +1080,7 @@
             "grid": {},
             "gridPos": {
                 "h": 7,
-                "w": 12,
+                "w": 6,
                 "x": 0,
                 "y": 15
             },
@@ -766,7 +1106,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -825,7 +1165,165 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-prod-cas)",
+            "title": "MemoryUtilization (CAS)",
+            "tooltip": {
+                "msResolution": true,
+                "shared": true,
+                "sort": 0,
+                "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "percent",
+                    "label": null,
+                    "logBase": 1,
+                    "max": 100,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                80
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "2m",
+                "handler": 1,
+                "name": "MemoryUtilization (Ceramic Node) alert",
+                "noDataState": "no_data",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "description": "",
+            "editable": true,
+            "error": false,
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "grid": {},
+            "gridPos": {
+                "h": 7,
+                "w": 6,
+                "x": 6,
+                "y": 15
+            },
+            "hiddenSeries": false,
+            "id": 45,
+            "isNew": true,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": true,
+                "max": true,
+                "min": true,
+                "rightSide": false,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 2,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "MemoryUtilization_Average ({{ ServiceName }}) ",
+                    "dimensions": {
+                        "ClusterName": "ceramic-prod-cas",
+                        "ServiceName": "ceramic-prod-cas-node"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "MemoryUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": false,
+                    "line": false,
+                    "op": "gt",
+                    "value": 80,
+                    "visible": true
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "MemoryUtilization (Ceramic Node)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -942,7 +1440,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -955,7 +1453,7 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-prod-cas",
-                        "ServiceName": "ceramic-prod-cas-ipfs"
+                        "ServiceName": "ceramic-prod-cas-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -983,7 +1481,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization (ceramic-prod-cas-ipfs)",
+            "title": "MemoryUtilization (ceramic-prod-cas-ipfs-nd)",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1075,7 +1573,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1180,7 +1678,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1299,7 +1797,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1400,7 +1898,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1501,7 +1999,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1611,7 +2109,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1728,7 +2226,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1847,7 +2345,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -2007,7 +2505,7 @@
                 "text": {},
                 "textMode": "auto"
             },
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "targets": [
                 {
                     "expr": "sum by (status) (count_over_time({job=\"cas/events\"} |= \"service=db\" | logfmt [1s]))",
@@ -2110,7 +2608,7 @@
                     }
                 ]
             },
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "targets": [
                 {
                     "expr": "{job=\"cas/events\"} |= \"service=db\" | logfmt",
@@ -2204,7 +2702,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -2220,7 +2718,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum_over_time({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | unwrap balance [1s])",
+                    "expr": "sum_over_time({job=\"cas/metrics\"} |= \"walletBalance\" | logfmt | unwrap balance [1h])",
                     "hide": false,
                     "legendFormat": "{{ balance }}",
                     "refId": "A"
@@ -2374,5 +2872,5 @@
     "timezone": "",
     "title": "Anchor Service",
     "uid": "prod-U93a07JMz",
-    "version": 1
+    "version": 11
 }
