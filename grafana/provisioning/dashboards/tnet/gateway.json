@@ -15,7 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 4,
+    "id": 8,
+    "iteration": 1642703365113,
     "links": [],
     "panels": [
         {
@@ -112,7 +113,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -273,7 +274,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -434,7 +435,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -594,7 +595,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -618,7 +619,26 @@
                     "refId": "A",
                     "region": "us-east-2",
                     "statistics": [
-                        "Average"
+                        "Minimum"
+                    ]
+                },
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-ipfs-gw"
+                    },
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "B",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Maximum"
                     ]
                 }
             ],
@@ -652,6 +672,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:540",
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -660,6 +681,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:541",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -753,7 +775,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -912,7 +934,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -936,7 +958,26 @@
                     "refId": "A",
                     "region": "us-east-2",
                     "statistics": [
-                        "Average"
+                        "Minimum"
+                    ]
+                },
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-ipfs-gw"
+                    },
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "MemoryUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "B",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Maximum"
                     ]
                 }
             ],
@@ -970,6 +1011,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:391",
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -978,6 +1020,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:392",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1044,7 +1087,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1152,7 +1195,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1281,7 +1324,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1378,7 +1421,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1475,7 +1518,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1506,6 +1549,112 @@
                     "options": {
                         "include": {
                             "pattern": "^(?!path).*$"
+                        }
+                    }
+                }
+            ],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Requests per origin per $bucket, stacked",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 47
+            },
+            "hiddenSeries": false,
+            "id": 56,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (ip) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "legendFormat": "{{ ip }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Origin",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!ip).*$"
                         }
                     }
                 }
@@ -1660,112 +1809,6 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Requests per origin per $bucket, stacked",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 8,
-                "w": 24,
-                "x": 0,
-                "y": 47
-            },
-            "hiddenSeries": false,
-            "id": 56,
-            "legend": {
-                "alignAsTable": true,
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "total": true,
-                "values": true
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "connected",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.5",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": true,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "expr": "sum by (ip) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
-                    "legendFormat": "{{ ip }}",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Requests per Origin",
-            "tooltip": {
-                "shared": false,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "transformations": [
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "pattern": "^(?!ip).*$"
-                        }
-                    }
-                }
-            ],
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "decimals": 0,
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "Loki",
             "description": "Requests per origin per endpoint per $bucket, stacked",
             "fieldConfig": {
                 "defaults": {},
@@ -1777,7 +1820,7 @@
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 55
+                "y": 63
             },
             "hiddenSeries": false,
             "id": 58,
@@ -1799,7 +1842,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1884,7 +1927,7 @@
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 63
+                "y": 71
             },
             "hiddenSeries": false,
             "id": 60,
@@ -1908,7 +1951,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.5",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -2055,5 +2098,5 @@
     "timezone": "",
     "title": "Gateway",
     "uid": "tnet-gateway-o1Dp-kcGz",
-    "version": 4
+    "version": 5
 }

@@ -15,7 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 75,
+    "id": 7,
+    "iteration": 1642703595490,
     "links": [],
     "panels": [
         {
@@ -112,7 +113,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -171,6 +172,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:91",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -180,6 +182,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:92",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -273,7 +276,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -296,6 +299,26 @@
                     "namespace": "AWS/ApplicationELB",
                     "period": "",
                     "refId": "A",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Average"
+                    ]
+                },
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "AvailabilityZone": "*",
+                        "LoadBalancer": "app/ceramic-tnet-ex-ipfs-nd-alb-in/87927cd24e71d3fc",
+                        "TargetGroup": "*"
+                    },
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "HealthyHostCount",
+                    "namespace": "AWS/ApplicationELB",
+                    "period": "",
+                    "refId": "B",
                     "region": "us-east-2",
                     "statistics": [
                         "Average"
@@ -332,6 +355,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:366",
                     "decimals": 0,
                     "format": "short",
                     "label": null,
@@ -341,6 +365,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:367",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -434,7 +459,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -594,7 +619,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -618,7 +643,26 @@
                     "refId": "A",
                     "region": "us-east-2",
                     "statistics": [
-                        "Average"
+                        "Minimum"
+                    ]
+                },
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-ipfs-nd"
+                    },
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "B",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Maximum"
                     ]
                 }
             ],
@@ -652,6 +696,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:826",
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -660,6 +705,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:827",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -753,7 +799,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -912,7 +958,7 @@
                 "alertThreshold": false
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 5,
             "points": false,
             "renderer": "flot",
@@ -936,7 +982,26 @@
                     "refId": "A",
                     "region": "us-east-2",
                     "statistics": [
-                        "Average"
+                        "Minimum"
+                    ]
+                },
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-tnet-ex",
+                        "ServiceName": "ceramic-tnet-ex-ipfs-nd"
+                    },
+                    "expression": "",
+                    "hide": false,
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "MemoryUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "B",
+                    "region": "us-east-2",
+                    "statistics": [
+                        "Maximum"
                     ]
                 }
             ],
@@ -970,6 +1035,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:775",
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
@@ -978,6 +1044,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:776",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -1044,7 +1111,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1152,7 +1219,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1284,7 +1351,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1383,7 +1450,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1482,7 +1549,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1590,7 +1657,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1698,7 +1765,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1809,7 +1876,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.5.3",
+            "pluginVersion": "7.5.7",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -1958,5 +2025,5 @@
     "timezone": "",
     "title": "Node (Public)",
     "uid": "tnet-node-ex-o1Dp-kcGz",
-    "version": 7
+    "version": 8
 }
