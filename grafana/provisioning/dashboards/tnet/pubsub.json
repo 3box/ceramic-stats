@@ -1,1274 +1,1274 @@
 {
-    "annotations": {
-        "list": [
-            {
-                "builtIn": 1,
-                "datasource": "-- Grafana --",
-                "enable": true,
-                "hide": true,
-                "iconColor": "rgba(0, 211, 255, 1)",
-                "name": "Annotations & Alerts",
-                "type": "dashboard"
-            }
-        ]
-    },
-    "editable": true,
-    "gnetId": null,
-    "graphTooltip": 0,
-    "id": 5,
-    "iteration": 1642703232841,
-    "links": [],
-    "panels": [
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 5,
+  "iteration": 1649458888783,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "CloudWatch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 38,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
         {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 0,
-                "y": 0
-            },
-            "hiddenSeries": false,
-            "id": 38,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-rcv-upd",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-rcv-qry",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-rcv-rsp",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-rcv-alv",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Received in $pubsub_topic ( gateway )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
+          "alias": "update",
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-gateway-rcv-upd",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "A",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
         },
         {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 12,
-                "y": 0
-            },
-            "hiddenSeries": false,
-            "id": 40,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-upd",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-qry",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-rsp",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-alv",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Published in $pubsub_topic ( gateway )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
+          "alias": "query",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-rcv-qry",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "B",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
         },
         {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 0,
-                "y": 9
-            },
-            "hiddenSeries": false,
-            "id": 46,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-rcv-upd",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-rcv-qry",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-rcv-rsp",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-rcv-alv",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Received in $pubsub_topic ( public )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
+          "alias": "response",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-rcv-rsp",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "C",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
         },
         {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 12,
-                "y": 9
-            },
-            "hiddenSeries": false,
-            "id": 47,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-upd",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-qry",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-rsp",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-alv",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Published in $pubsub_topic ( public )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 0,
-                "y": 18
-            },
-            "hiddenSeries": false,
-            "id": 39,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-private-rcv-upd",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-private-rcv-qry",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-private-rcv-rsp",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-private-rcv-alv",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Received in $pubsub_topic ( private )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 12,
-                "y": 18
-            },
-            "hiddenSeries": false,
-            "id": 45,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-private-snd-upd",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-private-snd-qry",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-private-snd-rsp",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-public-snd-alv",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Published in $pubsub_topic ( private )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 0,
-                "y": 27
-            },
-            "hiddenSeries": false,
-            "id": 44,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-cas-rcv-upd",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-cas-rcv-qry",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-cas-rcv-rsp",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-cas-rcv-alv",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Received in $pubsub_topic ( CAS )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "description": "",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 12,
-                "y": 27
-            },
-            "hiddenSeries": false,
-            "id": 41,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-cas-snd-upd",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-cas-snd-qry",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-cas-snd-rsp",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-tnet-cas-snd-alv",
-                    "namespace": "pubsub-tnet",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Published in $pubsub_topic ( CAS )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
+          "alias": "keepalive",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-rcv-alv",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "D",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
         }
-    ],
-    "refresh": false,
-    "schemaVersion": 27,
-    "style": "dark",
-    "tags": [],
-    "templating": {
-        "list": [
-            {
-                "description": null,
-                "error": null,
-                "hide": 2,
-                "label": null,
-                "name": "pubsub_topic",
-                "query": "/ceramic/testnet-clay",
-                "skipUrlSync": false,
-                "type": "constant"
-            }
-        ]
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Received in $pubsub_topic ( gateway )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:75",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:76",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
-    "time": {
-        "from": "now-12h",
-        "to": "now"
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "CloudWatch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 40,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "update",
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-gateway-snd-upd",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "A",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "query",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-snd-qry",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "B",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "response",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-snd-rsp",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "C",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "keepalive",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-snd-alv",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "D",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Published in $pubsub_topic ( gateway )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:75",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:76",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
-    "timepicker": {},
-    "timezone": "",
-    "title": "PubSub",
-    "uid": "pubsub-MQ-WJ_YGz",
-    "version": 42
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "CloudWatch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 46,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "update",
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-rcv-upd",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "A",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "query",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-rcv-qry",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "B",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "response",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-rcv-rsp",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "C",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "keepalive",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-rcv-alv",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "D",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Received in $pubsub_topic ( public )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:75",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:76",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "CloudWatch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 47,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "update",
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-snd-upd",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "A",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "query",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-snd-qry",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "B",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "response",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-snd-rsp",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "C",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "keepalive",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-snd-alv",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "D",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Published in $pubsub_topic ( public )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:75",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:76",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "CloudWatch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "hiddenSeries": false,
+      "id": 39,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "update",
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-private-rcv-upd",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "A",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "query",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-private-rcv-qry",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "B",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "response",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-private-rcv-rsp",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "C",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "keepalive",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-private-rcv-alv",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "D",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Received in $pubsub_topic ( private )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:75",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:76",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "CloudWatch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "hiddenSeries": false,
+      "id": 45,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "update",
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-private-snd-upd",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "A",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "query",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-private-snd-qry",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "B",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "response",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-private-snd-rsp",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "C",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "keepalive",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-public-snd-alv",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "D",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Published in $pubsub_topic ( private )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:75",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:76",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "CloudWatch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 44,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "update",
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-cas-rcv-upd",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "A",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "query",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-cas-rcv-qry",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "B",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "response",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-cas-rcv-rsp",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "C",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "keepalive",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-cas-rcv-alv",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "D",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Received in $pubsub_topic ( CAS )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:75",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:76",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "CloudWatch",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 41,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "update",
+          "dimensions": {},
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-cas-snd-upd",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "A",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "query",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-cas-snd-qry",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "B",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "response",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-cas-snd-rsp",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "C",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        },
+        {
+          "alias": "keepalive",
+          "dimensions": {},
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricName": "pubsub-tnet-cas-snd-alv",
+          "namespace": "pubsub-tnet",
+          "period": "",
+          "refId": "D",
+          "region": "default",
+          "statistics": [
+            "Sum"
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Published in $pubsub_topic ( CAS )",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:75",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:76",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "description": null,
+        "error": null,
+        "hide": 2,
+        "label": null,
+        "name": "pubsub_topic",
+        "query": "/ceramic/testnet-clay",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-12h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "PubSub",
+  "uid": "pubsub-MQ-WJ_YGz",
+  "version": 44
 }
