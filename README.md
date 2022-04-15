@@ -87,3 +87,7 @@ We are happy to accept small and large contributions. Make sure to check out the
 ## License
 
 Apache 2.0
+
+## Troubleshooting
+
+
