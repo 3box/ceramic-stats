@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 4,
-    "iteration": 1649366630728,
+    "iteration": 1650495231108,
     "links": [],
     "panels": [
         {
@@ -24,7 +24,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "description": "",
             "fieldConfig": {
                 "defaults": {},
@@ -71,7 +71,7 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-rcv-upd",
+                    "metricName": "pubsub-prod-gateway-rcv",
                     "namespace": "pubsub-prod",
                     "period": "",
                     "refId": "A",
@@ -87,7 +87,7 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-public-rcv-qry",
+                    "metricName": "pubsub-prod-gateway-rcv-qry",
                     "namespace": "pubsub-prod",
                     "period": "",
                     "refId": "B",
@@ -103,7 +103,7 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-public-rcv-rsp",
+                    "metricName": "pubsub-prod-gateway-rcv-rsp",
                     "namespace": "pubsub-prod",
                     "period": "",
                     "refId": "C",
@@ -119,7 +119,7 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-public-rcv-alv",
+                    "metricName": "pubsub-prod-gateway-rcv-alv",
                     "namespace": "pubsub-prod",
                     "period": "",
                     "refId": "D",
@@ -177,7 +177,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "description": "",
             "fieldConfig": {
                 "defaults": {},
@@ -240,7 +240,7 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-public-snd-qry",
+                    "metricName": "pubsub-prod-gateway-snd-qry",
                     "namespace": "pubsub-prod",
                     "period": "",
                     "refId": "B",
@@ -256,7 +256,7 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-public-snd-rsp",
+                    "metricName": "pubsub-prod-gateway-snd-rsp",
                     "namespace": "pubsub-prod",
                     "period": "",
                     "refId": "C",
@@ -272,7 +272,7 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-public-snd-alv",
+                    "metricName": "pubsub-prod-gateway-snd-alv",
                     "namespace": "pubsub-prod",
                     "period": "",
                     "refId": "D",
@@ -330,7 +330,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "description": "",
             "fieldConfig": {
                 "defaults": {},
@@ -483,7 +483,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "description": "",
             "fieldConfig": {
                 "defaults": {},
@@ -636,7 +636,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "description": "",
             "fieldConfig": {
                 "defaults": {},
@@ -789,7 +789,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "description": "",
             "fieldConfig": {
                 "defaults": {},
@@ -942,7 +942,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -1094,7 +1094,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -1246,7 +1246,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -1398,7 +1398,7 @@
             "bars": false,
             "dashLength": 10,
             "dashes": false,
-            "datasource": "CloudWatch-1",
+            "datasource": "CloudWatch",
             "fieldConfig": {
                 "defaults": {},
                 "overrides": []
@@ -1572,5 +1572,5 @@
     "timezone": "",
     "title": "PubSub",
     "uid": "pubsub-MQ-WJ_YGz",
-    "version": 18
+    "version": 21
 }
