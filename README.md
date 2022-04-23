@@ -84,6 +84,12 @@ Now that the services are running you can, login to Grafana at `http://localhost
 ## Contributing
 We are happy to accept small and large contributions. Make sure to check out the [Ceramic specifications](https://github.com/ceramicnetwork/specs) for details of how the protocol works.
 
+## Troubleshooting
+
+If a workflow step fails on push, force a retry by making a trivial change (like to this README)
+
 ## License
 
 Apache 2.0
+
+
