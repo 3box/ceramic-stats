@@ -16,4 +16,5 @@ npm ci --only-production
 ### WebStorm
 
 Open the ceramic-stats project.  Set the Run/Debug configuration template (under Run..Edit Configuration..Edit Configuration Templates) as follows:
+
 ![image](https://user-images.githubusercontent.com/798887/171948613-9c996f0d-4cff-4b70-98ec-690897dabbae.png)
