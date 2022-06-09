@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "ES2020",
+    "target": "ES2020",
+    "resolveJsonModule": false,
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "baseUrl": "./packages",
+    "typeRoots": ["./types", "node_modules/@types"],
+    "paths": {
+      "@ceramicnetwork/*": ["./*/"]
+    }
+  },
+  "exclude": ["node_modules", "coverage", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/*"],
+  "references": [
+    { "path": "./packages/ts-agent" },
+  ]
+}
