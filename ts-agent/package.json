@@ -1,0 +1,53 @@
+{
+  "name": "ceramic-stats-agent",
+  "version": "0.1",
+  "description": "Typescript implementation of the Ceramic Stats Agent",
+  "keywords": [
+    "Ceramic",
+    "Metrics"
+  ],
+  "author": "Golda Velez <golda@3box.io>",
+  "homepage": "(Apache-2.0 OR MIT)",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "bin": {
+    "agent": "./bin/agent.js"
+  },
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --silent --coverage --runInBand --forceExit",
+    "build": "npx tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build",
+    "prebuild": "npm run clean",
+    "lint": "npx eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "clean": "npx rimraf ./lib"
+  },
+  "dependencies": {
+    "@awaitjs/express": "^0.9.0",
+    "@ceramicnetwork/common": "^2.1.0",
+    "@ceramicnetwork/ipfs-daemon": "^2.0.6",
+    "@ceramicnetwork/streamid": "^2.1.0",
+    "stream-to-array": "^2.3.0",
+    "typedjson": "^1.8.0",
+    "typescript": "^4.7.3",
+    "uint8arrays": "^3.0.0"
+  },
+  "devDependencies": {
+    "@ceramicnetwork/stream-tile-handler": "^2.2.0",
+    "@stablelib/sha256": "^1.0.1",
+    "@types/express": "^4.17.13",
+    "@types/levelup": "^5.1.0",
+    "@types/node": "^17.0.5",
+    "@types/stream-to-array": "^2.3.0",
+    "get-port": "^6.0.0",
+    "rxjs": "^7.5.2",
+    "tmp-promise": "^3.0.3"
+  }
+}
