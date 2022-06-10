@@ -21,7 +21,7 @@ let LOG_PATH = process.env.LOG_PATH || '/logs/ceramic/'
 if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
 
 const CERAMIC_NETWORK = process.env.CERAMIC_NETWORK || 'dev-unstable'
-const { IPFS_API_URL } = process.env
+const { IPFS_API_URL } = ''  // if set, we get errors
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 
 const cidOutputPath = outputPath('cid')
@@ -96,6 +96,11 @@ async function handleMessage(message) {
   }
 
   const { stream, tip } = parsedMessageData
+
+  if (tip) {
+    console.log(`tip: ${tip}`)
+    console.log("ok")
+  }
 
   try {
     if (await isNewCid(tip)) {
