@@ -1,23 +1,26 @@
 import { CID } from 'multiformats/cid'
 import { IpfsDaemon } from '@ceramicnetwork/ipfs-daemon'
+import { Metrics } from '../../../js-ceramic/packages/metrics/lib/index.js' // wait until
 import convert from 'blockcodec-to-ipld-format'
 import path from "path"
+import cloneDeep from 'lodash.clonedeep'
 import * as ipfsClient from 'ipfs-http-client'
 import * as u8a from 'uint8arrays'
 import lru from 'lru_map'
 import * as dagJose from 'dag-jose'
 import debug from 'debug'
-import db from './db'
+import db from './db.js'
 
-const CERAMIC_NETWORK = process.env.CERAMIC_NETWORK || 'dev-unstable'
 const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
+const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 2
 
 const error = debug('ceramic:agent:error')
 const log = debug('ceramic:agent:log')
 log.log = console.log.bind(console)
 
 const handledMessages = new lru.LRUMap(10000)
+Metrics.start()
 let ipfs
 
 async function main() {
@@ -173,6 +176,12 @@ async function handleStreamId(streamIdString) {
 async function handleCid(cidString) {
     if (!cidString) return false
     const { occurrences, totalUnique } = await save(cidString, 'cid')
+
+    // get the genesis commit if we don't already have it
+    // right now we never have it since we don't save them
+    const genesis_commit = await _getFromIpfs(cidString)
+
+
     logCid(cidString, occurrences, totalUnique)
     return occurrences == 1
 }
@@ -184,7 +193,7 @@ async function handleCid(cidString) {
  */
 async function logHeader(header, streamId) {
     try {
-        const { family } = header
+        const { family } = header // TODO THIS IS OUT OF DATE (I think)
         if (family) {
             const { occurrences, totalUnique } = await save(family, 'family')
             //writeStream({ family, occurrences, totalUnique }, familyOutputPath)
@@ -207,6 +216,7 @@ async function logHeader(header, streamId) {
         if (controllers) {
             for (let controller of controllers) {
                 const { occurrences, totalUnique } = await save(controller, 'controller')
+                Metrics.count("BY_CONTROLLER", 1, {'controller': controller}) // TODO add BY_CONTROLLER to metric names
                 //writeStream({ controller, occurrences, totalUnique }, controllerOutputPath)
             }
         }
@@ -279,6 +289,52 @@ async function _save(key, increment = true) {
             throw err
         }
     }
+}
+
+/**
+ * Helper function for loading a CID from IPFS
+ */
+async function _getFromIpfs(cid: CID | string, path?: string): Promise<any> {
+    const asCid = typeof cid === 'string' ? CID.parse(cid) : cid
+
+    // Lookup CID in cache before looking it up IPFS
+    const cidAndPath = path ? asCid.toString() + path : asCid.toString()
+    const cachedDagNode = await this.dagNodeCache.get(cidAndPath)
+    if (cachedDagNode) return cloneDeep(cachedDagNode)
+
+    // Now lookup CID in IPFS, with retry logic
+    // Note, in theory retries shouldn't be necessary, as just increasing the timeout should
+    // allow IPFS to use the extra time to find the CID, doing internal retries if needed.
+    // Anecdotally, however, we've seen evidence that IPFS sometimes finds CIDs on retry that it
+    // doesn't on the first attempt, even when given plenty of time to load it.
+    let dagResult = null
+    for (let retries = IPFS_GET_RETRIES - 1; retries >= 0 && dagResult == null; retries--) {
+        try {
+            dagResult = await this._ipfs.dag.get(asCid, {
+                timeout: this._ipfsTimeout,
+                path,
+                signal: this._shutdownSignal,
+            })
+        } catch (err) {
+            if (
+                err.code == 'ERR_TIMEOUT' ||
+                err.name == 'TimeoutError' ||
+                err.message == 'Request timed out'
+            ) {
+                console.warn(
+                    `Timeout error while loading CID ${asCid.toString()} from IPFS. ${retries} retries remain`
+                )
+                if (retries > 0) {
+                    continue
+                }
+            }
+
+            throw err
+        }
+}
+// CID loaded successfully, store in cache
+await this.dagNodeCache.set(cidAndPath, dagResult.value)
+return cloneDeep(dagResult.value)
 }
 
 function logStreamId(streamId, occurrences, totalUnique) {

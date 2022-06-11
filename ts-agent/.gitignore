@@ -9,6 +9,7 @@ docs/
 cue.mod/
 
 lib/
+db/
 coverage/
 logs/
 package-lock.json
