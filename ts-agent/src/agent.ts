@@ -1,6 +1,7 @@
 import { CID } from 'multiformats/cid'
-import { IpfsDaemon } from '@ceramicnetwork/ipfs-daemon'
-import { Metrics } from '../../../js-ceramic/packages/metrics/lib/index.js' // wait until
+//import { IpfsDaemon } from '@ceramicnetwork/ipfs-daemon'
+import { Metrics } from '@ceramicnetwork/metrics'
+import { IpfsApi } from '@ceramicnetwork/common'
 import convert from 'blockcodec-to-ipld-format'
 import path from "path"
 import cloneDeep from 'lodash.clonedeep'
@@ -11,15 +12,19 @@ import * as dagJose from 'dag-jose'
 import debug from 'debug'
 import db from './db.js'
 
+const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
 const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 2
+const IPFS_CACHE_SIZE = 1024 // maximum cache size of 256MB
 
 const error = debug('ceramic:agent:error')
 const log = debug('ceramic:agent:log')
 log.log = console.log.bind(console)
 
 const handledMessages = new lru.LRUMap(10000)
+const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
+
 Metrics.start()
 let ipfs
 
@@ -299,7 +304,7 @@ async function _getFromIpfs(cid: CID | string, path?: string): Promise<any> {
 
     // Lookup CID in cache before looking it up IPFS
     const cidAndPath = path ? asCid.toString() + path : asCid.toString()
-    const cachedDagNode = await this.dagNodeCache.get(cidAndPath)
+    const cachedDagNode = await dagNodeCache.get(cidAndPath)
     if (cachedDagNode) return cloneDeep(cachedDagNode)
 
     // Now lookup CID in IPFS, with retry logic
@@ -310,11 +315,8 @@ async function _getFromIpfs(cid: CID | string, path?: string): Promise<any> {
     let dagResult = null
     for (let retries = IPFS_GET_RETRIES - 1; retries >= 0 && dagResult == null; retries--) {
         try {
-            dagResult = await this._ipfs.dag.get(asCid, {
-                timeout: this._ipfsTimeout,
-                path,
-                signal: this._shutdownSignal,
-            })
+            dagResult = await ipfs.dag.get(asCid)
+            console.log("Got a dag result")
         } catch (err) {
             if (
                 err.code == 'ERR_TIMEOUT' ||
@@ -331,10 +333,10 @@ async function _getFromIpfs(cid: CID | string, path?: string): Promise<any> {
 
             throw err
         }
-}
-// CID loaded successfully, store in cache
-await this.dagNodeCache.set(cidAndPath, dagResult.value)
-return cloneDeep(dagResult.value)
+    }
+    // CID loaded successfully, store in cache
+    await dagNodeCache.set(cidAndPath, dagResult.value)
+    return cloneDeep(dagResult.value)
 }
 
 function logStreamId(streamId, occurrences, totalUnique) {
