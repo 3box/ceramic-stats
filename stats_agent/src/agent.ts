@@ -3,7 +3,7 @@ import { Metrics } from '@ceramicnetwork/metrics'
 import { StreamID } from '@ceramicnetwork/streamid'
 import { IpfsApi } from '@ceramicnetwork/common'
 import convert from 'blockcodec-to-ipld-format'
-import path from "path"
+import path from 'path'
 import cloneDeep from 'lodash.clonedeep'
 import * as ipfsClient from 'ipfs-http-client'
 import * as u8a from 'uint8arrays'
