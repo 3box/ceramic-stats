@@ -1,5 +1,5 @@
 {
-  "name": "ceramic-stats-agent",
+  "name": "ceramic-stats_agent",
   "version": "0.1",
   "description": "Typescript implementation of the Ceramic Stats Agent",
   "keywords": [

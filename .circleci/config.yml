@@ -80,7 +80,17 @@ workflows:
           ecr-repo-suffix: "loki"
           trigger-path: "loki/"
       - build-and-push:
+          name: "build-and-push-prometheus"
+          dockerfile-path: "prometheus/"
+          ecr-repo-suffix: "prometheus"
+          trigger-path: "promtheus/"
+      - build-and-push:
           name: "build-and-push-promtail"
           dockerfile-path: "promtail/"
           ecr-repo-suffix: "promtail"
           trigger-path: "promtail/"
+      - build-and-push:
+          name: "build-and-push-stats_agent"
+          dockerfile-path: "stats_agent/"
+          ecr-repo-suffix: "stats_agent"
+          trigger-path: "stats_agent/"

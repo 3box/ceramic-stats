@@ -165,8 +165,12 @@ async function handleStreamId(streamIdString) {
 
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
-   
 
+    const genesis_commit = (await ipfs.dag.get(stream.cid)).value
+    const family = genesis_commit?.header?.family
+    const owner = genesis_commit?.header?.controllers[0]
+    Metrics.count('BY_FAMILY', 1, {'family':family, 'owner':owner})
+    console.log(genesis_commit)
     // TODO lets not calculate unique every time we see the stream...?
     const { occurrences, totalUnique } = await save(streamIdString, 'streamId')
    
