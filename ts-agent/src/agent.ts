@@ -19,6 +19,7 @@ const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstabl
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 2
 const IPFS_CACHE_SIZE = 1024 // maximum cache size of 256MB
 
+
 const error = debug('ceramic:agent:error')
 const log = debug('ceramic:agent:log')
 log.log = console.log.bind(console)
@@ -86,6 +87,27 @@ async function handleMessage(message) {
 }
 
 
+/**
+ * Record cid of the tip in the db
+ * count occurance of an update
+ **/
+async function handleTip(cidString) {
+    if (! cidString) return
+
+    //handleTip
+    //   if signature contains a capability - load the cacao capability - all will not have that
+    //  See https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/store/pin-store.ts#L101-L107
+    if (await isNewToDb(cidString, 'cid')) {
+        console.log(cidString)
+        // can we use StreamUtils.isSignedCommit() here?
+    }
+
+    //  ?? isnt this high overhead to calculate each time ??
+    const { occurrences, totalUnique } = await save(cidString, 'cid')
+
+    Metrics.count("TIP_RECEIVED", 1, {'occurrences': occurrences, 'total_unique': totalUnique })
+}
+
 async function isNewToDb(key, prefix = '') {
     key = getPrefixedKey(key, prefix)
     try {
@@ -118,15 +140,15 @@ async function getPayload(cidString, ipfs) {
     }
 }
 
-//handleTip
-//   if signature contains a capability - load the cacao capability - all will not have that
-//  See https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/store/pin-store.ts#L101-L107
 // and also see https://github.com/haardikk21/cacao-poc for generating tests
 // also just count updates by stream and by who (DID)
 
 
 /**
- * Tracks streamId counts, logs, and returns true if it is new.
+ * Handle the stream and load the genesis commit if we don't already have it
+ * This gives us datamodel and did
+ * Also tracks streamId counts, and emits metrics
+ * Returns true if it is new.
  * @param {string} streamIdString
  * @returns {boolean}
  */
@@ -139,29 +161,18 @@ async function handleStreamId(streamIdString) {
 
     // see https://github.com/ceramicnetwork/CIP/blob/main/CIPs/CIP-59/CIP-59.md
 
-
-
     if (!streamIdString) return false
+
+    const stream = StreamID.fromString(streamIdString)
+    const stream_type = stream.typeName  // tile or CAIP-10
+   
+
+    // TODO lets not calculate unique every time we see the stream...?
     const { occurrences, totalUnique } = await save(streamIdString, 'streamId')
-    logStreamId(streamIdString, occurrences, totalUnique)
-    return occurrences == 1
-}
-
-/**
- * Tracks cid counts, logs, and returns true if it is new.
- * @param {string} cidString
- * @returns {boolean}
- */
-async function handleCid(cidString) {
-    if (!cidString) return false
-    const { occurrences, totalUnique } = await save(cidString, 'cid')
-
-    // get the genesis commit if we don't already have it
-    // right now we never have it since we don't save them
-    const genesis_commit = await _getFromIpfs(cidString)
-
-
-    logCid(cidString, occurrences, totalUnique)
+   
+    Metrics.record('unique_stream_count', totalUnique) // ?? prob not the best way
+                                                       // really we need unique over x time period?
+    Metrics.count('stream', 1, {'occurrences':occurrences, 'stream_type': stream_type})
     return occurrences == 1
 }
 
