@@ -174,7 +174,7 @@ async function handleStreamId(streamIdString) {
     // TODO lets not calculate unique every time we see the stream...?
     const { occurrences, totalUnique } = await save(streamIdString, 'streamId')
    
-    Metrics.record('unique_stream_count', totalUnique) // ?? prob not the best way
+    Metrics.record('unique_stream_count', totalUnique, {}) // ?? prob not the best way
                                                        // really we need unique over x time period?
     Metrics.count('stream', 1, {'occurrences':occurrences, 'stream_type': stream_type})
     return occurrences == 1
