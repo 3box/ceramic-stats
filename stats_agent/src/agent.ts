@@ -1,5 +1,4 @@
 import { CID } from 'multiformats/cid'
-//import { IpfsDaemon } from '@ceramicnetwork/ipfs-daemon'
 import { Metrics } from '@ceramicnetwork/metrics'
 import { StreamID } from '@ceramicnetwork/streamid'
 import { IpfsApi } from '@ceramicnetwork/common'

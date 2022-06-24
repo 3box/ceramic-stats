@@ -13,5 +13,4 @@ const options = {
 }
 const db = level(DB_PATH, options)
 
-//module.exports = db
 export default db
