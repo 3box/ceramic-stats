@@ -1,6 +1,7 @@
 import { CID } from 'multiformats/cid'
 //import { IpfsDaemon } from '@ceramicnetwork/ipfs-daemon'
 import { Metrics } from '@ceramicnetwork/metrics'
+import { StreamID } from '@ceramicnetwork/streamid'
 import { IpfsApi } from '@ceramicnetwork/common'
 import convert from 'blockcodec-to-ipld-format'
 import path from "path"
@@ -73,27 +74,17 @@ async function handleMessage(message) {
         console.log(`GOT tip: ${tip}`)
     }
     try {
-        if (await isNewCid(tip)) {
-            const header = await getHeader(tip)
-            if (header && !isTestStream(stream, header)) {
-                await handleStreamId(stream)
-                await handleCid(tip)
-                await handleHeader(header, stream)
-            }
+        // handleTip replaces getHeader & handleCid
+        // handleStream will do the genesis commit and replaces handleHeader
+        await handleStreamId(stream)
+        if (tip) {
+            await handleTip(tip)
         }
     } catch (err) {
         error('at handleMessage', err)
     }
 }
 
-/**
- * Returns true if the cid is not already in the db.
- * @param {string} cidString
- */
-async function isNewCid(cidString) {
-    if (cidString) return await isNewToDb(cidString, 'cid')
-    return false
-}
 
 async function isNewToDb(key, prefix = '') {
     key = getPrefixedKey(key, prefix)
@@ -108,21 +99,10 @@ async function isNewToDb(key, prefix = '') {
     return false
 }
 
-/**
- * Returns the header from cid payload or null
- * @param {string} cidString
- * @returns {Promise<any>} Header or null
- */
-async function getHeader(cidString) {
-    if (!cidString) return null
-    const payload = await getPayload(cidString, ipfs)
-    if (payload) return payload.header || null
-    return null
-}
 
 /**
  * Returns cid payload from ipfs or null.
- * @param {string} cidString
+ * @param {string} cidString (not null)
  * @param {IPFS} ipfs
  */
 async function getPayload(cidString, ipfs) {
@@ -138,28 +118,12 @@ async function getPayload(cidString, ipfs) {
     }
 }
 
-/**
- * Returns true if family in header matches "test" family format
- * @param {any} header
- */
-function isTestStream(streamIdString, header) {
-    if (!header) return false
-    if (!header.family) return false
-    if (header.family.match(/test-(\d+)/)) {
-        log('Skipping test stream with family', header.family, streamIdString)
-        return true
-    }
-    return false
-}
+//handleTip
+//   if signature contains a capability - load the cacao capability - all will not have that
+//  See https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/store/pin-store.ts#L101-L107
+// and also see https://github.com/haardikk21/cacao-poc for generating tests
+// also just count updates by stream and by who (DID)
 
-/**
- * Logs header contents.
- * @param {any} header
- * @param {string} streamId
- */
-async function handleHeader(header, streamId) {
-    if (header && streamId) await logHeader(header, streamId)
-}
 
 /**
  * Tracks streamId counts, logs, and returns true if it is new.
@@ -167,6 +131,16 @@ async function handleHeader(header, streamId) {
  * @returns {boolean}
  */
 async function handleStreamId(streamIdString) {
+    // use streamid library here to decode streamid TODO - see js-ceramic
+    // from decoded streamid get cid of genesis commit
+    // load from ipfs and get header from there
+    // if the payload is still a cid then load it again
+    // this will include handleHeader as well
+
+    // see https://github.com/ceramicnetwork/CIP/blob/main/CIPs/CIP-59/CIP-59.md
+
+
+
     if (!streamIdString) return false
     const { occurrences, totalUnique } = await save(streamIdString, 'streamId')
     logStreamId(streamIdString, occurrences, totalUnique)
@@ -339,13 +313,6 @@ async function _getFromIpfs(cid: CID | string, path?: string): Promise<any> {
     return cloneDeep(dagResult.value)
 }
 
-function logStreamId(streamId, occurrences, totalUnique) {
-    //writeStream({ streamId, occurrences, totalUnique }, streamIdOutputPath)
-}
-
-function logCid(cid, occurrences, totalUnique) {
-    //writeStream({ cid, occurrences, totalUnique }, cidOutputPath)
-}
 
 main()
     .then(function () { })
