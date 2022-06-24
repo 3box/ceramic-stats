@@ -54,7 +54,7 @@ services:
       - CLOUDWATCH_METRICS_NAMESPACES=pubsub-dev
     depends_on:
       - promtail
-  ts-agent:
-    build: ./ts-agent
+  stats_agent:
+    build: ./stats_agent
     ports:
       - "9464:9464"
