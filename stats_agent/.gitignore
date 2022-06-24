@@ -1,0 +1,15 @@
+node_modules/
+lerna-debug.log
+.idea
+.pinning.store
+.vscode
+*.iml
+docs/
+.run/
+cue.mod/
+
+lib/
+db/
+coverage/
+logs/
+package-lock.json
