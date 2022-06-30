@@ -44,6 +44,7 @@ let ipfs
 async function main() {
   if (!LOG_PATH.endsWith('/')) LOG_PATH += '/'
   ipfs = await createIpfs(IPFS_API_URL)
+
   await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
   log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
   log('Ready')

@@ -331,7 +331,7 @@ main()
     .then(function () { })
     .catch(async function (err) {
         if (ipfs) {
-            await ipfs.shutdown()
+            await ipfs.stop()
         }
         console.error(err)
         process.exit(1)
