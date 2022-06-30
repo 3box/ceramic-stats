@@ -3,4 +3,5 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci --only-production
 COPY . .
-CMD [ "node", "src/agent.js" ]
+RUN npm run build
+CMD [ "node", "lib/agent.js" ]
