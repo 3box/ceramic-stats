@@ -18,7 +18,6 @@ const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstabl
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 2
 const IPFS_CACHE_SIZE = 1024 // maximum cache size of 256MB
 
-
 const error = debug('ceramic:agent:error')
 const log = debug('ceramic:agent:log')
 log.log = console.log.bind(console)
