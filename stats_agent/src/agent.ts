@@ -17,6 +17,7 @@ const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 2
 const IPFS_CACHE_SIZE = 1024 // maximum cache size of 256MB
+const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
 
 const error = debug('ceramic:agent:error')
 const log = debug('ceramic:agent:log')
@@ -25,14 +26,15 @@ log.log = console.log.bind(console)
 const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
-Metrics.start()
+Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT})
 let ipfs
 
 async function main() {
+    log('Connecting to ipfs at url', IPFS_API_URL)
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
     log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
-    log('Ready')
+    log('Ready - going to sleep')
 }
 
 /**
@@ -332,6 +334,7 @@ main()
     .catch(async function (err) {
         if (ipfs) {
             await ipfs.stop()
+            console.log("An ipfs error occurred")
         }
         console.error(err)
         process.exit(1)
