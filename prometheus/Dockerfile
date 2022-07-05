@@ -1,4 +1,5 @@
 FROM prom/prometheus
 
 ADD prometheus.yml /etc/prometheus/prometheus.yml
-EOF
+
+EXPOSE 9090
