@@ -5,4 +5,4 @@ global:
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:
-      - targets: ['127.0.0.1:9464'] # todo add also the js-ceramic metric port
+      - targets: ['127.0.0.1:9464']
