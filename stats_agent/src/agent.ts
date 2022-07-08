@@ -36,11 +36,11 @@ async function main() {
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
     log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
-    log('Ready - going to sleep')
+    log('Ready')
 }
 
 /**
- * Returns IPFS instance. Given url, uses ipfs http client.
+ * Returns IPFS client instance. Given url, uses ipfs http client.
  *
  * NOTE: IPFS nodes are not designed for multi-client usage. When using pubsub,
  * the IPFS url should not be shared between multiple clients.
@@ -70,12 +70,6 @@ async function handleMessage(message) {
 
     const { stream, tip } = parsedMessageData
 
-    if (stream) {
-        console.log(`GOT stream: ${stream}`)
-    }
-    if (tip) {
-        console.log(`GOT tip: ${tip}`)
-    }
     try {
         // handleTip replaces getHeader & handleCid
         // handleStream will do the genesis commit and replaces handleHeader
@@ -149,7 +143,7 @@ async function getPayload(cidString, ipfs) {
 /**
  * Handle the stream and load the genesis commit if we don't already have it
  * This gives us datamodel and did
- * Also tracks streamId counts, and emits metrics
+ * Also track streamId counts, and emit metrics
  * Returns true if it is new.
  * @param {string} streamIdString
  * @returns {boolean}
@@ -171,7 +165,7 @@ async function handleStreamId(streamIdString) {
     const genesis_commit = (await ipfs.dag.get(stream.cid)).value
     const family = genesis_commit?.header?.family
     const owner = genesis_commit?.header?.controllers[0]
-    Metrics.count('BY_FAMILY', 1, {'family':family, 'owner':owner})
+    Metrics.count('BY_FAMILY', 1, {'family':family, 'owner': owner})
     console.log(genesis_commit)
     // TODO lets not calculate unique every time we see the stream...?
     const { occurrences, totalUnique } = await save(streamIdString, 'streamId')
