@@ -1,6 +1,6 @@
 {
   "name": "ceramic-stats_agent",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "Typescript implementation of the Ceramic Stats Agent",
   "keywords": [
     "Ceramic",
@@ -33,6 +33,7 @@
     "@awaitjs/express": "^0.9.0",
     "@ceramicnetwork/common": "^2.1.0",
     "@ceramicnetwork/ipfs-daemon": "^2.0.6",
+    "@ceramicnetwork/metrics": "^0.0.1",
     "@ceramicnetwork/streamid": "^2.1.0",
     "blockcodec-to-ipld-format": "^2.0.0",
     "lru_map": "^0.4.1",
