@@ -53,7 +53,7 @@ jobs:
           tag: "${CIRCLE_SHA1},${NAMESPACE}"
       - aws-ecs/update-service:
           cluster-name: "ceramic-${NAMESPACE}-grafana"
-          container-image-name-updates: "ceramic-${NAMESPACE}-grafana-<< parameters.ecr-repo-suffix >>,tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=<< parameters.ecr-repo-suffix >>,tag=${CIRCLE_SHA1}"
           family: "ceramic-${NAMESPACE}-grafana-<< parameters.ecr-repo-suffix >>"
  
 
