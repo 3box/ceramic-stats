@@ -15,6 +15,8 @@ jobs:
         type: string
       trigger-path:
         type: string
+      task-def-suffix:
+        type: string
     environment:
       REVISION_RANGE: << pipeline.git.base_revision >>..<< pipeline.git.revision >>
     steps:
