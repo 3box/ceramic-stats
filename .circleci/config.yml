@@ -54,7 +54,7 @@ jobs:
       - aws-ecs/update-service:
           cluster-name: "ceramic-${NAMESPACE}-grafana"
           container-image-name-updates: "container=<< parameters.ecr-repo-suffix >>,tag=${CIRCLE_SHA1}"
-          family: "ceramic-${NAMESPACE}-grafana-<< parameters.ecr-repo-suffix >>"
+          family: "ceramic-${NAMESPACE}-grafana-<< parameters.task-def-suffix >>"
  
 
 workflows:
@@ -65,38 +65,46 @@ workflows:
           dockerfile-path: "agent/"
           ecr-repo-suffix: "agent"
           trigger-path: "agent/"
+          task-def-suffix: "agent"
       - build-and-push:
           name: "build-and-push-alertmanager"
           dockerfile-path: "alertmanager/"
           ecr-repo-suffix: "alertmanager"
           trigger-path: "alertmanager/"
+          task-def-suffix: "grafana"
       - build-and-push:
           name: "build-and-push-alertmanager-discord"
           dockerfile-path: "alertmanager-discord/"
           ecr-repo-suffix: "alertmanager-discord"
           trigger-path: "alertmanager-discord/"
+          task-def-suffix: "grafana"
       - build-and-push:
           name: "build-and-push-grafana"
           dockerfile-path: "grafana/"
           ecr-repo-suffix: "grafana"
           trigger-path: "grafana/"
+          task-def-suffix: "grafana"
       - build-and-push:
           name: "build-and-push-loki"
           dockerfile-path: "loki/"
           ecr-repo-suffix: "loki"
           trigger-path: "loki/"
+          task-def-suffix: "loki_promtail"
       - build-and-push:
           name: "build-and-push-prometheus"
           dockerfile-path: "prometheus/"
           ecr-repo-suffix: "prometheus"
           trigger-path: "promtheus/"
+          task-def-suffix: "stats_agent"
       - build-and-push:
           name: "build-and-push-promtail"
           dockerfile-path: "promtail/"
           ecr-repo-suffix: "promtail"
           trigger-path: "promtail/"
+          task-def-suffix: "loki_promtail"
       - build-and-push:
           name: "build-and-push-stats_agent"
           dockerfile-path: "stats_agent/"
           ecr-repo-suffix: "stats_agent"
           trigger-path: "stats_agent/"
+          task-def-suffix: "stats_agent"
