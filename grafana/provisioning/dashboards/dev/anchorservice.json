@@ -305,7 +305,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-node/1e92000aae0c8364",
+                        "LoadBalancer": "app/ceramic-dev-cas-node/311f1393002900f7",
                         "TargetGroup": "*"
                     },
                     "expression": "",
