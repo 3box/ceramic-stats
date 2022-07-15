@@ -50,6 +50,13 @@ jobs:
           repo: "ceramic-${NAMESPACE}-grafana-<< parameters.ecr-repo-suffix >>"
           path: << parameters.dockerfile-path >>
           tag: "${CIRCLE_SHA1},${NAMESPACE}"
+      - aws-ecs/deploy-service-update:
+          cluster: "ceramic-${NAMESPACE}-grafana"
+          container-image-name-updates: "ceramic-${NAMESPACE}-grafana-<< parameters.ecr-repo-suffix >>,tag=${CIRCLE_SHA1}"
+          family: "ceramic-${NAMESPACE}-grafana-<< parameters.ecr-repo-suffix >>"
+          requires:
+            - aws-ecr/build-and-push-image
+ 
 
 workflows:
   build-and-push:
