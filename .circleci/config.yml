@@ -6,7 +6,7 @@ orbs:
 jobs:
   build-and-push:
     machine: # executor type
-      image: ubuntu-2204
+      image: ubuntu-2004
     parameters:
       dockerfile-path:
         type: string
