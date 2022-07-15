@@ -126,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-node/1b3982f747048303",
+                        "LoadBalancer": "app/ceramic-dev-node/b075676df8322e21",
                         "TargetGroup": "*"
                     },
                     "expression": "",
