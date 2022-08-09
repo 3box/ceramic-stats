@@ -187,7 +187,7 @@ async function handleStreamId(streamIdString, model=null) {
                      'oper'   : stream.type,
                      'type'   : stream_type,
                      'version': version })
-    }
+    })
 
     let { occurrences, totalUnique } = await save(streamIdString, 'streamId')
     Metrics.record('unique_stream_count', totalUnique)
