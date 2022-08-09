@@ -180,16 +180,13 @@ async function handleStreamId(streamIdString, model=null) {
 
     // All parameters of interest may be recorded,
     // as long as they are of low cardinality
-    if (stream.type != 3) {
-        Metrics.count('stream', 1, {
+    Metrics.count('stream', 1, {
                      'family' : family,
                      'owner'  : owner,
                      'model'  : model,
                      'oper'   : stream.type,
                      'type'   : stream_type,
                      'version': version })
-    } else {
-        Metrics.count('keepalive': 1)
     }
 
     let { occurrences, totalUnique } = await save(streamIdString, 'streamId')
