@@ -54,6 +54,7 @@ async function createIpfs(url) {
 
 async function handleMessage(message) {
     // dedupe
+
     const seqno = u8a.toString(message.seqno, 'base16')
     if (handledMessages.get(seqno)) {
         return
@@ -68,12 +69,17 @@ async function handleMessage(message) {
         parsedMessageData = JSON.parse(new TextDecoder('utf-8').decode(message.data))
     }
 
-    const { stream, tip } = parsedMessageData
+    if (parsedMessageData.typ == 3) {
+        // skip keepalives
+        return
+    }
+
+    const { stream, tip, model } = parsedMessageData
 
     try {
         // handleTip replaces getHeader & handleCid
         // handleStream will do the genesis commit and replaces handleHeader
-        await handleStreamId(stream)
+        await handleStreamId(stream, model)
         if (tip) {
             await handleTip(tip)
         }
@@ -149,7 +155,7 @@ async function getPayload(cidString, ipfs) {
  * @param {string} streamIdString
  * @returns {boolean}
  */
-async function handleStreamId(streamIdString) {
+async function handleStreamId(streamIdString, model=null) {
     // use streamid library here to decode streamid TODO - see js-ceramic
     // from decoded streamid get cid of genesis commit
     // load from ipfs and get header from there
@@ -164,29 +170,32 @@ async function handleStreamId(streamIdString) {
     const stream_type = stream.typeName  // tile or CAIP-10
 
     const genesis_commit = (await ipfs.dag.get(stream.cid)).value
+
     const family = genesis_commit?.header?.family
     const schema = genesis_commit?.header?.schema
-    const model = genesis_commit?.header?.model
-    if (schema) {
-        console.log("GOT schema: ${schema}")
-    }
-    if (model) {
-        console.log("GOT a model: ${model}")
-    }
+
+    console.log(JSON.stringify(genesis_commit.header))
     const owner = genesis_commit?.header?.controllers[0]
     const version = genesis_commit?.link?.version
 
     // All parameters of interest may be recorded,
     // as long as they are of low cardinality
-    Metrics.count('stream', 1, {
+    if (stream.type != 3) {
+        Metrics.count('stream', 1, {
                      'family' : family,
                      'owner'  : owner,
+                     'model'  : model,
+                     'oper'   : stream.type,
                      'type'   : stream_type,
                      'version': version })
-
+    } else {
+        Metrics.count('keepalive': 1)
+    }
 
     let { occurrences, totalUnique } = await save(streamIdString, 'streamId')
     Metrics.record('unique_stream_count', totalUnique)
+
+    // if desired we can count unique streams per model, or per owner etc
 
     if (owner) {
         let {occurrences, totalUnique } = await save(owner, 'controller')
@@ -217,12 +226,14 @@ async function save(key, prefix = '') {
     return { occurrences, totalUnique }
 }
 
+
 function getPrefixedKey(key, prefix) {
     if (prefix != '') {
         key = prefix + ':' + key
     }
     return key
 }
+
 
 async function _save(key, increment = true) {
     try {
