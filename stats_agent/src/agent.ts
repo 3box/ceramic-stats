@@ -27,7 +27,14 @@ const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
 Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT})
-Metrics.count('HELLO', 1)
+Metrics.count('agent-HELLO', 1, {'test_version': 1})
+
+const OPERATIONS = {
+    0: 'UPDATE',
+    1: 'QUERY',
+    2: 'RESPONSE',
+    3: 'KEEPALIVE'  // not measured
+}
 
 let ipfs
 
@@ -74,12 +81,16 @@ async function handleMessage(message) {
         return
     }
 
+    const operation = OPERATIONS[parsedMessageData.typ]
+    Metrics.count(operation, 1)   // raw counts
+
     const { stream, tip, model } = parsedMessageData
 
     try {
         // handleTip replaces getHeader & handleCid
         // handleStream will do the genesis commit and replaces handleHeader
-        await handleStreamId(stream, model)
+        console.log("The type was " + parsedMessageData.typ)
+        await handleStreamId(stream, model, operation)
         if (tip) {
             await handleTip(tip)
         }
@@ -155,7 +166,7 @@ async function getPayload(cidString, ipfs) {
  * @param {string} streamIdString
  * @returns {boolean}
  */
-async function handleStreamId(streamIdString, model=null) {
+async function handleStreamId(streamIdString, model=null, operation='') {
     // use streamid library here to decode streamid TODO - see js-ceramic
     // from decoded streamid get cid of genesis commit
     // load from ipfs and get header from there
@@ -172,7 +183,6 @@ async function handleStreamId(streamIdString, model=null) {
     const genesis_commit = (await ipfs.dag.get(stream.cid)).value
 
     const family = genesis_commit?.header?.family
-    const schema = genesis_commit?.header?.schema
 
     console.log(JSON.stringify(genesis_commit.header))
     const owner = genesis_commit?.header?.controllers[0]
@@ -184,7 +194,7 @@ async function handleStreamId(streamIdString, model=null) {
                      'family' : family,
                      'owner'  : owner,
                      'model'  : model,
-                     'oper'   : stream.type,
+                     'oper'   : operation,
                      'type'   : stream_type,
                      'version': version })
 
