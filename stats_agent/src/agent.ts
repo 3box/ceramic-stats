@@ -26,15 +26,15 @@ log.log = console.log.bind(console)
 const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
-Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT})
-Metrics.count('agent-HELLO', 1, {'test_version': 1})
-
 const OPERATIONS = {
     0: 'UPDATE',
     1: 'QUERY',
     2: 'RESPONSE',
     3: 'KEEPALIVE'  // not measured
 }
+
+Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT}, 'agent')
+Metrics.count('HELLO', 1)
 
 let ipfs
 
