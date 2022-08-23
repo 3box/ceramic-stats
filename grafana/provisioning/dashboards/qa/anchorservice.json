@@ -465,7 +465,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-qa-cas-ipfs-nd-alb-ex/190eb438ebba5068",
+                        "LoadBalancer": "app/ceramic-qa-cas-ipfs-nd-alb-ex/f8aca6b891a222df",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -484,7 +484,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-qa-cas-ipfs-nd-alb-in/5f1227f17a902fe2",
+                        "LoadBalancer": "app/ceramic-qa-cas-ipfs-nd-alb-in/f3c3f928fd50ba95",
                         "TargetGroup": "*"
                     },
                     "expression": "",
