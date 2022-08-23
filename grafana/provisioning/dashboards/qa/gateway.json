@@ -66,7 +66,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "HealthyHostCount (ceramic-dev-ex-gateway) alert",
+                "name": "HealthyHostCount (ceramic-qa-ex-gateway) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -126,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ex-gateway/c491de409bca10e8",
+                        "LoadBalancer": "app/ceramic-qa-ex-gateway/1ccf80e4a247d4da",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -155,7 +155,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount ( ceramic-dev / gateway )",
+            "title": "HealthyHostCount ( ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -227,7 +227,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "HealthyHostCount (ceramic-dev-ex-ipfs-gw) alert",
+                "name": "HealthyHostCount (ceramic-qa-ex-ipfs-gw) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -287,7 +287,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ex-ipfs-gw-alb-ex/1a4210f1ff7de3a7",
+                        "LoadBalancer": "app/ceramic-qa-ex-ipfs-gw-alb-ex/9900ba142b4f0c86",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -306,7 +306,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ex-ipfs-gw-alb-in/458f985ffc75f1ee",
+                        "LoadBalancer": "app/ceramic-qa-ex-ipfs-gw-alb-in/d770ffcb6d1e7b84",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -336,7 +336,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount ( ipfs-ceramic-dev / gateway )",
+            "title": "HealthyHostCount ( ipfs-ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -408,7 +408,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "CPUUtilization (ceramic-dev-ex-gateway) alert",
+                "name": "CPUUtilization (ceramic-qa-ex-gateway) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -467,8 +467,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-ex",
-                        "ServiceName": "ceramic-dev-ex-gateway"
+                        "ClusterName": "ceramic-qa-ex",
+                        "ServiceName": "ceramic-qa-ex-gateway"
                     },
                     "expression": "",
                     "id": "",
@@ -496,7 +496,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization ( ceramic-dev / gateway )",
+            "title": "CPUUtilization ( ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -567,8 +567,8 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-ipfs-gw CPU above 80%",
-                "name": "CPUUtilization (ceramic-dev-ex-ipfs-gw) alert",
+                "message": "ceramic-qa-ex-ipfs-gw CPU above 80%",
+                "name": "CPUUtilization (ceramic-qa-ex-ipfs-gw) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -627,8 +627,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-ex",
-                        "ServiceName": "ceramic-dev-ex-ipfs-gw"
+                        "ClusterName": "ceramic-qa-ex",
+                        "ServiceName": "ceramic-qa-ex-ipfs-gw"
                     },
                     "expression": "",
                     "id": "",
@@ -656,7 +656,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization ( ipfs-ceramic-dev / gateway )",
+            "title": "CPUUtilization ( ipfs-ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -726,8 +726,8 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-gateway memory above 80%",
-                "name": "MemoryUtilization (ceramic-dev-ex-gateway) alert",
+                "message": "ceramic-qa-ex-gateway memory above 80%",
+                "name": "MemoryUtilization (ceramic-qa-ex-gateway) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -786,8 +786,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-ex",
-                        "ServiceName": "ceramic-dev-ex-gateway"
+                        "ClusterName": "ceramic-qa-ex",
+                        "ServiceName": "ceramic-qa-ex-gateway"
                     },
                     "expression": "",
                     "id": "",
@@ -815,7 +815,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization ( ceramic-dev / gateway )",
+            "title": "MemoryUtilization ( ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -885,8 +885,8 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ex-ipfs-gw CPU above 80%",
-                "name": "MemoryUtilization (ceramic-dev-ex-ipfs-gw) alert",
+                "message": "ceramic-qa-ex-ipfs-gw CPU above 80%",
+                "name": "MemoryUtilization (ceramic-qa-ex-ipfs-gw) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -945,8 +945,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-ex",
-                        "ServiceName": "ceramic-dev-ex-ipfs-gw"
+                        "ClusterName": "ceramic-qa-ex",
+                        "ServiceName": "ceramic-qa-ex-ipfs-gw"
                     },
                     "expression": "",
                     "id": "",
@@ -974,7 +974,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization ( ipfs-ceramic-dev /gateway )",
+            "title": "MemoryUtilization ( ipfs-ceramic-qa /gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -2073,6 +2073,6 @@
     "timepicker": {},
     "timezone": "",
     "title": "Gateway",
-    "uid": "dev-gateway-o1Dp-kcGz",
+    "uid": "qa-gateway-o1Dp-kcGz",
     "version": 6635
 }

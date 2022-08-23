@@ -65,7 +65,7 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-dev-cas) alert",
+                "name": "HealthyHostCount (ceramic-qa-cas) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -125,7 +125,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-alb/682423c954f76315",
+                        "LoadBalancer": "app/ceramic-qa-cas-alb/ea91284a092b4d34",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -144,7 +144,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-alb-internal/c00b264d49229b9c",
+                        "LoadBalancer": "app/ceramic-qa-cas-alb-internal/38e9be208d120bdf",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -305,7 +305,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-node/311f1393002900f7",
+                        "LoadBalancer": "app/ceramic-qa-cas-node/8a4f8263301f96a2",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -405,7 +405,7 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "name": "HealthyHostCount (ceramic-dev-cas-ipfs) alert",
+                "name": "HealthyHostCount (ceramic-qa-cas-ipfs) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -465,7 +465,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-ipfs-nd-alb-ex/190eb438ebba5068",
+                        "LoadBalancer": "app/ceramic-qa-cas-ipfs-nd-alb-ex/190eb438ebba5068",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -484,7 +484,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-ipfs-nd-alb-in/5f1227f17a902fe2",
+                        "LoadBalancer": "app/ceramic-qa-cas-ipfs-nd-alb-in/5f1227f17a902fe2",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -585,7 +585,7 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "name": "CPUUtilization (ceramic-dev-cas-api) alert",
+                "name": "CPUUtilization (ceramic-qa-cas-api) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -644,8 +644,8 @@
                 {
                     "alias": "CPUUtilization_{{ stat }} ({{ ServiceName }})",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-api"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-api"
                     },
                     "expression": "",
                     "id": "",
@@ -664,8 +664,8 @@
                 {
                     "alias": "CPUUtilization_{{ stat }} ({{ ServiceName }})",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-anchor"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
@@ -825,8 +825,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-node"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-node"
                     },
                     "expression": "",
                     "id": "",
@@ -927,7 +927,7 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "name": "CPUUtilization (ceramic-dev-cas-ipfs) alert",
+                "name": "CPUUtilization (ceramic-qa-cas-ipfs) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -986,8 +986,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-ipfs-nd"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -1087,7 +1087,7 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "name": "MemoryUtilization (ceramic-dev-cas-api) alert",
+                "name": "MemoryUtilization (ceramic-qa-cas-api) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -1146,8 +1146,8 @@
                 {
                     "alias": "MemoryUtilization_{{ stat }} ({{ ServiceName }}) ",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-api"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-api"
                     },
                     "expression": "",
                     "id": "",
@@ -1166,8 +1166,8 @@
                 {
                     "alias": "MemoryUtilization_{{ stat }} ({{ ServiceName }}) ",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-anchor"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
@@ -1326,8 +1326,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-node"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-node"
                     },
                     "expression": "",
                     "id": "",
@@ -1427,7 +1427,7 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "name": "MemoryUtilization (ceramic-dev-cas-ipfs) alert",
+                "name": "MemoryUtilization (ceramic-qa-cas-ipfs) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -1486,8 +1486,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-ipfs-nd"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -2907,6 +2907,6 @@
     "timepicker": {},
     "timezone": "",
     "title": "Anchor Service",
-    "uid": "dev-U93a07JMz",
-    "version": 6636
+    "uid": "qa-U93a07JMz",
+    "version": 6637
 }
