@@ -27,7 +27,14 @@ const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
 Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT})
-Metrics.count('HELLO', 1)
+Metrics.count('agent-HELLO', 1, {'test_version': 1})
+
+const OPERATIONS = {
+    0: 'UPDATE',
+    1: 'QUERY',
+    2: 'RESPONSE',
+    3: 'KEEPALIVE'  // not measured
+}
 
 let ipfs
 
@@ -54,6 +61,7 @@ async function createIpfs(url) {
 
 async function handleMessage(message) {
     // dedupe
+
     const seqno = u8a.toString(message.seqno, 'base16')
     if (handledMessages.get(seqno)) {
         return
@@ -68,12 +76,21 @@ async function handleMessage(message) {
         parsedMessageData = JSON.parse(new TextDecoder('utf-8').decode(message.data))
     }
 
-    const { stream, tip } = parsedMessageData
+    if (parsedMessageData.typ == 3) {
+        // skip keepalives
+        return
+    }
+
+    const operation = OPERATIONS[parsedMessageData.typ]
+    Metrics.count(operation, 1)   // raw counts
+
+    const { stream, tip, model } = parsedMessageData
 
     try {
         // handleTip replaces getHeader & handleCid
         // handleStream will do the genesis commit and replaces handleHeader
-        await handleStreamId(stream)
+        console.log("The type was " + parsedMessageData.typ)
+        await handleStreamId(stream, model, operation)
         if (tip) {
             await handleTip(tip)
         }
@@ -99,9 +116,10 @@ async function handleTip(cidString) {
     }
 
     //  ?? isnt this high overhead to calculate each time ??
+    // also its probably more useful to know total unique over limited time period, as well as total unique overall?
     const { occurrences, totalUnique } = await save(cidString, 'cid')
 
-    Metrics.count("TIP_RECEIVED", 1, {'occurrences': occurrences, 'total_unique': totalUnique })
+    Metrics.count("TIP_RECEIVED", 1)
 }
 
 async function isNewToDb(key, prefix = '') {
@@ -148,7 +166,7 @@ async function getPayload(cidString, ipfs) {
  * @param {string} streamIdString
  * @returns {boolean}
  */
-async function handleStreamId(streamIdString) {
+async function handleStreamId(streamIdString, model=null, operation='') {
     // use streamid library here to decode streamid TODO - see js-ceramic
     // from decoded streamid get cid of genesis commit
     // load from ipfs and get header from there
@@ -163,79 +181,36 @@ async function handleStreamId(streamIdString) {
     const stream_type = stream.typeName  // tile or CAIP-10
 
     const genesis_commit = (await ipfs.dag.get(stream.cid)).value
+
     const family = genesis_commit?.header?.family
+
+    console.log(JSON.stringify(genesis_commit.header))
     const owner = genesis_commit?.header?.controllers[0]
-    Metrics.count('BY_FAMILY', 1, {'family':family, 'owner': owner})
-    console.log(genesis_commit)
-    // TODO lets not calculate unique every time we see the stream...?
-    const { occurrences, totalUnique } = await save(streamIdString, 'streamId')
-   
-    Metrics.record('unique_stream_count', totalUnique, {}) // ?? prob not the best way
-                                                       // really we need unique over x time period?
-    Metrics.count('stream', 1, {'occurrences':occurrences, 'stream_type': stream_type})
+    const version = genesis_commit?.link?.version
+
+    // All parameters of interest may be recorded,
+    // as long as they are of low cardinality
+    Metrics.count('stream', 1, {
+                     'family' : family,
+                     'owner'  : owner,
+                     'model'  : model,
+                     'oper'   : operation,
+                     'type'   : stream_type,
+                     'version': version })
+
+    let { occurrences, totalUnique } = await save(streamIdString, 'streamId')
+    Metrics.record('unique_stream_count', totalUnique)
+
+    // if desired we can count unique streams per model, or per owner etc
+
+    if (owner) {
+        let {occurrences, totalUnique } = await save(owner, 'controller')
+        Metrics.record('unique_owner_count', totalUnique)
+    }
+
     return occurrences == 1
 }
 
-/**
- * Parses and logs header contents.
- * @param {any} header
- * @param {string} streamId
- */
-async function logHeader(header, streamId) {
-    try {
-        const { family } = header // TODO THIS IS OUT OF DATE (I think)
-        if (family) {
-            const { occurrences, totalUnique } = await save(family, 'family')
-            //writeStream({ family, occurrences, totalUnique }, familyOutputPath)
-        }
-
-        if (family.toLowerCase() == 'idx') {
-            const { occurrences, totalUnique } = await save(streamId, 'family:idx')
-            //writeStream({ idx: streamId, occurrences, totalUnique }, idxOutputPath)
-        } else if (family.toLowerCase() == '3id') {
-            const { occurrences, totalUnique } = await save(streamId, 'family:3id')
-            //writeStream({ threeId: streamId, occurrences, totalUnique }, threeIdOutputPath)
-        }
-
-    } catch (err) {
-        error('at logHeader', 'Failed to save family', err.message)
-    }
-
-    try {
-        const { controllers } = header
-        if (controllers) {
-            for (let controller of controllers) {
-                const { occurrences, totalUnique } = await save(controller, 'controller')
-                Metrics.count("BY_CONTROLLER", 1, {'controller': controller}) // TODO add BY_CONTROLLER to metric names
-                //writeStream({ controller, occurrences, totalUnique }, controllerOutputPath)
-            }
-        }
-    } catch (err) {
-        error('at logHeader', 'Failed to save controllers', err.message)
-    }
-
-    try {
-        const { schema } = header
-        if (schema) {
-            const { occurrences, totalUnique } = await save(schema, 'schema')
-            //writeStream({ schema, occurrences, totalUnique }, schemaOutputPath)
-        }
-    } catch (err) {
-        error('at logHeader', 'Failed to save schema', err.message)
-    }
-
-    try {
-        const { tags } = header
-        if (tags) {
-            for (let tag of tags) {
-                const { occurrences, totalUnique } = await save(tag, 'tag')
-                //writeStream({ tag, occurrences, totalUnique }, tagOutputPath)
-            }
-        }
-    } catch (err) {
-        error('at logHeader', 'Failed to save tag', err.message)
-    }
-}
 
 /**
  * Adds key to db and returns number of occurrences and number of total unique
@@ -249,10 +224,14 @@ async function save(key, prefix = '') {
     key = getPrefixedKey(key, prefix)
 
     occurrences = await _save(key)
+
+    // prefix is already there so this just retrieves the unique count and increments it if key was new
+    // TODO we could use a 10 min db to count uniques over last 10 min ie # users over time
     totalUnique = await _save(prefix, occurrences == 1)
 
     return { occurrences, totalUnique }
 }
+
 
 function getPrefixedKey(key, prefix) {
     if (prefix != '') {
@@ -260,6 +239,7 @@ function getPrefixedKey(key, prefix) {
     }
     return key
 }
+
 
 async function _save(key, increment = true) {
     try {
