@@ -28,6 +28,11 @@ jobs:
           command: |
             namespace=$(echo $CIRCLE_BRANCH | cut -d '/' -f 2)
             echo "export NAMESPACE=$namespace" >> $BASH_ENV
+            if [[ " dev qa tnet prod " == *"$namespace"* ]]; then 
+                echo "export CLUSTER=$namespace" >> $BASH_ENV
+            else 
+                echo "export CLUSTER=dev" >> $BASH_ENV
+            fi
       - run:
           name: "Check force build"
           command: |
@@ -52,13 +57,13 @@ jobs:
               echo "Skipping to force build."
             fi
       - aws-ecr/build-and-push-image:
-          repo: "ceramic-${NAMESPACE}-grafana-<< parameters.ecr-repo-suffix >>"
+          repo: "ceramic-${CLUSTER}-grafana-<< parameters.ecr-repo-suffix >>"
           path: << parameters.dockerfile-path >>
           tag: "${CIRCLE_SHA1},${NAMESPACE}"
       - aws-ecs/update-service:
-          cluster-name: "ceramic-${NAMESPACE}-grafana"
+          cluster-name: "ceramic-${CLUSTER}-grafana"
           container-image-name-updates: "container=<< parameters.container-name >>,tag=${CIRCLE_SHA1}"
-          family: "ceramic-${NAMESPACE}-grafana-<< parameters.task-def-suffix >>"
+          family: "ceramic-${CLUSTER}-grafana-<< parameters.task-def-suffix >>"
  
 
 workflows:
