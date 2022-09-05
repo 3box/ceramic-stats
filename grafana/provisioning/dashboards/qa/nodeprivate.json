@@ -66,7 +66,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "HealthyHostCount (ceramic-dev-node) alert",
+                "name": "HealthyHostCount (ceramic-qa-node) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -126,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-node/b075676df8322e21",
+                        "LoadBalancer": "app/ceramic-qa-node/a08981a9421bef33",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -155,7 +155,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount ( ceramic-private-dev )",
+            "title": "HealthyHostCount ( ceramic-private-qa )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -226,8 +226,8 @@
                 "for": "5m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "ceramic-dev-ipfs-nd count below 1",
-                "name": "HealthyHostCount (ceramic-dev-ipfs-nd) alert",
+                "message": "ceramic-qa-ipfs-nd count below 1",
+                "name": "HealthyHostCount (ceramic-qa-ipfs-nd) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -287,7 +287,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ipfs-nd-alb-ex/ba044e830de8cd2f",
+                        "LoadBalancer": "app/ceramic-qa-ipfs-nd-alb-ex/07aa3603eb08f6d5",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -306,7 +306,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ipfs-nd-alb-in/a02a30f821afe115",
+                        "LoadBalancer": "app/ceramic-qa-ipfs-nd-alb-in/24a45d7c75dfe565",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -336,7 +336,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount ( ipfs-ceramic-private-dev )",
+            "title": "HealthyHostCount ( ipfs-ceramic-private-qa )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -408,7 +408,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "CPUUtilization (ceramic-dev-node) alert",
+                "name": "CPUUtilization (ceramic-qa-node) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -467,8 +467,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-node"
+                        "ClusterName": "ceramic-qa",
+                        "ServiceName": "ceramic-qa-node"
                     },
                     "expression": "",
                     "id": "",
@@ -496,7 +496,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization ( ceramic-private-dev )",
+            "title": "CPUUtilization ( ceramic-private-qa )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -568,7 +568,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "CPUUtilization (ceramic-dev-ipfs-nd) alert",
+                "name": "CPUUtilization (ceramic-qa-ipfs-nd) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -627,8 +627,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-ipfs-nd"
+                        "ClusterName": "ceramic-qa",
+                        "ServiceName": "ceramic-qa-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -656,7 +656,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization ( ipfs-ceramic-private-dev )",
+            "title": "CPUUtilization ( ipfs-ceramic-private-qa )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -727,7 +727,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "MemoryUtilization (ceramic-dev-node) alert",
+                "name": "MemoryUtilization (ceramic-qa-node) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -786,8 +786,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-node"
+                        "ClusterName": "ceramic-qa",
+                        "ServiceName": "ceramic-qa-node"
                     },
                     "expression": "",
                     "id": "",
@@ -815,7 +815,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization ( ceramic-private-dev )",
+            "title": "MemoryUtilization ( ceramic-private-qa )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -886,7 +886,7 @@
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "MemoryUtilization (ceramic-dev-ipfs-nd) alert",
+                "name": "MemoryUtilization (ceramic-qa-ipfs-nd) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -945,8 +945,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev",
-                        "ServiceName": "ceramic-dev-ipfs-nd"
+                        "ClusterName": "ceramic-qa",
+                        "ServiceName": "ceramic-qa-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -974,7 +974,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization ( ipfs-ceramic-private-dev )",
+            "title": "MemoryUtilization ( ipfs-ceramic-private-qa )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1961,6 +1961,6 @@
     "timepicker": {},
     "timezone": "",
     "title": "Node (Private)",
-    "uid": "dev-node-o1Dp-kcGz",
+    "uid": "qa-node-o1Dp-kcGz",
     "version": 6389
 }
