@@ -26,6 +26,7 @@ jobs:
       - run:
           name: "Set namespace"
           command: |
+            # this is still pretty weird and seems to depend on fix/ feat/ convention in branch names
             namespace=$(echo $CIRCLE_BRANCH | cut -d '/' -f 2)
             echo "export NAMESPACE=$namespace" >> $BASH_ENV
             if [[ " dev qa tnet prod " == *"$namespace"* ]]; then 
