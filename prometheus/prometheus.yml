@@ -6,4 +6,4 @@ scrape_configs:
   - job_name: 'stats_agent_scraper'
     metrics_path: '/metrics'
     static_configs:
-      - targets: [ '127.0.0.1:9464', '%%CERAMIC_TARGET%%', '%%CAS_TARGET%%' ]
+      - targets: [ '127.0.0.1:9464', '%%CERAMIC_TARGET%%', '%%CAS_TARGET%%','%%COLLECTOR_TARGET%%' ]
