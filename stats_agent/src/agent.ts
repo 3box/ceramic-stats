@@ -26,10 +26,11 @@ log.log = console.log.bind(console)
 const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
-const CALLER = 'agent'
-
-Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT}, caller=CALLER)
+Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT}, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 1})
+
+const DAY_TTL = 86400
+const MO_TTL = 30 * DAY_TTL
 
 const OPERATIONS = {
     0: 'UPDATE',
@@ -38,10 +39,9 @@ const OPERATIONS = {
     3: 'KEEPALIVE'  // not measured
 }
 
-enum LABELS = {
-
+enum LABELS {
     model = 'model',
-    owner = 'owner',
+    controller = 'controller',
     stream = 'stream',
     tip = 'tag',
 }
@@ -49,11 +49,15 @@ enum LABELS = {
 
 let ipfs
 
+//let today = Date.today()
+const top_tens = {}
+
 async function main() {
     log('Connecting to ipfs at url', IPFS_API_URL)
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
     log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
+    initTopTens()
     log('Ready')
 }
 
@@ -121,27 +125,8 @@ async function handleTip(cidString) {
     //handleTip
     //   if signature contains a capability - load the cacao capability - all will not have that
     //  See https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/store/pin-store.ts#L101-L107
-    if (await isNewToDb(cidString, 'cid')) {
-        console.log(cidString)
-        // can we use StreamUtils.isSignedCommit() here?
-    }
 
-    //  ?? isnt this high overhead to calculate each time ??
-    // also its probably more useful to know total unique over limited time period, as well as total unique overall?
     await mark(cidString, LABELS.tip)
-}
-
-async function isNewToDb(key, prefix = '') {
-    key = getPrefixedKey(key, prefix)
-    try {
-        await db.get(key)
-    } catch (err) {
-        if (err.notFound) {
-            return true
-        }
-        error('at isNewToDb', err)
-    }
-    return false
 }
 
 
@@ -194,7 +179,10 @@ async function handleStreamId(streamIdString, model=null, operation='') {
     const family = genesis_commit?.header?.family
 
     console.log(JSON.stringify(genesis_commit.header))
-    const owner = genesis_commit?.header?.controllers[0]
+
+    // TODO deal with multiple controllers - is this possible?
+    const controller = genesis_commit?.header?.controllers[0]
+
     const version = genesis_commit?.link?.version
 
     // All parameters of interest may be recorded,
@@ -202,26 +190,24 @@ async function handleStreamId(streamIdString, model=null, operation='') {
     // This gives us current velocity by parameter
     Metrics.count(LABELS.stream, 1, {
                      'family' : family,
-                     'owner'  : owner,
-                     'model'  : model,
                      'oper'   : operation,
                      'type'   : stream_type,
                      'version': version })
 
     await mark(streamIdString, LABELS.stream)
 
-    // if desired we can count unique streams per model, or per owner etc
-
-    if (owner) {
-        await mark(owner, LABELS.controller)
+    if (model) {
+        await mark(model, LABELS.model)
     }
 
-    return occurrences == 1
+    if (controller) {
+        await mark(controller, LABELS.controller)
+    }
 }
 
 
 /**
- * Adds/updates key to db with day and month ttl, returns new_today, new_this_month
+ * Adds/updates key to db with day and month ttl, marks new_today, new_this_month
  * 
  * Count of the unique will be sent to Prometheus which will do the aggregation over time windows
  *
@@ -229,28 +215,56 @@ async function handleStreamId(streamIdString, model=null, operation='') {
  */
 async function mark(key, label) {
 
-    day_key = label + ':D:' + key
-    mo_key = label + ':' + key
+    const day_key = label + ':D:' + key
+    const mo_key = label + ':' + key
 
-    seen_today = db.get(day_key) || 0
-    seen_month = db.get(mo_key) || 0
+    const seen_today = db.get(day_key) || 0
+    const seen_month = db.get(mo_key) || 0
 
     // keep counts so later we can generate a top-10 for day and month
     await db.put(day_key, seen_today + 1, {ttl: DAY_TTL})
     await db.put(mo_key, seen_today + 1, {ttl: MO_TTL})
 
     if (! seen_today) {
-        Metrics.count(label + '_uniq_da', 1)
+        Metrics.count(label + '_uniq_da', 1)  // for daily uniq counts
     }
-    if (! seen_month) {
-        Metrics.count(label + '_uniq_mo', 1)
-    }
+    Metrics.record(label + '_counts_da', seen_today + 1)  // for a Histogram by day
 
-    return (! seen_today, ! seen_month)  
+    if (! seen_month) {
+        Metrics.count(label + '_uniq_mo', 1) // for monthly uniq counts
+    }
+    Metrics.record(label + '_counts_da', seen_month + 1)  // for a Histogram by month
 }
 
 
+function initTopTens() {
+    //for (let label of LABELS) {
+    //    top_tens[label] = []
+    //}
+}
 
+/*
+function updateTopTen(id:string, label:string, cnt: number) {
+
+    // is it a new day?  Reset our counts
+    if today != Date.today() {
+        today = Date.today()
+        initTopTens()
+    }
+
+    top_ten = top_tens[label]
+    if (cnt <= top_ten[9]['cnt']) {
+       return  // nothing to write home about
+    }
+   
+    // insert into ordered top ten list by cnt
+    // bisect-insert...
+
+    for (n in 0..10) {
+        Metrics.gauge(label, n+1, {'id': top_ten[n]['id']
+    }
+}
+*/
 
 
 /**
