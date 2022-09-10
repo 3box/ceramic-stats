@@ -26,8 +26,10 @@ log.log = console.log.bind(console)
 const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
-Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT})
-Metrics.count('agent-HELLO', 1, {'test_version': 1})
+const CALLER = 'agent'
+
+Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT}, caller=CALLER)
+Metrics.count('HELLO', 1, {'test_version': 1})
 
 const OPERATIONS = {
     0: 'UPDATE',
@@ -35,6 +37,15 @@ const OPERATIONS = {
     2: 'RESPONSE',
     3: 'KEEPALIVE'  // not measured
 }
+
+enum LABELS = {
+
+    model = 'model',
+    owner = 'owner',
+    stream = 'stream',
+    tip = 'tag',
+}
+    
 
 let ipfs
 
@@ -117,9 +128,7 @@ async function handleTip(cidString) {
 
     //  ?? isnt this high overhead to calculate each time ??
     // also its probably more useful to know total unique over limited time period, as well as total unique overall?
-    const { occurrences, totalUnique } = await save(cidString, 'cid')
-
-    Metrics.count("TIP_RECEIVED", 1)
+    await mark(cidString, LABELS.tip)
 }
 
 async function isNewToDb(key, prefix = '') {
@@ -190,7 +199,8 @@ async function handleStreamId(streamIdString, model=null, operation='') {
 
     // All parameters of interest may be recorded,
     // as long as they are of low cardinality
-    Metrics.count('stream', 1, {
+    // This gives us current velocity by parameter
+    Metrics.count(LABELS.stream, 1, {
                      'family' : family,
                      'owner'  : owner,
                      'model'  : model,
@@ -198,14 +208,12 @@ async function handleStreamId(streamIdString, model=null, operation='') {
                      'type'   : stream_type,
                      'version': version })
 
-    let { occurrences, totalUnique } = await save(streamIdString, 'streamId')
-    Metrics.record('unique_stream_count', totalUnique)
+    await mark(streamIdString, LABELS.stream)
 
     // if desired we can count unique streams per model, or per owner etc
 
     if (owner) {
-        let {occurrences, totalUnique } = await save(owner, 'controller')
-        Metrics.record('unique_owner_count', totalUnique)
+        await mark(owner, LABELS.controller)
     }
 
     return occurrences == 1
@@ -213,53 +221,37 @@ async function handleStreamId(streamIdString, model=null, operation='') {
 
 
 /**
- * Adds key to db and returns number of occurrences and number of total unique
- * values with the given prefix.
+ * Adds/updates key to db with day and month ttl, returns new_today, new_this_month
+ * 
+ * Count of the unique will be sent to Prometheus which will do the aggregation over time windows
+ *
  * @param {string} key
  */
-async function save(key, prefix = '') {
-    let totalUnique
-    let occurrences
+async function mark(key, label) {
 
-    key = getPrefixedKey(key, prefix)
+    day_key = label + ':D:' + key
+    mo_key = label + ':' + key
 
-    occurrences = await _save(key)
+    seen_today = db.get(day_key) || 0
+    seen_month = db.get(mo_key) || 0
 
-    // prefix is already there so this just retrieves the unique count and increments it if key was new
-    // TODO we could use a 10 min db to count uniques over last 10 min ie # users over time
-    totalUnique = await _save(prefix, occurrences == 1)
+    // keep counts so later we can generate a top-10 for day and month
+    await db.put(day_key, seen_today + 1, {ttl: DAY_TTL})
+    await db.put(mo_key, seen_today + 1, {ttl: MO_TTL})
 
-    return { occurrences, totalUnique }
-}
-
-
-function getPrefixedKey(key, prefix) {
-    if (prefix != '') {
-        key = prefix + ':' + key
+    if (! seen_today) {
+        Metrics.count(label + '_uniq_da', 1)
     }
-    return key
-}
-
-
-async function _save(key, increment = true) {
-    try {
-        const value = await db.get(key)
-        if (!increment) {
-            return value
-        }
-        const nextValue = value + 1
-        await db.put(key, nextValue)
-        return nextValue
-    } catch (err) {
-        if (err.notFound) {
-            const nextValue = 1
-            await db.put(key, nextValue)
-            return nextValue
-        } else {
-            throw err
-        }
+    if (! seen_month) {
+        Metrics.count(label + '_uniq_mo', 1)
     }
+
+    return (! seen_today, ! seen_month)  
 }
+
+
+
+
 
 /**
  * Helper function for loading a CID from IPFS
