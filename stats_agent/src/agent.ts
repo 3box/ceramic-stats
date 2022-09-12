@@ -223,6 +223,7 @@ async function mark(key, label) {
 
     // keep counts so later we can generate a top-10 for day and month
     await db.put(day_key, seen_today + 1, {ttl: DAY_TTL})
+    //await db.put()
     await db.put(mo_key, seen_today + 1, {ttl: MO_TTL})
 
     if (! seen_today) {
