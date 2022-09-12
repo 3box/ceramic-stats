@@ -205,6 +205,21 @@ async function handleStreamId(streamIdString, model=null, operation='') {
     }
 }
 
+/**
+ * get value from leveldb or return 0 if not found
+ * @param key
+ */
+async function get_or_zero(key) {
+    try {
+        return await db.get(key)
+    } catch (err) {
+        if (err.notFound) {
+            return 0
+        } else {
+            throw err
+        }
+    }
+}
 
 /**
  * Adds/updates key to db with day and month ttl, marks new_today, new_this_month
@@ -218,8 +233,9 @@ async function mark(key, label) {
     const day_key = label + ':D:' + key
     const mo_key = label + ':' + key
 
-    const seen_today = db.get(day_key) || 0
-    const seen_month = db.get(mo_key) || 0
+
+    const seen_today = await get_or_zero(day_key)
+    const seen_month = await get_or_zero(mo_key)
 
     // keep counts so later we can generate a top-10 for day and month
     await db.put(day_key, seen_today + 1, {ttl: DAY_TTL})
