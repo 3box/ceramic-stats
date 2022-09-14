@@ -26,8 +26,11 @@ log.log = console.log.bind(console)
 const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
-Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT})
-Metrics.count('agent-HELLO', 1, {'test_version': 1})
+Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT}, 'agent')
+Metrics.count('HELLO', 1, {'test_version': 1})
+
+const DAY_TTL = 86400
+const MO_TTL = 30 * DAY_TTL
 
 const OPERATIONS = {
     0: 'UPDATE',
@@ -36,13 +39,25 @@ const OPERATIONS = {
     3: 'KEEPALIVE'  // not measured
 }
 
+enum LABELS {
+    model = 'model',
+    controller = 'controller',
+    stream = 'stream',
+    tip = 'tag',
+}
+    
+
 let ipfs
+
+//let today = Date.today()
+const top_tens = {}
 
 async function main() {
     log('Connecting to ipfs at url', IPFS_API_URL)
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
     log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
+    initTopTens()
     log('Ready')
 }
 
@@ -110,29 +125,8 @@ async function handleTip(cidString) {
     //handleTip
     //   if signature contains a capability - load the cacao capability - all will not have that
     //  See https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/store/pin-store.ts#L101-L107
-    if (await isNewToDb(cidString, 'cid')) {
-        console.log(cidString)
-        // can we use StreamUtils.isSignedCommit() here?
-    }
 
-    //  ?? isnt this high overhead to calculate each time ??
-    // also its probably more useful to know total unique over limited time period, as well as total unique overall?
-    const { occurrences, totalUnique } = await save(cidString, 'cid')
-
-    Metrics.count("TIP_RECEIVED", 1)
-}
-
-async function isNewToDb(key, prefix = '') {
-    key = getPrefixedKey(key, prefix)
-    try {
-        await db.get(key)
-    } catch (err) {
-        if (err.notFound) {
-            return true
-        }
-        error('at isNewToDb', err)
-    }
-    return false
+    await mark(cidString, LABELS.tip)
 }
 
 
@@ -185,81 +179,110 @@ async function handleStreamId(streamIdString, model=null, operation='') {
     const family = genesis_commit?.header?.family
 
     console.log(JSON.stringify(genesis_commit.header))
-    const owner = genesis_commit?.header?.controllers[0]
+
+    // TODO deal with multiple controllers - is this possible?
+    const controller = genesis_commit?.header?.controllers[0]
+
     const version = genesis_commit?.link?.version
 
     // All parameters of interest may be recorded,
     // as long as they are of low cardinality
-    Metrics.count('stream', 1, {
+    // This gives us current velocity by parameter
+    Metrics.count(LABELS.stream, 1, {
                      'family' : family,
-                     'owner'  : owner,
-                     'model'  : model,
                      'oper'   : operation,
                      'type'   : stream_type,
                      'version': version })
 
-    let { occurrences, totalUnique } = await save(streamIdString, 'streamId')
-    Metrics.record('unique_stream_count', totalUnique)
+    await mark(streamIdString, LABELS.stream)
 
-    // if desired we can count unique streams per model, or per owner etc
-
-    if (owner) {
-        let {occurrences, totalUnique } = await save(owner, 'controller')
-        Metrics.record('unique_owner_count', totalUnique)
+    if (model) {
+        await mark(model, LABELS.model)
     }
 
-    return occurrences == 1
+    if (controller) {
+        await mark(controller, LABELS.controller)
+    }
 }
-
 
 /**
- * Adds key to db and returns number of occurrences and number of total unique
- * values with the given prefix.
- * @param {string} key
+ * get value from leveldb or return 0 if not found
+ * @param key
  */
-async function save(key, prefix = '') {
-    let totalUnique
-    let occurrences
-
-    key = getPrefixedKey(key, prefix)
-
-    occurrences = await _save(key)
-
-    // prefix is already there so this just retrieves the unique count and increments it if key was new
-    // TODO we could use a 10 min db to count uniques over last 10 min ie # users over time
-    totalUnique = await _save(prefix, occurrences == 1)
-
-    return { occurrences, totalUnique }
-}
-
-
-function getPrefixedKey(key, prefix) {
-    if (prefix != '') {
-        key = prefix + ':' + key
-    }
-    return key
-}
-
-
-async function _save(key, increment = true) {
+async function get_or_zero(key) {
     try {
-        const value = await db.get(key)
-        if (!increment) {
-            return value
-        }
-        const nextValue = value + 1
-        await db.put(key, nextValue)
-        return nextValue
+        return await db.get(key)
     } catch (err) {
         if (err.notFound) {
-            const nextValue = 1
-            await db.put(key, nextValue)
-            return nextValue
+            return 0
         } else {
             throw err
         }
     }
 }
+
+/**
+ * Adds/updates key to db with day and month ttl, marks new_today, new_this_month
+ * 
+ * Count of the unique will be sent to Prometheus which will do the aggregation over time windows
+ *
+ * @param {string} key
+ */
+async function mark(key, label) {
+
+    const day_key = label + ':D:' + key
+    const mo_key = label + ':' + key
+
+
+    const seen_today = await get_or_zero(day_key)
+    const seen_month = await get_or_zero(mo_key)
+
+    // keep counts so later we can generate a top-10 for day and month
+    await db.put(day_key, seen_today + 1, {ttl: DAY_TTL})
+    //await db.put()
+    await db.put(mo_key, seen_today + 1, {ttl: MO_TTL})
+
+    if (! seen_today) {
+        Metrics.count(label + '_uniq_da', 1)  // for daily uniq counts
+    }
+    Metrics.record(label + '_counts_da', seen_today + 1)  // for a Histogram by day
+
+    if (! seen_month) {
+        Metrics.count(label + '_uniq_mo', 1) // for monthly uniq counts
+    }
+    Metrics.record(label + '_counts_da', seen_month + 1)  // for a Histogram by month
+}
+
+
+function initTopTens() {
+    //for (let label of LABELS) {
+    //    top_tens[label] = []
+    //}
+}
+
+/*
+function updateTopTen(id:string, label:string, cnt: number) {
+
+    // is it a new day?  Reset our counts
+    if today != Date.today() {
+        today = Date.today()
+        initTopTens()
+    }
+
+    top_ten = top_tens[label]
+    if (cnt <= top_ten[9]['cnt']) {
+       return  // nothing to write home about
+    }
+   
+    // insert into ordered top ten list by cnt
+    // bisect-insert...
+
+    for (n in 0..10) {
+        Metrics.gauge(label, n+1, {'id': top_ten[n]['id']
+    }
+}
+*/
+
 
 /**
  * Helper function for loading a CID from IPFS
