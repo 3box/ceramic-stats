@@ -13,22 +13,28 @@ const options = {
   valueEncoding: 'json'
 }
 
-try {
-  const _db = level(DB_PATH, options)
-  console.log("Db status is " + _db.status)
-  const db = ttl(_db)
-  await db.get('test_key')
-} catch(err) {
-  console.log("ERROR opening level db: " + JSON.stringify(err))
-  await _db.close()
+async function setup_db() {
 
-  console.log("After close, db status is " + _db.status)
-  await _db.open()
+    const _db = level(DB_PATH, options)
+    console.log("Db status is " + _db.status)
 
-  console.log("After open, db status is " + _db.status)
+    try {
+      await _db.put('test_key', 1)        
+    } catch(err) {
+      console.log("ERROR opening level db: " + JSON.stringify(err))
+      await _db.close()
 
-  await db.get('test_key')
-  console.log("Able to try to get a key")
+      console.log("After close, db status is " + _db.status)
+      await _db.open()
+
+      console.log("After open, db status is " + _db.status)
+
+      await _db.put('test_key', 1)
+      console.log("Able to put a key")
+    }
+
+    console.log("Now creating the ttl db")
+    return ttl(_db)
 }
 
-export default db
+export default setup_db
