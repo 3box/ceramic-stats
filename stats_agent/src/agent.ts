@@ -44,6 +44,7 @@ enum LABELS {
     controller = 'controller',
     stream = 'stream',
     tip = 'tag',
+    version = 'version'
 }
     
 
@@ -83,7 +84,7 @@ async function handleMessage(message) {
     } else {
         handledMessages.set(seqno, true)
     }
-
+    const peer_id = message.from
     let parsedMessageData
     if (typeof message.data == 'string') {
         parsedMessageData = JSON.parse(message.data)
@@ -92,7 +93,8 @@ async function handleMessage(message) {
     }
 
     if (parsedMessageData.typ == 3) {
-        // skip keepalives
+        // skip keepalives after we get the version
+        await handleKeepalive(peer_id, parsedMessageData)
         return
     }
 
@@ -129,6 +131,11 @@ async function handleTip(cidString) {
     await mark(cidString, LABELS.tip)
 }
 
+async function handleKeepalive(peer_id, messageData) {
+    console.log(messageData)
+
+    await mark(peer_id, LABELS.version + '.' + messageData.ver)
+}
 
 /**
  * Returns cid payload from ipfs or null.
@@ -183,16 +190,14 @@ async function handleStreamId(streamIdString, model=null, operation='') {
     // TODO deal with multiple controllers - is this possible?
     const controller = genesis_commit?.header?.controllers[0]
 
-    const version = genesis_commit?.link?.version
-
     // All parameters of interest may be recorded,
     // as long as they are of low cardinality
     // This gives us current velocity by parameter
     Metrics.count(LABELS.stream, 1, {
                      'family' : family,
                      'oper'   : operation,
-                     'type'   : stream_type,
-                     'version': version })
+                     'type'   : stream_type
+    })
 
     await mark(streamIdString, LABELS.stream)
 

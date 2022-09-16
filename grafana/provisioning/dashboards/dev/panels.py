@@ -1,3 +1,4 @@
+import re
 
 template = """
 
@@ -21,7 +22,7 @@ template = """
         "y": YPOS 
       },
       "hiddenSeries": false,
-      "id": 8,
+      "id": IDNUM,
       "legend": {
         "avg": false,
         "current": false,
@@ -194,11 +195,12 @@ for chart in data :
    else:
         xpos += 12
    col += 1
-   chunk = template.copy()
-   re.sub('TITLE', chart['TITLE'], chunk)
-   re.sub('EXPR', chart['EXPR'], chunk)
-   re.sub('DESC', chart['DESC'], chunk)
-   re.sub('XPOS', xpos, chunk)
-   re.sub('YPOS', ypos, chunk)
+   chunk = template
+   chunk = re.sub('TITLE', chart['TITLE'], chunk)
+   chunk = re.sub('EXPR', chart['EXPR'], chunk)
+   chunk = re.sub('DESC', chart['DESC'], chunk)
+   chunk = re.sub('XPOS', str(xpos), chunk)
+   chunk = re.sub('YPOS', str(ypos), chunk)
+   chunk = re.sub('IDNUM', str(col), chunk)
    print chunk
   
