@@ -12,6 +12,23 @@ const options = {
   keyEncoding: 'binary',
   valueEncoding: 'json'
 }
-const db = ttl(level(DB_PATH, options))
+
+try {
+  const _db = level(DB_PATH, options)
+  console.log("Db status is " + _db.status)
+  const db = ttl(_db)
+  await db.get('test_key')
+} catch(err) {
+  console.log("ERROR opening level db: " + JSON.stringify(err))
+  await _db.close()
+
+  console.log("After close, db status is " + _db.status)
+  await _db.open()
+
+  console.log("After open, db status is " + _db.status)
+
+  await db.get('test_key')
+  console.log("Able to try to get a key")
+}
 
 export default db
