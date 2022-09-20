@@ -1,5 +1,6 @@
 import { CID } from 'multiformats/cid'
 import { Metrics } from '@ceramicnetwork/metrics'
+import {ServiceMetrics} from './service-metrics.js'
 import { StreamID } from '@ceramicnetwork/streamid'
 import { IpfsApi } from '@ceramicnetwork/common'
 import convert from 'blockcodec-to-ipld-format'
@@ -46,7 +47,10 @@ enum LABELS {
     tip = 'tag',
     version = 'version'
 }
-    
+
+const delay = async function (ms) {
+    return new Promise<void>((resolve) => setTimeout(() => resolve(), ms))
+}
 
 let ipfs
 
@@ -54,6 +58,11 @@ let ipfs
 const top_tens = {}
 
 async function main() {
+
+    ServiceMetrics.start('localhost')
+    ServiceMetrics.count('test-label', 1)
+    await delay(6000)
+    ServiceMetrics.count('test-label2', 1)
     log('Connecting to ipfs at url', IPFS_API_URL)
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
