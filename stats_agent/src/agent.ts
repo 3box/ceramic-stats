@@ -124,7 +124,6 @@ async function handleMessage(message) {
     try {
         // handleTip replaces getHeader & handleCid
         // handleStream will do the genesis commit and replaces handleHeader
-        console.log("The type was " + parsedMessageData.typ)
         await handleStreamId(stream, model, operation)
         if (tip) {
             await handleTip(tip)
@@ -150,7 +149,6 @@ async function handleTip(cidString) {
 }
 
 async function handleKeepalive(peer_id, messageData) {
-    console.log(messageData)
 
     await mark(peer_id, LABELS.version + '.' + messageData.ver)
 }
@@ -203,7 +201,7 @@ async function handleStreamId(streamIdString, model=null, operation='') {
 
     const family = genesis_commit?.header?.family
 
-    console.log(JSON.stringify(genesis_commit.header))
+    //console.log(JSON.stringify(genesis_commit.header))
 
     // TODO deal with multiple controllers - is this possible?
     const controller = genesis_commit?.header?.controllers[0]
