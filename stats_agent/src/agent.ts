@@ -2,6 +2,7 @@ import { CID } from 'multiformats/cid'
 import { Metrics } from '@ceramicnetwork/metrics'
 import { StreamID } from '@ceramicnetwork/streamid'
 import { IpfsApi } from '@ceramicnetwork/common'
+import { PubsubKeepalive } from './pubsub-keepalive.js'
 import convert from 'blockcodec-to-ipld-format'
 import path from 'path'
 import cloneDeep from 'lodash.clonedeep'
@@ -18,6 +19,9 @@ const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstabl
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 2
 const IPFS_CACHE_SIZE = 1024 // maximum cache size of 256MB
 const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
+
+const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
+const MAX_INTERVAL_WITHOUT_KEEPALIVE = 24 * 60 * 60 * 1000 // one day
 
 const error = debug('ceramic:agent:error')
 const log = debug('ceramic:agent:log')
@@ -46,18 +50,27 @@ enum LABELS {
     tip = 'tag',
     version = 'version'
 }
-    
+
+const delay = async function (ms) {
+    return new Promise<void>((resolve) => setTimeout(() => resolve(), ms))
+}
 
 let ipfs
+let keepalive
 
 //let today = Date.today()
 const top_tens = {}
 
 async function main() {
+
     log('Connecting to ipfs at url', IPFS_API_URL)
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
     log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
+
+    log("Setting up keepalive")
+ //   keepalive = new PubsubKeepalive(ipfs.pubsub, MAX_PUBSUB_PUBLISH_INTERVAL, MAX_INTERVAL_WITHOUT_KEEPALIVE)
+
     initTopTens()
     log('Ready')
 }
@@ -106,7 +119,6 @@ async function handleMessage(message) {
     try {
         // handleTip replaces getHeader & handleCid
         // handleStream will do the genesis commit and replaces handleHeader
-        console.log("The type was " + parsedMessageData.typ)
         await handleStreamId(stream, model, operation)
         if (tip) {
             await handleTip(tip)
@@ -132,7 +144,6 @@ async function handleTip(cidString) {
 }
 
 async function handleKeepalive(peer_id, messageData) {
-    console.log(messageData)
 
     await mark(peer_id, LABELS.version + '.' + messageData.ver)
 }
@@ -185,7 +196,7 @@ async function handleStreamId(streamIdString, model=null, operation='') {
 
     const family = genesis_commit?.header?.family
 
-    console.log(JSON.stringify(genesis_commit.header))
+    //console.log(JSON.stringify(genesis_commit.header))
 
     // TODO deal with multiple controllers - is this possible?
     const controller = genesis_commit?.header?.controllers[0]

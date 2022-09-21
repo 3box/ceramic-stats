@@ -1,4 +1,6 @@
-FROM otel/opentelemetry-collector:0.54.0
+FROM otel/opentelemetry-collector:0.60.0
+
+ADD config.yaml /etc/otelcol/config.yaml
 
 EXPOSE 1888
 EXPOSE 8888
