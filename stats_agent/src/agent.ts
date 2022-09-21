@@ -69,7 +69,7 @@ async function main() {
     log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
 
     log("Setting up keepalive")
- //   keepalive = new PubsubKeepalive(ipfs.pubsub, MAX_PUBSUB_PUBLISH_INTERVAL, MAX_INTERVAL_WITHOUT_KEEPALIVE)
+    keepalive = new PubsubKeepalive(ipfs.pubsub, MAX_PUBSUB_PUBLISH_INTERVAL, MAX_INTERVAL_WITHOUT_KEEPALIVE)
 
     initTopTens()
     log('Ready')
