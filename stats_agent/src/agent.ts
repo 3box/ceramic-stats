@@ -1,6 +1,5 @@
 import { CID } from 'multiformats/cid'
 import { Metrics } from '@ceramicnetwork/metrics'
-import {ServiceMetrics} from './service-metrics.js'
 import { StreamID } from '@ceramicnetwork/streamid'
 import { IpfsApi } from '@ceramicnetwork/common'
 import { PubsubKeepalive } from './pubsub-keepalive.js'
@@ -64,10 +63,6 @@ const top_tens = {}
 
 async function main() {
 
-    ServiceMetrics.start('localhost')
-    ServiceMetrics.count('test-label', 1)
-    await delay(6000)
-    ServiceMetrics.count('test-label2', 1)
     log('Connecting to ipfs at url', IPFS_API_URL)
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
