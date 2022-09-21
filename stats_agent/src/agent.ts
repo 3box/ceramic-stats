@@ -3,6 +3,7 @@ import { Metrics } from '@ceramicnetwork/metrics'
 import {ServiceMetrics} from './service-metrics.js'
 import { StreamID } from '@ceramicnetwork/streamid'
 import { IpfsApi } from '@ceramicnetwork/common'
+import { PubsubKeepalive } from './pubsub-keepalive.js'
 import convert from 'blockcodec-to-ipld-format'
 import path from 'path'
 import cloneDeep from 'lodash.clonedeep'
@@ -19,6 +20,9 @@ const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstabl
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 2
 const IPFS_CACHE_SIZE = 1024 // maximum cache size of 256MB
 const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
+
+const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
+const MAX_INTERVAL_WITHOUT_KEEPALIVE = 24 * 60 * 60 * 1000 // one day
 
 const error = debug('ceramic:agent:error')
 const log = debug('ceramic:agent:log')
@@ -53,6 +57,7 @@ const delay = async function (ms) {
 }
 
 let ipfs
+let keepalive
 
 //let today = Date.today()
 const top_tens = {}
@@ -67,6 +72,10 @@ async function main() {
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
     log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
+
+    log("Setting up keepalive")
+ //   keepalive = new PubsubKeepalive(ipfs.pubsub, MAX_PUBSUB_PUBLISH_INTERVAL, MAX_INTERVAL_WITHOUT_KEEPALIVE)
+
     initTopTens()
     log('Ready')
 }
