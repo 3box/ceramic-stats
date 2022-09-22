@@ -1,10 +1,9 @@
 import { CID } from 'multiformats/cid'
 import { Metrics } from '@ceramicnetwork/metrics'
 import { StreamID } from '@ceramicnetwork/streamid'
-import { IpfsApi } from '@ceramicnetwork/common'
+import { base64urlToJSON } from '@ceramicnetwork/common'
 import { PubsubKeepalive } from './pubsub-keepalive.js'
-import convert from 'blockcodec-to-ipld-format'
-import path from 'path'
+//import convert from 'blockcodec-to-ipld-format'
 import cloneDeep from 'lodash.clonedeep'
 import * as ipfsClient from 'ipfs-http-client'
 import * as u8a from 'uint8arrays'
@@ -23,8 +22,8 @@ const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
 const MAX_INTERVAL_WITHOUT_KEEPALIVE = 24 * 60 * 60 * 1000 // one day
 
-const error = debug('ceramic:agent:error')
-const log = debug('ceramic:agent:log')
+const error = debug('ceramic:ts-agent:error')
+const log = debug('ceramic:ts-agent:log')
 log.log = console.log.bind(console)
 
 const handledMessages = new lru.LRUMap(10000)
@@ -40,15 +39,18 @@ const OPERATIONS = {
     0: 'UPDATE',
     1: 'QUERY',
     2: 'RESPONSE',
-    3: 'KEEPALIVE'  // not measured
+    3: 'KEEPALIVE'  // only sampled
 }
 
 enum LABELS {
-    model = 'model',
+    cacao = 'cacao',
+    capacity = 'capacity',
     controller = 'controller',
+    error = 'error',
+    model = 'model',
     stream = 'stream',
     tip = 'tag',
-    version = 'version'
+    version = 'version_sample10'  // we are sampling version at 10% for now
 }
 
 const delay = async function (ms) {
@@ -92,11 +94,14 @@ async function handleMessage(message) {
     // dedupe
 
     const seqno = u8a.toString(message.seqno, 'base16')
+
     if (handledMessages.get(seqno)) {
         return
     } else {
         handledMessages.set(seqno, true)
     }
+
+
     const peer_id = message.from
     let parsedMessageData
     if (typeof message.data == 'string') {
@@ -107,11 +112,14 @@ async function handleMessage(message) {
 
     if (parsedMessageData.typ == 3) {
         // skip keepalives after we get the version
-        await handleKeepalive(peer_id, parsedMessageData)
+        // for now only sample the keepalives - maybe we are falling behind?
+        if (Math.floor(Math.random() * 10) == 1) {
+            await handleKeepalive(peer_id, parsedMessageData)
+        }
         return
     }
-
     const operation = OPERATIONS[parsedMessageData.typ]
+
     Metrics.count(operation, 1)   // raw counts
 
     const { stream, tip, model } = parsedMessageData
@@ -120,10 +128,13 @@ async function handleMessage(message) {
         // handleTip replaces getHeader & handleCid
         // handleStream will do the genesis commit and replaces handleHeader
         await handleStreamId(stream, model, operation)
+
         if (tip) {
-            await handleTip(tip)
+            await handleTip(tip, operation)
         }
     } catch (err) {
+        Metrics.count(LABELS.error, 1, {'operation': operation})
+        console.log("Error at handle message " + err)
         error('at handleMessage', err)
     }
 }
@@ -133,38 +144,49 @@ async function handleMessage(message) {
  * Record cid of the tip in the db
  * count occurance of an update
  **/
-async function handleTip(cidString) {
+async function handleTip(cidString, operation) {
     if (! cidString) return
 
     //handleTip
     //   if signature contains a capability - load the cacao capability - all will not have that
     //  See https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/store/pin-store.ts#L101-L107
 
-    await mark(cidString, LABELS.tip)
+    const commit = (await ipfs.dag.get( CID.parse(cidString))).value
+
+    if (!commit.signatures || commit.signatures.length === 0) return
+
+    const protectedHeader = commit.signatures[0].protected
+    const decodedProtectedHeader = base64urlToJSON(protectedHeader)
+
+    const capIPFSUri = decodedProtectedHeader.cap
+    if (! capIPFSUri) return
+    const capCIDString = capIPFSUri.replace('ipfs://', '')
+    const capCID = CID.parse(capCIDString)
+    Metrics.count(LABELS.capacity, 1, {'code':capCID.code})
+    try {
+        const cacao = (await ipfs.dag.get(capCID)).value
+        log(`Got cacao of ${cacao}`)
+        Metrics.count(LABELS.cacao, 1, {'cacao': cacao, 'operation':operation})
+    } catch (err) {
+        Metrics.count(LABELS.error, 1, {'action': 'cacao'})
+        console.log(`Error trying to load capability ${capCID} from IPFS: ${err}`)
+        error(`Error trying to load capability ${capCID} from IPFS: ${err}`)
+    }
+
+    //await mark(cidString, LABELS.tip)
 }
 
 async function handleKeepalive(peer_id, messageData) {
 
-    await mark(peer_id, LABELS.version + '.' + messageData.ver)
+    Metrics.count(LABELS.version, 1, {'version': messageData.ver})
+
+    // this gives more info but may be too noisy to handle
+    //await mark(peer_id, LABELS.version + '.' + messageData.ver)
+    // could also do it like so
+    // await mark(peer_id + '@' + messageData.ver, LABELS.version)
+    // or maybe just keep version by peer id and then associate it with the cacao app?
 }
 
-/**
- * Returns cid payload from ipfs or null.
- * @param {string} cidString (not null)
- * @param {IPFS} ipfs
- */
-async function getPayload(cidString, ipfs) {
-    try {
-        const record = (await ipfs.dag.get( CID.parse(cidString))).value
-        if (record.link) {
-            return (await ipfs.dag.get(record.link)).value
-        }
-        return record
-    } catch (err) {
-        error('at getPayload', err)
-        return null
-    }
-}
 
 // and also see https://github.com/haardikk21/cacao-poc for generating tests
 // also just count updates by stream and by who (DID)
