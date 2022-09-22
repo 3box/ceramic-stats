@@ -1,15 +1,18 @@
-import { CID } from 'multiformats/cid'
-import { Metrics } from '@ceramicnetwork/metrics'
-import { StreamID } from '@ceramicnetwork/streamid'
-import { base64urlToJSON } from '@ceramicnetwork/common'
-import { PubsubKeepalive } from './pubsub-keepalive.js'
-//import convert from 'blockcodec-to-ipld-format'
 import cloneDeep from 'lodash.clonedeep'
 import * as ipfsClient from 'ipfs-http-client'
 import * as u8a from 'uint8arrays'
 import lru from 'lru_map'
 import * as dagJose from 'dag-jose'
 import debug from 'debug'
+//import { bisectLeft } from 'd3-array'
+
+import { CID } from 'multiformats/cid'
+import { Metrics } from '@ceramicnetwork/metrics'
+import { StreamID } from '@ceramicnetwork/streamid'
+import { base64urlToJSON } from '@ceramicnetwork/common'
+import { PubsubKeepalive } from './pubsub-keepalive.js'
+//import convert from 'blockcodec-to-ipld-format'
+
 import db from './db.js'
 
 const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
@@ -49,7 +52,7 @@ enum LABELS {
     error = 'error',
     model = 'model',
     stream = 'stream',
-    tip = 'tag',
+    tip = 'tip',
     version = 'version_sample10'  // we are sampling version at 10% for now
 }
 
@@ -60,8 +63,9 @@ const delay = async function (ms) {
 let ipfs
 let keepalive
 
-//let today = Date.today()
+let last_day = new Date()
 const top_tens = {}
+const top_ten_cnts = {}
 
 async function main() {
 
@@ -216,7 +220,11 @@ async function handleStreamId(streamIdString, model=null, operation='') {
 
     const genesis_commit = (await ipfs.dag.get(stream.cid)).value
 
-    const family = genesis_commit?.header?.family
+    let family = genesis_commit?.header?.family
+
+    if (family && (family.length > 32)) {
+        family = 'commit_string'
+    }
 
     //console.log(JSON.stringify(genesis_commit.header))
 
@@ -232,7 +240,7 @@ async function handleStreamId(streamIdString, model=null, operation='') {
                      'type'   : stream_type
     })
 
-    await mark(streamIdString, LABELS.stream)
+    await mark(streamIdString, LABELS.stream, false, true)
 
     if (model) {
         await mark(model, LABELS.model)
@@ -266,11 +274,10 @@ async function get_or_zero(key) {
  *
  * @param {string} key
  */
-async function mark(key, label) {
+async function mark(key, label, track_top_ten = false, track_histogram = false) {
 
     const day_key = label + ':D:' + key
     const mo_key = label + ':' + key
-
 
     const seen_today = await get_or_zero(day_key)
     const seen_month = await get_or_zero(mo_key)
@@ -283,41 +290,60 @@ async function mark(key, label) {
     if (! seen_today) {
         Metrics.count(label + '_uniq_da', 1)  // for daily uniq counts
     }
-    Metrics.record(label + '_counts_da', seen_today + 1)  // for a Histogram by day
+    if (track_histogram) {
+        Metrics.record(label + '_counts_da', seen_today + 1)  // for a Histogram by day
+    }
+
+    if (track_top_ten) {
+        console.log("Top ten not implemented yet")
+        // updateTopTen(key, label, seen_today)
+    }
 
     if (! seen_month) {
         Metrics.count(label + '_uniq_mo', 1) // for monthly uniq counts
     }
-    Metrics.record(label + '_counts_da', seen_month + 1)  // for a Histogram by month
+
 }
 
-
 function initTopTens() {
-    //for (let label of LABELS) {
-    //    top_tens[label] = []
-    //}
+    for (let label of Object.values(LABELS)) {
+        top_tens[label] = []
+        top_ten_cnts[label] = []
+    }
 }
 
 /*
 function updateTopTen(id:string, label:string, cnt: number) {
 
+    const today = new Date()
+
     // is it a new day?  Reset our counts
-    if today != Date.today() {
-        today = Date.today()
+    if (today != last_day) {
+        last_day = today
         initTopTens()
     }
 
-    top_ten = top_tens[label]
-    if (cnt <= top_ten[9]['cnt']) {
+    let top_ten = top_tens[label]
+    let top_ten_cnt = top_ten_cnts[label]
+    if (top_ten.length < 10) {
+        top_ten.push( id )
+        top_ten_cnt.push( cnt )
+        return
+    }
+
+    if (cnt <= top_ten_cnt[9]) {
        return  // nothing to write home about
     }
-   
-    // insert into ordered top ten list by cnt
-    // bisect-insert...
 
-    for (n in 0..10) {
-        Metrics.gauge(label, n+1, {'id': top_ten[n]['id']
-    }
+    let pos = bisectLeft(top_ten_cnt, cnt)
+    top_ten.splice(pos, 0, id)
+    top_ten_cnt.splice(pos, 0, cnt)
+    top_ten.pop()
+    top_ten_cnt.pop()
+
+    top_ten.forEach((id, n) => {
+        Metrics.record(label+'_top_ten', top_ten_cnt[n], {'id': id})
+    })
 }
 */
 
