@@ -22,6 +22,8 @@ To add metrics to Ceramic nodes, use `Metrics.count(YOUR_METRIC_NAME, 1)` by imp
 
 To add metrics to CAS Anchor workers, use the same pattern using the `ServiceMetrics` utility
 
+Feel free to add metrics!  Just be careful that if you include parameters, that the cardinality is not too high.
+
 ![image](https://user-images.githubusercontent.com/798887/191905588-77959f5f-32b4-473c-a17c-aa2fab2ca911.png)
 
 ## About Loki/Promtail
