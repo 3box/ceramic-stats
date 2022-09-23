@@ -2,7 +2,22 @@
 
 > A Loki/Promtail configuration to collect Ceramic network stats
 
-## About
+> Also Newer configuration OTLP Collectors & Exporters & Prometheus
+
+## About OTLP/Collectors/Prometheus
+
+To experiment with stats directly on the prometheus endpoints:
+    - [Prometheus Clay](http://ceramic-tnet-grafana-prometheus-1025868463.us-east-2.elb.amazonaws.com/graph)
+    - [Prometheus Dev](ceramic-dev-grafana-prometheus-1015087063.us-east-2.elb.amazonaws.com/graph)
+    - [Prometheus Prod](ceramic-prod-grafana-prometheus-356470995.us-east-2.elb.amazonaws.com/graph)
+    
+To add metrics to Ceramic nodes, use `Metrics.count(YOUR_METRIC_NAME, 1)` by importing the [@ceramicnetwork/metrics](https://socket.dev/npm/package/@ceramicnetwork/metrics) package
+
+To add metrics to CAS Anchor workers, use the same pattern using the `ServiceMetrics` utility
+
+
+
+## About Loki/Promtail
 
 This package is designed to visualize data in Grafana. Promtail pulls and labels Ceramic logs then pushes them to Loki, a log aggregation system built for Grafana.
 
