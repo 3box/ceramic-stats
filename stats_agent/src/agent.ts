@@ -63,6 +63,14 @@ const delay = async function (ms) {
 let ipfs
 let keepalive
 
+let sample_base = 1
+if (IPFS_PUBSUB_TOPIC == '/ceramic/mainnet') {
+    sample_base = 1000
+} else if (IPFS_PUBSUB_TOPIC == '/ceramic/testnet-clay') {
+    sample_base = 10
+}
+console.log(`Sampling keepalives at 1/${sample_base}`)
+
 let last_day = new Date()
 const top_tens = {}
 const top_ten_cnts = {}
@@ -117,7 +125,8 @@ async function handleMessage(message) {
     if (parsedMessageData.typ == 3) {
         // skip keepalives after we get the version
         // for now only sample the keepalives - maybe we are falling behind?
-        if (Math.floor(Math.random() * 10) == 1) {
+
+        if (Math.floor(Math.random() * sample_base) == 1) {
             await handleKeepalive(peer_id, parsedMessageData)
         }
         return
@@ -166,11 +175,19 @@ async function handleTip(cidString, operation) {
     if (! capIPFSUri) return
     const capCIDString = capIPFSUri.replace('ipfs://', '')
     const capCID = CID.parse(capCIDString)
-    Metrics.count(LABELS.capacity, 1, {'code':capCID.code})
+    // Metrics.count(LABELS.capacity, 1, {'code':capCID.code})
     try {
-        const cacao = (await ipfs.dag.get(capCID)).value
-        log(`Got cacao of ${cacao}`)
-        Metrics.count(LABELS.cacao, 1, {'cacao': cacao, 'operation':operation})
+        let cacao =  await dagNodeCache.get('cacao:'+capCIDString)
+        if (! cacao) {
+            cacao = (await ipfs.dag.get(capCID)).value
+            if (cacao) {
+                await dagNodeCache.set('cacao:'+capCIDString, cacao)
+            }
+        }
+        if (cacao) {
+            Metrics.count(LABELS.cacao, 1, {'cacao': cacao.p.domain, 'operation':operation})
+            await mark(cacao.p.domain, LABELS.cacao)
+        }
     } catch (err) {
         Metrics.count(LABELS.error, 1, {'action': 'cacao'})
         console.log(`Error trying to load capability ${capCID} from IPFS: ${err}`)
@@ -217,8 +234,11 @@ async function handleStreamId(streamIdString, model=null, operation='') {
 
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
-
-    const genesis_commit = (await ipfs.dag.get(stream.cid)).value
+    let genesis_commit =  await dagNodeCache.get('g:'+streamIdString)
+    if (! genesis_commit) {
+        genesis_commit = (await ipfs.dag.get(stream.cid)).value
+        await dagNodeCache.set('g:'+streamIdString, genesis_commit)
+    }
 
     let family = genesis_commit?.header?.family
 
@@ -240,7 +260,7 @@ async function handleStreamId(streamIdString, model=null, operation='') {
                      'type'   : stream_type
     })
 
-    await mark(streamIdString, LABELS.stream, false, true)
+    await mark(streamIdString, LABELS.stream, false, false)
 
     if (model) {
         await mark(model, LABELS.model)
@@ -282,25 +302,27 @@ async function mark(key, label, track_top_ten = false, track_histogram = false) 
     const seen_today = await get_or_zero(day_key)
     const seen_month = await get_or_zero(mo_key)
 
+    // TODO keep a circular buffer of buckets of counts
     // keep counts so later we can generate a top-10 for day and month
-    await db.put(day_key, seen_today + 1, {ttl: DAY_TTL})
-    //await db.put()
-    await db.put(mo_key, seen_today + 1, {ttl: MO_TTL})
 
     if (! seen_today) {
         Metrics.count(label + '_uniq_da', 1)  // for daily uniq counts
+        await db.put(day_key, 1, {ttl: DAY_TTL})
     }
+    if (! seen_month) {
+        Metrics.count(label + '_uniq_mo', 1) // for monthly uniq counts
+        await db.put(mo_key, seen_today + 1, {ttl: MO_TTL})
+    }
+
     if (track_histogram) {
+        // this actually needs circular buffer of buckets for accuracy
+        // bc the put keeps refreshing the ttl
         Metrics.record(label + '_counts_da', seen_today + 1)  // for a Histogram by day
     }
 
     if (track_top_ten) {
         console.log("Top ten not implemented yet")
         // updateTopTen(key, label, seen_today)
-    }
-
-    if (! seen_month) {
-        Metrics.count(label + '_uniq_mo', 1) // for monthly uniq counts
     }
 
 }
@@ -316,7 +338,7 @@ function initTopTens() {
 function updateTopTen(id:string, label:string, cnt: number) {
 
     const today = new Date()
-
+     // instead of new day we should just keep circular buffer
     // is it a new day?  Reset our counts
     if (today != last_day) {
         last_day = today
