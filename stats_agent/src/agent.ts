@@ -247,9 +247,9 @@ async function handleStreamId(streamIdString, model=null, operation='') {
 
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
-    let genesis_commit =  _getFromIpfs(streamIdString)
+    let genesis_commit = await _getFromIpfs(streamIdString)
     if (! genesis_commit) {
-        genesis_commit = _getFromIpfs(stream.cid)
+        genesis_commit = await _getFromIpfs(stream.cid)
     }
 
     let family = ''
