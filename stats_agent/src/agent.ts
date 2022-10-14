@@ -194,7 +194,7 @@ async function handleTip(cidString, operation) {
         }
         if (cacao) {
             Metrics.count(LABELS.cacao, 1, {'cacao': cacao.p.domain, 'operation':operation})
-            let cacao_label = cacao.p.domain
+            cacao_label = cacao.p.domain
             // await mark(cacao.p.domain, LABELS.cacao)
         }
     } catch (err) {
