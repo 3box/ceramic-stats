@@ -15,11 +15,12 @@ import { PubsubKeepalive } from './pubsub-keepalive.js'
 
 import db from './db.js'
 
-const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
 const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
-const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 2
-const IPFS_CACHE_SIZE = 1024 // maximum cache size of 256MB
+
+const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
+const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 0  // default to no retry
+
 const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
 
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
@@ -29,8 +30,6 @@ const error = debug('ceramic:ts-agent:error')
 const log = debug('ceramic:ts-agent:log')
 log.log = console.log.bind(console)
 
-const handledMessages = new lru.LRUMap(10000)
-const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
 Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT}, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 1})
@@ -51,6 +50,7 @@ enum LABELS {
     controller = 'controller',
     error = 'error',
     model = 'model',
+    peer_id = 'peer_id',
     stream = 'stream',
     tip = 'tip',
     version = 'version_sample10'  // we are sampling version at 10% for now
@@ -64,12 +64,19 @@ let ipfs
 let keepalive
 
 let sample_base = 1
+let IPFS_CACHE_SIZE = 1024
+let IPFS_DAG_GET_TIMEOUT
 if (IPFS_PUBSUB_TOPIC == '/ceramic/mainnet') {
     sample_base = 1000
+    IPFS_CACHE_SIZE = 4096 // maximum cache size of 1Gb
+    IPFS_DAG_GET_TIMEOUT = 1024 // avoid ipfs requests piling up
 } else if (IPFS_PUBSUB_TOPIC == '/ceramic/testnet-clay') {
     sample_base = 10
 }
 console.log(`Sampling keepalives at 1/${sample_base}`)
+
+const handledMessages = new lru.LRUMap(10000)
+const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 
 let last_day = new Date()
 const top_tens = {}
@@ -132,7 +139,9 @@ async function handleMessage(message) {
         return
     }
     const operation = OPERATIONS[parsedMessageData.typ]
-
+    if (Math.floor(Math.random() * sample_base) == 1) {
+        await mark(peer_id, LABELS.peer_id)
+    }
     Metrics.count(operation, 1)   // raw counts
 
     const { stream, tip, model } = parsedMessageData
@@ -164,7 +173,7 @@ async function handleTip(cidString, operation) {
     //   if signature contains a capability - load the cacao capability - all will not have that
     //  See https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/store/pin-store.ts#L101-L107
 
-    const commit = (await ipfs.dag.get( CID.parse(cidString))).value
+    const commit = await _getFromIpfs(cidString)
 
     if (!commit.signatures || commit.signatures.length === 0) return
 
@@ -177,16 +186,13 @@ async function handleTip(cidString, operation) {
     const capCID = CID.parse(capCIDString)
     // Metrics.count(LABELS.capacity, 1, {'code':capCID.code})
     try {
-        let cacao =  await dagNodeCache.get('cacao:'+capCIDString)
+        let cacao =  await _getFromIpfs(capCIDString)
         if (! cacao) {
-            cacao = (await ipfs.dag.get(capCID)).value
-            if (cacao) {
-                await dagNodeCache.set('cacao:'+capCIDString, cacao)
-            }
+            cacao = await _getFromIpfs(capCID)
         }
         if (cacao) {
             Metrics.count(LABELS.cacao, 1, {'cacao': cacao.p.domain, 'operation':operation})
-            await mark(cacao.p.domain, LABELS.cacao)
+            // await mark(cacao.p.domain, LABELS.cacao)
         }
     } catch (err) {
         Metrics.count(LABELS.error, 1, {'action': 'cacao'})
@@ -199,7 +205,8 @@ async function handleTip(cidString, operation) {
 
 async function handleKeepalive(peer_id, messageData) {
 
-    Metrics.count(LABELS.version, 1, {'version': messageData.ver})
+    const version = messageData.ver || '<2.4'  // when we started tracking version
+    Metrics.count(LABELS.version, 1, {'version': version})
 
     // this gives more info but may be too noisy to handle
     //await mark(peer_id, LABELS.version + '.' + messageData.ver)
@@ -232,24 +239,44 @@ async function handleStreamId(streamIdString, model=null, operation='') {
 
     if (!streamIdString) return false
 
+        await mark(streamIdString, LABELS.stream, false, false)
+
+    if (model) {
+        await mark(model, LABELS.model)
+    }
+
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
-    let genesis_commit =  await dagNodeCache.get('g:'+streamIdString)
+    let genesis_commit = await _getFromIpfs(streamIdString)
     if (! genesis_commit) {
-        genesis_commit = (await ipfs.dag.get(stream.cid)).value
-        await dagNodeCache.set('g:'+streamIdString, genesis_commit)
+        genesis_commit = await _getFromIpfs(stream.cid)
     }
 
-    let family = genesis_commit?.header?.family
+    let family = ''
+    if (genesis_commit) {
+        family = genesis_commit?.header?.family
 
-    if (family && (family.length > 32)) {
-        family = 'commit_string'
+        if (family && (family.length > 32)) {
+            family = 'commit_string'
+        }
+
+        //console.log(JSON.stringify(genesis_commit.header))
+
+        // TODO deal with multiple controllers - is this possible?
+        const controller = genesis_commit?.header?.controllers[0]
+        if (controller) {
+            await mark(controller, LABELS.controller)
+        }
     }
 
-    //console.log(JSON.stringify(genesis_commit.header))
+// TODO next lets see if we can tell a human-readable model name?
+ /*   if (model) {
+        const model_stream = StreamID.fromString(model)
+        console.log("Looking for commit for model: " + model)
+        let model_commit =  await _getFromIpfs(model)
+    }
+    */
 
-    // TODO deal with multiple controllers - is this possible?
-    const controller = genesis_commit?.header?.controllers[0]
 
     // All parameters of interest may be recorded,
     // as long as they are of low cardinality
@@ -260,15 +287,7 @@ async function handleStreamId(streamIdString, model=null, operation='') {
                      'type'   : stream_type
     })
 
-    await mark(streamIdString, LABELS.stream, false, false)
 
-    if (model) {
-        await mark(model, LABELS.model)
-    }
-
-    if (controller) {
-        await mark(controller, LABELS.controller)
-    }
 }
 
 /**
@@ -373,12 +392,13 @@ function updateTopTen(id:string, label:string, cnt: number) {
 /**
  * Helper function for loading a CID from IPFS
  */
-async function _getFromIpfs(cid: CID | string, path?: string): Promise<any> {
+async function _getFromIpfs(cid: CID | string): Promise<any> {
     const asCid = typeof cid === 'string' ? CID.parse(cid) : cid
 
+    const asCidString = typeof cid === 'string' ? cid : cid.toString()
+
     // Lookup CID in cache before looking it up IPFS
-    const cidAndPath = path ? asCid.toString() + path : asCid.toString()
-    const cachedDagNode = await dagNodeCache.get(cidAndPath)
+    const cachedDagNode = await dagNodeCache.get(asCidString)
     if (cachedDagNode) return cloneDeep(cachedDagNode)
 
     // Now lookup CID in IPFS, with retry logic
@@ -409,7 +429,7 @@ async function _getFromIpfs(cid: CID | string, path?: string): Promise<any> {
         }
     }
     // CID loaded successfully, store in cache
-    await dagNodeCache.set(cidAndPath, dagResult.value)
+    await dagNodeCache.set(asCidString, dagResult.value)
     return cloneDeep(dagResult.value)
 }
 
