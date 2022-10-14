@@ -1,5 +1,4 @@
-#FROM otel/opentelemetry-collector:0.60.0
-FROM jaegertracing/all-in-one:latest
+FROM otel/opentelemetry-collector:0.60.0
 
 ADD config.yaml /etc/otelcol/config.yaml
 
