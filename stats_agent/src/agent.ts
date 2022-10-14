@@ -242,7 +242,7 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
 
     if (!streamIdString) return false
 
-        await mark(streamIdString, LABELS.stream, false, false)
+    await mark(streamIdString, LABELS.stream, false, false)
 
     if (model) {
         await mark(model, LABELS.model)
@@ -250,10 +250,7 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
 
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
-    let genesis_commit = await _getFromIpfs(streamIdString)
-    if (! genesis_commit) {
-        genesis_commit = await _getFromIpfs(stream.cid)
-    }
+    const genesis_commit = await _getFromIpfs(stream.cid)
 
     let family = ''
     if (genesis_commit) {
@@ -428,13 +425,17 @@ async function _getFromIpfs(cid: CID | string): Promise<any> {
                     continue
                 }
             }
-
+            console.log("Some error")
             throw err
         }
     }
     // CID loaded successfully, store in cache
-    await dagNodeCache.set(asCidString, dagResult.value)
-    return cloneDeep(dagResult.value)
+    if (dagResult) {
+        await dagNodeCache.set(asCidString, dagResult.value)
+        return cloneDeep(dagResult.value)
+    } else {
+        return null
+    }
 }
 
 
