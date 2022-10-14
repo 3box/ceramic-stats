@@ -147,13 +147,15 @@ async function handleMessage(message) {
     const { stream, tip, model } = parsedMessageData
 
     try {
-        // handleTip replaces getHeader & handleCid
-        // handleStream will do the genesis commit and replaces handleHeader
-        await handleStreamId(stream, model, operation)
-
+        // handleTip may provide cacao information
+        let cacao = ''
         if (tip) {
-            await handleTip(tip, operation)
+            cacao = await handleTip(tip, operation)
         }
+
+        // handleStream will do the genesis commit and replaces handleHeader
+        await handleStreamId(stream, model, operation, cacao)
+
     } catch (err) {
         Metrics.count(LABELS.error, 1, {'operation': operation})
         console.log("Error at handle message " + err)
@@ -167,12 +169,12 @@ async function handleMessage(message) {
  * count occurance of an update
  **/
 async function handleTip(cidString, operation) {
-    if (! cidString) return
+    if (! cidString) return ''
 
     //handleTip
     //   if signature contains a capability - load the cacao capability - all will not have that
     //  See https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/store/pin-store.ts#L101-L107
-
+    let cacao_label = ''
     const commit = await _getFromIpfs(cidString)
 
     if (!commit.signatures || commit.signatures.length === 0) return
@@ -192,6 +194,7 @@ async function handleTip(cidString, operation) {
         }
         if (cacao) {
             Metrics.count(LABELS.cacao, 1, {'cacao': cacao.p.domain, 'operation':operation})
+            let cacao_label = cacao.p.domain
             // await mark(cacao.p.domain, LABELS.cacao)
         }
     } catch (err) {
@@ -199,7 +202,7 @@ async function handleTip(cidString, operation) {
         console.log(`Error trying to load capability ${capCID} from IPFS: ${err}`)
         error(`Error trying to load capability ${capCID} from IPFS: ${err}`)
     }
-
+    return cacao_label
     //await mark(cidString, LABELS.tip)
 }
 
@@ -228,7 +231,7 @@ async function handleKeepalive(peer_id, messageData) {
  * @param {string} streamIdString
  * @returns {boolean}
  */
-async function handleStreamId(streamIdString, model=null, operation='') {
+async function handleStreamId(streamIdString, model=null, operation='', cacao='') {
     // use streamid library here to decode streamid TODO - see js-ceramic
     // from decoded streamid get cid of genesis commit
     // load from ipfs and get header from there
@@ -284,7 +287,8 @@ async function handleStreamId(streamIdString, model=null, operation='') {
     Metrics.count(LABELS.stream, 1, {
                      'family' : family,
                      'oper'   : operation,
-                     'type'   : stream_type
+                     'type'   : stream_type,
+                     'cacao'  : cacao
     })
 
 
