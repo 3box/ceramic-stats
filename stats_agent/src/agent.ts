@@ -19,7 +19,7 @@ const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 
 const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
-const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 0  // default to no retry
+const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
 
 const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
 
@@ -177,7 +177,7 @@ async function handleTip(cidString, operation) {
     let cacao_label = ''
     const commit = await _getFromIpfs(cidString)
 
-    if (!commit.signatures || commit.signatures.length === 0) return
+    if (!commit || !commit.signatures || commit.signatures.length === 0) return
 
     const protectedHeader = commit.signatures[0].protected
     const decodedProtectedHeader = base64urlToJSON(protectedHeader)
