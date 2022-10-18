@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 5,
-    "iteration": 1642715174863,
+    "iteration": 1666034908534,
     "links": [],
     "panels": [
         {
@@ -32,6 +32,321 @@
             "panels": [],
             "title": "Containers",
             "type": "row"
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 7,
+                "w": 7,
+                "x": 0,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 47,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-prod-cas",
+                        "ServiceName": "ceramic-prod-cas-anchor"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "SampleCount"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Anchor Worker Count",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch-1",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 7,
+                "w": 7,
+                "x": 7,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 49,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-prod-cas",
+                        "ServiceName": "ceramic-prod-cas-anchor"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "CPUUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Anchor Worker CPU Utilization",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "CloudWatch",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 7,
+                "w": 8,
+                "x": 14,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 51,
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "alias": "",
+                    "dimensions": {
+                        "ClusterName": "ceramic-prod-cas",
+                        "ServiceName": "ceramic-prod-cas-anchor"
+                    },
+                    "expression": "",
+                    "id": "",
+                    "matchExact": true,
+                    "metricName": "MemoryUtilization",
+                    "namespace": "AWS/ECS",
+                    "period": "",
+                    "refId": "A",
+                    "region": "default",
+                    "statistics": [
+                        "Average"
+                    ]
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Anchor Worker Memory Utilization",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
         },
         {
             "alert": {
@@ -67,7 +382,11 @@
                 "handler": 1,
                 "name": "HealthyHostCount (ceramic-prod-cas) alert",
                 "noDataState": "no_data",
-                "notifications": []
+                "notifications": [
+                    {
+                        "uid": "sEDgqpG4k"
+                    }
+                ]
             },
             "aliasColors": {},
             "bars": false,
@@ -88,7 +407,7 @@
                 "h": 7,
                 "w": 6,
                 "x": 0,
-                "y": 1
+                "y": 8
             },
             "hiddenSeries": false,
             "id": 22,
@@ -248,7 +567,7 @@
                 "h": 7,
                 "w": 6,
                 "x": 6,
-                "y": 1
+                "y": 8
             },
             "hiddenSeries": false,
             "id": 43,
@@ -408,7 +727,7 @@
                 "h": 7,
                 "w": 12,
                 "x": 12,
-                "y": 1
+                "y": 8
             },
             "hiddenSeries": false,
             "id": 24,
@@ -588,7 +907,7 @@
                 "h": 7,
                 "w": 6,
                 "x": 0,
-                "y": 8
+                "y": 15
             },
             "hiddenSeries": false,
             "id": 26,
@@ -765,7 +1084,7 @@
                 "h": 7,
                 "w": 6,
                 "x": 6,
-                "y": 8
+                "y": 15
             },
             "hiddenSeries": false,
             "id": 44,
@@ -924,7 +1243,7 @@
                 "h": 7,
                 "w": 12,
                 "x": 12,
-                "y": 8
+                "y": 15
             },
             "hiddenSeries": false,
             "id": 28,
@@ -1082,7 +1401,7 @@
                 "h": 7,
                 "w": 6,
                 "x": 0,
-                "y": 15
+                "y": 22
             },
             "hiddenSeries": false,
             "id": 30,
@@ -1258,7 +1577,7 @@
                 "h": 7,
                 "w": 6,
                 "x": 6,
-                "y": 15
+                "y": 22
             },
             "hiddenSeries": false,
             "id": 45,
@@ -1416,7 +1735,7 @@
                 "h": 7,
                 "w": 12,
                 "x": 12,
-                "y": 15
+                "y": 22
             },
             "hiddenSeries": false,
             "id": 32,
@@ -1526,7 +1845,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 22
+                "y": 29
             },
             "id": 18,
             "panels": [],
@@ -1551,7 +1870,7 @@
                 "h": 9,
                 "w": 12,
                 "x": 0,
-                "y": 23
+                "y": 30
             },
             "hiddenSeries": false,
             "id": 3,
@@ -1656,7 +1975,7 @@
                 "h": 9,
                 "w": 12,
                 "x": 12,
-                "y": 23
+                "y": 30
             },
             "hiddenSeries": false,
             "id": 34,
@@ -1775,7 +2094,7 @@
                 "h": 9,
                 "w": 12,
                 "x": 0,
-                "y": 32
+                "y": 39
             },
             "hiddenSeries": false,
             "id": 33,
@@ -1876,7 +2195,7 @@
                 "h": 9,
                 "w": 12,
                 "x": 12,
-                "y": 32
+                "y": 39
             },
             "hiddenSeries": false,
             "id": 6,
@@ -1977,7 +2296,7 @@
                 "h": 9,
                 "w": 24,
                 "x": 0,
-                "y": 41
+                "y": 48
             },
             "hiddenSeries": false,
             "id": 36,
@@ -2019,7 +2338,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Requests per Endpoint  (Top 10)",
+            "title": "Requests per Endpoint    (Top 10)",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
@@ -2087,7 +2406,7 @@
                 "h": 9,
                 "w": 24,
                 "x": 0,
-                "y": 50
+                "y": 57
             },
             "hiddenSeries": false,
             "id": 35,
@@ -2204,7 +2523,7 @@
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 59
+                "y": 66
             },
             "hiddenSeries": false,
             "id": 40,
@@ -2321,7 +2640,7 @@
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 67
+                "y": 74
             },
             "hiddenSeries": false,
             "id": 42,
@@ -2413,7 +2732,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 75
+                "y": 82
             },
             "id": 38,
             "panels": [],
@@ -2487,7 +2806,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 76
+                "y": 83
             },
             "id": 16,
             "options": {
@@ -2595,7 +2914,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 76
+                "y": 83
             },
             "id": 12,
             "options": {
@@ -2682,7 +3001,7 @@
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 84
+                "y": 91
             },
             "hiddenSeries": false,
             "id": 14,
@@ -2872,5 +3191,5 @@
     "timezone": "",
     "title": "Anchor Service",
     "uid": "prod-U93a07JMz",
-    "version": 11
+    "version": 14
 }
