@@ -16,9 +16,23 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 3,
-    "iteration": 1666043070878,
+    "iteration": 1666204645193,
     "links": [],
     "panels": [
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 20,
+            "panels": [],
+            "title": "Containers",
+            "type": "row"
+        },
         {
             "aliasColors": {},
             "bars": false,
@@ -35,7 +49,7 @@
                 "h": 8,
                 "w": 7,
                 "x": 0,
-                "y": 0
+                "y": 1
             },
             "hiddenSeries": false,
             "id": 47,
@@ -140,7 +154,7 @@
                 "h": 8,
                 "w": 7,
                 "x": 7,
-                "y": 0
+                "y": 1
             },
             "hiddenSeries": false,
             "id": 49,
@@ -245,7 +259,7 @@
                 "h": 8,
                 "w": 8,
                 "x": 14,
-                "y": 0
+                "y": 1
             },
             "hiddenSeries": false,
             "id": 51,
@@ -333,20 +347,6 @@
                 "align": false,
                 "alignLevel": null
             }
-        },
-        {
-            "collapsed": false,
-            "datasource": null,
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 8
-            },
-            "id": 20,
-            "panels": [],
-            "title": "Containers",
-            "type": "row"
         },
         {
             "alert": {
@@ -3089,5 +3089,5 @@
     "timezone": "",
     "title": "Anchor Service",
     "uid": "tnet-U93a07JMz",
-    "version": 32
+    "version": 33
 }

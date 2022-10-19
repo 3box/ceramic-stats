@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 4,
-    "iteration": 1666051192904,
+    "iteration": 1666204117511,
     "links": [],
     "panels": [
         {
@@ -2370,7 +2370,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Requests per Endpoint    (Top 10)",
+            "title": "Requests per Endpoint        (Top 10)",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
@@ -3223,5 +3223,5 @@
     "timezone": "",
     "title": "Anchor Service",
     "uid": "dev-U93a07JMz",
-    "version": 6646
+    "version": 6650
 }

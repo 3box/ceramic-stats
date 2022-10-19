@@ -16,9 +16,23 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 1,
-    "iteration": 1666198089765,
+    "iteration": 1666204044880,
     "links": [],
     "panels": [
+        {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 20,
+            "panels": [],
+            "title": "Containers",
+            "type": "row"
+        },
         {
             "aliasColors": {},
             "bars": false,
@@ -35,7 +49,7 @@
                 "h": 8,
                 "w": 8,
                 "x": 0,
-                "y": 0
+                "y": 1
             },
             "hiddenSeries": false,
             "id": 47,
@@ -68,13 +82,13 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-qa-cas",
-                        "ServiceName": "ceramic-qa-cas-node"
+                        "TaskDefinitionFamily": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
                     "matchExact": true,
                     "metricName": "CPUUtilization",
-                    "namespace": "AWS/ECS",
+                    "namespace": "ECS/ContainerInsights",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -84,7 +98,9 @@
                 }
             ],
             "thresholds": [],
+            "timeFrom": null,
             "timeRegions": [],
+            "timeShift": null,
             "title": "Anchor Worker Count",
             "tooltip": {
                 "shared": true,
@@ -136,9 +152,9 @@
             "fillGradient": 0,
             "gridPos": {
                 "h": 8,
-                "w": 8,
+                "w": 7,
                 "x": 8,
-                "y": 0
+                "y": 1
             },
             "hiddenSeries": false,
             "id": 48,
@@ -171,13 +187,13 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-qa-cas",
-                        "ServiceName": "ceramic-qa-cas-node"
+                        "TaskDefinitionFamily": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
                     "matchExact": true,
                     "metricName": "CPUUtilization",
-                    "namespace": "AWS/ECS",
+                    "namespace": "ECS/ContainerInsights",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -241,9 +257,9 @@
             "fillGradient": 0,
             "gridPos": {
                 "h": 8,
-                "w": 8,
-                "x": 16,
-                "y": 0
+                "w": 7,
+                "x": 15,
+                "y": 1
             },
             "hiddenSeries": false,
             "id": 49,
@@ -276,7 +292,7 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-qa-cas",
-                        "ServiceName": "ceramic-qa-cas-node"
+                        "ServiceName": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
@@ -331,20 +347,6 @@
                 "align": false,
                 "alignLevel": null
             }
-        },
-        {
-            "collapsed": false,
-            "datasource": null,
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 8
-            },
-            "id": 20,
-            "panels": [],
-            "title": "Containers",
-            "type": "row"
         },
         {
             "alert": {
@@ -3214,12 +3216,12 @@
         ]
     },
     "time": {
-        "from": "now-12h",
+        "from": "now-7d",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Anchor Service",
     "uid": "qa-U93a07JMz",
-    "version": 3
+    "version": 4
 }
