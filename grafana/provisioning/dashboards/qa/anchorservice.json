@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 1,
-    "iteration": 1666204044880,
+    "iteration": 1666366165590,
     "links": [],
     "panels": [
         {
@@ -87,7 +87,7 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "CPUUtilization",
+                    "metricName": "CpuUtilized",
                     "namespace": "ECS/ContainerInsights",
                     "period": "",
                     "refId": "A",
@@ -192,7 +192,7 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "CPUUtilization",
+                    "metricName": "CpuUtilized",
                     "namespace": "ECS/ContainerInsights",
                     "period": "",
                     "refId": "A",
@@ -292,13 +292,13 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-qa-cas",
-                        "ServiceName": "ceramic-qa-cas-anchor"
+                        "TaskDefinitionFamily": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "MemoryUtilization",
-                    "namespace": "AWS/ECS",
+                    "metricName": "MemoryUtilized",
+                    "namespace": "ECS/ContainerInsights",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -3216,12 +3216,12 @@
         ]
     },
     "time": {
-        "from": "now-7d",
+        "from": "now-12h",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Anchor Service",
     "uid": "qa-U93a07JMz",
-    "version": 4
+    "version": 5
 }
