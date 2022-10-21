@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 3,
-    "iteration": 1666204645193,
+    "iteration": 1666364134611,
     "links": [],
     "panels": [
         {
@@ -52,7 +52,7 @@
                 "y": 1
             },
             "hiddenSeries": false,
-            "id": 47,
+            "id": 52,
             "legend": {
                 "avg": false,
                 "current": false,
@@ -82,16 +82,16 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-tnet-cas",
-                        "ServiceName": "ceramic-tnet-cas-anchor"
+                        "TaskDefinitionFamily": "ceramic-tnet-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "CPUUtilization",
-                    "namespace": "AWS/ECS",
+                    "metricName": "CpuUtilized",
+                    "namespace": "ECS/ContainerInsights",
                     "period": "",
                     "refId": "A",
-                    "region": "default",
+                    "region": "us-east-2",
                     "statistics": [
                         "SampleCount"
                     ]
@@ -117,6 +117,7 @@
             },
             "yaxes": [
                 {
+                    "$$hashKey": "object:98",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -125,6 +126,7 @@
                     "show": true
                 },
                 {
+                    "$$hashKey": "object:99",
                     "format": "short",
                     "label": null,
                     "logBase": 1,
@@ -187,13 +189,13 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-tnet-cas",
-                        "ServiceName": "ceramic-tnet-cas-anchor"
+                        "TaskDefinitionFamily": "ceramic-tnet-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "CPUUtilization",
-                    "namespace": "AWS/ECS",
+                    "metricName": "CpuUtilized",
+                    "namespace": "ECS/ContainerInsights",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -292,13 +294,13 @@
                     "alias": "",
                     "dimensions": {
                         "ClusterName": "ceramic-tnet-cas",
-                        "ServiceName": "ceramic-tnet-cas-anchor"
+                        "TaskDefinitionFamily": "ceramic-tnet-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "MemoryUtilization",
-                    "namespace": "AWS/ECS",
+                    "metricName": "MemoryUtilized",
+                    "namespace": "ECS/ContainerInsights",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -3089,5 +3091,5 @@
     "timezone": "",
     "title": "Anchor Service",
     "uid": "tnet-U93a07JMz",
-    "version": 33
+    "version": 36
 }
