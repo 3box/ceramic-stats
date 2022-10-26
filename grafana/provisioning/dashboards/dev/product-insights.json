@@ -757,12 +757,12 @@
     "list": []
   },
   "time": {
-    "from": "now/w",
-    "to": "now/w"
+    "from": "now-7d",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Product Insights",
+  "title": "Product Insights-DEV",
   "uid": "CAOz_5NVk",
   "version": 19
 }

@@ -2,7 +2,7 @@ import re
 import json
 import os
 
-UID = os.getenv('UID')
+UID = os.getenv('DASH_UID')
 ENV = os.getenv('ENV')
 
 HEADER = """
@@ -176,8 +176,8 @@ def gen_dashboard(data):
     footer = re.sub('TITLE', title, footer)
     footer = re.sub('UID', UID, footer)
     footer = re.sub('VERSION', data.get('VERSION', '0'), footer)
-    footer = re.sub('FROM', data.get('FROM', 'now/w'), footer)
-    footer = re.sub('TO', data.get('TO', 'now/w'), footer)
+    footer = re.sub('FROM', data.get('FROM', 'now-7d'), footer)  # or now/w
+    footer = re.sub('TO', data.get('TO', 'now'), footer)      # or now/w
    
     print header
 

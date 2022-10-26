@@ -31,16 +31,6 @@ data = {
           }]
      },
 
-     { 'TITLE': 'Apps (CACAO) Activity',
-       'DESC': 'Total counts of CACAO domains seen on stream updates',
-       'EXPR': 'last_over_time(increase(agent_cacao_total[1d])[1d:1d])',
-       'LEGEND': '{{cacao}}'
-     },
-     { 'TITLE': 'Apps Family Activity',
-       'DESC': 'Total counts of app Families seen',
-       'EXPR': 'last_over_time(sum by (family) (increase(agent_stream_total[1d] offset -1d))[1d:1d])'
-       'LEGEND': '{{family}}'
-     },
      { 'TITLE': 'Models - Daily Unique',
        'DESC': 'Unique model counts by day, vs week prior',
        'TARGETS': [ {
@@ -64,6 +54,16 @@ data = {
           }]
      },
 
+     { 'TITLE': 'Apps (CACAO) Activity',
+       'DESC': 'Total counts of CACAO domains seen on stream updates',
+       'EXPR': 'last_over_time(increase(agent_cacao_total[1d])[1d:1d])',
+       'LEGEND': '{{cacao}}'
+     },
+     { 'TITLE': 'Apps Family Activity',
+       'DESC': 'Total counts of app Families seen',
+       'EXPR': 'last_over_time(sum by (family) (increase(agent_stream_total{family!=\'undefined\'}[1d] offset -1d))[1d:1d])',
+       'LEGEND': '{{family}}'
+     },
     ]
 }
 
