@@ -6,7 +6,6 @@ data = {
     'ID': '90',
     'DESC': 'metrics grouped by app',
     'TITLE': 'Product Insights',
-    'UID': 'Ggt4khSVz',
     'VERSION': VERSION,
 
     'PANELS': [

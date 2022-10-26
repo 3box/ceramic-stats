@@ -1,5 +1,9 @@
 import re
 import json
+import os
+
+UID = os.getenv('UID')
+ENV = os.getenv('ENV')
 
 HEADER = """
 {
@@ -166,8 +170,11 @@ def gen_dashboard(data):
     header = re.sub('DESC', data.get('DESC', ''), header)
     
     footer = FOOTER
-    footer = re.sub('TITLE', data.get('TITLE', ''), footer)
-    footer = re.sub('UID', data.get('UID', ''), footer)
+    title = data.get('TITLE', '')
+    if ENV:
+        title = title + '-' + ENV
+    footer = re.sub('TITLE', title, footer)
+    footer = re.sub('UID', UID, footer)
     footer = re.sub('VERSION', data.get('VERSION', '0'), footer)
     footer = re.sub('FROM', data.get('FROM', 'now/w'), footer)
     footer = re.sub('TO', data.get('TO', 'now/w'), footer)
