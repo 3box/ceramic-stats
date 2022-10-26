@@ -16,11 +16,11 @@ HEADER = """
       }
     ]
   },
-  "description": "DASHBOARD_DESC",
+  "description": "DESC",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": ID,
+  "id": DASHBOARD_ID,
   "links": [],
   "panels": [
 """
@@ -34,14 +34,14 @@ FOOTER = """
     "list": []
   },
   "time": {
-    "from": "now/w",
-    "to": "now/w"
+    "from": "FROM",
+    "to": "TO"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "StatsAgent Insights",
-  "uid": "Ggt4khSVz",
-  "version": 13
+  "title": "TITLE",
+  "uid": "UID",
+  "version": VERSION
 }
 """
 
@@ -133,7 +133,7 @@ TEMPLATE = """
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 """
 
 TARGET = { 
@@ -162,7 +162,7 @@ def gen_dashboard(data):
     col = 0
 
     header = HEADER
-    header = re.sub('ID', data.get('ID', '0'), header)
+    header = re.sub('DASHBOARD_ID', data.get('ID', '0'), header)
     header = re.sub('DESC', data.get('DESC', ''), header)
     
     footer = FOOTER
@@ -175,6 +175,8 @@ def gen_dashboard(data):
     print header
 
     for chart in data['PANELS'] :
+       if col > 0:
+           print ','
        if col % cols == 0 :
             xpos = 0
             ypos += 8

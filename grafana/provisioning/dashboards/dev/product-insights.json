@@ -13,7 +13,7 @@
       }
     ]
   },
-  "description": "DASHBOARD_metrics grouped by app",
+  "description": "metrics grouped by app",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
@@ -68,7 +68,7 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [{"expr": "last_over_time(sum by (cacao) (increase(agent_stream_total{cacao!=}[1d] offset -1d))[1d:1d])", "interval": "", "exemplar": true, "refId": "A", "legendFormat": "{{cacao}}"}],
+      "targets": [{"expr": "last_over_time(sum by (cacao) (increase(agent_stream_total{cacao!=''}[1d] offset -1d))[1d:1d])", "interval": "", "exemplar": true, "refId": "A", "legendFormat": "{{cacao}}"}],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -109,8 +109,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 
+,
 
 
     {
@@ -199,8 +200,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 
+,
 
 
     {
@@ -289,8 +291,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 
+,
 
 
     {
@@ -379,8 +382,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 
+,
 
 
     {
@@ -469,8 +473,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 
+,
 
 
     {
@@ -559,8 +564,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 
+,
 
 
     {
@@ -649,8 +655,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 
+,
 
 
     {
@@ -739,7 +746,7 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
 
 
 ],
@@ -755,8 +762,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "StatsAgent Insights",
-  "uid": "Ggt4khSVz",
-  "version": 13
+  "title": "Product Insights",
+  "uid": "CAOz_5NVk",
+  "version": 19
 }
 

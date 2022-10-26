@@ -1,18 +1,18 @@
 from gen_dashboard import gen_dashboard
 
-VERSION = '1'
+VERSION = '19'
 
 data = {
     'ID': '90',
     'DESC': 'metrics grouped by app',
     'TITLE': 'Product Insights',
-    'UID': 'asdfaf',
+    'UID': 'CAOz_5NVk',
     'VERSION': VERSION,
 
     'PANELS': [
      { 'TITLE': 'Total Streams by App (Cacao) by Day',
        'DESC': 'total stream updates, grouped by Cacao, in past day',
-       'EXPR': 'last_over_time(sum by (cacao) (increase(agent_stream_total{cacao!=''}[1d] offset -1d))[1d:1d])',
+       'EXPR': 'last_over_time(sum by (cacao) (increase(agent_stream_total{cacao!=\'\'}[1d] offset -1d))[1d:1d])',
        'LEGEND': '{{cacao}}'
      },
      { 'TITLE': 'Total Streams by App Family by Day',
