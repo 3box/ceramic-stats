@@ -242,30 +242,27 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
 
     if (!streamIdString) return false
 
-    await mark(streamIdString, LABELS.stream, false, false)
-
-    if (model) {
-        await mark(model, LABELS.model)
-    }
 
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
     const genesis_commit = await _getFromIpfs(stream.cid)
 
     let family = ''
+    const params = {cacao: cacao, family: family}
+
     if (genesis_commit) {
         family = genesis_commit?.header?.family
 
         if (family && (family.length > 32)) {
             family = 'commit_string'
         }
-
+        params['family'] = family
         //console.log(JSON.stringify(genesis_commit.header))
 
         // TODO deal with multiple controllers - is this possible?
         const controller = genesis_commit?.header?.controllers[0]
         if (controller) {
-            await mark(controller, LABELS.controller)
+            await mark(controller, LABELS.controller, false, false, params)
         }
     }
 
@@ -277,6 +274,11 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
     }
     */
 
+    await mark(streamIdString, LABELS.stream, false, false, params)
+
+    if (model) {
+        await mark(model, LABELS.model, false, false, params)
+    }
 
     // All parameters of interest may be recorded,
     // as long as they are of low cardinality
@@ -287,8 +289,6 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
                      'type'   : stream_type,
                      'cacao'  : cacao
     })
-
-
 }
 
 /**
@@ -314,7 +314,7 @@ async function get_or_zero(key) {
  *
  * @param {string} key
  */
-async function mark(key, label, track_top_ten = false, track_histogram = false) {
+async function mark(key, label, track_top_ten = false, track_histogram = false, params = null) {
 
     const day_key = label + ':D:' + key
     const mo_key = label + ':' + key
@@ -322,21 +322,25 @@ async function mark(key, label, track_top_ten = false, track_histogram = false) 
     const seen_today = await get_or_zero(day_key)
     const seen_month = await get_or_zero(mo_key)
 
-    // TODO keep a circular buffer of buckets of counts
+    // may want to do this or just use the topk in promql based on uniques
+    // generally they are interested in uniques so may not need to do this
     // keep counts so later we can generate a top-10 for day and month
 
+    let count_params = params
+    if (count_params == null) {
+        const count_params = {} // avoid defaulting to empty hash as parameter for memory leaks
+    }
+
     if (! seen_today) {
-        Metrics.count(label + '_uniq_da', 1)  // for daily uniq counts
+        Metrics.count(label + '_uniq_da', 1, count_params)  // for daily uniq counts
         await db.put(day_key, 1, {ttl: DAY_TTL})
     }
     if (! seen_month) {
-        Metrics.count(label + '_uniq_mo', 1) // for monthly uniq counts
-        await db.put(mo_key, seen_today + 1, {ttl: MO_TTL})
+        Metrics.count(label + '_uniq_mo', 1, count_params) // for monthly uniq counts
+        await db.put(mo_key, 1, {ttl: MO_TTL})
     }
 
     if (track_histogram) {
-        // this actually needs circular buffer of buckets for accuracy
-        // bc the put keeps refreshing the ttl
         Metrics.record(label + '_counts_da', seen_today + 1)  // for a Histogram by day
     }
 
