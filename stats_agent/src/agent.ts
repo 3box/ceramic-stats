@@ -256,6 +256,7 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
         if (family && (family.length > 32)) {
             family = 'commit_string'
         }
+        family = family.replace(/:.*$/, '')
         params['family'] = family
         //console.log(JSON.stringify(genesis_commit.header))
 
