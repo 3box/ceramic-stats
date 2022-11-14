@@ -21,7 +21,7 @@ const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstabl
 const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
 
-const COLLECTOR_HOST = Number(process.env.COLLECTOR_HOST) || 0
+const COLLECTOR_HOST = process.env.COLLECTOR_HOST || ''
 const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
 
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
@@ -104,10 +104,15 @@ async function main() {
  * the IPFS url should not be shared between multiple clients.
  */
 async function createIpfs(url) {
-    return ipfsClient.create({
+    try {
+      return ipfsClient.create({
         url: IPFS_API_URL,
         ipld: {codecs: [dagJose]},
-    })
+      })
+    } catch (err) {
+      log(`Error starting IPFS client - is IPFS running on ${IPFS_API_URL}?`)
+      throw(err)
+    }
 }
 
 async function handleMessage(message) {
