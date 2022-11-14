@@ -7,7 +7,7 @@ import debug from 'debug'
 //import { bisectLeft } from 'd3-array'
 
 import { CID } from 'multiformats/cid'
-import { Metrics } from '@ceramicnetwork/metrics'
+import { ServiceMetrics as Metrics } from '@ceramicnetwork/observability'
 import { StreamID } from '@ceramicnetwork/streamid'
 import { base64urlToJSON } from '@ceramicnetwork/common'
 import { PubsubKeepalive } from './pubsub-keepalive.js'
@@ -21,6 +21,7 @@ const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstabl
 const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
 
+const COLLECTOR_HOST = Number(process.env.COLLECTOR_HOST) || 0
 const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
 
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
@@ -31,7 +32,7 @@ const log = debug('ceramic:ts-agent:log')
 log.log = console.log.bind(console)
 
 
-Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT}, 'agent')
+Metrics.start(COLLECTOR_HOST, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 1})
 
 const DAY_TTL = 86400
