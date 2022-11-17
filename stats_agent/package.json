@@ -34,7 +34,7 @@
     "@ceramicnetwork/common": "^2.1.0",
     "@ceramicnetwork/core": "^2.9.0",
     "@ceramicnetwork/ipfs-daemon": "^2.0.6",
-    "@ceramicnetwork/observability": "^1.0.4",
+    "@ceramicnetwork/observability": "^1.0.5",
     "@ceramicnetwork/streamid": "^2.1.0",
     "@types/d3-array": "^3.0.3",
     "blockcodec-to-ipld-format": "^2.0.0",
