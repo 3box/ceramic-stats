@@ -22,7 +22,6 @@ const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds tot
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
 
 const COLLECTOR_HOST = process.env.COLLECTOR_HOST || ''
-const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
 
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
 const MAX_INTERVAL_WITHOUT_KEEPALIVE = 24 * 60 * 60 * 1000 // one day

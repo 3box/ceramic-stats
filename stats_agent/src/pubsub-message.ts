@@ -1,12 +1,13 @@
 import { StreamID } from '@ceramicnetwork/streamid'
 import { CID } from 'multiformats/cid'
 import { UnreachableCaseError, toCID } from '@ceramicnetwork/common'
-import { Metrics, METRIC_NAMES } from '@ceramicnetwork/metrics'
+import { ServiceMetrics as Metrics } from '@ceramicnetwork/observability'
 import * as dagCBOR from '@ipld/dag-cbor'
 import { create as createDigest } from 'multiformats/hashes/digest'
 import * as sha256 from '@stablelib/sha256'
 import * as uint8arrays from 'uint8arrays'
-
+const PUBSUB_PUBLISHED = 'pubsub_published'
+const PUBSUB_RECEIVED = 'pubsub_received'
 /* 
  * COPIED from https://github.com/ceramicnetwork/js-ceramic/blob/develop/packages/core/src/pubsub/pubsub-message.ts
    TODO export from js-ceramic in a usable way
@@ -77,7 +78,7 @@ export function buildQueryMessage(streamId: StreamID): QueryMessage {
 }
 
 export function serialize(message: PubsubMessage): Uint8Array {
-  Metrics.count(METRIC_NAMES.PUBSUB_PUBLISHED, 1, { typ: message.typ }) // really attempted to publish...
+  Metrics.count(PUBSUB_PUBLISHED, 1, { typ: message.typ }) // really attempted to publish...
   switch (message.typ) {
     case MsgType.QUERY: {
       return textEncoder.encode(
@@ -126,7 +127,7 @@ export function deserialize(message: any): PubsubMessage {
   const parsed = JSON.parse(asString)
 
   const typ = parsed.typ as MsgType
-  Metrics.count(METRIC_NAMES.PUBSUB_RECEIVED, 1, { typ: typ })
+  Metrics.count(PUBSUB_RECEIVED, 1, { typ: typ })
   switch (typ) {
     case MsgType.UPDATE: {
       // TODO don't take streamid from 'doc' once we no longer interop with nodes older than v1.0.0
