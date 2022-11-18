@@ -7,7 +7,7 @@ import debug from 'debug'
 //import { bisectLeft } from 'd3-array'
 
 import { CID } from 'multiformats/cid'
-import { Metrics } from '@ceramicnetwork/metrics'
+import { ServiceMetrics as Metrics } from '@ceramicnetwork/observability'
 import { StreamID } from '@ceramicnetwork/streamid'
 import { base64urlToJSON } from '@ceramicnetwork/common'
 import { PubsubKeepalive } from './pubsub-keepalive.js'
@@ -21,7 +21,7 @@ const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstabl
 const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
 const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
 
-const METRICS_PORT = Number(process.env.METRICS_EXPORTER_PORT) || 9464
+const COLLECTOR_HOST = process.env.COLLECTOR_HOST || ''
 
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
 const MAX_INTERVAL_WITHOUT_KEEPALIVE = 24 * 60 * 60 * 1000 // one day
@@ -31,8 +31,8 @@ const log = debug('ceramic:ts-agent:log')
 log.log = console.log.bind(console)
 
 
-Metrics.start({metricsExporterEnabled: true, metricsPort: METRICS_PORT}, 'agent')
-Metrics.count('HELLO', 1, {'test_version': 1})
+Metrics.start(COLLECTOR_HOST, 'agent')
+Metrics.count('HELLO', 1, {'test_version': 2})
 
 const DAY_TTL = 86400
 const MO_TTL = 30 * DAY_TTL
@@ -103,10 +103,15 @@ async function main() {
  * the IPFS url should not be shared between multiple clients.
  */
 async function createIpfs(url) {
-    return ipfsClient.create({
+    try {
+      return ipfsClient.create({
         url: IPFS_API_URL,
         ipld: {codecs: [dagJose]},
-    })
+      })
+    } catch (err) {
+      log(`Error starting IPFS client - is IPFS running on ${IPFS_API_URL}?`)
+      throw(err)
+    }
 }
 
 async function handleMessage(message) {
