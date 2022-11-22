@@ -3973,10 +3973,11 @@
             "yaxes": [
                 {
                     "$$hashKey": "object:176",
+                    "decimals": 2,
                     "format": "percent",
                     "label": null,
                     "logBase": 1,
-                    "max": null,
+                    "max": "100",
                     "min": null,
                     "show": true
                 },
