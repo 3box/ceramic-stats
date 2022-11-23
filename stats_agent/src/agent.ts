@@ -73,7 +73,7 @@ if (IPFS_PUBSUB_TOPIC == '/ceramic/mainnet') {
 } else if (IPFS_PUBSUB_TOPIC == '/ceramic/testnet-clay') {
     sample_base = 10
 }
-console.log(`Sampling keepalives at 1/${sample_base}`)
+log(`Sampling keepalives at 1/${sample_base}`)
 
 const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
@@ -92,7 +92,7 @@ async function main() {
     log("Setting up keepalive")
     keepalive = new PubsubKeepalive(ipfs.pubsub, MAX_PUBSUB_PUBLISH_INTERVAL, MAX_INTERVAL_WITHOUT_KEEPALIVE)
 
-    initTopTens()
+    //initTopTens()
     log('Ready')
 }
 
@@ -163,7 +163,7 @@ async function handleMessage(message) {
 
     } catch (err) {
         Metrics.count(LABELS.error, 1, {'operation': operation})
-        console.log("Error at handle message " + err)
+        log("Error at handle message " + err)
         error('at handleMessage', err)
     }
 }
@@ -204,7 +204,7 @@ async function handleTip(cidString, operation) {
         }
     } catch (err) {
         Metrics.count(LABELS.error, 1, {'action': 'cacao'})
-        console.log(`Error trying to load capability ${capCID} from IPFS: ${err}`)
+        log(`Error trying to load capability ${capCID} from IPFS: ${err}`)
         error(`Error trying to load capability ${capCID} from IPFS: ${err}`)
     }
     return cacao_label
@@ -220,12 +220,56 @@ async function handleKeepalive(peer_id, messageData) {
     //await mark(peer_id, LABELS.version + '.' + messageData.ver)
     // could also do it like so
     // await mark(peer_id + '@' + messageData.ver, LABELS.version)
-    // or maybe just keep version by peer id and then associate it with the cacao app?
+// or maybe just keep version by peer id and then associate it with the cacao app?
 }
 
 
 // and also see https://github.com/haardikk21/cacao-poc for generating tests
 // also just count updates by stream and by who (DID)
+
+const METHOD_RE = /^([^:]+:[^:]+:[^:]+):([^:]+):/
+const METHODS = {
+    'did:pkh:bip122': 'did:pkh (bip122)',
+    'did:pkh:eip155': {
+           '1': 'did:pkh (ETH)',
+           '42220': 'did:pkh (CELO)',
+           '137': 'did:pkh (POLY)',
+          },
+    'did:pkh:solana': 'did:pkh (SOL)',
+    'did:pkh:tezos': 'did:pkh (TZ)',
+}
+const ALT_METHOD_RE = /^([^:]+)/
+     
+
+async function extractMethod(controller) {
+    const matches = METHOD_RE.exec(controller)
+    if (matches) {
+        let level1 = matches[1]
+        let level2 = matches[2]
+        // If we don't recognize it, return the raw prefix
+        if (! (level1 in METHODS)) {
+            return level1
+        }
+        // If we do, return the nice label
+        let method1 = METHODS[level1]
+
+        if (typeof method1 === 'string') {
+            return method1
+        } 
+        if (! (level2 in METHODS[level1])) {
+            return `{level1}:{level2}`
+        }
+        return METHODS[level1][level2] 
+    }
+    // no match 
+    const alt_matches = ALT_METHOD_RE.exec(controller)
+    if (alt_matches) {
+        log("using alt method for " + controller)
+        return alt_matches[1]
+    }
+    log("extractMethod failed for " + controller)
+    return 'unknown' 
+}
 
 
 /**
@@ -268,6 +312,7 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
         // TODO deal with multiple controllers - is this possible?
         const controller = genesis_commit?.header?.controllers[0]
         if (controller) {
+            params['method'] = extractMethod(controller)
             await mark(controller, LABELS.controller, false, false, params)
         }
     }
