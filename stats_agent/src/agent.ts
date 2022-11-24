@@ -13,13 +13,10 @@ import { base64urlToJSON } from '@ceramicnetwork/common'
 import { PubsubKeepalive } from './pubsub-keepalive.js'
 //import convert from 'blockcodec-to-ipld-format'
 
-import db from './db.js'
+import initDb from './db.js'
 
 const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
-
-const IPFS_GET_TIMEOUT = 5000 // 5 seconds per retry, 2 retries = 10 seconds total timeout
-const IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
 
 const COLLECTOR_HOST = process.env.COLLECTOR_HOST || ''
 
@@ -30,6 +27,9 @@ const error = debug('ceramic:ts-agent:error')
 const log = debug('ceramic:ts-agent:log')
 log.log = console.log.bind(console)
 
+let cacheHits = 0
+let cacheMisses = 0
+let totalTimeouts = 0
 
 Metrics.start(COLLECTOR_HOST, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 2})
@@ -56,44 +56,47 @@ enum LABELS {
     version = 'version_sample10'  // we are sampling version at 10% for now
 }
 
-const delay = async function (ms) {
-    return new Promise<void>((resolve) => setTimeout(() => resolve(), ms))
-}
-
 let ipfs
+let db
 let keepalive
 
 let sample_base = 1
 let IPFS_CACHE_SIZE = 1024
-let IPFS_DAG_GET_TIMEOUT
+let IPFS_BASE_TIMEOUT = 4096  // set on create
+let IPFS_DAG_GET_TIMEOUT = 4096  // on dag.get
+let IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
+
 if (IPFS_PUBSUB_TOPIC == '/ceramic/mainnet') {
     sample_base = 1000
     IPFS_CACHE_SIZE = 4096 // maximum cache size of 1Gb
-    IPFS_DAG_GET_TIMEOUT = 1024 // avoid ipfs requests piling up
+    IPFS_DAG_GET_TIMEOUT = 1096 // avoid ipfs requests piling up
 } else if (IPFS_PUBSUB_TOPIC == '/ceramic/testnet-clay') {
     sample_base = 10
 }
-log(`Sampling keepalives at 1/${sample_base}`)
+console.log(`Sampling keepalives at 1/${sample_base}`)
 
 const handledMessages = new lru.LRUMap(10000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
+const dagTimeoutCache = new lru.LRUMap<string, number>(IPFS_CACHE_SIZE)
+
+const MAX_TIMEOUT_TRIES = 3  // give up trying to retrieve same stream over and over
 
 let last_day = new Date()
 const top_tens = {}
 const top_ten_cnts = {}
 
 async function main() {
-
-    log('Connecting to ipfs at url', IPFS_API_URL)
+    db = await initDb()
+    console.log('Connecting to ipfs at url', IPFS_API_URL)
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
-    log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
+    console.log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
 
-    log("Setting up keepalive")
+    console.log("Setting up keepalive")
     keepalive = new PubsubKeepalive(ipfs.pubsub, MAX_PUBSUB_PUBLISH_INTERVAL, MAX_INTERVAL_WITHOUT_KEEPALIVE)
 
     //initTopTens()
-    log('Ready')
+    console.log('Ready')
 }
 
 /**
@@ -106,10 +109,11 @@ async function createIpfs(url) {
     try {
       return ipfsClient.create({
         url: IPFS_API_URL,
+        timeout: IPFS_BASE_TIMEOUT,
         ipld: {codecs: [dagJose]},
       })
     } catch (err) {
-      log(`Error starting IPFS client - is IPFS running on ${IPFS_API_URL}?`)
+      console.log(`Error starting IPFS client - is IPFS running on ${IPFS_API_URL}?`)
       throw(err)
     }
 }
@@ -163,7 +167,6 @@ async function handleMessage(message) {
 
     } catch (err) {
         Metrics.count(LABELS.error, 1, {'operation': operation})
-        log("Error at handle message " + err)
         error('at handleMessage', err)
     }
 }
@@ -204,7 +207,6 @@ async function handleTip(cidString, operation) {
         }
     } catch (err) {
         Metrics.count(LABELS.error, 1, {'action': 'cacao'})
-        log(`Error trying to load capability ${capCID} from IPFS: ${err}`)
         error(`Error trying to load capability ${capCID} from IPFS: ${err}`)
     }
     return cacao_label
@@ -227,7 +229,14 @@ async function handleKeepalive(peer_id, messageData) {
 // and also see https://github.com/haardikk21/cacao-poc for generating tests
 // also just count updates by stream and by who (DID)
 
-const METHOD_RE = /^([^:]+:[^:]+:[^:]+):([^:]+):/
+// for patterns like did:pkh:eip155:1:0xb9c5714089478a327f09197987f16f9e5d936e8a
+// described in https://github.com/w3c-ccg/did-pkh/blob/main/did-pkh-method-draft.md
+const METHOD_RE_1 = /^([^:]+:[^:]+:[^:]+):([^:]+):/
+// for patterns like did:3:kjzl6cwe1jw148jvc42283tl1jvfh3adm2c3rvkxuq7tm7fdvvar0avd94stczn
+const METHOD_RE_2 = /^([^:]+:[^:]+):/
+// for patterns like 0x616bfd22c29e603edd2de5cd85fc60cbc71d3ebd@eip155:1
+const METHOD_RE_3 = /\@([^:]+:[^:]+)$/
+
 const METHODS = {
     'did:pkh:bip122': 'did:pkh (bip122)',
     'did:pkh:eip155': {
@@ -237,38 +246,49 @@ const METHODS = {
           },
     'did:pkh:solana': 'did:pkh (SOL)',
     'did:pkh:tezos': 'did:pkh (TZ)',
+    'eip155:1' : 'did:pkh (ETH)',
+    'eip155:137' : 'did:pkh (POLY)',
+    'eip155:42220': 'did:pkh (CELO)',
+    'did:key': 'did:key',
+    'did:3': '3ID'
 }
-const ALT_METHOD_RE = /^([^:]+)/
-     
 
 async function extractMethod(controller) {
-    const matches = METHOD_RE.exec(controller)
-    if (matches) {
-        let level1 = matches[1]
-        let level2 = matches[2]
-        // If we don't recognize it, return the raw prefix
-        if (! (level1 in METHODS)) {
-            return level1
-        }
-        // If we do, return the nice label
-        let method1 = METHODS[level1]
+    let matches = METHOD_RE_1.exec(controller)
+    if (! matches) {
+        matches = METHOD_RE_2.exec(controller)
+    }
+    if (! matches) {
+        matches = METHOD_RE_3.exec(controller)
+    }
+    if (! matches) {
+        console.log("No match for controller: " + controller)
+        return "unknown"
+    }
 
-        if (typeof method1 === 'string') {
-            return method1
-        } 
+    let level1 = matches[1]
+    if (! (level1 in METHODS)) {
+        // If we don't recognize it, return the raw prefix
+        return level1
+    }
+
+    // If we do, return the nice label
+    let method1 = METHODS[level1]
+
+    if (typeof method1 === 'string') {
+        return method1
+    }
+
+    if (matches.length >= 3) {
+        const level2 = matches[2]
         if (! (level2 in METHODS[level1])) {
             return `{level1}:{level2}`
         }
         return METHODS[level1][level2] 
     }
-    // no match 
-    const alt_matches = ALT_METHOD_RE.exec(controller)
-    if (alt_matches) {
-        log("using alt method for " + controller)
-        return alt_matches[1]
-    }
-    log("extractMethod failed for " + controller)
-    return 'unknown' 
+    // not a known pattern
+    console.log("Unknown pattern in controller " + controller)
+    return level1
 }
 
 
@@ -291,7 +311,6 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
 
     if (!streamIdString) return false
 
-
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
     const genesis_commit = await _getFromIpfs(stream.cid)
@@ -302,18 +321,25 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
     if (genesis_commit) {
         family = genesis_commit?.header?.family
 
-        if (family && (family.length > 32)) {
-            family = 'commit_string'
+        if (family) {
+            if (family.length > 32) {
+                family = 'commit_string'
+            } else {
+                family = family.replace(/:.*$/, '')
+            }
         }
-        family = family.replace(/:.*$/, '')
         params['family'] = family
         //console.log(JSON.stringify(genesis_commit.header))
 
         // TODO deal with multiple controllers - is this possible?
         const controller = genesis_commit?.header?.controllers[0]
         if (controller) {
+            console.log(controller)
             params['method'] = extractMethod(controller)
             await mark(controller, LABELS.controller, false, false, params)
+        }
+        if (genesis_commit?.header?.controllers.length > 1) {
+            console.log(`More than one controller on ${stream.cid}`)
         }
     }
 
@@ -455,7 +481,20 @@ async function _getFromIpfs(cid: CID | string): Promise<any> {
 
     // Lookup CID in cache before looking it up IPFS
     const cachedDagNode = await dagNodeCache.get(asCidString)
-    if (cachedDagNode) return cloneDeep(cachedDagNode)
+    if (cachedDagNode) {
+        cacheHits += 1
+        return cloneDeep(cachedDagNode)
+    }
+    cacheMisses +=1
+    if (cacheMisses % 10 == 0) {
+        console.log(`cache hits: ${cacheHits}   cache misses: ${cacheMisses}   timeouts: ${totalTimeouts}`)
+    }
+
+    const numberTimeouts = await dagTimeoutCache.get(asCidString)
+    if (numberTimeouts && numberTimeouts >= MAX_TIMEOUT_TRIES) {
+        console.log(`Max timeouts already hit for ${asCidString}`)
+        return null
+    }
 
     // Now lookup CID in IPFS, with retry logic
     // Note, in theory retries shouldn't be necessary, as just increasing the timeout should
@@ -465,23 +504,27 @@ async function _getFromIpfs(cid: CID | string): Promise<any> {
     let dagResult = null
     for (let retries = IPFS_GET_RETRIES - 1; retries >= 0 && dagResult == null; retries--) {
         try {
-            dagResult = await ipfs.dag.get(asCid)
-            console.log("Got a dag result")
+            dagResult = await ipfs.dag.get(asCid, IPFS_DAG_GET_TIMEOUT)
         } catch (err) {
             if (
                 err.code == 'ERR_TIMEOUT' ||
                 err.name == 'TimeoutError' ||
                 err.message == 'Request timed out'
             ) {
-                console.warn(
-                    `Timeout error while loading CID ${asCid.toString()} from IPFS. ${retries} retries remain`
+                console.log(
+                    `Timeout error while loading CID ${asCidString} from IPFS. ${retries} retries remain`
                 )
                 if (retries > 0) {
                     continue
                 }
+                let misses = await dagTimeoutCache.get(asCidString) || 0
+                await dagTimeoutCache.set(asCidString, misses +1)
+                totalTimeouts += 1
+
+            } else {
+                console.log(`Non-timeout error ${err} on loading CID ${asCidString}`)
+                throw err
             }
-            console.log("Some error")
-            throw err
         }
     }
     // CID loaded successfully, store in cache
@@ -497,9 +540,9 @@ async function _getFromIpfs(cid: CID | string): Promise<any> {
 main()
     .then(function () { })
     .catch(async function (err) {
+        console.log("Error starting up - check IPFS is running")
         if (ipfs) {
             await ipfs.stop()
-            console.log("An ipfs error occurred")
         }
         console.error(err)
         process.exit(1)
