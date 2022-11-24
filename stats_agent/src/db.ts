@@ -12,6 +12,22 @@ const options = {
   keyEncoding: 'binary',
   valueEncoding: 'json'
 }
-const db = ttl(level(DB_PATH, options))
 
-export default db
+async function initDb(): Promise<any> {
+    console.log("Initializing database...")
+    try {
+        await delay(2000)
+        return ttl(level(DB_PATH, options))
+    } catch (err) {
+        // sometimes it takes a few seconds to release the lock on restart
+        console.log("Waiting for database after error " + err)
+        await delay(10000)
+        return ttl(level(DB_PATH, options))
+    }
+}
+
+const delay = async function (ms) {
+    return new Promise<void>((resolve) => setTimeout(() => resolve(), ms))
+}
+
+export default initDb
