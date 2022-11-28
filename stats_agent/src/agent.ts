@@ -23,13 +23,11 @@ const COLLECTOR_HOST = process.env.COLLECTOR_HOST || ''
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
 const MAX_INTERVAL_WITHOUT_KEEPALIVE = 24 * 60 * 60 * 1000 // one day
 
+const AGENT_CID = 'agent_cid'
+
 const error = debug('ceramic:ts-agent:error')
 const log = debug('ceramic:ts-agent:log')
 log.log = console.log.bind(console)
-
-let cacheHits = 0
-let cacheMisses = 0
-let totalTimeouts = 0
 
 Metrics.start(COLLECTOR_HOST, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 2})
@@ -253,7 +251,7 @@ const METHODS = {
     'did:3': '3ID'
 }
 
-async function extractMethod(controller) {
+function extractMethod(controller) {
     let matches = METHOD_RE_1.exec(controller)
     if (! matches) {
         matches = METHOD_RE_2.exec(controller)
@@ -282,7 +280,7 @@ async function extractMethod(controller) {
     if (matches.length >= 3) {
         const level2 = matches[2]
         if (! (level2 in METHODS[level1])) {
-            return `{level1}:{level2}`
+            return `${level1}:${level2}`
         }
         return METHODS[level1][level2] 
     }
@@ -334,7 +332,6 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
         // TODO deal with multiple controllers - is this possible?
         const controller = genesis_commit?.header?.controllers[0]
         if (controller) {
-            console.log(controller)
             params['method'] = extractMethod(controller)
             await mark(controller, LABELS.controller, false, false, params)
         }
@@ -482,17 +479,13 @@ async function _getFromIpfs(cid: CID | string): Promise<any> {
     // Lookup CID in cache before looking it up IPFS
     const cachedDagNode = await dagNodeCache.get(asCidString)
     if (cachedDagNode) {
-        cacheHits += 1
+        Metrics.count(AGENT_CID, 1, {'status': 'cached'})
         return cloneDeep(cachedDagNode)
-    }
-    cacheMisses +=1
-    if (cacheMisses % 10 == 0) {
-        console.log(`cache hits: ${cacheHits}   cache misses: ${cacheMisses}   timeouts: ${totalTimeouts}`)
     }
 
     const numberTimeouts = await dagTimeoutCache.get(asCidString)
     if (numberTimeouts && numberTimeouts >= MAX_TIMEOUT_TRIES) {
-        console.log(`Max timeouts already hit for ${asCidString}`)
+        Metrics.count(AGENT_CID, 1, {'status': 'maxed_timeouts'})
         return null
     }
 
@@ -511,18 +504,15 @@ async function _getFromIpfs(cid: CID | string): Promise<any> {
                 err.name == 'TimeoutError' ||
                 err.message == 'Request timed out'
             ) {
-                console.log(
-                    `Timeout error while loading CID ${asCidString} from IPFS. ${retries} retries remain`
-                )
                 if (retries > 0) {
                     continue
                 }
                 let misses = await dagTimeoutCache.get(asCidString) || 0
                 await dagTimeoutCache.set(asCidString, misses +1)
-                totalTimeouts += 1
+                Metrics.count(AGENT_CID, 1, {'status': 'timeout'})
 
             } else {
-                console.log(`Non-timeout error ${err} on loading CID ${asCidString}`)
+                Metrics.count(AGENT_CID, 1, {'status': 'error'})
                 throw err
             }
         }
