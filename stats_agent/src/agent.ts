@@ -241,12 +241,16 @@ const METHODS = {
            '1': 'did:pkh (ETH)',
            '42220': 'did:pkh (CELO)',
            '137': 'did:pkh (POLY)',
+           '42161': 'did:pkh (Orbis)',
+           '5': 'did:pkh (Orbis)',
           },
     'did:pkh:solana': 'did:pkh (SOL)',
     'did:pkh:tezos': 'did:pkh (TZ)',
     'eip155:1' : 'did:pkh (ETH)',
     'eip155:137' : 'did:pkh (POLY)',
     'eip155:42220': 'did:pkh (CELO)',
+    'eip155:42161': 'did:pkh (Orbis)',
+    'eip155:5': 'did:pkh (Orbis)',
     'did:key': 'did:key',
     'did:3': '3ID'
 }
