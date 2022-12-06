@@ -1079,7 +1079,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization (CAS API) alert",
@@ -1240,7 +1240,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization (CAS Scheduler) alert",
