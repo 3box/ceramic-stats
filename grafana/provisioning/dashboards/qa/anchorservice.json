@@ -582,7 +582,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization (ceramic-qa-cas-api) alert",
@@ -763,7 +763,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization ( Ceramic Node ) alert",
@@ -924,7 +924,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization (ceramic-qa-cas-ipfs) alert",
