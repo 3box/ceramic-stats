@@ -568,7 +568,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
+<<<<<<< HEAD
                 "for": "30m",
+=======
+                "for": "15m",
+>>>>>>> 792d542 (Increase CPU alert frequency threshold)
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
