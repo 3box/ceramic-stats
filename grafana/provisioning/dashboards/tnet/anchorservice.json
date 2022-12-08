@@ -504,7 +504,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization (ceramic-tnet-cas-api) alert",
@@ -818,7 +818,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization (ceramic-tnet-cas-ipfs) alert",
