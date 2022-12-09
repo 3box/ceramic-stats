@@ -15,8 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 69,
-    "iteration": 1622143456040,
+    "id": 4,
+    "iteration": 1670565039006,
     "links": [],
     "panels": [
         {
@@ -1962,5 +1962,5 @@
     "timezone": "",
     "title": "Node (Private)",
     "uid": "qa-node-o1Dp-kcGz",
-    "version": 6389
+    "version": 2
 }

@@ -404,7 +404,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "30m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
@@ -564,7 +564,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "30m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "ceramic-dev-ex-ipfs-gw CPU above 80%",

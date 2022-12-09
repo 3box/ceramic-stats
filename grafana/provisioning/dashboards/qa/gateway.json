@@ -15,8 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 2,
-    "iteration": 1622143399561,
+    "id": 3,
+    "iteration": 1670564754034,
     "links": [],
     "panels": [
         {
@@ -62,7 +62,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
@@ -223,7 +223,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
@@ -404,7 +404,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
@@ -564,7 +564,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "ceramic-qa-ex-ipfs-gw CPU above 80%",
@@ -723,7 +723,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "ceramic-qa-ex-gateway memory above 80%",
@@ -882,7 +882,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "ceramic-qa-ex-ipfs-gw CPU above 80%",
@@ -1567,6 +1567,112 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
+            "description": "Requests per origin per $bucket, stacked",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 47
+            },
+            "hiddenSeries": false,
+            "id": 56,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": true,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (ip) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "legendFormat": "{{ ip }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Requests per Origin",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!ip).*$"
+                        }
+                    }
+                }
+            ],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
             "decimals": 2,
             "description": "Response times per endpoint",
             "fieldConfig": {
@@ -1679,112 +1785,6 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Requests per origin per $bucket, stacked",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 8,
-                "w": 24,
-                "x": 0,
-                "y": 47
-            },
-            "hiddenSeries": false,
-            "id": 56,
-            "legend": {
-                "alignAsTable": true,
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "total": true,
-                "values": true
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "connected",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": true,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "expr": "sum by (ip) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
-                    "legendFormat": "{{ ip }}",
-                    "refId": "A"
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Requests per Origin",
-            "tooltip": {
-                "shared": false,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "transformations": [
-                {
-                    "id": "filterFieldsByName",
-                    "options": {
-                        "include": {
-                            "pattern": "^(?!ip).*$"
-                        }
-                    }
-                }
-            ],
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "decimals": 0,
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": "0",
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": false
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "Loki",
             "description": "Requests per origin per endpoint per $bucket, stacked",
             "fieldConfig": {
                 "defaults": {},
@@ -1796,7 +1796,7 @@
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 55
+                "y": 63
             },
             "hiddenSeries": false,
             "id": 58,
@@ -1903,7 +1903,7 @@
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 63
+                "y": 71
             },
             "hiddenSeries": false,
             "id": 60,
@@ -2074,5 +2074,5 @@
     "timezone": "",
     "title": "Gateway",
     "uid": "qa-gateway-o1Dp-kcGz",
-    "version": 6635
+    "version": 3
 }

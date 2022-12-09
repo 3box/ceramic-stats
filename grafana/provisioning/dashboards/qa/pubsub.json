@@ -15,8 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 76,
-    "iteration": 1649898555098,
+    "id": 7,
+    "iteration": 1670565246658,
     "links": [],
     "panels": [
         {
@@ -964,5 +964,5 @@
     "timezone": "",
     "title": "PubSub",
     "uid": "qa-pubsub-MQ-WJ_YGz",
-    "version": 26
+    "version": 3
 }
