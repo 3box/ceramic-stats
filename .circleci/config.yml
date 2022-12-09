@@ -106,13 +106,6 @@ workflows:
           task-def-suffix: "loki_promtail"
           container-name: "loki"
       - build-and-push:
-          name: "build-and-push-prometheus"
-          dockerfile-path: "prometheus/"
-          ecr-repo-suffix: "prometheus"
-          trigger-path: "promtheus/"
-          task-def-suffix: "stats_agent"
-          container-name: "prometheus"
-      - build-and-push:
           name: "build-and-push-promtail"
           dockerfile-path: "promtail/"
           ecr-repo-suffix: "promtail"

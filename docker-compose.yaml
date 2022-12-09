@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 services:
   agent:
     build: ./agent
@@ -25,10 +25,6 @@ services:
       - ALERTMANAGER_URL=http://alertmanager:9093
       - DYNAMODB_PREFIX=loki_
     command: ["-config.file=/etc/loki/local-config.yaml", "-config.expand-env=true"]
-  prometheus:
-    build: ./prometheus
-    ports:
-      - "9090:9090"
   promtail:
     build: ./promtail
     ports:
@@ -47,14 +43,9 @@ services:
       - DASHBOARDS_PATH=/etc/grafana/provisioning/dashboards/${DASHBOARD}
       - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
       - LOKI_URL=http://loki:3100
-      - PROMETHEUS_URL=http://prometheus:9090
       - AWS_AUTH_TYPE=keys
       - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
       - AWS_SECRET_KEY=${AWS_SECRET_KEY}
       - CLOUDWATCH_METRICS_NAMESPACES=pubsub-dev
     depends_on:
       - promtail
-  stats_agent:
-    build: ./stats_agent
-    ports:
-      - "9464:9464"
