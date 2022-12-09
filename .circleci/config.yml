@@ -112,10 +112,3 @@ workflows:
           trigger-path: "promtail/"
           task-def-suffix: "loki_promtail"
           container-name: "promtail"
-      - build-and-push:
-          name: "build-and-push-stats_agent"
-          dockerfile-path: "stats_agent/"
-          ecr-repo-suffix: "stats_agent"
-          trigger-path: "stats_agent/"
-          task-def-suffix: "stats_agent"
-          container-name: "stats_agent"
