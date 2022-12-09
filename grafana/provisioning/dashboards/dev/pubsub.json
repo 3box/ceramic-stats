@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 76,
-    "iteration": 1649898555098,
+    "iteration": 1670563536080,
     "links": [],
     "panels": [
         {
@@ -964,5 +964,5 @@
     "timezone": "",
     "title": "PubSub",
     "uid": "pubsub-MQ-WJ_YGz",
-    "version": 26
+    "version": 27
 }
