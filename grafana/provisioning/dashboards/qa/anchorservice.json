@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 4,
-    "iteration": 1670562893005,
+    "iteration": 1666124162784,
     "links": [],
     "panels": [
         {
@@ -81,8 +81,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "TaskDefinitionFamily": "ceramic-dev-cas-anchor"
+                        "ClusterName": "ceramic-qa-cas",
+                        "TaskDefinitionFamily": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
@@ -204,8 +204,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "TaskDefinitionFamily": "ceramic-dev-cas-anchor"
+                        "ClusterName": "ceramic-qa-cas",
+                        "TaskDefinitionFamily": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
@@ -273,8 +273,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "TaskDefinitionFamily": "ceramic-dev-cas-anchor"
+                        "ClusterName": "ceramic-qa-cas",
+                        "TaskDefinitionFamily": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
@@ -378,8 +378,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "TaskDefinitionFamily": "ceramic-dev-cas-anchor"
+                        "ClusterName": "ceramic-qa-cas",
+                        "TaskDefinitionFamily": "ceramic-qa-cas-anchor"
                     },
                     "expression": "",
                     "id": "",
@@ -527,7 +527,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-alb/682423c954f76315",
+                        "LoadBalancer": "app/ceramic-qa-cas-alb/ea91284a092b4d34",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -686,8 +686,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-scheduler"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-scheduler"
                     },
                     "expression": "",
                     "id": "",
@@ -846,7 +846,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-node/311f1393002900f7",
+                        "LoadBalancer": "app/ceramic-qa-cas-node/8a4f8263301f96a2",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -971,7 +971,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-ipfs-nd-alb-ex/190eb438ebba5068",
+                        "LoadBalancer": "app/ceramic-qa-cas-ipfs-nd-alb-ex/f8aca6b891a222df",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -990,7 +990,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-cas-ipfs-nd-alb-in/5f1227f17a902fe2",
+                        "LoadBalancer": "app/ceramic-qa-cas-ipfs-nd-alb-in/f3c3f928fd50ba95",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -1079,7 +1079,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "30m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization (CAS API) alert",
@@ -1141,8 +1141,8 @@
                 {
                     "alias": "CPUUtilization_{{ stat }} ({{ ServiceName }})",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-api"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-api"
                     },
                     "expression": "",
                     "id": "",
@@ -1240,7 +1240,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "30m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization (CAS Scheduler) alert",
@@ -1302,8 +1302,8 @@
                 {
                     "alias": "CPUUtilization_{{ stat }} ({{ ServiceName }})",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-scheduler"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-scheduler"
                     },
                     "expression": "",
                     "id": "",
@@ -1400,7 +1400,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "name": "CPUUtilization ( CAS Ceramic Node ) alert",
@@ -1462,8 +1462,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-node"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-node"
                     },
                     "expression": "",
                     "id": "",
@@ -1588,8 +1588,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-ipfs-nd"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -1739,8 +1739,8 @@
                 {
                     "alias": "MemoryUtilization_{{ stat }} ({{ ServiceName }}) ",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-api"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-api"
                     },
                     "expression": "",
                     "id": "",
@@ -1899,8 +1899,8 @@
                 {
                     "alias": "MemoryUtilization_{{ stat }} ({{ ServiceName }})",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-scheduler"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-scheduler"
                     },
                     "expression": "",
                     "id": "",
@@ -2059,8 +2059,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-node"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-node"
                     },
                     "expression": "",
                     "id": "",
@@ -2184,8 +2184,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-cas",
-                        "ServiceName": "ceramic-dev-cas-ipfs-nd"
+                        "ClusterName": "ceramic-qa-cas",
+                        "ServiceName": "ceramic-qa-cas-ipfs-nd"
                     },
                     "expression": "",
                     "id": "",
@@ -2744,7 +2744,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Requests per Endpoint    (Top 10)",
+            "title": "Requests per Endpoint  (Top 10)",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
@@ -3876,7 +3876,7 @@
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "Postgres CPUBurstBalance (ceramic-dev-cas) alert",
+                "name": "Postgres CPUBurstBalance (ceramic-qa-cas) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -3928,7 +3928,7 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "DBInstanceIdentifier": "ceramic-dev-cas"
+                        "DBInstanceIdentifier": "ceramic-qa-cas"
                     },
                     "expression": "",
                     "id": "",
@@ -4135,7 +4135,7 @@
                 "for": "15m",
                 "frequency": "1m",
                 "handler": 1,
-                "name": "DB CPUCreditBalance (ceramic-dev-cas) alert",
+                "name": "DB CPUCreditBalance (ceramic-qa-cas) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -4187,7 +4187,7 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "DBInstanceIdentifier": "ceramic-dev-cas"
+                        "DBInstanceIdentifier": "ceramic-qa-cas"
                     },
                     "expression": "",
                     "id": "",
@@ -4336,8 +4336,8 @@
                 "allValue": null,
                 "current": {
                     "selected": true,
-                    "text": "dev",
-                    "value": "dev"
+                    "text": "qa",
+                    "value": "qa"
                 },
                 "description": "env",
                 "error": null,
@@ -4349,11 +4349,11 @@
                 "options": [
                     {
                         "selected": true,
-                        "text": "dev",
-                        "value": "dev"
+                        "text": "qa",
+                        "value": "qa"
                     }
                 ],
-                "query": "dev",
+                "query": "qa",
                 "queryValue": "",
                 "skipUrlSync": false,
                 "type": "custom"
@@ -4367,6 +4367,6 @@
     "timepicker": {},
     "timezone": "",
     "title": "Anchor Service",
-    "uid": "dev-U93a07JMz",
-    "version": 6663
+    "uid": "qa-U93a07JMz",
+    "version": 6639
 }

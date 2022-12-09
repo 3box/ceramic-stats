@@ -15,8 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 4,
-    "iteration": 1650495231108,
+    "id": 7,
+    "iteration": 1670565246658,
     "links": [],
     "panels": [
         {
@@ -71,8 +71,8 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-rcv",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-gateway-rcv-upd",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -87,8 +87,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-rcv-qry",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-gateway-rcv-qry",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "B",
                     "region": "default",
@@ -103,8 +103,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-rcv-rsp",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-gateway-rcv-rsp",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "C",
                     "region": "default",
@@ -119,8 +119,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-rcv-alv",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-gateway-rcv-alv",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "D",
                     "region": "default",
@@ -224,8 +224,8 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-snd-upd",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-gateway-snd-upd",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -240,8 +240,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-snd-qry",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-gateway-snd-qry",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "B",
                     "region": "default",
@@ -256,8 +256,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-snd-rsp",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-gateway-snd-rsp",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "C",
                     "region": "default",
@@ -272,8 +272,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-gateway-snd-alv",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-gateway-snd-alv",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "D",
                     "region": "default",
@@ -377,8 +377,8 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-private-rcv-upd",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-private-rcv-upd",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -393,8 +393,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-private-rcv-qry",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-private-rcv-qry",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "B",
                     "region": "default",
@@ -409,8 +409,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-private-rcv-rsp",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-private-rcv-rsp",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "C",
                     "region": "default",
@@ -425,8 +425,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-private-rcv-alv",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-private-rcv-alv",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "D",
                     "region": "default",
@@ -530,8 +530,8 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-private-snd-upd",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-private-snd-upd",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -546,8 +546,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-private-snd-qry",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-private-snd-qry",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "B",
                     "region": "default",
@@ -562,8 +562,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-private-snd-rsp",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-private-snd-rsp",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "C",
                     "region": "default",
@@ -578,8 +578,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-public-snd-alv",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-public-snd-alv",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "D",
                     "region": "default",
@@ -683,8 +683,8 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-cas-rcv-upd",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-cas-rcv-upd",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -699,8 +699,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-cas-rcv-qry",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-cas-rcv-qry",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "B",
                     "region": "default",
@@ -715,8 +715,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-cas-rcv-rsp",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-cas-rcv-rsp",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "C",
                     "region": "default",
@@ -731,8 +731,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-cas-rcv-alv",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-cas-rcv-alv",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "D",
                     "region": "default",
@@ -836,8 +836,8 @@
                     "expression": "",
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-cas-snd-upd",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-cas-snd-upd",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "A",
                     "region": "default",
@@ -852,8 +852,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-cas-snd-qry",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-cas-snd-qry",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "B",
                     "region": "default",
@@ -868,8 +868,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-cas-snd-rsp",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-cas-snd-rsp",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "C",
                     "region": "default",
@@ -884,8 +884,8 @@
                     "hide": false,
                     "id": "",
                     "matchExact": true,
-                    "metricName": "pubsub-prod-cas-snd-alv",
-                    "namespace": "pubsub-prod",
+                    "metricName": "pubsub-qa-cas-snd-alv",
+                    "namespace": "pubsub-qa",
                     "period": "",
                     "refId": "D",
                     "region": "default",
@@ -899,614 +899,6 @@
             "timeRegions": [],
             "timeShift": null,
             "title": "Published in $pubsub_topic ( CAS )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 0,
-                "y": 27
-            },
-            "hiddenSeries": false,
-            "id": 36,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-rcv-upd",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-rcv-qry",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-rcv-rsp",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-rcv-alv",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Received in $pubsub_topic ( elp-1-1 )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 12,
-                "y": 27
-            },
-            "hiddenSeries": false,
-            "id": 42,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-snd-upd",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-snd-qry",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-snd-rsp",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-snd-alv",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Published in $pubsub_topic ( elp-1-1 )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 0,
-                "y": 36
-            },
-            "hiddenSeries": false,
-            "id": 37,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-2-rcv-upd",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-1-snd-qry",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-2-rcv-rsp",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-2-rcv-alv",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Received in $pubsub_topic ( elp-1-2 )",
-            "tooltip": {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis": {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values": []
-            },
-            "yaxes": [
-                {
-                    "$$hashKey": "object:75",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "$$hashKey": "object:76",
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis": {
-                "align": false,
-                "alignLevel": null
-            }
-        },
-        {
-            "aliasColors": {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "CloudWatch",
-            "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-            },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos": {
-                "h": 9,
-                "w": 12,
-                "x": 12,
-                "y": 36
-            },
-            "hiddenSeries": false,
-            "id": 43,
-            "legend": {
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "show": true,
-                "total": false,
-                "values": false
-            },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options": {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "7.5.7",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides": [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets": [
-                {
-                    "alias": "update",
-                    "dimensions": {},
-                    "expression": "",
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-2-snd-upd",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "A",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "query",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-2-snd-qry",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "B",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "response",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-2-snd-rsp",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "C",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                },
-                {
-                    "alias": "keepalive",
-                    "dimensions": {},
-                    "expression": "",
-                    "hide": false,
-                    "id": "",
-                    "matchExact": true,
-                    "metricName": "pubsub-elp-1-2-snd-alv",
-                    "namespace": "pubsub-prod",
-                    "period": "",
-                    "refId": "D",
-                    "region": "default",
-                    "statistics": [
-                        "Sum"
-                    ]
-                }
-            ],
-            "thresholds": [],
-            "timeFrom": null,
-            "timeRegions": [],
-            "timeShift": null,
-            "title": "Published in $pubsub_topic ( elp-1-2 )",
             "tooltip": {
                 "shared": true,
                 "sort": 0,
@@ -1558,7 +950,7 @@
                 "hide": 2,
                 "label": null,
                 "name": "pubsub_topic",
-                "query": "/ceramic/mainnet",
+                "query": "/ceramic/dev-unstable",
                 "skipUrlSync": false,
                 "type": "constant"
             }
@@ -1571,6 +963,6 @@
     "timepicker": {},
     "timezone": "",
     "title": "PubSub",
-    "uid": "pubsub-MQ-WJ_YGz",
-    "version": 21
+    "uid": "qa-pubsub-MQ-WJ_YGz",
+    "version": 3
 }

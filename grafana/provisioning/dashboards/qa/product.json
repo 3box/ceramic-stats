@@ -1,0 +1,854 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": "-- Grafana --",
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 1,
+    "links": [],
+    "panels": [
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "StreamIds logged by this node during this time frame",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 0,
+                "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 4,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum by (streamId) (count_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | streamId != \"\" [1s]))",
+                    "legendFormat": "{{ streamId }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "StreamIds Active",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Cids logged by this node during this time frame",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 0
+            },
+            "hiddenSeries": false,
+            "id": 6,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "sum(count_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | cid != \"\" [$__interval])) by (cid)",
+                    "legendFormat": "{{ cid }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Cids Active",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 0,
+                "y": 9
+            },
+            "hiddenSeries": false,
+            "id": 8,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count by (Value) (sum by (streamId) (count_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | streamId != \"\" [1s])))",
+                    "legendFormat": "Unique streamIds / second",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "# of Unique StreamIds Active",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 12,
+                "x": 12,
+                "y": 9
+            },
+            "hiddenSeries": false,
+            "id": 10,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": true,
+                "min": false,
+                "rightSide": false,
+                "show": true,
+                "total": true,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": false
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "count by (Value) (sum by (cid) (count_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | cid != \"\" [1s])))",
+                    "legendFormat": "Unique cids / second",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "# of Unique Cids Active",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "decimals": 0,
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "StreamIds"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 4,
+                "x": 0,
+                "y": 18
+            },
+            "id": 12,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "max"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.5.7",
+            "targets": [
+                {
+                    "expr": "sum_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | streamId != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
+                    "legendFormat": "StreamIds",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Unique StreamIds",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Controllers"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 4,
+                "x": 4,
+                "y": 18
+            },
+            "id": 14,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "max"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.5.7",
+            "targets": [
+                {
+                    "expr": "sum_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | controller != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
+                    "legendFormat": "Controllers",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Unique Controllers",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 4,
+                "x": 8,
+                "y": 18
+            },
+            "id": 16,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "max"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.5.7",
+            "targets": [
+                {
+                    "expr": "sum_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | schema != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
+                    "legendFormat": "Schema",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Unique Schema",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Families"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 4,
+                "x": 12,
+                "y": 18
+            },
+            "id": 18,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "max"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.5.7",
+            "targets": [
+                {
+                    "expr": "sum_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | family != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
+                    "legendFormat": "Families",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Unique Families",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "none"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "3ids"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 4,
+                "x": 16,
+                "y": 18
+            },
+            "id": 20,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "max"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.5.7",
+            "targets": [
+                {
+                    "expr": "sum_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | threeId != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
+                    "legendFormat": "3ids",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Unique 3ids",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "stat"
+        },
+        {
+            "datasource": "Loki",
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "none"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "IDX streams"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 4,
+                "x": 20,
+                "y": 18
+            },
+            "id": 22,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "center",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "max"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "text": {},
+                "textMode": "value_and_name"
+            },
+            "pluginVersion": "7.5.7",
+            "targets": [
+                {
+                    "expr": "sum_over_time({app=\"node-private\", job=\"agent\"} | logfmt | __error__!=\"LogfmtParserErr\" | idx != \"\" | totalUnique != \"\" | unwrap totalUnique [$__interval])",
+                    "legendFormat": "IDX streams",
+                    "refId": "A"
+                }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Total Unique IDX streams",
+            "transformations": [
+                {
+                    "id": "seriesToRows",
+                    "options": {}
+                }
+            ],
+            "type": "stat"
+        }
+    ],
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "now-12h",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Product",
+    "uid": "qa-product-MQ-WJ_YGz",
+    "version": 1
+}

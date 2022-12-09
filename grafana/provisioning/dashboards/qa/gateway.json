@@ -15,8 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 75,
-    "iteration": 1622144547560,
+    "id": 3,
+    "iteration": 1670564754034,
     "links": [],
     "panels": [
         {
@@ -28,7 +28,7 @@
                 "x": 0,
                 "y": 0
             },
-            "id": 31,
+            "id": 25,
             "panels": [],
             "title": "Containers",
             "type": "row"
@@ -62,11 +62,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "HealthyHostCount (ceramic-dev-ex-node) alert",
+                "name": "HealthyHostCount (ceramic-qa-ex-gateway) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -92,7 +92,7 @@
                 "y": 1
             },
             "hiddenSeries": false,
-            "id": 32,
+            "id": 29,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -126,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ex-node/22698fb4c54f7347",
+                        "LoadBalancer": "app/ceramic-qa-ex-gateway/1ccf80e4a247d4da",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -155,7 +155,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount ( ceramic-dev )",
+            "title": "HealthyHostCount ( ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -223,11 +223,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "HealthyHostCount (ceramic-dev-ex-ipfs-nd) alert",
+                "name": "HealthyHostCount (ceramic-qa-ex-ipfs-gw) alert",
                 "noDataState": "no_data",
                 "notifications": []
             },
@@ -253,7 +253,7 @@
                 "y": 1
             },
             "hiddenSeries": false,
-            "id": 33,
+            "id": 30,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -287,7 +287,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ex-ipfs-nd-alb-ex/f76e3a2334b97bbf",
+                        "LoadBalancer": "app/ceramic-qa-ex-ipfs-gw-alb-ex/9900ba142b4f0c86",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -306,7 +306,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-ex-ipfs-nd-alb-in/406a43d10cc29f45",
+                        "LoadBalancer": "app/ceramic-qa-ex-ipfs-gw-alb-in/d770ffcb6d1e7b84",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -336,7 +336,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "HealthyHostCount ( ipfs-ceramic-dev )",
+            "title": "HealthyHostCount ( ipfs-ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -404,11 +404,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "30m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
-                "name": "CPUUtilization (ceramic-dev-ex-node) alert",
+                "name": "CPUUtilization (ceramic-qa-ex-gateway) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -434,7 +434,7 @@
                 "y": 8
             },
             "hiddenSeries": false,
-            "id": 28,
+            "id": 20,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -467,8 +467,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-ex",
-                        "ServiceName": "ceramic-dev-ex-node"
+                        "ClusterName": "ceramic-qa-ex",
+                        "ServiceName": "ceramic-qa-ex-gateway"
                     },
                     "expression": "",
                     "id": "",
@@ -496,7 +496,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization ( ceramic-dev )",
+            "title": "CPUUtilization ( ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -564,11 +564,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "30m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "",
-                "name": "CPUUtilization (ceramic-dev-ex-ipfs-nd) alert",
+                "message": "ceramic-qa-ex-ipfs-gw CPU above 80%",
+                "name": "CPUUtilization (ceramic-qa-ex-ipfs-gw) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -594,7 +594,7 @@
                 "y": 8
             },
             "hiddenSeries": false,
-            "id": 26,
+            "id": 22,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -627,8 +627,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-ex",
-                        "ServiceName": "ceramic-dev-ex-ipfs-nd"
+                        "ClusterName": "ceramic-qa-ex",
+                        "ServiceName": "ceramic-qa-ex-ipfs-gw"
                     },
                     "expression": "",
                     "id": "",
@@ -656,7 +656,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "CPUUtilization ( ipfs-ceramic-dev )",
+            "title": "CPUUtilization ( ipfs-ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -723,11 +723,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "",
-                "name": "MemoryUtilization (ceramic-dev-ex-node) alert",
+                "message": "ceramic-qa-ex-gateway memory above 80%",
+                "name": "MemoryUtilization (ceramic-qa-ex-gateway) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -753,7 +753,7 @@
                 "y": 15
             },
             "hiddenSeries": false,
-            "id": 27,
+            "id": 21,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -786,8 +786,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-ex",
-                        "ServiceName": "ceramic-dev-ex-node"
+                        "ClusterName": "ceramic-qa-ex",
+                        "ServiceName": "ceramic-qa-ex-gateway"
                     },
                     "expression": "",
                     "id": "",
@@ -815,7 +815,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization ( ceramic-dev )",
+            "title": "MemoryUtilization ( ceramic-qa / gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -882,11 +882,11 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "15m",
                 "frequency": "2m",
                 "handler": 1,
-                "message": "",
-                "name": "MemoryUtilization (ceramic-dev-ex-ipfs-nd) alert",
+                "message": "ceramic-qa-ex-ipfs-gw CPU above 80%",
+                "name": "MemoryUtilization (ceramic-qa-ex-ipfs-gw) alert",
                 "noDataState": "keep_state",
                 "notifications": []
             },
@@ -912,7 +912,7 @@
                 "y": 15
             },
             "hiddenSeries": false,
-            "id": 29,
+            "id": 23,
             "isNew": true,
             "legend": {
                 "alignAsTable": true,
@@ -945,8 +945,8 @@
                 {
                     "alias": "",
                     "dimensions": {
-                        "ClusterName": "ceramic-dev-ex",
-                        "ServiceName": "ceramic-dev-ex-ipfs-nd"
+                        "ClusterName": "ceramic-qa-ex",
+                        "ServiceName": "ceramic-qa-ex-ipfs-gw"
                     },
                     "expression": "",
                     "id": "",
@@ -974,7 +974,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "MemoryUtilization ( ipfs-ceramic-dev )",
+            "title": "MemoryUtilization ( ipfs-ceramic-qa /gateway )",
             "tooltip": {
                 "msResolution": true,
                 "shared": true,
@@ -1021,7 +1021,7 @@
                 "x": 0,
                 "y": 22
             },
-            "id": 20,
+            "id": 27,
             "panels": [],
             "title": "App",
             "type": "row"
@@ -1046,7 +1046,7 @@
                 "y": 23
             },
             "hiddenSeries": false,
-            "id": 37,
+            "id": 46,
             "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1075,7 +1075,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count_over_time({app=\"node-public\", job=\"ceramic/http\"} [$bucket])",
+                    "expr": "count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} [$bucket])",
                     "legendFormat": "Total requests/$bucket",
                     "refId": "A"
                 }
@@ -1152,7 +1152,7 @@
                 "y": 23
             },
             "hiddenSeries": false,
-            "id": 39,
+            "id": 48,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1181,22 +1181,22 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 200 and status < 300 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "A"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 300 and status < 400 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "B"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 400 and status < 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "C"
                 },
                 {
-                    "expr": "sum by (status) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
+                    "expr": "sum by (status) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | status >= 500 | __error__!=\"LabelFilterErr\" [$bucket]))",
                     "legendFormat": "{{ status }}",
                     "refId": "D"
                 }
@@ -1281,7 +1281,7 @@
                 "y": 31
             },
             "hiddenSeries": false,
-            "id": 41,
+            "id": 50,
             "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1310,7 +1310,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
+                    "expr": "sum by (method) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"GET\" [$bucket]))",
                     "legendFormat": "GET requests/$bucket",
                     "refId": "A"
                 }
@@ -1378,7 +1378,7 @@
                 "y": 31
             },
             "hiddenSeries": false,
-            "id": 43,
+            "id": 52,
             "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1407,7 +1407,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (method) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
+                    "expr": "sum by (method) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | method=\"POST\" [$bucket]))",
                     "legendFormat": "POST requests/$bucket",
                     "refId": "A"
                 }
@@ -1475,7 +1475,7 @@
                 "y": 39
             },
             "hiddenSeries": false,
-            "id": 45,
+            "id": 54,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1504,7 +1504,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum(count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])) by (base_url)",
+                    "expr": "sum by (base_url) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ base_url }}",
                     "refId": "A"
                 }
@@ -1524,7 +1524,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!base_url).*$"
+                            "pattern": "^(?!path).*$"
                         }
                     }
                 }
@@ -1581,7 +1581,7 @@
                 "y": 47
             },
             "hiddenSeries": false,
-            "id": 47,
+            "id": 56,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1610,7 +1610,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (ip) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}",
                     "refId": "A"
                 }
@@ -1673,9 +1673,12 @@
             "dashLength": 10,
             "dashes": false,
             "datasource": "Loki",
-            "description": "Requests per origin per endpoint per $bucket, stacked",
+            "decimals": 2,
+            "description": "Response times per endpoint",
             "fieldConfig": {
-                "defaults": {},
+                "defaults": {
+                    "unit": "ms"
+                },
                 "overrides": []
             },
             "fill": 1,
@@ -1687,7 +1690,116 @@
                 "y": 55
             },
             "hiddenSeries": false,
-            "id": 49,
+            "id": 61,
+            "legend": {
+                "alignAsTable": true,
+                "avg": true,
+                "current": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "sideWidth": null,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "connected",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.7",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "expr": "avg by (original_url) (avg_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" | __error__!=\" SampleExtractionErr\" |= \"/api/v0\" | unwrap elapsed_ms | __error__!=\"SampleExtractionErr\" [$bucket]))",
+                    "legendFormat": "{{ original_url }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Response Times per Endpoint",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "transformations": [
+                {
+                    "id": "filterFieldsByName",
+                    "options": {
+                        "include": {
+                            "pattern": "^(?!original_url).*$"
+                        }
+                    }
+                }
+            ],
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:96",
+                    "decimals": 2,
+                    "format": "ms",
+                    "label": "ms",
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:97",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "Loki",
+            "description": "Requests per origin per endpoint per $bucket, stacked",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 63
+            },
+            "hiddenSeries": false,
+            "id": 58,
             "legend": {
                 "alignAsTable": true,
                 "avg": false,
@@ -1716,7 +1828,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "sum by (ip, base_url) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
+                    "expr": "sum by (ip, base_url) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket]))",
                     "legendFormat": "{{ ip }}, {{ base_url }}",
                     "refId": "A"
                 }
@@ -1736,7 +1848,7 @@
                     "id": "filterFieldsByName",
                     "options": {
                         "include": {
-                            "pattern": "^(?!ip, path).*$"
+                            "pattern": "^(?!ip, base_url).*$"
                         }
                     }
                 }
@@ -1791,10 +1903,10 @@
                 "h": 8,
                 "w": 24,
                 "x": 0,
-                "y": 63
+                "y": 71
             },
             "hiddenSeries": false,
-            "id": 51,
+            "id": 60,
             "legend": {
                 "alignAsTable": true,
                 "avg": true,
@@ -1825,7 +1937,7 @@
             "steppedLine": false,
             "targets": [
                 {
-                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"node-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
+                    "expr": "count by (Value) (sum by (ip) (count_over_time({app=\"gateway-public\", job=\"ceramic/http\"} | logfmt | __error__!=\"LogfmtParserErr\" [$bucket])))",
                     "legendFormat": "Unique origins / $bucket",
                     "refId": "A"
                 }
@@ -1960,7 +2072,7 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Node (Public)",
-    "uid": "dev-node-ex-o1Dp-kcGz",
-    "version": 19
+    "title": "Gateway",
+    "uid": "qa-gateway-o1Dp-kcGz",
+    "version": 3
 }

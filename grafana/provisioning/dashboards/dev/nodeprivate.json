@@ -15,8 +15,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 69,
-    "iteration": 1622143456040,
+    "id": 78,
+    "iteration": 1670565707683,
     "links": [],
     "panels": [
         {
@@ -126,7 +126,7 @@
                     "alias": "",
                     "dimensions": {
                         "AvailabilityZone": "*",
-                        "LoadBalancer": "app/ceramic-dev-node/1b3982f747048303",
+                        "LoadBalancer": "app/ceramic-dev-node/b075676df8322e21",
                         "TargetGroup": "*"
                     },
                     "expression": "",
@@ -404,7 +404,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "30m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
@@ -564,7 +564,7 @@
                     }
                 ],
                 "executionErrorState": "alerting",
-                "for": "5m",
+                "for": "30m",
                 "frequency": "2m",
                 "handler": 1,
                 "message": "",
@@ -1962,5 +1962,5 @@
     "timezone": "",
     "title": "Node (Private)",
     "uid": "dev-node-o1Dp-kcGz",
-    "version": 6389
+    "version": 5
 }

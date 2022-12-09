@@ -2,17 +2,22 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
+  aws-ecs: circleci/aws-ecs@2.0.0
 
 jobs:
   build-and-push:
     machine: # executor type
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:202201-02
     parameters:
+      container-name:
+        type: string
       dockerfile-path:
         type: string
       ecr-repo-suffix:
         type: string
       trigger-path:
+        type: string
+      task-def-suffix:
         type: string
     environment:
       REVISION_RANGE: << pipeline.git.base_revision >>..<< pipeline.git.revision >>
@@ -21,8 +26,14 @@ jobs:
       - run:
           name: "Set namespace"
           command: |
+            # this is still pretty weird and seems to depend on fix/ feat/ convention in branch names
             namespace=$(echo $CIRCLE_BRANCH | cut -d '/' -f 2)
             echo "export NAMESPACE=$namespace" >> $BASH_ENV
+            if [[ " dev qa tnet prod " == *"$namespace"* ]]; then 
+                echo "export CLUSTER=$namespace" >> $BASH_ENV
+            else 
+                echo "export CLUSTER=dev" >> $BASH_ENV
+            fi
       - run:
           name: "Check force build"
           command: |
@@ -47,9 +58,14 @@ jobs:
               echo "Skipping to force build."
             fi
       - aws-ecr/build-and-push-image:
-          repo: "ceramic-${NAMESPACE}-grafana-<< parameters.ecr-repo-suffix >>"
+          repo: "ceramic-${CLUSTER}-grafana-<< parameters.ecr-repo-suffix >>"
           path: << parameters.dockerfile-path >>
           tag: "${CIRCLE_SHA1},${NAMESPACE}"
+      - aws-ecs/update-service:
+          cluster-name: "ceramic-${CLUSTER}-grafana"
+          container-image-name-updates: "container=<< parameters.container-name >>,tag=${CIRCLE_SHA1}"
+          family: "ceramic-${CLUSTER}-grafana-<< parameters.task-def-suffix >>"
+ 
 
 workflows:
   build-and-push:
@@ -59,28 +75,40 @@ workflows:
           dockerfile-path: "agent/"
           ecr-repo-suffix: "agent"
           trigger-path: "agent/"
+          task-def-suffix: "agent"
+          container-name: "agent"
       - build-and-push:
           name: "build-and-push-alertmanager"
           dockerfile-path: "alertmanager/"
           ecr-repo-suffix: "alertmanager"
           trigger-path: "alertmanager/"
+          task-def-suffix: "loki_promtail"
+          container-name: "alertmanager"
       - build-and-push:
           name: "build-and-push-alertmanager-discord"
           dockerfile-path: "alertmanager-discord/"
           ecr-repo-suffix: "alertmanager-discord"
           trigger-path: "alertmanager-discord/"
+          task-def-suffix: "loki_promtail"
+          container-name: "alertmanager_discord"
       - build-and-push:
           name: "build-and-push-grafana"
           dockerfile-path: "grafana/"
           ecr-repo-suffix: "grafana"
           trigger-path: "grafana/"
+          task-def-suffix: "grafana"
+          container-name: "grafana"
       - build-and-push:
           name: "build-and-push-loki"
           dockerfile-path: "loki/"
           ecr-repo-suffix: "loki"
           trigger-path: "loki/"
+          task-def-suffix: "loki_promtail"
+          container-name: "loki"
       - build-and-push:
           name: "build-and-push-promtail"
           dockerfile-path: "promtail/"
           ecr-repo-suffix: "promtail"
           trigger-path: "promtail/"
+          task-def-suffix: "loki_promtail"
+          container-name: "promtail"
