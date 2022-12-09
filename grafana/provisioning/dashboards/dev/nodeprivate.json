@@ -16,7 +16,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": 78,
-    "iteration": 1670563137740,
+    "iteration": 1670565707683,
     "links": [],
     "panels": [
         {
@@ -1962,5 +1962,5 @@
     "timezone": "",
     "title": "Node (Private)",
     "uid": "dev-node-o1Dp-kcGz",
-    "version": 3
+    "version": 4
 }
