@@ -1,0 +1,1386 @@
+{
+    "meta": {
+        "type": "db",
+        "canSave": true,
+        "canEdit": true,
+        "canAdmin": true,
+        "canStar": true,
+        "slug": "product-insights-daily",
+        "url": "/d/94uYVKD4z/product-insights-daily",
+        "expires": "0001-01-01T00:00:00Z",
+        "created": "2022-11-07T07:03:32Z",
+        "updated": "2022-11-29T01:04:28Z",
+        "updatedBy": "3box",
+        "createdBy": "3box",
+        "version": 21,
+        "hasAcl": false,
+        "isFolder": false,
+        "folderId": 17,
+        "folderTitle": "Product",
+        "folderUrl": "/dashboards/f/nHWxziD4k/product",
+        "provisioned": false,
+        "provisionedExternalId": ""
+    },
+    "dashboard": {
+        "annotations": {
+            "list": [
+                {
+                    "builtIn": 1,
+                    "datasource": "-- Grafana --",
+                    "enable": true,
+                    "hide": true,
+                    "iconColor": "rgba(0, 211, 255, 1)",
+                    "name": "Annotations & Alerts",
+                    "type": "dashboard"
+                }
+            ]
+        },
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "id": 27,
+        "links": [],
+        "panels": [
+            {
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 0
+                },
+                "id": 2,
+                "options": {
+                    "displayLabels": [
+                        "name",
+                        "percent"
+                    ],
+                    "legend": {
+                        "displayMode": "list",
+                        "placement": "right",
+                        "values": [
+                            "percent"
+                        ]
+                    },
+                    "pieType": "pie",
+                    "reduceOptions": {
+                        "calcs": [
+                            "sum"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "text": {}
+                },
+                "pluginVersion": "7.5.7",
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "sum(rate(agent_version_sample10_total[5m])) without (job, exported_job, instance)",
+                        "format": "time_series",
+                        "instant": false,
+                        "interval": "",
+                        "legendFormat": "",
+                        "refId": "A"
+                    }
+                ],
+                "timeFrom": null,
+                "timeShift": null,
+                "title": "Version (sample of keepalives) This Week",
+                "transformations": [
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "^{version=\\\"(.*)\\\"}",
+                            "renamePattern": "$1"
+                        }
+                    }
+                ],
+                "type": "piechart"
+            },
+            {
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 0
+                },
+                "id": 3,
+                "options": {
+                    "displayLabels": [
+                        "name",
+                        "percent"
+                    ],
+                    "legend": {
+                        "displayMode": "list",
+                        "placement": "right",
+                        "values": [
+                            "percent"
+                        ]
+                    },
+                    "pieType": "pie",
+                    "reduceOptions": {
+                        "calcs": [
+                            "sum"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "text": {}
+                },
+                "pluginVersion": "7.5.7",
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "sum(rate(agent_version_sample10_total[5m] offset 7d)) without (job, exported_job, instance)",
+                        "format": "time_series",
+                        "instant": false,
+                        "interval": "",
+                        "legendFormat": "",
+                        "refId": "A"
+                    }
+                ],
+                "timeFrom": null,
+                "timeShift": null,
+                "title": "Version (sample of keepalives) Last Week",
+                "transformations": [
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "^{version=\\\"(.*)\\\"}",
+                            "renamePattern": "$1"
+                        }
+                    }
+                ],
+                "type": "piechart"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "description": "Pubsub QUERY counts by day, vs week prior",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 8
+                },
+                "hiddenSeries": false,
+                "id": 10,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [
+                    {
+                        "$$hashKey": "object:183"
+                    }
+                ],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(increase(agent_QUERY_total[1d] offset -1d) [1d:1d])",
+                        "interval": "",
+                        "legendFormat": "this week",
+                        "refId": "A"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(increase(agent_QUERY_total[1d] offset 6d) [1d:1d])\n",
+                        "interval": "",
+                        "legendFormat": "last week",
+                        "refId": "B"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "READS (Queries) by day",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "transformations": [],
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:78",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:79",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "description": "Pubsub UPDATE counts by day, vs week prior",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 8
+                },
+                "hiddenSeries": false,
+                "id": 14,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [
+                    {
+                        "$$hashKey": "object:183"
+                    }
+                ],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(increase(agent_UPDATE_total[1d] offset -1d) [1d:1d])",
+                        "interval": "",
+                        "legendFormat": "this week",
+                        "refId": "A"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(increase(agent_UPDATE_total[1d] offset 6d) [1d:1d])\n",
+                        "interval": "",
+                        "legendFormat": "last week",
+                        "refId": "B"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "WRITEs (Updates) by day",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "transformations": [],
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:78",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:79",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 0
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 12,
+                    "x": 0,
+                    "y": 16
+                },
+                "id": 13,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "text": {},
+                    "textMode": "auto"
+                },
+                "pluginVersion": "7.5.7",
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "increase(agent_QUERY_total[1w] offset 6d)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "last_week",
+                        "refId": "B"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "increase(agent_QUERY_total[1w] offset -1d)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "this_week",
+                        "refId": "A"
+                    }
+                ],
+                "timeFrom": null,
+                "timeShift": null,
+                "title": "READs : WoW % Growth ",
+                "transformations": [
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DIFF",
+                            "binary": {
+                                "left": "this_week",
+                                "operator": "-",
+                                "reducer": "sum",
+                                "right": "last_week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": false
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DELTA",
+                            "binary": {
+                                "left": "DIFF",
+                                "operator": "/",
+                                "reducer": "sum",
+                                "right": "last_week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "PERCENT_CHANGE",
+                            "binary": {
+                                "left": "DELTA",
+                                "operator": "*",
+                                "reducer": "sum",
+                                "right": "100.0"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    }
+                ],
+                "type": "stat"
+            },
+            {
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "decimals": 1,
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 0
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 12,
+                    "x": 12,
+                    "y": 16
+                },
+                "id": 16,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "text": {},
+                    "textMode": "auto"
+                },
+                "pluginVersion": "7.5.7",
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "increase(agent_UPDATE_total[1w] offset 6d)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "last_week",
+                        "refId": "B"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "increase(agent_UPDATE_total[1w] offset -1d)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "this_week",
+                        "refId": "A"
+                    }
+                ],
+                "timeFrom": null,
+                "timeShift": null,
+                "title": "WRITESs : WoW % Growth ",
+                "transformations": [
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DIFF",
+                            "binary": {
+                                "left": "this_week",
+                                "operator": "-",
+                                "reducer": "sum",
+                                "right": "last_week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": false
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DELTA",
+                            "binary": {
+                                "left": "DIFF",
+                                "operator": "/",
+                                "reducer": "sum",
+                                "right": "last_week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "PERCENT_CHANGE",
+                            "binary": {
+                                "left": "DELTA",
+                                "operator": "*",
+                                "reducer": "sum",
+                                "right": "100.0"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    }
+                ],
+                "type": "stat"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 18
+                },
+                "hiddenSeries": false,
+                "id": 18,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(increase(default_cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset -1d) [1d:1d])",
+                        "interval": "",
+                        "legendFormat": "this week",
+                        "refId": "A"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(increase(default_cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset 6d) [1d:1d])",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "last week",
+                        "refId": "B"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset -1d) [1d:1d])",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "this-week-new-format",
+                        "refId": "C"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "CAS Anchor Requests Accepted",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:270",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:271",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "description": "Unique Node (peer id) counts by day, vs week prior",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 18
+                },
+                "hiddenSeries": false,
+                "id": 9,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [
+                    {
+                        "$$hashKey": "object:183"
+                    }
+                ],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(sum(increase(agent_peer_id_uniq_mo_total[1d] offset -1d)) without (job, instance) [1d:1d])",
+                        "interval": "",
+                        "legendFormat": "this week",
+                        "refId": "A"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(sum(increase(agent_peer_id_uniq_mo_total[1d] offset 6d)) without (job, instance) [1d:1d])",
+                        "interval": "",
+                        "legendFormat": "last week",
+                        "refId": "B"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Nodes (peer ids) - Daily Unique",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:78",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:79",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 0
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 12,
+                    "x": 0,
+                    "y": 26
+                },
+                "id": 20,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "text": {},
+                    "textMode": "auto"
+                },
+                "pluginVersion": "7.5.7",
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "increase(default_cas_anchor_accepted_requests{exported_job='cas-anchor'}[1w] offset 6d)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "last week",
+                        "refId": "B"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "increase(default_cas_anchor_accepted_requests{exported_job='cas-anchor'}[1w] offset -1d)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "this week",
+                        "refId": "A"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1w] offset -1d)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "this-week-new-format",
+                        "refId": "C"
+                    }
+                ],
+                "timeFrom": null,
+                "timeShift": null,
+                "title": "Anchor Requests : WoW % Growth  - valid after 11/15",
+                "transformations": [
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DIFF1",
+                            "binary": {
+                                "left": "this week",
+                                "operator": "-",
+                                "reducer": "sum",
+                                "right": "last week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": false
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DIFF",
+                            "binary": {
+                                "left": "DIFF1",
+                                "operator": "+",
+                                "reducer": "sum",
+                                "right": "this-week-new-format"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            }
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DELTA",
+                            "binary": {
+                                "left": "DIFF",
+                                "operator": "/",
+                                "reducer": "sum",
+                                "right": "last week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "PERCENT_CHANGE",
+                            "binary": {
+                                "left": "DELTA",
+                                "operator": "*",
+                                "reducer": "sum",
+                                "right": "100.0"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    }
+                ],
+                "type": "stat"
+            },
+            {
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 0
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 12,
+                    "x": 12,
+                    "y": 26
+                },
+                "id": 12,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "text": {},
+                    "textMode": "auto"
+                },
+                "pluginVersion": "7.5.7",
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "sum(increase(agent_peer_id_uniq_mo_total[1w] offset 6d)) without (job, instance)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "last week",
+                        "refId": "B"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "sum(increase(agent_peer_id_uniq_mo_total[1w]offset -1d)) without (job, instance)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "this week",
+                        "refId": "A"
+                    }
+                ],
+                "timeFrom": null,
+                "timeShift": null,
+                "title": "Nodes : WoW % Growth ",
+                "transformations": [
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DIFF",
+                            "binary": {
+                                "left": "this week",
+                                "operator": "-",
+                                "reducer": "sum",
+                                "right": "last week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": false
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DELTA",
+                            "binary": {
+                                "left": "DIFF",
+                                "operator": "/",
+                                "reducer": "sum",
+                                "right": "last week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "PERCENT_CHANGE",
+                            "binary": {
+                                "left": "DELTA",
+                                "operator": "*",
+                                "reducer": "sum",
+                                "right": "100.0"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    }
+                ],
+                "type": "stat"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "description": "Pubsub messages per second for Queries (reads), Responses (answers), and Updates (writes)",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 28
+                },
+                "hiddenSeries": false,
+                "id": 5,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "sum(rate(agent_QUERY_total[5m])) without (job, instance)",
+                        "interval": "",
+                        "legendFormat": "QUERY",
+                        "refId": "A"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "sum(rate(agent_RESPONSE_total[5m])) without (job, instance)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "RESPONSE",
+                        "refId": "B"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "sum(rate(agent_UPDATE_total[5m])) without (job, instance)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "UPDATE",
+                        "refId": "C"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "All Pubsub Activity",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:661",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:662",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "description": "Stream type counts",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 28
+                },
+                "hiddenSeries": false,
+                "id": 7,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "sum by (type) (rate(agent_stream_total[5m]))",
+                        "interval": "",
+                        "legendFormat": "",
+                        "refId": "A"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Streams by Type",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:1178",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:1179",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            }
+        ],
+        "schemaVersion": 27,
+        "style": "dark",
+        "tags": [
+            "product"
+        ],
+        "templating": {
+            "list": []
+        },
+        "time": {
+            "from": "now-7d",
+            "to": "now"
+        },
+        "timepicker": {},
+        "timezone": "",
+        "title": "Product Insights - Daily",
+        "uid": "94uYVKD4z",
+        "version": 21
+    }
+}
