@@ -9,10 +9,10 @@
         "url": "/d/Tqcpk_H4k/cas-errors-and-warnings",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-31T15:04:27Z",
-        "updated": "2022-12-15T06:00:30Z",
+        "updated": "2022-12-16T22:20:12Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 23,
+        "version": 25,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 31,
@@ -274,7 +274,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "increase(cas_anchor_failed_requests[366m])/increase(cas_anchor_anchor_success[366m]) ",
+                        "expr": "sum_over_time(cas_anchor_anchorBatch_failedRequestsCount_sum [366m])/sum_over_time(cas_anchor_anchorBatch_anchoredRequestsCount_sum [366m])",
                         "interval": "",
                         "legendFormat": "Failure/Success Ratio over trailing 6 hrs",
                         "refId": "A"
@@ -963,6 +963,100 @@
                     "align": false,
                     "alignLevel": null
                 }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 33
+                },
+                "hiddenSeries": false,
+                "id": 23,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "cas_anchor_anchorBatch_failureRatio_sum",
+                        "interval": "",
+                        "legendFormat": "",
+                        "refId": "A"
+                    }
+                ],
+                "thresholds": [],
+                "timeRegions": [],
+                "title": "Failure/success ratio of individual batches",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:607",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:608",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
             }
         ],
         "schemaVersion": 27,
@@ -979,6 +1073,6 @@
         "timezone": "",
         "title": "CAS errors and warnings",
         "uid": "Tqcpk_H4k",
-        "version": 23
+        "version": 25
     }
 }
