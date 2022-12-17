@@ -393,8 +393,14 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
     const day_key = label + ':D:' + key
     const mo_key = label + ':' + key
 
+    // TODO replace this and all "EVER" notes with dynamodb for cumulative "ever" entries
+    const ever_key = label + ':V:' + key
+
     const seen_today = await get_or_zero(day_key)
     const seen_month = await get_or_zero(mo_key)
+
+    // EVER 
+    const seen_ever = await get_or_zero(ever_key)
 
     // may want to do this or just use the topk in promql based on uniques
     // generally they are interested in uniques so may not need to do this
@@ -412,6 +418,12 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
     if (! seen_month) {
         Metrics.count(label + '_uniq_mo', 1, count_params) // for monthly uniq counts
         await db.put(mo_key, 1, {ttl: MO_TTL})
+    }
+
+    // EVER
+    if (! seen_ever) {
+        Metrics.count(label + '_uniq_ever', 1, count_params) // for monthly uniq counts
+        await db.put(ever_key, 1)
     }
 
     if (track_histogram) {
