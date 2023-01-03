@@ -10,11 +10,13 @@ import re
 ENV = 'dev'
 TMAP = {
     'controller': 'ceramic-{}-grafana-did'.format(ENV),
-    'stream': 'ceramic-{}-grafana-stream'.format(ENV)
+    'stream': 'ceramic-{}-grafana-stream'.format(ENV),
+    'model': 'ceramic-{}-grafana-model'.format(ENV)
 }
 KMAP = {
     'controller': 'did',
-    'stream': 'cid'
+    'stream': 'cid',
+    'model': 'mid'
 }
 
 db = leveldb.LevelDB('/Users/gv/bdata/tmp-stats', create_if_missing=False)
