@@ -7,7 +7,7 @@ from warnings import warn
 # AWS_SECRET_ACCESS_KEY
 
 # tables: ceramic-dev-grafana-stream [model, did]
-ENV = 'dev'
+ENV = 'prod'
 TMAP = {
     'controller': 'ceramic-{}-grafana-did'.format(ENV),
     'stream': 'ceramic-{}-grafana-stream'.format(ENV),
@@ -24,8 +24,8 @@ KMAP = {
 DATA_FILES = {
   'dev': '/Users/gv/bdata/dev-jan-2',
   'tnet': '/Users/gv/bdata/tnet-jan-2',
-  'prod': '/Users/gv/bdata/prod-dec-21', # needed to go back > 1 mo
-  # 'prod': '/Users/gv/bdata/prod-jan-2'
+  # 'prod': '/Users/gv/bdata/prod-dec-21', # needed to go back > 1 mo
+  'prod': '/Users/gv/bdata/prod-jan-2'
 }
 
 data_file = DATA_FILES[ENV]
@@ -43,10 +43,12 @@ for key, val in list(db.RangeIter(key_from = None, key_to = None)):
    eid = re.sub('^[DM]:','',eid)
    etype = re.sub('^!ttl!','', etype)
    etype = re.sub('^x![0-9]+!','', etype)
+   if etype in ('peer_id'):
+       continue
    try:
        table = TMAP[etype]
    except:
-       warn("UNKNOWN TYPE: {}".format(type))
+       warn("UNKNOWN TYPE: {}".format(etype))
        continue
    item_key = KMAP[etype]
    print("{},{},{}".format(table, item_key, eid))
