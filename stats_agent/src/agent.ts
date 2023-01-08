@@ -33,7 +33,7 @@ Metrics.start(COLLECTOR_HOST, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 2})
 
 const DAY_TTL = 86400 * 1000
-const MO_TTL = 30 * DAY_TTL * 1000
+const MO_TTL = 30 * DAY_TTL
 
 const OPERATIONS = {
     0: 'UPDATE',
