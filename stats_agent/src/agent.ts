@@ -5,6 +5,7 @@ import lru from 'lru_map'
 import * as dagJose from 'dag-jose'
 import debug from 'debug'
 //import { bisectLeft } from 'd3-array'
+import { DynamoDBClient, PutItemCommand, BatchWriteItemCommand } from "@aws-sdk/client-dynamodb"
 
 import { CID } from 'multiformats/cid'
 import { ServiceMetrics as Metrics } from '@ceramicnetwork/observability'
@@ -32,7 +33,7 @@ log.log = console.log.bind(console)
 Metrics.start(COLLECTOR_HOST, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 2})
 
-const DAY_TTL = 86400
+const DAY_TTL = 86400 * 1000
 const MO_TTL = 30 * DAY_TTL
 
 const OPERATIONS = {
@@ -54,15 +55,25 @@ enum LABELS {
     version = 'version_sample10'  // we are sampling version at 10% for now
 }
 
+const DYN_TABLES = {
+    LABELS.stream: (`ceramic-${env}-grafana-stream`, 'cid'),
+    LABELS.controller: (`ceramic-${env}-grafana-did`, 'did'),
+    LABELS.model: (`ceramic-${env}-grafana-model`, 'mid')
+}
+const FIRST_SEEN = 'first_seen'
+
 let ipfs
 let db
 let keepalive
+let cli
 
 let sample_base = 1
 let IPFS_CACHE_SIZE = 1024
 let IPFS_BASE_TIMEOUT = 4096  // set on create
 let IPFS_DAG_GET_TIMEOUT = 4096  // on dag.get
 let IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
+
+let REGION = process.env.AWS_REGION || 'us-east2'
 
 if (IPFS_PUBSUB_TOPIC == '/ceramic/mainnet') {
     sample_base = 1000
@@ -93,6 +104,8 @@ async function main() {
     console.log("Setting up keepalive")
     keepalive = new PubsubKeepalive(ipfs.pubsub, MAX_PUBSUB_PUBLISH_INTERVAL, MAX_INTERVAL_WITHOUT_KEEPALIVE)
 
+    console.log("Connecting to AWS")
+    cli = newDynamoDBClient({region: REGION})
     //initTopTens()
     console.log('Ready')
 }
@@ -412,6 +425,21 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
     if (! seen_month) {
         Metrics.count(label + '_uniq_mo', 1, count_params) // for monthly uniq counts
         await db.put(mo_key, 1, {ttl: MO_TTL})
+
+        // also add to cumulative overall metrics
+        if (label in DYN_TABLES) {
+           let (dyn_table, dyn_key) = DYN_TABLES[label]
+           let put_data = {
+              TableName: dyn_table,
+              Item: {
+                 dyn_key: key,
+                 FIRST_SEEN: new Date().toISOString()
+              },
+              ConditionExpression: `attribute_not_exists(${dyn_key})`
+           }
+           // may need to change this to batchwriteitems as volume goes up
+           await cli.putItem(put_data).promise()
+        }
     }
 
     if (track_histogram) {
