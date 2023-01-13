@@ -20,6 +20,7 @@ const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 
 const COLLECTOR_HOST = process.env.COLLECTOR_HOST || ''
+const ENV = process.env.ENV
 
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
 const MAX_INTERVAL_WITHOUT_KEEPALIVE = 24 * 60 * 60 * 1000 // one day
@@ -56,9 +57,15 @@ enum LABELS {
 }
 
 const DYN_TABLES = {
-    LABELS.stream: (`ceramic-${env}-grafana-stream`, 'cid'),
-    LABELS.controller: (`ceramic-${env}-grafana-did`, 'did'),
-    LABELS.model: (`ceramic-${env}-grafana-model`, 'mid')
+    [LABELS.stream] : `ceramic-${ENV}-grafana-stream`,
+    [LABELS.controller] : `ceramic-${ENV}-grafana-did`,
+    [LABELS.model] : `ceramic-${ENV}-grafana-model`
+}
+
+const DYN_KEYS = {
+    [LABELS.stream] : 'cid',
+    [LABELS.controller] : 'did',
+    [LABELS.model] : 'mid'
 }
 const FIRST_SEEN = 'first_seen'
 
@@ -105,7 +112,7 @@ async function main() {
     keepalive = new PubsubKeepalive(ipfs.pubsub, MAX_PUBSUB_PUBLISH_INTERVAL, MAX_INTERVAL_WITHOUT_KEEPALIVE)
 
     console.log("Connecting to AWS")
-    cli = newDynamoDBClient({region: REGION})
+    cli = new DynamoDBClient({region: REGION})
     //initTopTens()
     console.log('Ready')
 }
@@ -428,7 +435,8 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
 
         // also add to cumulative overall metrics
         if (label in DYN_TABLES) {
-           let (dyn_table, dyn_key) = DYN_TABLES[label]
+           let dyn_table = DYN_TABLES[label]
+           let dyn_key = DYN_KEYS[label]
            let put_data = {
               TableName: dyn_table,
               Item: {
