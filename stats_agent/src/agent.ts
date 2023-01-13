@@ -5,7 +5,7 @@ import lru from 'lru_map'
 import * as dagJose from 'dag-jose'
 import debug from 'debug'
 //import { bisectLeft } from 'd3-array'
-import { DynamoDBClient, PutItemCommand, BatchWriteItemCommand } from "@aws-sdk/client-dynamodb"
+import { DynamoDBClient, PutItemCommand, DescribeTableCommand, BatchWriteItemCommand } from "@aws-sdk/client-dynamodb"
 
 import { CID } from 'multiformats/cid'
 import { ServiceMetrics as Metrics } from '@ceramicnetwork/observability'
@@ -36,6 +36,9 @@ Metrics.count('HELLO', 1, {'test_version': 2})
 
 const DAY_TTL = 86400 * 1000
 const MO_TTL = 30 * DAY_TTL
+
+const DYN_UPDATE_INTERVAL = 3600 * 6 * 1000 // 6 hours
+let dyn_last_described
 
 const OPERATIONS = {
     0: 'UPDATE',
@@ -113,6 +116,8 @@ async function main() {
 
     console.log("Connecting to AWS")
     cli = new DynamoDBClient({region: REGION})
+
+    await recordCumulativeMetrics()
     //initTopTens()
     console.log('Ready')
 }
@@ -134,6 +139,24 @@ async function createIpfs(url) {
       console.log(`Error starting IPFS client - is IPFS running on ${IPFS_API_URL}?`)
       throw(err)
     }
+}
+
+async function recordCumulativeMetrics() {
+    // if we already recorded them recently, skip
+    if (dyn_last_described && (Date.now() - dyn_last_described < DYN_UPDATE_INTERVAL)) {
+        return
+    }
+    for (let [label, table] of Object.entries(DYN_TABLES)) {
+        let cmd = new DescribeTableCommand({TableName: table})
+        let response = await cli.send(cmd)
+        console.log(response)
+        try {
+           Metrics.observe(`${label}_cum_uniq`, response.Table.ItemCount)
+        } catch (e) {
+           console.log(`Error retrieving dynamodb counts: ${e.message}`)
+        }
+    }
+    dyn_last_described = Date.now()
 }
 
 async function handleMessage(message) {
@@ -449,6 +472,8 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
            try {
              let cmd = new PutItemCommand(put_data)
              await cli.send(cmd)
+             // recordCumulativeMetrics will only act if interval has elapsed
+             await recordCumulativeMetrics()
            } catch (e) {
              console.log('Error logging to dynamodb: ' + e.message)
            }
