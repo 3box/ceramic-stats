@@ -4,5 +4,5 @@
 for x in `cat queries.txt queries1.txt | perl -n -e '/queryId": "([^"]+)"/ && print "$1\n"'`
 do
    echo $x
-   aws logs get-query-results --query-id $x | perl -n -e '/ts=(\S{10}).*streamid=(\S+)/ && print "$2,$1\n"' | sort | uniq >> streams.txt
+   aws logs get-query-results --query-id $x | perl -n -e '/ts=(\S{10}).*streamid=(\S+)/ && print "$2,$1\n"' >> streams-with-dates.txt
 done

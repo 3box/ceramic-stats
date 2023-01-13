@@ -440,13 +440,18 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
            let put_data = {
               TableName: dyn_table,
               Item: {
-                 dyn_key: key,
-                 FIRST_SEEN: new Date().toISOString()
+                 [dyn_key]: {'S':key},
+                 [FIRST_SEEN]: {'S': new Date().toISOString()}
               },
               ConditionExpression: `attribute_not_exists(${dyn_key})`
            }
            // may need to change this to batchwriteitems as volume goes up
-           await cli.putItem(put_data).promise()
+           try {
+             let cmd = new PutItemCommand(put_data)
+             await cli.send(cmd)
+           } catch (e) {
+             console.log('Error logging to dynamodb: ' + e.message)
+           }
         }
     }
 
