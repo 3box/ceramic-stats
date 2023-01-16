@@ -21,6 +21,7 @@ const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstabl
 
 const COLLECTOR_HOST = process.env.COLLECTOR_HOST || ''
 const ENV = process.env.ENV
+console.log(`env is ${ENV}`)
 
 const MAX_PUBSUB_PUBLISH_INTERVAL = 60 * 1000 // one minute
 const MAX_INTERVAL_WITHOUT_KEEPALIVE = 24 * 60 * 60 * 1000 // one day
@@ -148,7 +149,12 @@ async function recordCumulativeMetrics() {
     }
     for (let [label, table] of Object.entries(DYN_TABLES)) {
         let cmd = new DescribeTableCommand({TableName: table})
-        let response = await cli.send(cmd)
+        try {
+           let response = await cli.send(cmd)
+        } catch (e) {
+           console.log(`Error running Describe Table on ${table}: ${e.message}`)
+           return
+        }
         console.log(response)
         try {
            Metrics.observe(`${label}_cum_uniq`, response.Table.ItemCount)
