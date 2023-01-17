@@ -149,15 +149,16 @@ async function recordCumulativeMetrics() {
     }
     for (let [label, table] of Object.entries(DYN_TABLES)) {
         let cmd = new DescribeTableCommand({TableName: table})
+        let response
         try {
-           let response = await cli.send(cmd)
+           response = await cli.send(cmd)
+           console.log(response)
         } catch (e) {
            console.log(`Error running Describe Table on ${table}: ${e.message}`)
            return
         }
-        console.log(response)
         try {
-           Metrics.observe(`${label}_cum_uniq`, response.Table.ItemCount)
+           Metrics.record(`${label}_cum_uniq`, response.Table.ItemCount)
         } catch (e) {
            console.log(`Error retrieving dynamodb counts: ${e.message}`)
         }
