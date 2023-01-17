@@ -152,7 +152,6 @@ async function recordCumulativeMetrics() {
         let response
         try {
            response = await cli.send(cmd)
-           console.log(response)
         } catch (e) {
            console.log(`Error running Describe Table on ${table}: ${e.message}`)
            return
