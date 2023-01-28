@@ -1,6 +1,6 @@
 # Ceramic Stats
 
-> Metrics are gathered from direct instrumentation via OTLP, AWS custom metrics and Loki/Promtail log analyzers
+> Metrics are gathered from direct instrumentation via OTLP, from AWS custom metrics and Loki/Promtail log analyzers
 
 ## Dashboards
 
