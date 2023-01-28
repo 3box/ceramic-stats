@@ -17,25 +17,31 @@ _(in the future we may have a libp2p based solution that can work outside our VP
 
 ### Naming Conventions
 
-Metrics are named according to the pattern `[service]_[mode]_[label]_[?suffix]`
+Metrics are named according to the pattern `[service]_[mode]_[label]_[?suffix]`.  Some examples:
 
-For example, `cas_server_pin_failed` is a count of `pin_failed` occurances in CAS Server
+| Metric Label | Interpretation |
+| ----------- | ----------- |
+| `cas_server_pin_failed`     | Count of "pin_failed" occurances in CAS server       |
+| `cas_anchor_anchor_success`  | Count of "anchor_success" occurances in CAS anchor workers        |
+| `js_ceramic_stream_pinned_total`  | Count of "stream_pinned" occurances in Ceramic nodes (on 3box VPC)        |
+| `js_ceramic_stream_pinned_total`  | Count of "stream_pinned" occurances in Ceramic nodes (on 3box VPC)        |
+| `agent_model_cum_uniq_sum`  | Running sum of measurements of the "model_cum_uniq" metric, or the number of unique models seen        |
+| `agent_model_cum_uniq_count`  | Running count of measurements of the "model_cum_uniq" metric, or the number of unique models seen        |
 
-`cas_anchor_anchor_success` is a count of `anchor_success` occurences in CAS anchor workers
+Simple count metrics may have no suffix, or may have _total suffix.  Histogram metrics will generally have _sum, _count and _bucket suffixes.  For histograms, to have a meaningful value of the metric you will generally divide *_sum/*_count. 
 
-`js_ceramic_stream_pinned_total` is a count of `stream_pinned` occurences in Ceramic nodes (on 3box VPC)
+In grafana you may use the PromQL syntax to group, sum, observe rate or increase, or otherwise manipulate the raw metric values to derive meaningful values.  These may be further used to set alerts directly in Grafana. 
 
-Simple count metrics may have no suffix, or may have _total suffix.  Histogram metrics will generally have _sum, _count and _bucket suffixes.
+You may explore existing metrics directly on the prometheus endpoints
 
-`agent_model_cum_uniq_sum` is a running sum of measurements of the `model_cum_uniq` count from stats agent.  It should be divided by `agent_model_cum_uniq_count` in order to have a meaningful value, which is the running observed number of unique models counted in dynamodb.
-
-You may explore existing metrics directly on the prometheus endpoints:
-
-    - [Prometheus Clay](ceramic-tnet-grafana-prometheus-1025868463.us-east-2.elb.amazonaws.com/graph)
-    - [Prometheus Dev](ceramic-dev-grafana-prometheus-1015087063.us-east-2.elb.amazonaws.com/graph)
-    - [Prometheus Prod](ceramic-prod-grafana-prometheus-356470995.us-east-2.elb.amazonaws.com/graph)
+    - [Prometheus Clay](https://ceramic-tnet-grafana-prometheus-1025868463.us-east-2.elb.amazonaws.com/graph)
+    - [Prometheus Dev](https://ceramic-dev-grafana-prometheus-1015087063.us-east-2.elb.amazonaws.com/graph)
+    - [Prometheus Prod](https://ceramic-prod-grafana-prometheus-356470995.us-east-2.elb.amazonaws.com/graph)
 
 Or examine them from the Sandbox dashboard
+
+<img width="473" alt="image" src="https://user-images.githubusercontent.com/798887/215292683-59f7436a-3c92-4251-9e8d-be6260f9e335.png">
+
     
 ### Instrumenting a Project   
     
@@ -53,7 +59,7 @@ to the file if it is not already present, define your metric names as constants 
 
 `Metrics.count(YOUR_METRIC_LABEL, 1)`
 
-to count occurances of a thing.  After deployment, you can find the corresponding metric in grafana under `js_ceramic_YOUR_METRIC_LABEL`.  If you wish to include additional dimensions, you can freely invent useful dimensions such as return status etc.  These will be available to you for grouping in PromQL when creating a chart in grafana.
+to count occurances of a thing.  After deployment, you can find the corresponding metric in grafana under **js_ceramic_YOUR_METRIC_LABEL**.  If you wish to include additional dimensions, you can freely invent useful dimensions such as return status etc.  These will be available to you for grouping in PromQL when creating a chart in grafana.
 
 `Metrics.count(YOUR_METRIC_LABEL, 1, {'outcome': 'good'}`
 
@@ -63,16 +69,42 @@ Just be careful, that the cardinality of your dimensions is not too high - do no
 
 To avoid duplication, please add your CAS metric labels to the [settings](https://github.com/ceramicnetwork/ceramic-anchor-service/blob/develop/src/settings.ts) file in the enum **METRIC_NAMES**
 
-Then in your code, import METRIC_NAMES along with observability, and record metrics like so:
+Then in your code, import **METRIC_NAMES** along with observability, and record metrics like so:
 
 `Metrics.count(METRIC_NAMES.SCHEDULER_TASK_UNCAUGHT_ERROR, 1)`
 
 For processes that require simple timing,  you can use the `TimeableMetric` construction.  For more advanced tracing, we should implement the trace capability, which is currently still tbd.
 
+### Viewing your new Metric
+
+_In order to edit the Grafana dashboards, you will need to retrieve the login credentials from 1Password.  If you do not have access to any credentials for "grafana" please ask your manager_
+
+Each deployment of Grafana has a **Sandbox** area where you can create a new panel to inspect your metrics.  Use 'Prometheus' as the data source and find your metric from the dropdown menu.  
+
+Generally, most count type metrics will use a rate() function to display.  See [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) syntax for how to create queries, or examine the existing panels.  Note due to some javascript flukes in grafana, it is usually necessary to compose your query separately and replace the dashboard query in one go, rather than trying to edit it within the dashboard.  Trying to edit locally often results in an error such as
+
+<img width="330" alt="image" src="https://user-images.githubusercontent.com/798887/215293018-c8937279-14ae-451a-98c2-2bdf38772e52.png">
+
+whereas the same metric pasted all at once, may work fine.
+
+Once you have the panel behaving in the desired way, please add to one of the main Grafana dashboards, or create your own.  When creating a new dashboard it should go into one of the following folders:  Adoption, Performance, Product, or General
+
+<img width="214" alt="image" src="https://user-images.githubusercontent.com/798887/215293089-31e3ed7d-7318-4a50-98bb-8b59d00e66e0.png">
+
+### Creating an Alert
+
+You may add an alert on any query, using the "Alert" tab.
+
+<img width="914" alt="image" src="https://user-images.githubusercontent.com/798887/215293165-38d78881-3899-493e-94b0-45ea87a471e3.png">
+
+Try to pick a threshold that will not create excessive false positives.  The "No data" handling should be set to "Keep last state" to avoid sending excessive alerts when no data is generated or available for network or other reasons.  (we can have one specific alert about connectivity, but we don't need all the alerts firing).
+
+[List of Production alerts](https://ceramic-stats.3boxlabs.com/alerting/list)
+___
 
 ## About Loki/Promtail
 
-This package is designed to visualize log-derived data in Grafana. Promtail pulls and labels Ceramic logs then pushes them to Loki, a log aggregation system built for Grafana.
+This package is designed to visualize log-derived data in Grafana. Promtail pulls and labels Ceramic logs then pushes them to Loki, a log aggregation system built for Grafana. Several existing metrics are produced in this way.  New metrics should be added via direct instrumentation if possible.
 
 ![diagram](diagram.png?raw=true "Diagram")
 
