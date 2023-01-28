@@ -10,10 +10,10 @@
 
 ## Instrumentation with OTLP 
 
-This pattern will work for any node deployed in the 3box VPC, as it sends data to the Collector.
+This pattern will work for any node deployed in the 3box VPC.
 _(in the future we may have a libp2p based solution that can work outside our VPC...but not yet)_
 
-![Collector-to-Prometheus Architecture](https://user-images.githubusercontent.com/798887/215292054-8ed7a8df-c381-4fbc-87fd-48e73bf0c260.png)
+![Collector-to-Prometheus Architecture](https://user-images.githubusercontent.com/798887/215293845-92b10377-0115-49ff-bc07-82ee42b4736e.png)
 
 ### Naming Conventions
 
@@ -45,7 +45,7 @@ Or examine them from the Sandbox dashboard
     
 ### Instrumenting a Project   
     
-To add metrics a new project, install the [@ceramicnetwork/observability](https://www.npmjs.com/package/@ceramicnetwork/observability) package.  You will specify the service name when you call `start` to start the metrics collection.  Note that the collector host must also be passed as a parameter and must be reachable from your new deployment on the VPC.  Search for COLLECTOR_HOST in the [ceramic-infra](https://github.com/3box/ceramic-infra) repo to see examples of how this is set.
+To add metrics a new project, install the [@ceramicnetwork/observability](https://www.npmjs.com/package/@ceramicnetwork/observability) package ([repo](https://github.com/ceramicnetwork/observability)).  You will specify the service name when you call `start` to start the metrics collection.  Note that the collector host must also be passed as a parameter and must be reachable from your new deployment on the VPC.  Search for COLLECTOR_HOST in the [ceramic-infra](https://github.com/3box/ceramic-infra) repo to see examples of how this is set.
 
 In most cases, however, your project will already have the observability package included, and all you will need to do is to use it.
 
