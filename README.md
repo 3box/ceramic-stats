@@ -23,10 +23,10 @@ Metrics are named according to the pattern `[service]_[mode]_[label]_[?suffix]`.
 
 | Metric Label | Interpretation |
 | ----------- | ----------- |
-| `cas_server_pin_failed`     | Count of "pin_failed" occurances in CAS server       |
-| `cas_anchor_anchor_success`  | Count of "anchor_success" occurances in CAS anchor workers        |
-| `js_ceramic_stream_pinned_total`  | Count of "stream_pinned" occurances in Ceramic nodes (on 3box VPC)        |
-| `js_ceramic_stream_pinned_total`  | Count of "stream_pinned" occurances in Ceramic nodes (on 3box VPC)        |
+| `cas_server_pin_failed`     | Count of "pin_failed" occurrences in CAS server       |
+| `cas_anchor_anchor_success`  | Count of "anchor_success" occurrences in CAS anchor workers        |
+| `js_ceramic_stream_pinned_total`  | Count of "stream_pinned" occurrences in Ceramic nodes (on 3box VPC)        |
+| `js_ceramic_stream_pinned_total`  | Count of "stream_pinned" occurrences in Ceramic nodes (on 3box VPC)        |
 | `agent_model_cum_uniq_sum`  | Running sum of measurements of the "model_cum_uniq" metric, or the number of unique models seen        |
 | `agent_model_cum_uniq_count`  | Running count of measurements of the "model_cum_uniq" metric, or the number of unique models seen        |
 
