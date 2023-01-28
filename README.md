@@ -13,7 +13,7 @@
 This pattern will work for any node deployed in the 3box VPC.
 _(in the future we may have a libp2p based solution that can work outside our VPC...but not yet)_
 
-![Collector-to-Prometheus Architecture](https://user-images.githubusercontent.com/798887/215293906-b49021b8-53c8-4cce-8342-f0b23dca2d69.png)
+![Collector-to-Prometheus Architecture](https://user-images.githubusercontent.com/798887/215293989-7a63a8e9-10e3-4223-bc11-67d13abe0a3f.png)
 
 The Collector architecture was settled on because of the need to support ephemeral workers that cannot be scraped.
 
