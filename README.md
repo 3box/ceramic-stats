@@ -81,9 +81,14 @@ For processes that require simple timing,  you can use the `TimeableMetric` cons
 
 _In order to edit the Grafana dashboards, you will need to retrieve the login credentials from 1Password.  If you do not have access to any credentials for "grafana" please ask your manager_
 
+Between PromQL, Grafana transformations and display options, it is possible to achieve customized views, such as the following:
+
+![image](https://user-images.githubusercontent.com/798887/215294186-db28b567-d31a-49af-aa40-a8832a28ecf0.png)![image](https://user-images.githubusercontent.com/798887/215294193-f51f2f4b-b599-4166-b615-7ad48576635d.png)
+
+
 Each deployment of Grafana has a **Sandbox** area where you can create a new panel to inspect your metrics.  Use 'Prometheus' as the data source and find your metric from the dropdown menu.  
 
-Generally, most count type metrics will use a rate() function to display.  See [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) syntax for how to create queries, or examine the existing panels.  Note due to some javascript flukes in grafana, it is usually necessary to compose your query separately and replace the dashboard query in one go, rather than trying to edit it within the dashboard.  Trying to edit locally often results in an error such as
+Generally, most count type metrics will use a rate() function to display.  See [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) syntax for how to create queries, or examine the existing panels using the 'Edit' dropdown.  Note due to some javascript flukes in grafana, it is usually necessary to compose your query separately and replace the dashboard query in one go, rather than trying to edit it within the dashboard.  Trying to edit locally often results in an error such as
 
 <img width="330" alt="image" src="https://user-images.githubusercontent.com/798887/215293018-c8937279-14ae-451a-98c2-2bdf38772e52.png">
 
