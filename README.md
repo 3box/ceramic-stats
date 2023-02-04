@@ -98,6 +98,8 @@ Once you have the panel behaving in the desired way, please add to one of the ma
 
 <img width="214" alt="image" src="https://user-images.githubusercontent.com/798887/215293089-31e3ed7d-7318-4a50-98bb-8b59d00e66e0.png">
 
+If you would like your new dashboard to be checked into git and propagated from prod -> clay, qa and dev, add it to the appropriate section of https://github.com/3box/ceramic-stats/blob/dev/grafana/src/push-boards.py and run this script with the Grafana API key in your environment. This way we can tweak the dashboards freely using grafana and check them in after being satisfied with the result.  Note that the prometheus driven dashboards are not provisioned (so are not overwritten on deploy).
+
 ### Creating an Alert
 
 You may add an alert on any query, using the "Alert" tab.
