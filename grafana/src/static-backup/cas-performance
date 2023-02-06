@@ -9,10 +9,10 @@
         "url": "/d/2ufgfUKVz/cas-performance",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-12-07T08:38:09Z",
-        "updated": "2022-12-13T06:50:12Z",
+        "updated": "2023-01-31T18:05:58Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 27,
+        "version": 40,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 31,
@@ -76,13 +76,17 @@
                 "hiddenSeries": false,
                 "id": 6,
                 "legend": {
+                    "alignAsTable": true,
                     "avg": false,
                     "current": false,
                     "max": false,
                     "min": false,
+                    "rightSide": true,
                     "show": true,
-                    "total": false,
-                    "values": false
+                    "sort": "total",
+                    "sortDesc": true,
+                    "total": true,
+                    "values": true
                 },
                 "lines": true,
                 "linewidth": 1,
@@ -186,6 +190,13 @@
                     {
                         "id": "renameByRegex",
                         "options": {
+                            "regex": "52.14.160.9",
+                            "renamePattern": "Mach34"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
                             "regex": "10.0.1.235",
                             "renamePattern": "3box"
                         }
@@ -212,15 +223,17 @@
                         }
                     },
                     {
-                        "id": "sortBy",
+                        "id": "renameByRegex",
                         "options": {
-                            "fields": {},
-                            "sort": [
-                                {
-                                    "desc": false,
-                                    "field": "Last (sum)"
-                                }
-                            ]
+                            "regex": "52.14.160.9",
+                            "renamePattern": "$1"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "34.236.75.99",
+                            "renamePattern": "Gitcoin"
                         }
                     }
                 ],
@@ -354,6 +367,42 @@
                 }
             },
             {
+                "alert": {
+                    "alertRuleTags": {},
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "params": [
+                                    300
+                                ],
+                                "type": "gt"
+                            },
+                            "operator": {
+                                "type": "and"
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "5m",
+                                    "now"
+                                ]
+                            },
+                            "reducer": {
+                                "params": [],
+                                "type": "avg"
+                            },
+                            "type": "query"
+                        }
+                    ],
+                    "executionErrorState": "keep_state",
+                    "for": "5m",
+                    "frequency": "1m",
+                    "handler": 1,
+                    "message": "Anchor Ready-to-Processing time over 5 minutes",
+                    "name": "Anchor Ready-Processing Time (Seconds) alert",
+                    "noDataState": "keep_state",
+                    "notifications": []
+                },
                 "aliasColors": {},
                 "bars": false,
                 "dashLength": 10,
@@ -407,7 +456,16 @@
                         "refId": "A"
                     }
                 ],
-                "thresholds": [],
+                "thresholds": [
+                    {
+                        "colorMode": "critical",
+                        "fill": true,
+                        "line": true,
+                        "op": "gt",
+                        "value": 300,
+                        "visible": true
+                    }
+                ],
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
@@ -590,15 +648,15 @@
                     "values": false
                 },
                 "lines": true,
-                "linewidth": 1,
+                "linewidth": 2,
                 "nullPointMode": "null",
                 "options": {
                     "alertThreshold": true
                 },
                 "percentage": false,
                 "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
+                "pointradius": 1,
+                "points": true,
                 "renderer": "flot",
                 "seriesOverrides": [],
                 "spaceLength": 10,
@@ -703,7 +761,7 @@
                 "percentage": false,
                 "pluginVersion": "7.5.7",
                 "pointradius": 2,
-                "points": false,
+                "points": true,
                 "renderer": "flot",
                 "seriesOverrides": [],
                 "spaceLength": 10,
@@ -875,6 +933,42 @@
                 }
             },
             {
+                "alert": {
+                    "alertRuleTags": {},
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "params": [
+                                    10000
+                                ],
+                                "type": "gt"
+                            },
+                            "operator": {
+                                "type": "and"
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "5m",
+                                    "now"
+                                ]
+                            },
+                            "reducer": {
+                                "params": [],
+                                "type": "avg"
+                            },
+                            "type": "query"
+                        }
+                    ],
+                    "executionErrorState": "keep_state",
+                    "for": "5m",
+                    "frequency": "1m",
+                    "handler": 1,
+                    "message": "Pending anchor requests over 10k",
+                    "name": "Pending, Unprocessed, Reanchored alert",
+                    "noDataState": "keep_state",
+                    "notifications": []
+                },
                 "aliasColors": {},
                 "bars": false,
                 "dashLength": 10,
@@ -884,7 +978,7 @@
                     "defaults": {},
                     "overrides": []
                 },
-                "fill": 1,
+                "fill": 2,
                 "fillGradient": 0,
                 "gridPos": {
                     "h": 8,
@@ -904,7 +998,7 @@
                     "values": false
                 },
                 "lines": true,
-                "linewidth": 1,
+                "linewidth": 4,
                 "nullPointMode": "null",
                 "options": {
                     "alertThreshold": true
@@ -912,7 +1006,7 @@
                 "percentage": false,
                 "pluginVersion": "7.5.7",
                 "pointradius": 2,
-                "points": false,
+                "points": true,
                 "renderer": "flot",
                 "seriesOverrides": [],
                 "spaceLength": 10,
@@ -921,14 +1015,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "cas_anchor_anchorBatch_pendingRequestsCount_sum",
+                        "expr": "cas_anchor_anchorBatch_pendingRequestsCount_sum/cas_anchor_anchorBatch_pendingRequestsCount_count",
                         "interval": "",
                         "legendFormat": "Pending",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "cas_anchor_anchorBatch_reanchoredCount_sum",
+                        "expr": "cas_anchor_anchorBatch_reanchoredCount_sum/cas_anchor_anchorBatch_reanchoredCount_count",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "Reanchored",
@@ -936,7 +1030,7 @@
                     },
                     {
                         "exemplar": true,
-                        "expr": "cas_anchor_anchorBatch_unprocessedRequestCount_sum",
+                        "expr": "cas_anchor_anchorBatch_unprocessedRequestCount_sum/cas_anchor_anchorBatch_unprocessedRequestCount_count",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "Unprocessed",
@@ -944,14 +1038,23 @@
                     },
                     {
                         "exemplar": true,
-                        "expr": "cas_anchor_anchorBatch_failedToPublishAnchorCommitCount_sum",
+                        "expr": "cas_anchor_anchorBatch_failedToPublishAnchorCommitCount_sum/cas_anchor_anchorBatch_failedToPublishAnchorCommitCount_count",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "Failed to Publish Commit",
                         "refId": "D"
                     }
                 ],
-                "thresholds": [],
+                "thresholds": [
+                    {
+                        "colorMode": "critical",
+                        "fill": true,
+                        "line": true,
+                        "op": "gt",
+                        "value": 10000,
+                        "visible": true
+                    }
+                ],
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
@@ -1128,6 +1231,6 @@
         "timezone": "utc",
         "title": "CAS Performance",
         "uid": "2ufgfUKVz",
-        "version": 27
+        "version": 40
     }
 }
