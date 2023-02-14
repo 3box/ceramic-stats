@@ -9,10 +9,10 @@
         "url": "/d/94uYVKD4z/product-insights-daily",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-11-07T07:03:32Z",
-        "updated": "2022-11-29T01:04:28Z",
+        "updated": "2023-01-09T08:45:24Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 21,
+        "version": 27,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 17,
@@ -711,26 +711,19 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(increase(default_cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset -1d) [1d:1d])",
-                        "interval": "",
-                        "legendFormat": "this week",
-                        "refId": "A"
-                    },
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(increase(default_cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset 6d) [1d:1d])",
-                        "hide": false,
-                        "interval": "",
-                        "legendFormat": "last week",
-                        "refId": "B"
-                    },
-                    {
-                        "exemplar": true,
                         "expr": "last_over_time(increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset -1d) [1d:1d])",
                         "hide": false,
                         "interval": "",
-                        "legendFormat": "this-week-new-format",
+                        "legendFormat": "this-week",
                         "refId": "C"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset 6d) [1d:1d])",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "last week",
+                        "refId": "A"
                     }
                 ],
                 "thresholds": [],
@@ -845,7 +838,7 @@
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
-                "title": "Nodes (peer ids) - Daily Unique",
+                "title": "Nodes (peer ids) - Daily ",
                 "tooltip": {
                     "shared": true,
                     "sort": 0,
@@ -922,7 +915,7 @@
                     "orientation": "auto",
                     "reduceOptions": {
                         "calcs": [
-                            "lastNotNull"
+                            "last"
                         ],
                         "fields": "",
                         "values": false
@@ -934,59 +927,34 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "increase(default_cas_anchor_accepted_requests{exported_job='cas-anchor'}[1w] offset 6d)",
-                        "hide": false,
-                        "interval": "",
-                        "legendFormat": "last week",
-                        "refId": "B"
-                    },
-                    {
-                        "exemplar": true,
-                        "expr": "increase(default_cas_anchor_accepted_requests{exported_job='cas-anchor'}[1w] offset -1d)",
-                        "hide": false,
-                        "interval": "",
-                        "legendFormat": "this week",
-                        "refId": "A"
-                    },
-                    {
-                        "exemplar": true,
                         "expr": "increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1w] offset -1d)",
                         "hide": false,
                         "interval": "",
-                        "legendFormat": "this-week-new-format",
+                        "legendFormat": "this-week",
                         "refId": "C"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1w] offset 6d)",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "last-week",
+                        "refId": "A"
                     }
                 ],
                 "timeFrom": null,
                 "timeShift": null,
-                "title": "Anchor Requests : WoW % Growth  - valid after 11/15",
+                "title": "Anchor Requests : WoW  Growth ",
                 "transformations": [
-                    {
-                        "id": "calculateField",
-                        "options": {
-                            "alias": "DIFF1",
-                            "binary": {
-                                "left": "this week",
-                                "operator": "-",
-                                "reducer": "sum",
-                                "right": "last week"
-                            },
-                            "mode": "binary",
-                            "reduce": {
-                                "reducer": "sum"
-                            },
-                            "replaceFields": false
-                        }
-                    },
                     {
                         "id": "calculateField",
                         "options": {
                             "alias": "DIFF",
                             "binary": {
-                                "left": "DIFF1",
-                                "operator": "+",
+                                "left": "this-week",
+                                "operator": "-",
                                 "reducer": "sum",
-                                "right": "this-week-new-format"
+                                "right": "last-week"
                             },
                             "mode": "binary",
                             "reduce": {
@@ -1002,7 +970,7 @@
                                 "left": "DIFF",
                                 "operator": "/",
                                 "reducer": "sum",
-                                "right": "last week"
+                                "right": "last-week"
                             },
                             "mode": "binary",
                             "reduce": {
@@ -1014,12 +982,12 @@
                     {
                         "id": "calculateField",
                         "options": {
-                            "alias": "PERCENT_CHANGE",
+                            "alias": "DELTA-PERCENT",
                             "binary": {
                                 "left": "DELTA",
                                 "operator": "*",
                                 "reducer": "sum",
-                                "right": "100.0"
+                                "right": "100"
                             },
                             "mode": "binary",
                             "reduce": {
@@ -1069,7 +1037,7 @@
                     "orientation": "auto",
                     "reduceOptions": {
                         "calcs": [
-                            "lastNotNull"
+                            "last"
                         ],
                         "fields": "",
                         "values": false
@@ -1098,7 +1066,7 @@
                 ],
                 "timeFrom": null,
                 "timeShift": null,
-                "title": "Nodes : WoW % Growth ",
+                "title": "Nodes : WoW Growth ",
                 "transformations": [
                     {
                         "id": "calculateField",
@@ -1113,8 +1081,7 @@
                             "mode": "binary",
                             "reduce": {
                                 "reducer": "sum"
-                            },
-                            "replaceFields": false
+                            }
                         }
                     },
                     {
@@ -1137,12 +1104,12 @@
                     {
                         "id": "calculateField",
                         "options": {
-                            "alias": "PERCENT_CHANGE",
+                            "alias": "DELTA-PERCENT",
                             "binary": {
                                 "left": "DELTA",
                                 "operator": "*",
                                 "reducer": "sum",
-                                "right": "100.0"
+                                "right": "100"
                             },
                             "mode": "binary",
                             "reduce": {
@@ -1381,6 +1348,6 @@
         "timezone": "",
         "title": "Product Insights - Daily",
         "uid": "94uYVKD4z",
-        "version": 21
+        "version": 27
     }
 }

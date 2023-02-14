@@ -265,11 +265,12 @@ async function handleKeepalive(peer_id, messageData) {
     const version = messageData.ver || '<2.4'  // when we started tracking version
     Metrics.count(LABELS.version, 1, {'version': version})
 
-    // this gives more info but may be too noisy to handle
-    //await mark(peer_id, LABELS.version + '.' + messageData.ver)
-    // could also do it like so
-    // await mark(peer_id + '@' + messageData.ver, LABELS.version)
-// or maybe just keep version by peer id and then associate it with the cacao app?
+    // just for now, console log the peer id with version
+
+   
+    // might not be that many unique peers 
+    await mark(peer_id, LABELS.peer_id, false, false, {'version': messageData.ver})
+   // can we keep version by peer id and then associate it with the cacao app?  do we have peer id elsewhere?
 }
 
 
@@ -283,6 +284,8 @@ const METHOD_RE_1 = /^([^:]+:[^:]+:[^:]+):([^:]+):/
 const METHOD_RE_2 = /^([^:]+:[^:]+):/
 // for patterns like 0x616bfd22c29e603edd2de5cd85fc60cbc71d3ebd@eip155:1
 const METHOD_RE_3 = /\@([^:]+:[^:]+)$/
+
+const HAS_UC_RE = /[A-Z]/
 
 const METHODS = {
     'did:pkh:bip122': 'did:pkh (bip122)',
@@ -387,6 +390,14 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
         if (genesis_commit?.header?.controllers.length > 1) {
             console.log(`More than one controller on ${stream.cid}`)
         }
+
+        // Temp measurement of mixed-case controllers
+        if (HAS_UC_RE.exec(controller)) {
+           Metrics.count('did_case', 1, {'case': 'has_upper'})
+        } else {
+           Metrics.count('did_case', 1, {'case': 'lower'})
+        }
+
     }
 
 // TODO next lets see if we can tell a human-readable model name?
@@ -457,6 +468,12 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
     if (! seen_today) {
         Metrics.count(label + '_uniq_da', 1, count_params)  // for daily uniq counts
         await db.put(day_key, 1, {ttl: DAY_TTL})
+
+        // for now log the peer id and version first seen each day
+        if (label == LABELS.peer_id) {
+            console.log(`peer_id: ${key} ${params}`)
+        }
+
     }
     if (! seen_month) {
         Metrics.count(label + '_uniq_mo', 1, count_params) // for monthly uniq counts

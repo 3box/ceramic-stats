@@ -9,10 +9,10 @@
         "url": "/d/Ggt4khSVz/partner-activity",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-14T12:54:03Z",
-        "updated": "2022-12-07T20:11:24Z",
+        "updated": "2023-01-09T08:56:44Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 53,
+        "version": 75,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 20,
@@ -81,9 +81,11 @@
                     "legend": {
                         "displayMode": "list",
                         "placement": "right",
-                        "values": []
+                        "values": [
+                            "percent"
+                        ]
                     },
-                    "pieType": "donut",
+                    "pieType": "pie",
                     "reduceOptions": {
                         "calcs": [
                             "lastNotNull"
@@ -97,10 +99,18 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum by (ip_addr) (increase(cas_server_anchor_requested{ip_addr!=''}[7d]))",
+                        "expr": "sum by (ip_addr) (increase(cas_server_anchor_requested{ip_addr!=\"\", ip_addr!~\"^10.*\", ip_addr!=\"136.56.26.176\"}[7d]))",
                         "interval": "",
                         "legendFormat": "{{ip_addr}}",
                         "refId": "A"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "sum by (ip_addr) (increase(cas_server_anchor_requested{ip_addr=\"136.56.26.176\"}[7d]))",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "Mohsin",
+                        "refId": "B"
                     }
                 ],
                 "title": "CAS Anchor Requests per Week by Partner Server",
@@ -115,28 +125,21 @@
                     {
                         "id": "renameByRegex",
                         "options": {
-                            "regex": "35.170.181.124",
+                            "regex": "35.170.181.124|34.236.75.99",
                             "renamePattern": "Gitcoin"
                         }
                     },
                     {
                         "id": "renameByRegex",
                         "options": {
-                            "regex": "167.99.230.169",
+                            "regex": "167.99.230.169|157.245.135.141",
                             "renamePattern": "Orbis"
                         }
                     },
                     {
                         "id": "renameByRegex",
                         "options": {
-                            "regex": "143.198.245.21",
-                            "renamePattern": "Disco"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "64.225.91.133",
+                            "regex": "143.198.245.21|64.225.91.133|137.184.244.223",
                             "renamePattern": "Disco"
                         }
                     },
@@ -194,6 +197,55 @@
                         "options": {
                             "regex": "18.219.208.129",
                             "renamePattern": "Mach34"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "51.178.134.66",
+                            "renamePattern": "Soulbonds"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "157.230.181.252|157.230.181.128|146.190.196.39|206.189.255.126",
+                            "renamePattern": "Geoweb"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "64.225.91.133",
+                            "renamePattern": "Disco"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "144.126.248.72",
+                            "renamePattern": "dClimate"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "52.69.45.131",
+                            "renamePattern": "Lumos"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "52.22.126.62",
+                            "renamePattern": "Usher"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "209.250.224.39",
+                            "renamePattern": "GoodDollar"
                         }
                     }
                 ],
@@ -259,14 +311,14 @@
                     {
                         "id": "renameByRegex",
                         "options": {
-                            "regex": "35.170.181.124",
+                            "regex": "35.170.181.124|34.236.75.99",
                             "renamePattern": "Gitcoin"
                         }
                     },
                     {
                         "id": "renameByRegex",
                         "options": {
-                            "regex": "167.99.230.169",
+                            "regex": "167.99.230.169|157.245.135.141",
                             "renamePattern": "Orbis"
                         }
                     },
@@ -280,7 +332,7 @@
                     {
                         "id": "renameByRegex",
                         "options": {
-                            "regex": "64.225.91.133",
+                            "regex": "143.198.245.21|64.225.91.133|137.184.244.223",
                             "renamePattern": "Disco"
                         }
                     },
@@ -296,6 +348,13 @@
                         "options": {
                             "regex": "34.85.157.166",
                             "renamePattern": "Metagame"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "157.230.181.252|157.230.181.128|146.190.196.39|206.189.255.126",
+                            "renamePattern": "Geoweb"
                         }
                     },
                     {
@@ -329,6 +388,13 @@
                     {
                         "id": "renameByRegex",
                         "options": {
+                            "regex": "51.178.134.66",
+                            "renamePattern": "Soulbounds"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
                             "regex": "52.20.196.100",
                             "renamePattern": "Learning Economy Foundation (welibrary)"
                         }
@@ -338,6 +404,34 @@
                         "options": {
                             "regex": "3.223.132.101",
                             "renamePattern": "C-Voxel"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "144.126.248.72",
+                            "renamePattern": "dClimate"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "52.69.45.131",
+                            "renamePattern": "Lumos"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "52.22.126.62",
+                            "renamePattern": "Usher"
+                        }
+                    },
+                    {
+                        "id": "renameByRegex",
+                        "options": {
+                            "regex": "209.250.224.39",
+                            "renamePattern": "GoodDollar"
                         }
                     },
                     {
@@ -508,685 +602,88 @@
                 }
             },
             {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
                 "datasource": "Prometheus",
-                "description": "total stream queries and updates by family in past day (top 10 families)",
                 "fieldConfig": {
-                    "defaults": {},
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "custom": {
+                            "align": null,
+                            "filterable": false
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        }
+                    },
                     "overrides": []
                 },
-                "fill": 1,
-                "fillGradient": 0,
                 "gridPos": {
                     "h": 8,
                     "w": 12,
                     "x": 12,
                     "y": 8
                 },
-                "hiddenSeries": false,
-                "id": 2,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
+                "id": 17,
                 "options": {
-                    "alertThreshold": true
+                    "showHeader": true
                 },
-                "percentage": false,
                 "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "topk(10, last_over_time(sum by (family)(increase(agent_stream_total{family!='undefined'}[1d]))[1d:1d]))",
-                        "interval": "",
-                        "legendFormat": "{{family}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Total Streams by App Family by Day",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:238",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "$$hashKey": "object:239",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "unique streams updated, grouped by Cacao, in past day",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 0,
-                    "y": 16
-                },
-                "hiddenSeries": false,
-                "id": 3,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum by (cacao) (increase(agent_stream_uniq_da_total{cacao!=''}[1d] offset -1d))[1d:1d])",
-                        "hide": false,
+                        "expr": "sum by (cacao) (increase(agent_stream_total{cacao!=''}[7d]))",
                         "interval": "",
                         "legendFormat": "{{cacao}}",
                         "refId": "A"
                     }
                 ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Unique Streams by App (Cacao) This Week",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
+                "title": "Streams by CACAO",
+                "transformations": [
                     {
-                        "$$hashKey": "object:697",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
+                        "id": "reduce",
+                        "options": {
+                            "reducers": [
+                                "lastNotNull"
+                            ]
+                        }
                     },
                     {
-                        "$$hashKey": "object:698",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "unique streams updated, grouped by Cacao, in past week",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 16
-                },
-                "hiddenSeries": false,
-                "id": 11,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum by (cacao) (increase(agent_stream_uniq_da_total{cacao!=''}[1d] offset 1w))[1d:1d])",
-                        "hide": false,
-                        "interval": "",
-                        "legendFormat": "{{cacao}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Unique Streams by App (Cacao) Last Week",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": false,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:697",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
+                        "id": "sortBy",
+                        "options": {
+                            "fields": {},
+                            "sort": [
+                                {
+                                    "desc": true,
+                                    "field": "Last (not null)"
+                                }
+                            ]
+                        }
                     },
                     {
-                        "$$hashKey": "object:698",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
+                        "id": "organize",
+                        "options": {
+                            "excludeByName": {},
+                            "indexByName": {},
+                            "renameByName": {
+                                "Field": "CACAO",
+                                "Last (not null)": "Total streams last week"
+                            }
+                        }
                     }
                 ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "unique streams updated, grouped by Family",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 0,
-                    "y": 24
-                },
-                "hiddenSeries": false,
-                "id": 4,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum by (family) (increase(agent_stream_uniq_da_total{family!=''}[1d] offset -1d))[1d:1d])",
-                        "interval": "",
-                        "legendFormat": "{{family}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Unique Streams by App Family This Week",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:1695",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "$$hashKey": "object:1696",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "unique streams updated, grouped by Family",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 24
-                },
-                "hiddenSeries": false,
-                "id": 12,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum by (family) (increase(agent_stream_uniq_da_total{family!=''}[1d] offset 1w))[1d:1d])",
-                        "interval": "",
-                        "legendFormat": "{{family}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Unique Streams by App Family Last Week",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:1695",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "$$hashKey": "object:1696",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "unique controllers seen on updates, grouped by Cacao, in past day",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 0,
-                    "y": 32
-                },
-                "hiddenSeries": false,
-                "id": 5,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum by (family) (increase(agent_controller_uniq_da_total{family!=''}[1d] offset -1d))[1d:1d])",
-                        "interval": "",
-                        "legendFormat": "{{cacao}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Unique Controllers by App (Cacao) by Day",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:2013",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "$$hashKey": "object:2014",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "unique controllers, grouped by Family, in past day",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 32
-                },
-                "hiddenSeries": false,
-                "id": 6,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum by (family) (increase(agent_controller_uniq_da_total{family!=''}[1d] offset -1d))[1d:1d])",
-                        "interval": "",
-                        "legendFormat": "{{family}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Unique Controllers by App Family by Day",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:2224",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "$$hashKey": "object:2225",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
+                "type": "table"
             },
             {
                 "aliasColors": {},
@@ -1205,7 +702,7 @@
                     "h": 8,
                     "w": 12,
                     "x": 0,
-                    "y": 40
+                    "y": 16
                 },
                 "hiddenSeries": false,
                 "id": 7,
@@ -1289,7 +786,7 @@
                 "dashLength": 10,
                 "dashes": false,
                 "datasource": "Prometheus",
-                "description": "unique Models, grouped by Family, in past day",
+                "description": "total stream queries and updates by family in past day (top 10 families)",
                 "fieldConfig": {
                     "defaults": {},
                     "overrides": []
@@ -1300,10 +797,10 @@
                     "h": 8,
                     "w": 12,
                     "x": 12,
-                    "y": 40
+                    "y": 16
                 },
                 "hiddenSeries": false,
-                "id": 8,
+                "id": 2,
                 "legend": {
                     "avg": false,
                     "current": false,
@@ -1331,7 +828,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum by (family) (increase(agent_model_uniq_da_total[1d] offset -1d))[1d:1d])",
+                        "expr": "topk(10, last_over_time(sum by (family)(increase(agent_stream_total{family!='undefined'}[1d]))[1d:1d]))",
                         "interval": "",
                         "legendFormat": "{{family}}",
                         "refId": "A"
@@ -1341,7 +838,7 @@
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
-                "title": "Unique Models by App Family by Day",
+                "title": "Total Streams by App Family by Day",
                 "tooltip": {
                     "shared": true,
                     "sort": 0,
@@ -1357,6 +854,7 @@
                 },
                 "yaxes": [
                     {
+                        "$$hashKey": "object:238",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -1365,102 +863,7 @@
                         "show": true
                     },
                     {
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 5,
-                    "y": 48
-                },
-                "hiddenSeries": false,
-                "id": 10,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_stream_uniq_da_total{cacao!=''}[1d] offset 1w)) without (job, instance) [1d:1d])",
-                        "interval": "",
-                        "legendFormat": "{{cacao}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "multiplied increase of unique streams by cacao - inspection only",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:1429",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "$$hashKey": "object:1430",
+                        "$$hashKey": "object:239",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -1491,6 +894,6 @@
         "timezone": "",
         "title": "Partner Activity",
         "uid": "Ggt4khSVz",
-        "version": 53
+        "version": 75
     }
 }

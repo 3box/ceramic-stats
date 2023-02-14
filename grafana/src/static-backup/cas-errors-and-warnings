@@ -9,10 +9,10 @@
         "url": "/d/Tqcpk_H4k/cas-errors-and-warnings",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-31T15:04:27Z",
-        "updated": "2022-12-16T22:20:12Z",
+        "updated": "2023-02-14T13:33:14Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 25,
+        "version": 28,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 31,
@@ -125,7 +125,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "increase(cas_anchor_anchor_success[366m])",
+                        "expr": "increase(cas_anchor_anchor_success[780m])",
                         "interval": "",
                         "legendFormat": "Number of Successful Anchors in past 6.1 hrs",
                         "refId": "A"
@@ -152,7 +152,7 @@
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
-                "title": "Anchor Successes / 6.1 hrs",
+                "title": "Anchor Successes / 13 hrs",
                 "tooltip": {
                     "shared": true,
                     "sort": 0,
@@ -225,7 +225,7 @@
                     "handler": 1,
                     "message": "CAS: More anchor failures than successes in trailing 6 hr period",
                     "name": "Failures/Success Ratio Trailing 6 hrs alert",
-                    "noDataState": "no_data",
+                    "noDataState": "keep_state",
                     "notifications": []
                 },
                 "aliasColors": {},
@@ -385,7 +385,26 @@
                         "refId": "A"
                     }
                 ],
-                "thresholds": [],
+                "thresholds": [
+                    {
+                        "$$hashKey": "object:151",
+                        "colorMode": "warning",
+                        "fill": true,
+                        "line": true,
+                        "op": "gt",
+                        "value": 5,
+                        "yaxis": "left"
+                    },
+                    {
+                        "$$hashKey": "object:157",
+                        "colorMode": "critical",
+                        "fill": true,
+                        "line": true,
+                        "op": "gt",
+                        "value": 100,
+                        "yaxis": "left"
+                    }
+                ],
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
@@ -1018,7 +1037,9 @@
                     }
                 ],
                 "thresholds": [],
+                "timeFrom": null,
                 "timeRegions": [],
+                "timeShift": null,
                 "title": "Failure/success ratio of individual batches",
                 "tooltip": {
                     "shared": true,
@@ -1073,6 +1094,6 @@
         "timezone": "",
         "title": "CAS errors and warnings",
         "uid": "Tqcpk_H4k",
-        "version": 25
+        "version": 28
     }
 }
