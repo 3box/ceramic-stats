@@ -97,7 +97,7 @@ if (IPFS_PUBSUB_TOPIC == '/ceramic/mainnet') {
 }
 console.log(`Sampling keepalives at 1/${sample_base}`)
 
-const handledMessages = new lru.LRUMap(10000)
+const handledMessages = new lru.LRUMap(50000)
 const peerVersions = new lru.LRUMap(1000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 const dagTimeoutCache = new lru.LRUMap<string, number>(IPFS_CACHE_SIZE)
