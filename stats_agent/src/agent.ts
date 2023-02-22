@@ -55,6 +55,7 @@ enum LABELS {
     error = 'error',
     model = 'model',
     peer_id = 'peer_id',
+    peer_versions = 'peer_versions',
     stream = 'stream',
     tip = 'tip',
     version = 'version_sample10'  // we are sampling version at 10% for now
@@ -96,6 +97,7 @@ if (IPFS_PUBSUB_TOPIC == '/ceramic/mainnet') {
 console.log(`Sampling keepalives at 1/${sample_base}`)
 
 const handledMessages = new lru.LRUMap(10000)
+const peerVersions = new lru.LRUMap(1000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 const dagTimeoutCache = new lru.LRUMap<string, number>(IPFS_CACHE_SIZE)
 
@@ -187,11 +189,8 @@ async function handleMessage(message) {
 
     if (parsedMessageData.typ == 3) {
         // skip keepalives after we get the version
-        // for now only sample the keepalives - maybe we are falling behind?
 
-        if (Math.floor(Math.random() * sample_base) == 1) {
-            await handleKeepalive(peer_id, parsedMessageData)
-        }
+        await handleKeepalive(peer_id, parsedMessageData)
         return
     }
     const operation = OPERATIONS[parsedMessageData.typ]
@@ -260,17 +259,54 @@ async function handleTip(cidString, operation) {
     //await mark(cidString, LABELS.tip)
 }
 
+const PEER_MAP = {
+'12D3KooWAZe34Cpnwjfw5aFobQFfXRufAye6hTaNJmkRj7Lx9uXW':{'ips':'134.209.122.31,18.159.71.239','client':'MAYBE Unlock & Raid'},
+'12D3KooWChEHQc9sGUpDeJsSQjXaLhHQ4AYup81zof9EenT3XXED':{'ips':'209.250.230.102,139.180.204.150','client':'MAYBE GoodDollar'},
+'12D3KooWG3zvLfQNFboVYv4NPvNVCjR9erb6y93HjAhwu2QgPNNz':{'ips':'87.251.76.213,85.214.249.118','client':''},
+'12D3KooWLATBVT1NPhtbsUzwB9z3UmWUvwGFBUzz9J18Ldu4HGwQ':{'ips':'35.84.164.207','client':''},
+'12D3KooWR5gET55KxVDK3rJn87L8xLuvWvtr8vYHwMZUtSaVgmzc':{'ips':'162.55.216.67','client':'Wetez'},
+'12D3KooWSUHiNNEzDfSHW62cqjEag6jcvmnpubNcUsNxgUcpRRjz':{'ips':'167.160.89.99,167.160.89.98','client':'Vaultec'},
+'12D3KooWSVpg4eWMy6G4ecpoM5sk55srsaziwcP7YzdbbgRkApFA':{'ips':'89.58.19.134','client':''},
+'QmQWMCaKt79GUnMEZr3V8ykD6B88D8KVhyxCtCFxyJDPcg':{'ips':'149.248.11.215','client':''},
+'QmSbtkcka9qV5UH9U1RQrHnUZts27ghN6GbL5YdwfFqnng':{'ips':'104.248.2.197,144.126.248.72','client':'dClimate'},
+'QmUiF8Au7wjhAF9BYYMNQRW5KhY7o8fq4RUozzkWvHXQrZ':{'ips':'3.136.68.99','client':''},
+'QmXH9UN3aDcidZrqqaL6JdfA9aRD818U663DsE61AtHyqo':{'ips':'54.91.52.83','client':''},
+'QmbZjQMujAQX2UWCKHk1LvJccW4dycKT1nLGKFHE2sp9TZ':{'ips':'146.190.196.39','client':'Geoweb'},
+'QmQHTe4GoBmZ3GfZEfiFDWptFE7ij51QvYsuWGWi5kambc':{'ips':'18.167.27.19','client':'Ownership Labs'},
+'QmQb86uUqpB8EsV1nCUvjLZm4FQSe8Bkaw8MXNSWKt8WxG':{'ips':'35.90.35.229,52.14.130.133','client':'MAYBE Mach 34'},
+'QmS2hvoNEfQTwqJC4v6xTvK8FpNR2s6AgDVsTL3unK11Ng':{'ips':'18.133.117.245,159.223.128.197','client':''},
+'QmVPNwwBtUC3fPTSSsVAgS1WMz1RbEzkDbDxU9BvatXWXZ':{'ips':'34.85.157.166,34.86.126.175','client':'Metagame'}
+}
+
 async function handleKeepalive(peer_id, messageData) {
 
     const version = messageData.ver || '<2.4'  // when we started tracking version
-    Metrics.count(LABELS.version, 1, {'version': version})
 
-    // just for now, console log the peer id with version
+    // now we want to track every peer's latest version
+    const timesec = Math.round(Date.now() / 1000)
+    let ips = ''
+    let client = ''
+    let last_seen = peerVersions.get(peer_id)
+    if (peer_id in PEER_MAP) {
+        ips = PEER_MAP[peer_id]['ips']
+        client = PEER_MAP[peer_id]['client']
+    }
 
-   
-    // might not be that many unique peers 
-    await mark(peer_id, LABELS.peer_id, false, false, {'version': messageData.ver})
-   // can we keep version by peer id and then associate it with the cacao app?  do we have peer id elsewhere?
+    // if this is a new peer id, the version is changed, or its been a day since we recorded last
+    if (! last_seen || last_seen['ver'] != version || last_seen['time'] < timesec - 86400) {
+       peerVersions.set(peer_id, {'ver': version, 'time': timesec})
+       Metrics.count(LABELS.peer_versions, 1, {'peerid': peer_id, 'ver': version, 'ips':ips, 'client':client})
+    }
+
+    // original sampling method
+    if (Math.floor(Math.random() * sample_base) == 1) {
+
+       Metrics.count(LABELS.version, 1, {'version': version})
+
+       // might not be that many unique peers 
+       await mark(peer_id, LABELS.peer_id, false, false, {'version': messageData.ver})
+       // can we keep version by peer id and then associate it with the cacao app?  do we have peer id elsewhere?
+   }
 }
 
 
