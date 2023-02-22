@@ -56,6 +56,7 @@ enum LABELS {
     model = 'model',
     peer_id = 'peer_id',
     peer_versions = 'peer_versions',
+    rebroadcast = 'rebroadcast',
     stream = 'stream',
     tip = 'tip',
     version = 'version_sample10'  // we are sampling version at 10% for now
@@ -172,10 +173,18 @@ async function handleMessage(message) {
 
     const seqno = u8a.toString(message.seqno, 'base16')
 
-    if (handledMessages.get(seqno)) {
+    const seen = handledMessages.get(seqno) as Array<string>
+    if (seen) {
+        if (message.from in seen) {
+            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': true})
+        } else {
+            seen.push(message.from)
+            handledMessages.set(seqno, seen)
+            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': false})
+        }
         return
     } else {
-        handledMessages.set(seqno, true)
+        handledMessages.set(seqno, [message.from])
     }
 
 
