@@ -161,6 +161,7 @@ async function recordCumulativeMetrics() {
         }
         try {
            Metrics.record(`${label}_cum_uniq`, response.Table.ItemCount)
+           Metrics.observe(`${label}_cum_uniq_observed`, response.Table.ItemCount)
         } catch (e) {
            console.log(`Error retrieving dynamodb counts: ${e.message}`)
         }
@@ -209,6 +210,10 @@ async function handleMessage(message) {
     Metrics.count(operation, 1)   // raw counts
 
     const { stream, tip, model } = parsedMessageData
+
+    if (model) {
+       console.log("Have a model!")
+    }
 
     try {
         // handleTip may provide cacao information
@@ -409,6 +414,10 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
     const genesis_commit = await _getFromIpfs(stream.cid)
+
+    if (stream_type == 'model' || stream_type == 'mid') {
+        console.log("Its a model!  " + stream_type)
+    }
 
     let family = ''
     const params = {cacao: cacao, family: family}
