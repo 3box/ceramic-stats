@@ -58,6 +58,7 @@ enum LABELS {
     peer_versions = 'peer_versions',
     rebroadcast = 'rebroadcast',
     stream = 'stream',
+    stream_model = 'stream_model',  // for temporary stream count by model
     tip = 'tip',
     version = 'version_sample10'  // we are sampling version at 10% for now
 }
@@ -161,6 +162,7 @@ async function recordCumulativeMetrics() {
         }
         try {
            Metrics.record(`${label}_cum_uniq`, response.Table.ItemCount)
+           Metrics.observe(`${label}_cum_uniq_observed`, response.Table.ItemCount)
         } catch (e) {
            console.log(`Error retrieving dynamodb counts: ${e.message}`)
         }
@@ -209,6 +211,10 @@ async function handleMessage(message) {
     Metrics.count(operation, 1)   // raw counts
 
     const { stream, tip, model } = parsedMessageData
+
+    if (model) {
+       console.log("Have a model!")
+    }
 
     try {
         // handleTip may provide cacao information
@@ -406,6 +412,8 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
 
     if (!streamIdString) return false
 
+
+
     const stream = StreamID.fromString(streamIdString)
     const stream_type = stream.typeName  // tile or CAIP-10
     const genesis_commit = await _getFromIpfs(stream.cid)
@@ -445,14 +453,6 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
 
     }
 
-// TODO next lets see if we can tell a human-readable model name?
- /*   if (model) {
-        const model_stream = StreamID.fromString(model)
-        console.log("Looking for commit for model: " + model)
-        let model_commit =  await _getFromIpfs(model)
-    }
-    */
-
     await mark(streamIdString, LABELS.stream, false, false, params)
 
     if (model) {
@@ -468,6 +468,20 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
                      'type'   : stream_type,
                      'cacao'  : cacao
     })
+
+    // TODO next lets see if we can tell a human-readable model name?
+    if (model) {
+       Metrics.count(LABELS.stream_model, 1, {
+           'oper': operation,
+           'type': stream_type,
+           'cacao': cacao,
+           'model': model
+       })
+       // const model_stream = StreamID.fromString(model)
+       // console.log("Looking for commit for model: " + model)
+       // let model_commit =  await _getFromIpfs(model_stream.cid)
+       // console.log("model commit: " + model_commit)
+    }
 }
 
 /**
