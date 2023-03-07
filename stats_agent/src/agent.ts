@@ -418,10 +418,6 @@ async function handleStreamId(streamIdString, model=null, operation='', cacao=''
     const stream_type = stream.typeName  // tile or CAIP-10
     const genesis_commit = await _getFromIpfs(stream.cid)
 
-    if (stream_type == 'mid') {
-        console.log("Its a model instance!  " + stream_type)
-    }
-
     let family = ''
     const params = {cacao: cacao, family: family}
 
