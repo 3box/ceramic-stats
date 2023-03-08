@@ -177,7 +177,7 @@ async function handleMessage(message) {
 
     const seen = handledMessages.get(seqno) as Array<string>
     if (seen) {
-        client = ''
+        let client = ''
         if (message.from in PEER_MAP) {
             client = PEER_MAP[message.from]['client']
         }
