@@ -177,12 +177,16 @@ async function handleMessage(message) {
 
     const seen = handledMessages.get(seqno) as Array<string>
     if (seen) {
+        client = ''
+        if (message.from in PEER_MAP) {
+            client = PEER_MAP[message.from]['client']
+        }
         if (message.from in seen) {
-            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': true})
+            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': true, 'client': client})
         } else {
             seen.push(message.from)
             handledMessages.set(seqno, seen)
-            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': false})
+            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': false, 'client': client})
         }
         return
     } else {
