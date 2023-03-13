@@ -14,6 +14,18 @@ import { base64urlToJSON } from '@ceramicnetwork/common'
 import { PubsubKeepalive } from './pubsub-keepalive.js'
 //import convert from 'blockcodec-to-ipld-format'
 
+import winston from 'winston'
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: 'logs.log' })
+  ]
+})
+
+logger.info("Start logs")
+
 import initDb from './db.js'
 
 const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
@@ -99,6 +111,7 @@ if (IPFS_PUBSUB_TOPIC == '/ceramic/mainnet') {
 console.log(`Sampling keepalives at 1/${sample_base}`)
 
 const handledMessages = new lru.LRUMap(50000)
+const fullMessages = new lru.LRUMap( 50000)
 const peerVersions = new lru.LRUMap(1000)
 const dagNodeCache = new lru.LRUMap<string, any>(IPFS_CACHE_SIZE)
 const dagTimeoutCache = new lru.LRUMap<string, number>(IPFS_CACHE_SIZE)
@@ -186,10 +199,16 @@ async function handleMessage(message) {
         } else {
             seen.push(message.from)
             handledMessages.set(seqno, seen)
+            console.log("OLD message: " + JSON.stringify(fullMessages.get(seqno)))
+            logger.info("OLD message: " + JSON.stringify(fullMessages.get(seqno)))
+            console.log("NEW message: " + JSON.stringify(message))
+            logger.info("NEW message: " + JSON.stringify(message))
+            fullMessages.set(seqno, message)
             Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': false, 'client': client})
         }
         return
     } else {
+        fullMessages.set(seqno, message)
         handledMessages.set(seqno, [message.from])
     }
 

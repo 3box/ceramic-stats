@@ -48,7 +48,8 @@
     "stream-to-array": "^2.3.0",
     "typedjson": "^1.8.0",
     "typescript": "^4.7.3",
-    "uint8arrays": "^3.0.0"
+    "uint8arrays": "^3.0.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@ceramicnetwork/stream-tile-handler": "^2.2.0",
