@@ -175,25 +175,6 @@ async function handleMessage(message) {
 
     const seqno = u8a.toString(message.seqno, 'base16')
 
-    const seen = handledMessages.get(seqno) as Array<string>
-    if (seen) {
-        let client = ''
-        if (message.from in PEER_MAP) {
-            client = PEER_MAP[message.from]['client']
-        }
-        if (message.from in seen) {
-            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': true, 'client': client})
-        } else {
-            seen.push(message.from)
-            handledMessages.set(seqno, seen)
-            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same-peer-again': false, 'client': client})
-        }
-        return
-    } else {
-        handledMessages.set(seqno, [message.from])
-    }
-
-
     const peer_id = message.from
     let parsedMessageData
     if (typeof message.data == 'string') {
@@ -201,6 +182,28 @@ async function handleMessage(message) {
     } else {
         parsedMessageData = JSON.parse(new TextDecoder('utf-8').decode(message.data))
     }
+
+    const seen = handledMessages.get(seqno) as Array<string>
+    if (seen) {
+        let client = 'Unknown'
+        if (message.from in PEER_MAP) {
+            client = PEER_MAP[message.from]['client']
+        }
+        console.log(`REBROADCAST ${seqno} from ${message.from} aka ${client}: ` + JSON.stringify(parsedMessageData))
+
+        if (seen.includes(message.from)) {
+            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same_from': true, 'client': client})
+        } else {
+            seen.push(message.from)
+            handledMessages.set(seqno, seen)
+            Metrics.count(LABELS.rebroadcast, 1, {'peerid': message.from, 'same_from': false, 'original_from': seen[0], 'client': client})
+            console.log(`ERROR INVALID REBROADCAST ${seqno} from ${message.from} previously seen at ` + JSON.stringify(seen))
+        }
+        return
+    } else {
+        handledMessages.set(seqno, [message.from])
+    }
+
 
     if (parsedMessageData.typ == 3) {
         // skip keepalives after we get the version
@@ -288,13 +291,21 @@ const PEER_MAP = {
 '12D3KooWSVpg4eWMy6G4ecpoM5sk55srsaziwcP7YzdbbgRkApFA':{'ips':'89.58.19.134','client':''},
 'QmQWMCaKt79GUnMEZr3V8ykD6B88D8KVhyxCtCFxyJDPcg':{'ips':'149.248.11.215','client':''},
 'QmSbtkcka9qV5UH9U1RQrHnUZts27ghN6GbL5YdwfFqnng':{'ips':'104.248.2.197,144.126.248.72','client':'dClimate'},
-'QmUiF8Au7wjhAF9BYYMNQRW5KhY7o8fq4RUozzkWvHXQrZ':{'ips':'3.136.68.99','client':''},
 'QmXH9UN3aDcidZrqqaL6JdfA9aRD818U663DsE61AtHyqo':{'ips':'54.91.52.83','client':''},
 'QmbZjQMujAQX2UWCKHk1LvJccW4dycKT1nLGKFHE2sp9TZ':{'ips':'146.190.196.39','client':'Geoweb'},
 'QmQHTe4GoBmZ3GfZEfiFDWptFE7ij51QvYsuWGWi5kambc':{'ips':'18.167.27.19','client':'Ownership Labs'},
 'QmQb86uUqpB8EsV1nCUvjLZm4FQSe8Bkaw8MXNSWKt8WxG':{'ips':'35.90.35.229,52.14.130.133','client':'MAYBE Mach 34'},
-'QmS2hvoNEfQTwqJC4v6xTvK8FpNR2s6AgDVsTL3unK11Ng':{'ips':'18.133.117.245,159.223.128.197','client':''},
-'QmVPNwwBtUC3fPTSSsVAgS1WMz1RbEzkDbDxU9BvatXWXZ':{'ips':'34.85.157.166,34.86.126.175','client':'Metagame'}
+'QmVPNwwBtUC3fPTSSsVAgS1WMz1RbEzkDbDxU9BvatXWXZ':{'ips':'34.85.157.166,34.86.126.175','client':'Metagame'},
+'QmSkY7YHn7kWgZB782T7GQve873FVzQfvtjJb9HavdzvwX': {'client': 'ceramic-dev-cas-ipfs-nd'},
+'QmUiF8Au7wjhAF9BYYMNQRW5KhY7o8fq4RUozzkWvHXQrZ': {'client': 'ceramic-elp-1-1-ipfs-nd'},
+'QmRNw9ZimjSwujzS3euqSYxDW9EHDU5LB3NbLQ5vJ13hwJ': {'client': 'ceramic-elp-1-2-ipfs-nd'},
+'QmUvEKXuorR7YksrVgA7yKGbfjWHuCRisw2cH9iqRVM9P8': {'client': 'ceramic-prod-cas-ipfs-nd'},
+'QmS2hvoNEfQTwqJC4v6xTvK8FpNR2s6AgDVsTL3unK11Ng': {'client': 'ceramic-prod-ex-ipfs-gw'},
+'QmXALVsXZwPWTUbsT8G6VVzzgTJaAWRUD7FWL5f7d5ubAL': {'client': 'ceramic-prod-ipfs-nd'},
+'QmbeBTzSccH8xYottaYeyVX8QsKyox1ExfRx7T1iBqRyCd': {'client': 'ceramic-tnet-cas-ipfs-nd'},
+'QmQotCKxiMWt935TyCBFTN23jaivxwrZ3uD58wNxeg5npi': {'client': 'ceramic-tnet-ipfs-nd'},
+'QmSqeKpCYW89XrHHxtEQEWXmznp6o336jzwvdodbrGeLTk': {'client': 'ceramic-tnet-ex-ipfs-gw'},
+'QmWiY3CbNawZjWnHXx3p3DXsg21pZYTj4CRY1iwMkhP8r3': {'client': 'ceramic-tnet-ex-ipfs-nd'}
 }
 
 async function handleKeepalive(peer_id, messageData) {
@@ -307,7 +318,7 @@ async function handleKeepalive(peer_id, messageData) {
     let client = ''
     let last_seen = peerVersions.get(peer_id)
     if (peer_id in PEER_MAP) {
-        ips = PEER_MAP[peer_id]['ips']
+        ips = PEER_MAP[peer_id]['ips'] || '-'
         client = PEER_MAP[peer_id]['client']
     }
 
