@@ -220,7 +220,7 @@ async function handleMessage(message) {
     const { stream, tip, model } = parsedMessageData
 
     if (model) {
-       handleModel(model)
+       // handleModel(model)
        console.log("Have a model!")
     }
 
