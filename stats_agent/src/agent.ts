@@ -220,6 +220,7 @@ async function handleMessage(message) {
     const { stream, tip, model } = parsedMessageData
 
     if (model) {
+       handleModel(model)
        console.log("Have a model!")
     }
 
@@ -239,6 +240,27 @@ async function handleMessage(message) {
     }
 }
 
+/**
+ * Retrieve Model details
+ *
+ **/
+async function handleModel(modelId) {
+
+    const modelStream = StreamID.fromString(modelId)
+    const model_genesis_commit = await _getFromIpfs(modelStream.cid)
+    if (! model_genesis_commit) {
+        console.log("Unable to retrieve model details for " + modelId)
+        return ''
+    }
+    console.log("loaded a model")
+ // if we had the stream, we could get this
+ //    const model_name = model_genesis_commit?.state?.name
+
+/*
+{"streamId":"kjzl6hvfrbw6c6vj9gpwsxxijie7qqo6ccjh6cojsi0bvtmuj93f1nocjo3jfvn","state":{"type":2,"content":{"name":"DataverseIndexFolder","views":{"author":{"type":"documentAccount"},"version":{"type":"documentVersion"}},"schema":{"type":"object","$defs":{"GraphQLDateTime":{"type":"string","title":"GraphQLDateTime","format":"date-time","maxLength":100}},"$schema":"https://json-schema.org/draft/2020-12/schema","required":["appVersion","folderType","contentFolderIds","createdAt","updatedAt"],"properties":{"deleted":{"type":"boolean"},"options":{"type":"string","maxLength":300000000},"createdAt":{"$ref":"#/$defs/GraphQLDateTime"},"updatedAt":{"$ref":"#/$defs/GraphQLDateTime"},"appVersion":{"type":"string","maxLength":100},"folderType":{"type":"integer"},"childFolderIds":{"type":"array","items":{"type":"string","maxLength":2000},"maxItems":10000},"parentFolderId":{"type":"string","maxLength":1000},"contentFolderIds":{"type":"array","items":{"type":"string","maxLength":2000},"maxItems":10000,"minItems":1}},"additionalProperties":false},"version":"1.0","relations":{},"description":"DataverseIndexFolder_v3","accountRelation":{"type":"list"}},"metadata":{"controllers":["did:key:z6MksAFyD4CKMZ5u6HLdjRqsXWU6gXH8Ww9gw9FwSFVSdx72"],"model":"kh4q0ozorrgaq2mezktnrmdwleo1d"},"signature":2,"anchorStatus":"ANCHORED","log":[{"cid":"bagcqcerajk5nifu2j27kktcv6cqiymby7hvpxg7nrs4su2jgahtey7exjirq","type":0,"timestamp":1679575955},{"cid":"bafyreiexumkx5oi36l5z5g6fi4sxgp6pj4xsmuovbm7tmuzt7eui5b73yi","type":2,"timestamp":1679575955}],"anchorProof":{"root":"bafyreie4gnk2m5t7u777sm5c4pkigufk453da4lmyj6tuf4bkefosdnzw4","txHash":"bagjqcgza57un6a4fx64ykcopfn7s6ugmppthhuk24jjkvkzi5oevlqvhcmxq","txType":"f(bytes32)","chainId":"eip155:1"},"doctype":"model"}}
+*/
+
+}
 
 /**
  * Record cid of the tip in the db
