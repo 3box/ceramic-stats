@@ -9,10 +9,10 @@
         "url": "/d/iUTyCdDVk/product-growth-daily-actives",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-11-07T04:27:09Z",
-        "updated": "2023-01-09T01:27:10Z",
+        "updated": "2023-04-14T14:51:00Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 29,
+        "version": 33,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 17,
@@ -577,6 +577,7 @@
                 },
                 "yaxes": [
                     {
+                        "$$hashKey": "object:72",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -585,6 +586,7 @@
                         "show": true
                     },
                     {
+                        "$$hashKey": "object:73",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -744,17 +746,17 @@
                     {
                         "exemplar": true,
                         "expr": "sum(increase(agent_model_uniq_da_total[1w] offset -1d)) without (job, exported_job, instance, cacao, family, method)",
-                        "hide": true,
+                        "hide": false,
                         "interval": "",
-                        "legendFormat": "this week",
+                        "legendFormat": "this_week",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
                         "expr": "sum(increase(agent_model_uniq_da_total[1w] offset 6d)) without (job, exported_job, instance, cacao, family, method)",
-                        "hide": true,
+                        "hide": false,
                         "interval": "",
-                        "legendFormat": "last week",
+                        "legendFormat": "last_week",
                         "refId": "B"
                     }
                 ],
@@ -765,16 +767,51 @@
                     {
                         "id": "calculateField",
                         "options": {
+                            "alias": "DIFF",
                             "binary": {
-                                "left": "this week",
+                                "left": "this_week",
                                 "operator": "-",
                                 "reducer": "sum",
-                                "right": ""
+                                "right": "last_week"
                             },
                             "mode": "binary",
                             "reduce": {
                                 "reducer": "sum"
                             }
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "DELTA",
+                            "binary": {
+                                "left": "DIFF",
+                                "operator": "/",
+                                "reducer": "sum",
+                                "right": "last_week"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
+                        }
+                    },
+                    {
+                        "id": "calculateField",
+                        "options": {
+                            "alias": "PERCENT CHANGE",
+                            "binary": {
+                                "left": "DELTA",
+                                "operator": "*",
+                                "reducer": "sum",
+                                "right": "100"
+                            },
+                            "mode": "binary",
+                            "reduce": {
+                                "reducer": "sum"
+                            },
+                            "replaceFields": true
                         }
                     }
                 ],
@@ -883,6 +920,6 @@
         "timezone": "",
         "title": "Product Growth - Daily Actives",
         "uid": "iUTyCdDVk",
-        "version": 29
+        "version": 33
     }
 }

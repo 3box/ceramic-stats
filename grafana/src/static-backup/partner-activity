@@ -9,10 +9,10 @@
         "url": "/d/Ggt4khSVz/partner-activity",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-14T12:54:03Z",
-        "updated": "2023-01-09T08:56:44Z",
+        "updated": "2023-04-05T21:41:28Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 75,
+        "version": 76,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 20,
@@ -43,6 +43,103 @@
         "links": [],
         "panels": [
             {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "description": "total stream updates, grouped by Cacao, in past day",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 0
+                },
+                "hiddenSeries": false,
+                "id": 1,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(sum by (cacao) (increase(agent_stream_total{cacao!=''}[1d] offset -1d))[1d:1d])",
+                        "interval": "",
+                        "legendFormat": "{{cacao}}",
+                        "refId": "A"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Total Streams by App (Cacao) by Day",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:914",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:915",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
                 "datasource": "Prometheus",
                 "fieldConfig": {
                     "defaults": {
@@ -69,8 +166,345 @@
                 "gridPos": {
                     "h": 8,
                     "w": 12,
-                    "x": 0,
+                    "x": 12,
                     "y": 0
+                },
+                "id": 19,
+                "options": {
+                    "displayLabels": [],
+                    "legend": {
+                        "displayMode": "list",
+                        "placement": "right",
+                        "values": []
+                    },
+                    "pieType": "pie",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "text": {}
+                },
+                "pluginVersion": "7.5.7",
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "sum by (source) (increase(cas_server_anchor_requested{source!=\"\", source!~\"^10.*\", source!=\"136.56.26.176\"}[7d]))",
+                        "interval": "",
+                        "legendFormat": "{{source}}: {{ip_addr}}",
+                        "refId": "A"
+                    }
+                ],
+                "title": "CAS Anchor Requests by Source",
+                "type": "piechart"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "description": "unique models seen on updates, grouped by Cacao, in past day",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 8
+                },
+                "hiddenSeries": false,
+                "id": 7,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "last_over_time(sum by (cacao) (increase(agent_model_uniq_da_total[1d] offset -1d))[1d:1d])",
+                        "interval": "",
+                        "legendFormat": "{{cacao}}",
+                        "refId": "A"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Unique Models by App (Cacao) by Day",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "custom": {
+                            "align": null,
+                            "filterable": false
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 8
+                },
+                "id": 17,
+                "options": {
+                    "showHeader": true
+                },
+                "pluginVersion": "7.5.7",
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "sum by (cacao) (increase(agent_stream_total{cacao!=''}[7d]))",
+                        "interval": "",
+                        "legendFormat": "{{cacao}}",
+                        "refId": "A"
+                    }
+                ],
+                "title": "Streams by CACAO",
+                "transformations": [
+                    {
+                        "id": "reduce",
+                        "options": {
+                            "reducers": [
+                                "lastNotNull"
+                            ]
+                        }
+                    },
+                    {
+                        "id": "sortBy",
+                        "options": {
+                            "fields": {},
+                            "sort": [
+                                {
+                                    "desc": true,
+                                    "field": "Last (not null)"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "organize",
+                        "options": {
+                            "excludeByName": {},
+                            "indexByName": {},
+                            "renameByName": {
+                                "Field": "CACAO",
+                                "Last (not null)": "Total streams last week"
+                            }
+                        }
+                    }
+                ],
+                "type": "table"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "description": "total stream queries and updates by family in past day (top 10 families)",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 16
+                },
+                "hiddenSeries": false,
+                "id": 2,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "topk(10, last_over_time(sum by (family)(increase(agent_stream_total{family!='undefined'}[1d]))[1d:1d]))",
+                        "interval": "",
+                        "legendFormat": "{{family}}",
+                        "refId": "A"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Total Streams by App Family by Day",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:238",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:239",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 80
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 11,
+                    "y": 24
                 },
                 "id": 14,
                 "options": {
@@ -113,7 +547,7 @@
                         "refId": "B"
                     }
                 ],
-                "title": "CAS Anchor Requests per Week by Partner Server",
+                "title": "Until March 2023: CAS Anchor Requests per Week by Requesting Server",
                 "transformations": [
                     {
                         "id": "renameByRegex",
@@ -250,632 +684,6 @@
                     }
                 ],
                 "type": "piechart"
-            },
-            {
-                "datasource": "Prometheus",
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "custom": {
-                            "align": null,
-                            "filterable": false
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": null
-                                },
-                                {
-                                    "color": "red",
-                                    "value": 80
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 0
-                },
-                "id": 15,
-                "options": {
-                    "showHeader": true
-                },
-                "pluginVersion": "7.5.7",
-                "targets": [
-                    {
-                        "exemplar": false,
-                        "expr": "sum by (ip_addr) (increase(cas_server_anchor_requested{ip_addr!=''}[7d]))",
-                        "format": "time_series",
-                        "interval": "",
-                        "legendFormat": "{{ip_addr}}",
-                        "refId": "A"
-                    }
-                ],
-                "transformations": [
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "134.209.162.183",
-                            "renamePattern": "Unlock & Raid Guild"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "35.170.181.124|34.236.75.99",
-                            "renamePattern": "Gitcoin"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "167.99.230.169|157.245.135.141",
-                            "renamePattern": "Orbis"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "143.198.245.21",
-                            "renamePattern": "Disco"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "143.198.245.21|64.225.91.133|137.184.244.223",
-                            "renamePattern": "Disco"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "10.0.3.226",
-                            "renamePattern": "3box"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "34.85.157.166",
-                            "renamePattern": "Metagame"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "157.230.181.252|157.230.181.128|146.190.196.39|206.189.255.126",
-                            "renamePattern": "Geoweb"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "35.224.77.11",
-                            "renamePattern": "Cambrian"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "18.219.208.129",
-                            "renamePattern": "Mach34"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "10.0.1.235",
-                            "renamePattern": "3box"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "40.86.207.149",
-                            "renamePattern": "Catalyst"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "51.178.134.66",
-                            "renamePattern": "Soulbounds"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "52.20.196.100",
-                            "renamePattern": "Learning Economy Foundation (welibrary)"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "3.223.132.101",
-                            "renamePattern": "C-Voxel"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "144.126.248.72",
-                            "renamePattern": "dClimate"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "52.69.45.131",
-                            "renamePattern": "Lumos"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "52.22.126.62",
-                            "renamePattern": "Usher"
-                        }
-                    },
-                    {
-                        "id": "renameByRegex",
-                        "options": {
-                            "regex": "209.250.224.39",
-                            "renamePattern": "GoodDollar"
-                        }
-                    },
-                    {
-                        "id": "reduce",
-                        "options": {
-                            "reducers": [
-                                "lastNotNull"
-                            ]
-                        }
-                    },
-                    {
-                        "id": "organize",
-                        "options": {
-                            "excludeByName": {
-                                "Field": false
-                            },
-                            "indexByName": {},
-                            "renameByName": {
-                                "Field": "Partner",
-                                "Last (not null)": "Last",
-                                "Max": "Anchor Requests/Day"
-                            }
-                        }
-                    },
-                    {
-                        "id": "groupBy",
-                        "options": {
-                            "fields": {
-                                "Anchor Requests/Day": {
-                                    "aggregations": [
-                                        "sum"
-                                    ],
-                                    "operation": "aggregate"
-                                },
-                                "Last": {
-                                    "aggregations": [
-                                        "sum"
-                                    ],
-                                    "operation": "aggregate"
-                                },
-                                "Partner": {
-                                    "aggregations": [],
-                                    "operation": "groupby"
-                                }
-                            }
-                        }
-                    },
-                    {
-                        "id": "sortBy",
-                        "options": {
-                            "fields": {},
-                            "sort": [
-                                {
-                                    "desc": true,
-                                    "field": "Last (sum)"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "id": "organize",
-                        "options": {
-                            "excludeByName": {},
-                            "indexByName": {},
-                            "renameByName": {
-                                "Last (sum)": "Requests per Week"
-                            }
-                        }
-                    }
-                ],
-                "type": "table"
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "total stream updates, grouped by Cacao, in past day",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 0,
-                    "y": 8
-                },
-                "hiddenSeries": false,
-                "id": 1,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum by (cacao) (increase(agent_stream_total{cacao!=''}[1d] offset -1d))[1d:1d])",
-                        "interval": "",
-                        "legendFormat": "{{cacao}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Total Streams by App (Cacao) by Day",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:914",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "$$hashKey": "object:915",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "datasource": "Prometheus",
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "custom": {
-                            "align": null,
-                            "filterable": false
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": null
-                                },
-                                {
-                                    "color": "red",
-                                    "value": 80
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 8
-                },
-                "id": 17,
-                "options": {
-                    "showHeader": true
-                },
-                "pluginVersion": "7.5.7",
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "sum by (cacao) (increase(agent_stream_total{cacao!=''}[7d]))",
-                        "interval": "",
-                        "legendFormat": "{{cacao}}",
-                        "refId": "A"
-                    }
-                ],
-                "title": "Streams by CACAO",
-                "transformations": [
-                    {
-                        "id": "reduce",
-                        "options": {
-                            "reducers": [
-                                "lastNotNull"
-                            ]
-                        }
-                    },
-                    {
-                        "id": "sortBy",
-                        "options": {
-                            "fields": {},
-                            "sort": [
-                                {
-                                    "desc": true,
-                                    "field": "Last (not null)"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "id": "organize",
-                        "options": {
-                            "excludeByName": {},
-                            "indexByName": {},
-                            "renameByName": {
-                                "Field": "CACAO",
-                                "Last (not null)": "Total streams last week"
-                            }
-                        }
-                    }
-                ],
-                "type": "table"
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "unique models seen on updates, grouped by Cacao, in past day",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 0,
-                    "y": 16
-                },
-                "hiddenSeries": false,
-                "id": 7,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "last_over_time(sum by (cacao) (increase(agent_model_uniq_da_total[1d] offset -1d))[1d:1d])",
-                        "interval": "",
-                        "legendFormat": "{{cacao}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Unique Models by App (Cacao) by Day",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
-            },
-            {
-                "aliasColors": {},
-                "bars": false,
-                "dashLength": 10,
-                "dashes": false,
-                "datasource": "Prometheus",
-                "description": "total stream queries and updates by family in past day (top 10 families)",
-                "fieldConfig": {
-                    "defaults": {},
-                    "overrides": []
-                },
-                "fill": 1,
-                "fillGradient": 0,
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 16
-                },
-                "hiddenSeries": false,
-                "id": 2,
-                "legend": {
-                    "avg": false,
-                    "current": false,
-                    "max": false,
-                    "min": false,
-                    "show": true,
-                    "total": false,
-                    "values": false
-                },
-                "lines": true,
-                "linewidth": 1,
-                "nullPointMode": "null",
-                "options": {
-                    "alertThreshold": true
-                },
-                "percentage": false,
-                "pluginVersion": "7.5.7",
-                "pointradius": 2,
-                "points": false,
-                "renderer": "flot",
-                "seriesOverrides": [],
-                "spaceLength": 10,
-                "stack": false,
-                "steppedLine": false,
-                "targets": [
-                    {
-                        "exemplar": true,
-                        "expr": "topk(10, last_over_time(sum by (family)(increase(agent_stream_total{family!='undefined'}[1d]))[1d:1d]))",
-                        "interval": "",
-                        "legendFormat": "{{family}}",
-                        "refId": "A"
-                    }
-                ],
-                "thresholds": [],
-                "timeFrom": null,
-                "timeRegions": [],
-                "timeShift": null,
-                "title": "Total Streams by App Family by Day",
-                "tooltip": {
-                    "shared": true,
-                    "sort": 0,
-                    "value_type": "individual"
-                },
-                "type": "graph",
-                "xaxis": {
-                    "buckets": null,
-                    "mode": "time",
-                    "name": null,
-                    "show": true,
-                    "values": []
-                },
-                "yaxes": [
-                    {
-                        "$$hashKey": "object:238",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    },
-                    {
-                        "$$hashKey": "object:239",
-                        "format": "short",
-                        "label": null,
-                        "logBase": 1,
-                        "max": null,
-                        "min": null,
-                        "show": true
-                    }
-                ],
-                "yaxis": {
-                    "align": false,
-                    "alignLevel": null
-                }
             }
         ],
         "schemaVersion": 27,
@@ -892,8 +700,8 @@
         },
         "timepicker": {},
         "timezone": "",
-        "title": "Partner Activity",
+        "title": "App Activity",
         "uid": "Ggt4khSVz",
-        "version": 75
+        "version": 76
     }
 }
