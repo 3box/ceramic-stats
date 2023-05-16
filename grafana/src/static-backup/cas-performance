@@ -9,10 +9,10 @@
         "url": "/d/2ufgfUKVz/cas-performance",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-12-07T08:38:09Z",
-        "updated": "2023-04-05T21:29:32Z",
+        "updated": "2023-04-27T22:43:25Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 51,
+        "version": 52,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 31,
@@ -39,7 +39,7 @@
         "gnetId": null,
         "graphTooltip": 0,
         "id": 32,
-        "iteration": 1680729580293,
+        "iteration": 1682635379135,
         "links": [],
         "panels": [
             {
@@ -126,7 +126,7 @@
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
-                "title": "Anchors requested/min by client",
+                "title": "Anchors requested/min by authorized client",
                 "tooltip": {
                     "shared": true,
                     "sort": 0,
@@ -1473,6 +1473,6 @@
         "timezone": "utc",
         "title": "CAS Performance",
         "uid": "2ufgfUKVz",
-        "version": 51
+        "version": 52
     }
 }

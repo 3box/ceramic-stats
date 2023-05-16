@@ -5,14 +5,14 @@
         "canEdit": true,
         "canAdmin": true,
         "canStar": true,
-        "slug": "partner-activity",
-        "url": "/d/Ggt4khSVz/partner-activity",
+        "slug": "app-activity",
+        "url": "/d/Ggt4khSVz/app-activity",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-14T12:54:03Z",
-        "updated": "2023-04-05T21:41:28Z",
+        "updated": "2023-04-27T22:42:50Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 76,
+        "version": 78,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 20,
@@ -547,7 +547,7 @@
                         "refId": "B"
                     }
                 ],
-                "title": "Until March 2023: CAS Anchor Requests per Week by Requesting Server",
+                "title": "Until March 2023: CAS Anchor Requests per Week by Partner Server",
                 "transformations": [
                     {
                         "id": "renameByRegex",
@@ -702,6 +702,6 @@
         "timezone": "",
         "title": "App Activity",
         "uid": "Ggt4khSVz",
-        "version": 76
+        "version": 78
     }
 }
