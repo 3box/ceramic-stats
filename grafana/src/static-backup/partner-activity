@@ -9,10 +9,10 @@
         "url": "/d/Ggt4khSVz/app-activity",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-14T12:54:03Z",
-        "updated": "2023-04-27T22:42:50Z",
+        "updated": "2023-05-03T13:48:41Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 78,
+        "version": 79,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 20,
@@ -384,6 +384,110 @@
                 "bars": false,
                 "dashLength": 10,
                 "dashes": false,
+                "datasource": "CloudWatch",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 9,
+                    "w": 12,
+                    "x": 0,
+                    "y": 16
+                },
+                "hiddenSeries": false,
+                "id": 21,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 7,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "alias": "New DIDs registered",
+                        "dimensions": {},
+                        "expression": "",
+                        "id": "",
+                        "matchExact": true,
+                        "metricName": "cas_admin-api-prod_did_registration_total",
+                        "namespace": "CeramicAnchorService",
+                        "period": "",
+                        "refId": "A",
+                        "region": "default",
+                        "statistics": [
+                            "Sum"
+                        ]
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "New DID Registrations",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:197",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:198",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
                 "datasource": "Prometheus",
                 "description": "total stream queries and updates by family in past day (top 10 families)",
                 "fieldConfig": {
@@ -504,7 +608,7 @@
                     "h": 8,
                     "w": 12,
                     "x": 11,
-                    "y": 24
+                    "y": 25
                 },
                 "id": 14,
                 "options": {
@@ -702,6 +806,6 @@
         "timezone": "",
         "title": "App Activity",
         "uid": "Ggt4khSVz",
-        "version": 78
+        "version": 79
     }
 }
