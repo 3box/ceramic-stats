@@ -5,12 +5,25 @@ receivers:
       http:
 
 processors:
-  batch:
+  filter_prometheus:
+    metrics:
+      exclude:
+        match_type: regexp
+        metrics_names:
+          - ^ts.*
+  filter_promscale:
+    metrics:
+      include:
+        match_type: regexp
+        metrics_names:
+          - ^ts.*
 
 exporters:
   prometheus:
     endpoint: 0.0.0.0:8889
-    namespace: 
+  promscale:
+    endpoint: "http://localhost:9201/write"
+    insecure: true
 
 extensions:
   health_check:
@@ -20,7 +33,11 @@ extensions:
 service:
   extensions: [health_check,pprof,zpages]
   pipelines:
-    metrics:
+    metrics_prometheus:
       receivers: [otlp]
-      processors: [batch]
+      processors: [filter_prometheus]
       exporters: [prometheus]
+    metrics_promscale:
+      receivers: [otlp]
+      processors: [filter_promscale]
+      exporters: [promscale]
