@@ -35,9 +35,9 @@ service:
   pipelines:
     metrics_prometheus:
       receivers: [otlp]
-      processors: [filter_prometheus]
+      processors: []
       exporters: [prometheus]
     metrics_promscale:
       receivers: [otlp]
-      processors: [filter_promscale]
+      processors: []
       exporters: [promscale]
