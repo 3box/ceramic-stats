@@ -18,13 +18,13 @@ processors:
       exclude:
         match_type: regexp
         metric_names:
-        - ^tsdb.*$
+        - ^.*tsdb$
   filter/prometheusremotewrite:
     metrics:
       include:
         match_type: regexp
         metric_names:
-        - ^tsdb*$
+        - ^.*tsdb$
 
 extensions:
   health_check:
