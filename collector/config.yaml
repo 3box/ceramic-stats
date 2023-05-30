@@ -12,6 +12,20 @@ exporters:
     tls:
       insecure: true
 
+processors:
+  filter/prometheus:
+    metrics:
+      exclude:
+        match_type: regexp
+        metric_names:
+        - ^tsdb.*$
+  filter/prometheusremotewrite:
+    metrics:
+      include:
+        match_type: regexp
+        metric_names:
+        - ^tsdb*$
+
 extensions:
   health_check:
   pprof:
@@ -20,7 +34,12 @@ extensions:
 service:
   extensions: [health_check,pprof,zpages]
   pipelines:
-    metrics:
+    metrics/prometheus:
       receivers: [otlp]
-      processors: []
-      exporters: [prometheus, prometheusremotewrite]
+      processors: [filter/prometheus]
+      exporters: [prometheus]
+    metrics/prometheusremotewrite:
+      receivers: [otlp]
+      processors: [filter/prometheusremotewrite]
+      exporters: [prometheusremotewrite]
+
