@@ -4,26 +4,27 @@ receivers:
       grpc:
       http:
 
-processors:
-  filter_prometheus:
-    metrics:
-      exclude:
-        match_type: regexp
-        metrics_names:
-          - ^ts.*
-  filter_promscale:
-    metrics:
-      include:
-        match_type: regexp
-        metrics_names:
-          - ^ts.*
-
 exporters:
   prometheus:
     endpoint: 0.0.0.0:8889
-  promscale:
+  prometheusremotewrite:
     endpoint: "http://localhost:9201/write"
-    insecure: true
+    tls:
+      insecure: true
+
+processors:
+  filter/prometheus:
+    metrics:
+      exclude:
+        match_type: regexp
+        metric_names:
+        - ^.*tsdb$
+  filter/prometheusremotewrite:
+    metrics:
+      include:
+        match_type: regexp
+        metric_names:
+        - ^.*tsdb$
 
 extensions:
   health_check:
@@ -33,11 +34,12 @@ extensions:
 service:
   extensions: [health_check,pprof,zpages]
   pipelines:
-    metrics_prometheus:
+    metrics/prometheus:
       receivers: [otlp]
-      processors: [filter_prometheus]
+      processors: [filter/prometheus]
       exporters: [prometheus]
-    metrics_promscale:
+    metrics/prometheusremotewrite:
       receivers: [otlp]
-      processors: [filter_promscale]
-      exporters: [promscale]
+      processors: [filter/prometheusremotewrite]
+      exporters: [prometheusremotewrite]
+
