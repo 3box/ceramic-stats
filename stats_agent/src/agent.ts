@@ -10,7 +10,7 @@ import { DynamoDBClient, PutItemCommand, DescribeTableCommand, BatchWriteItemCom
 import { CID } from 'multiformats/cid'
 import { ServiceMetrics as Metrics } from '@ceramicnetwork/observability'
 import { StreamID } from '@ceramicnetwork/streamid'
-import { base64urlToJSON } from '@ceramicnetwork/common'
+import { base64urlToJSON, StreamUtils } from '@ceramicnetwork/common'
 import { PubsubKeepalive } from './pubsub-keepalive.js'
 //import convert from 'blockcodec-to-ipld-format'
 
@@ -34,6 +34,7 @@ log.log = console.log.bind(console)
 
 Metrics.start(COLLECTOR_HOST, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 2})
+Metrics.count('HELLO_tsdb', 1, {'testing_tsdb_version': 1})
 
 const DAY_TTL = 86400 * 1000
 const MO_TTL = 30 * DAY_TTL
@@ -220,7 +221,7 @@ async function handleMessage(message) {
     const { stream, tip, model } = parsedMessageData
 
     if (model) {
-       // handleModel(model)
+       handleModel(model)
        console.log("Have a model!")
     }
 
@@ -248,11 +249,13 @@ async function handleModel(modelId) {
 
     const modelStream = StreamID.fromString(modelId)
     const model_genesis_commit = await _getFromIpfs(modelStream.cid)
+    const model_genesis_data = StreamUtils.deserializeCommit(model_genesis_commit)
     if (! model_genesis_commit) {
         console.log("Unable to retrieve model details for " + modelId)
         return ''
     }
-    console.log("loaded a model")
+
+    console.log("loaded a model:" + JSON.stringify(model_genesis_data))
  // if we had the stream, we could get this
  //    const model_name = model_genesis_commit?.state?.name
 
