@@ -34,6 +34,7 @@ log.log = console.log.bind(console)
 
 Metrics.start(COLLECTOR_HOST, 'agent')
 Metrics.count('HELLO', 1, {'test_version': 2})
+Metrics.count('HELLO_tsdb', 1, {'test_version': 1})
 
 const DAY_TTL = 86400 * 1000
 const MO_TTL = 30 * DAY_TTL
