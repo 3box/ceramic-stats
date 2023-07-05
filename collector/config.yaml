@@ -13,12 +13,6 @@ exporters:
       insecure: true
 
 processors:
-  filter/prometheus:
-    metrics:
-      exclude:
-        match_type: regexp
-        metric_names:
-        - .*tsdb$
   filter/prometheusremotewrite:
     metrics:
       include:
@@ -36,7 +30,6 @@ service:
   pipelines:
     metrics/prometheus:
       receivers: [otlp]
-      processors: [filter/prometheus]
       exporters: [prometheus]
     metrics/prometheusremotewrite:
       receivers: [otlp]
