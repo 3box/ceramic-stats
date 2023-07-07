@@ -9,10 +9,10 @@
         "url": "/d/Ggt4khSVz/app-activity",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-14T12:54:03Z",
-        "updated": "2023-05-03T13:48:41Z",
+        "updated": "2023-07-05T12:14:50Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 79,
+        "version": 81,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 20,
@@ -90,7 +90,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum by (cacao) (increase(agent_stream_total{cacao!=''}[1d] offset -1d))[1d:1d])",
+                        "expr": "last_over_time(sum by (cacao) (increase(agent_stream_total{cacao!=''}[1d] offset -1d))[1d:1d]) or last_over_time(sum by (cacao) (increase(agent:stream_total{cacao!=''}[1d] offset -1d))[1d:1d])",
                         "interval": "",
                         "legendFormat": "{{cacao}}",
                         "refId": "A"
@@ -191,7 +191,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum by (source) (increase(cas_server_anchor_requested{source!=\"\", source!~\"^10.*\", source!=\"136.56.26.176\"}[7d]))",
+                        "expr": "sum by (source) (increase(cas_server_anchor_requested{source!=\"\", source!~\"^10.*\", source!=\"136.56.26.176\"}[7d])) or sum by (source) (increase(cas_server:anchor_requested{source!=\"\", source!~\"^10.*\", source!=\"136.56.26.176\"}[7d]))",
                         "interval": "",
                         "legendFormat": "{{source}}: {{ip_addr}}",
                         "refId": "A"
@@ -248,7 +248,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum by (cacao) (increase(agent_model_uniq_da_total[1d] offset -1d))[1d:1d])",
+                        "expr": "last_over_time(sum by (cacao) (increase(agent_model_uniq_da_total[1d] offset -1d))[1d:1d]) or last_over_time(sum by (cacao) (increase(agent:model_uniq_da_total[1d] offset -1d))[1d:1d])",
                         "interval": "",
                         "legendFormat": "{{cacao}}",
                         "refId": "A"
@@ -274,6 +274,7 @@
                 },
                 "yaxes": [
                     {
+                        "$$hashKey": "object:1493",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -282,6 +283,7 @@
                         "show": true
                     },
                     {
+                        "$$hashKey": "object:1494",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -337,7 +339,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum by (cacao) (increase(agent_stream_total{cacao!=''}[7d]))",
+                        "expr": "sum by (cacao) (increase(agent_stream_total{cacao!=''}[7d])) or sum by (cacao) (increase(agent:stream_total{cacao!=''}[7d]))",
                         "interval": "",
                         "legendFormat": "{{cacao}}",
                         "refId": "A"
@@ -531,7 +533,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "topk(10, last_over_time(sum by (family)(increase(agent_stream_total{family!='undefined'}[1d]))[1d:1d]))",
+                        "expr": "topk(10, last_over_time(sum by (family)(increase(agent_stream_total{family!='undefined'}[1d]))[1d:1d])) or topk(10, last_over_time(sum by (family)(increase(agent:stream_total{family!='undefined'}[1d]))[1d:1d]))",
                         "interval": "",
                         "legendFormat": "{{family}}",
                         "refId": "A"
@@ -806,6 +808,6 @@
         "timezone": "",
         "title": "App Activity",
         "uid": "Ggt4khSVz",
-        "version": 79
+        "version": 81
     }
 }
