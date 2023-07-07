@@ -9,10 +9,10 @@
         "url": "/d/iUTyCdDVk/product-growth-daily-actives",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-11-07T04:27:09Z",
-        "updated": "2023-04-14T14:51:00Z",
+        "updated": "2023-07-05T12:18:30Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 33,
+        "version": 34,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 17,
@@ -90,14 +90,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_stream_uniq_da_total[1d] offset -1d)) without (job, exported_job, instance, cacao, family, method) [1d:1d])",
+                        "expr": "last_over_time(sum(increase(agent_stream_uniq_da_total[1d] offset -1d)) without (job, exported_job, instance, cacao, family, method) [1d:1d]) or last_over_time(sum(increase(agent:stream_uniq_da_total[1d] offset -1d)) without (job, exported_job, instance, cacao, family, method) [1d:1d])",
                         "interval": "",
                         "legendFormat": "this_week",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_stream_uniq_da_total[1d] offset 6d)) without (job, exported_job, instance, cacao, family, method) [1d:1d])",
+                        "expr": "last_over_time(sum(increase(agent_stream_uniq_da_total[1d] offset 6d)) without (job, exported_job, instance, cacao, family, method) [1d:1d]) or last_over_time(sum(increase(agent:stream_uniq_da_total[1d] offset 6d)) without (job, exported_job, instance, cacao, family, method) [1d:1d])",
                         "interval": "",
                         "legendFormat": "last_week",
                         "refId": "B"
@@ -194,14 +194,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_controller_uniq_da_total[1d] offset -1d)) without (job, exported_job, instance, cacao, family, method) [1d:1d])",
+                        "expr": "last_over_time(sum(increase(agent_controller_uniq_da_total[1d] offset -1d)) without (job, exported_job, instance, cacao, family, method) [1d:1d]) or last_over_time(sum(increase(agent:controller_uniq_da_total[1d] offset -1d)) without (job, exported_job, instance, cacao, family, method) [1d:1d])",
                         "interval": "",
                         "legendFormat": "this week",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_controller_uniq_da_total[1d] offset 6d)) without (job, exported_job, instance, cacao, family, method) [1d:1d])",
+                        "expr": "last_over_time(sum(increase(agent_controller_uniq_da_total[1d] offset 6d)) without (job, exported_job, instance, cacao, family, method) [1d:1d]) or last_over_time(sum(increase(agent:controller_uniq_da_total[1d] offset 6d)) without (job, exported_job, instance, cacao, family, method) [1d:1d])",
                         "interval": "",
                         "legendFormat": "last week",
                         "refId": "B"
@@ -544,14 +544,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_model_uniq_da_total[1d] offset -1d)) without (job, expoted_job, instance, cacao, family, method) [1d:1d])",
+                        "expr": "last_over_time(sum(increase(agent_model_uniq_da_total[1d] offset -1d)) without (job, expoted_job, instance, cacao, family, method) [1d:1d]) or last_over_time(sum(increase(agent:model_uniq_da_total[1d] offset -1d)) without (job, expoted_job, instance, cacao, family, method) [1d:1d])",
                         "interval": "",
                         "legendFormat": "this week",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_model_uniq_da_total[1d] offset 1w)) without (job, expoted_job, instance, cacao, family, method) [1d:1d])",
+                        "expr": "last_over_time(sum(increase(agent_model_uniq_da_total[1d] offset 1w)) without (job, expoted_job, instance, cacao, family, method) [1d:1d]) or last_over_time(sum(increase(agent:model_uniq_da_total[1d] offset 1w)) without (job, expoted_job, instance, cacao, family, method) [1d:1d])",
                         "interval": "",
                         "legendFormat": "last week",
                         "refId": "B"
@@ -657,7 +657,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum(increase(agent_controller_uniq_da_total[7d])) without (job, exported_job, instance, cacao, family)",
+                        "expr": "sum(increase(agent_controller_uniq_da_total[7d])) without (job, exported_job, instance, cacao, family) or sum(increase(agent:controller_uniq_da_total[7d])) without (job, exported_job, instance, cacao, family)",
                         "interval": "",
                         "legendFormat": "{{method}}",
                         "refId": "A"
@@ -920,6 +920,6 @@
         "timezone": "",
         "title": "Product Growth - Daily Actives",
         "uid": "iUTyCdDVk",
-        "version": 33
+        "version": 34
     }
 }

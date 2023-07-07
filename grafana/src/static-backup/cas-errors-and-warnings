@@ -9,10 +9,10 @@
         "url": "/d/Tqcpk_H4k/cas-errors-and-warnings",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-31T15:04:27Z",
-        "updated": "2023-02-14T13:33:14Z",
+        "updated": "2023-05-31T12:51:24Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 28,
+        "version": 29,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 31,
@@ -333,6 +333,42 @@
                 }
             },
             {
+                "alert": {
+                    "alertRuleTags": {},
+                    "conditions": [
+                        {
+                            "evaluator": {
+                                "params": [
+                                    30
+                                ],
+                                "type": "gt"
+                            },
+                            "operator": {
+                                "type": "and"
+                            },
+                            "query": {
+                                "params": [
+                                    "A",
+                                    "10m",
+                                    "now"
+                                ]
+                            },
+                            "reducer": {
+                                "params": [],
+                                "type": "max"
+                            },
+                            "type": "query"
+                        }
+                    ],
+                    "executionErrorState": "keep_state",
+                    "for": "",
+                    "frequency": "10m",
+                    "handler": 1,
+                    "message": "CAS Requests are failing to be created",
+                    "name": "CAS Request Failures / hour alert",
+                    "noDataState": "keep_state",
+                    "notifications": []
+                },
                 "aliasColors": {},
                 "bars": false,
                 "dashLength": 10,
@@ -345,13 +381,13 @@
                 "fill": 1,
                 "fillGradient": 0,
                 "gridPos": {
-                    "h": 9,
+                    "h": 8,
                     "w": 12,
                     "x": 0,
                     "y": 8
                 },
                 "hiddenSeries": false,
-                "id": 2,
+                "id": 25,
                 "legend": {
                     "avg": false,
                     "current": false,
@@ -379,36 +415,26 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_failed_requests[10m]) * 60",
+                        "expr": "increase(cas_server_request_not_created[1h])",
                         "interval": "",
-                        "legendFormat": "failures per min",
+                        "legendFormat": "Request not created past hour",
                         "refId": "A"
                     }
                 ],
                 "thresholds": [
                     {
-                        "$$hashKey": "object:151",
-                        "colorMode": "warning",
-                        "fill": true,
-                        "line": true,
-                        "op": "gt",
-                        "value": 5,
-                        "yaxis": "left"
-                    },
-                    {
-                        "$$hashKey": "object:157",
                         "colorMode": "critical",
                         "fill": true,
                         "line": true,
                         "op": "gt",
-                        "value": 100,
-                        "yaxis": "left"
+                        "value": 30,
+                        "visible": true
                     }
                 ],
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
-                "title": "cas anchor failed requests/min",
+                "title": "CAS Request Failures / hour",
                 "tooltip": {
                     "shared": true,
                     "sort": 0,
@@ -424,7 +450,7 @@
                 },
                 "yaxes": [
                     {
-                        "$$hashKey": "object:92",
+                        "$$hashKey": "object:124",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -433,7 +459,7 @@
                         "show": true
                     },
                     {
-                        "$$hashKey": "object:93",
+                        "$$hashKey": "object:125",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -572,13 +598,13 @@
                 "fill": 1,
                 "fillGradient": 0,
                 "gridPos": {
-                    "h": 8,
+                    "h": 9,
                     "w": 12,
                     "x": 0,
-                    "y": 17
+                    "y": 16
                 },
                 "hiddenSeries": false,
-                "id": 6,
+                "id": 2,
                 "legend": {
                     "avg": false,
                     "current": false,
@@ -606,25 +632,36 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_error_ipfs[10m]) * 60",
+                        "expr": "rate(cas_anchor_failed_requests[10m]) * 60",
                         "interval": "",
-                        "legendFormat": "ipfs error",
+                        "legendFormat": "failures per min",
                         "refId": "A"
-                    },
-                    {
-                        "exemplar": true,
-                        "expr": "rate(cas_anchor_error_multiquery[10m]) * 60",
-                        "hide": false,
-                        "interval": "",
-                        "legendFormat": "multiquery error",
-                        "refId": "B"
                     }
                 ],
-                "thresholds": [],
+                "thresholds": [
+                    {
+                        "$$hashKey": "object:151",
+                        "colorMode": "warning",
+                        "fill": true,
+                        "line": true,
+                        "op": "gt",
+                        "value": 5,
+                        "yaxis": "left"
+                    },
+                    {
+                        "$$hashKey": "object:157",
+                        "colorMode": "critical",
+                        "fill": true,
+                        "line": true,
+                        "op": "gt",
+                        "value": 100,
+                        "yaxis": "left"
+                    }
+                ],
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
-                "title": "IPFS and Multiquery errors/min",
+                "title": "cas anchor failed requests/min",
                 "tooltip": {
                     "shared": true,
                     "sort": 0,
@@ -640,7 +677,7 @@
                 },
                 "yaxes": [
                     {
-                        "$$hashKey": "object:256",
+                        "$$hashKey": "object:92",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -649,7 +686,7 @@
                         "show": true
                     },
                     {
-                        "$$hashKey": "object:257",
+                        "$$hashKey": "object:93",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -786,7 +823,7 @@
                     "y": 25
                 },
                 "hiddenSeries": false,
-                "id": 12,
+                "id": 6,
                 "legend": {
                     "avg": false,
                     "current": false,
@@ -814,33 +851,25 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_retry_emit_anchor_event[10m]) * 60",
+                        "expr": "rate(cas_anchor_error_ipfs[10m]) * 60",
                         "interval": "",
-                        "legendFormat": "retry emit anchor event/min",
+                        "legendFormat": "ipfs error",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_revert_to_pending[10m]) * 60",
+                        "expr": "rate(cas_anchor_error_multiquery[10m]) * 60",
                         "hide": false,
                         "interval": "",
-                        "legendFormat": "revert to pending/min",
+                        "legendFormat": "multiquery error",
                         "refId": "B"
-                    },
-                    {
-                        "exemplar": true,
-                        "expr": "rate(cas_anchor_unprocessed_requests[10m]) * 60",
-                        "hide": false,
-                        "interval": "",
-                        "legendFormat": "unprocessed requests/min",
-                        "refId": "C"
                     }
                 ],
                 "thresholds": [],
                 "timeFrom": null,
                 "timeRegions": [],
                 "timeShift": null,
-                "title": "retry, revert and unprocessed / min",
+                "title": "IPFS and Multiquery errors/min",
                 "tooltip": {
                     "shared": true,
                     "sort": 0,
@@ -856,7 +885,7 @@
                 },
                 "yaxes": [
                     {
-                        "$$hashKey": "object:591",
+                        "$$hashKey": "object:256",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -865,7 +894,7 @@
                         "show": true
                     },
                     {
-                        "$$hashKey": "object:592",
+                        "$$hashKey": "object:257",
                         "format": "short",
                         "label": null,
                         "logBase": 1,
@@ -1002,6 +1031,118 @@
                     "y": 33
                 },
                 "hiddenSeries": false,
+                "id": 12,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "nullPointMode": "null",
+                "options": {
+                    "alertThreshold": true
+                },
+                "percentage": false,
+                "pluginVersion": "7.5.7",
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                    {
+                        "exemplar": true,
+                        "expr": "rate(cas_anchor_retry_emit_anchor_event[10m]) * 60",
+                        "interval": "",
+                        "legendFormat": "retry emit anchor event/min",
+                        "refId": "A"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "rate(cas_anchor_revert_to_pending[10m]) * 60",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "revert to pending/min",
+                        "refId": "B"
+                    },
+                    {
+                        "exemplar": true,
+                        "expr": "rate(cas_anchor_unprocessed_requests[10m]) * 60",
+                        "hide": false,
+                        "interval": "",
+                        "legendFormat": "unprocessed requests/min",
+                        "refId": "C"
+                    }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "retry, revert and unprocessed / min",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                    {
+                        "$$hashKey": "object:591",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    },
+                    {
+                        "$$hashKey": "object:592",
+                        "format": "short",
+                        "label": null,
+                        "logBase": 1,
+                        "max": null,
+                        "min": null,
+                        "show": true
+                    }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "fieldConfig": {
+                    "defaults": {},
+                    "overrides": []
+                },
+                "fill": 1,
+                "fillGradient": 0,
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 41
+                },
+                "hiddenSeries": false,
                 "id": 23,
                 "legend": {
                     "avg": false,
@@ -1094,6 +1235,6 @@
         "timezone": "",
         "title": "CAS errors and warnings",
         "uid": "Tqcpk_H4k",
-        "version": 28
+        "version": 29
     }
 }

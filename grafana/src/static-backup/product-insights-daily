@@ -9,10 +9,10 @@
         "url": "/d/94uYVKD4z/product-insights-daily",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-11-07T07:03:32Z",
-        "updated": "2023-01-09T08:45:24Z",
+        "updated": "2023-07-05T12:33:43Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 27,
+        "version": 30,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 17,
@@ -98,7 +98,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum(rate(agent_version_sample10_total[5m])) without (job, exported_job, instance)",
+                        "expr": "sum(rate(agent_version_sample10_total[5m])) without (job, exported_job, instance) or sum(rate(agent:version_sample10_total[5m])) without (job, exported_job, instance)\n",
                         "format": "time_series",
                         "instant": false,
                         "interval": "",
@@ -177,7 +177,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum(rate(agent_version_sample10_total[5m] offset 7d)) without (job, exported_job, instance)",
+                        "expr": "sum(rate(agent_version_sample10_total[5m] offset 7d)) without (job, exported_job, instance) or sum(rate(agent:version_sample10_total[5m] offset 7d)) without (job, exported_job, instance)\n\n",
                         "format": "time_series",
                         "instant": false,
                         "interval": "",
@@ -251,14 +251,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(increase(agent_QUERY_total[1d] offset -1d) [1d:1d])",
+                        "expr": "last_over_time(increase(agent_QUERY_total[1d] offset -1d) [1d:1d]) or last_over_time(increase(agent:QUERY_total[1d] offset -1d) [1d:1d])\n",
                         "interval": "",
                         "legendFormat": "this week",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(increase(agent_QUERY_total[1d] offset 6d) [1d:1d])\n",
+                        "expr": "last_over_time(increase(agent_QUERY_total[1d] offset 6d) [1d:1d]) or last_over_time(increase(agent:QUERY_total[1d] offset 6d) [1d:1d])\n",
                         "interval": "",
                         "legendFormat": "last week",
                         "refId": "B"
@@ -360,14 +360,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(increase(agent_UPDATE_total[1d] offset -1d) [1d:1d])",
+                        "expr": "last_over_time(increase(agent_UPDATE_total[1d] offset -1d) [1d:1d]) or last_over_time(increase(agent:UPDATE_total[1d] offset -1d) [1d:1d])",
                         "interval": "",
                         "legendFormat": "this week",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(increase(agent_UPDATE_total[1d] offset 6d) [1d:1d])\n",
+                        "expr": "last_over_time(increase(agent_UPDATE_total[1d] offset 6d) [1d:1d]) or last_over_time(increase(agent:UPDATE_total[1d] offset 6d) [1d:1d])\n",
                         "interval": "",
                         "legendFormat": "last week",
                         "refId": "B"
@@ -420,25 +420,7 @@
             {
                 "datasource": "Prometheus",
                 "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "red",
-                                    "value": null
-                                },
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
+                    "defaults": {},
                     "overrides": []
                 },
                 "gridPos": {
@@ -449,19 +431,8 @@
                 },
                 "id": 13,
                 "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "auto",
-                    "orientation": "auto",
-                    "reduceOptions": {
-                        "calcs": [
-                            "lastNotNull"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "text": {},
-                    "textMode": "auto"
+                    "content": "Not available until July 29       ",
+                    "mode": "markdown"
                 },
                 "pluginVersion": "7.5.7",
                 "targets": [
@@ -538,31 +509,12 @@
                         }
                     }
                 ],
-                "type": "stat"
+                "type": "text"
             },
             {
                 "datasource": "Prometheus",
                 "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "decimals": 1,
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "red",
-                                    "value": null
-                                },
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
+                    "defaults": {},
                     "overrides": []
                 },
                 "gridPos": {
@@ -573,19 +525,8 @@
                 },
                 "id": 16,
                 "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "auto",
-                    "orientation": "auto",
-                    "reduceOptions": {
-                        "calcs": [
-                            "lastNotNull"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "text": {},
-                    "textMode": "auto"
+                    "content": "Not available until July 29",
+                    "mode": "markdown"
                 },
                 "pluginVersion": "7.5.7",
                 "targets": [
@@ -662,7 +603,7 @@
                         }
                     }
                 ],
-                "type": "stat"
+                "type": "text"
             },
             {
                 "aliasColors": {},
@@ -711,7 +652,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset -1d) [1d:1d])",
+                        "expr": "last_over_time(increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset -1d) [1d:1d]) or last_over_time(increase(cas_anchor:accepted_requests{exported_job='cas-anchor'}[1d] offset -1d) [1d:1d])",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "this-week",
@@ -719,7 +660,7 @@
                     },
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset 6d) [1d:1d])",
+                        "expr": "last_over_time(increase(cas_anchor_accepted_requests{exported_job='cas-anchor'}[1d] offset 6d) [1d:1d]) or last_over_time(increase(cas_anchor:accepted_requests{exported_job='cas-anchor'}[1d] offset 6d) [1d:1d])\n",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "last week",
@@ -821,14 +762,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_peer_id_uniq_mo_total[1d] offset -1d)) without (job, instance) [1d:1d])",
+                        "expr": "last_over_time(sum(increase(agent_peer_id_uniq_mo_total[1d] offset -1d)) without (job, exported_job, version, instance) [1d:1d]) or last_over_time(sum(increase(agent:peer_id_uniq_mo_total[1d] offset -1d)) without (job, exported_job, version, instance) [1d:1d])\n\n",
                         "interval": "",
-                        "legendFormat": "this week",
+                        "legendFormat": "this_week",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "last_over_time(sum(increase(agent_peer_id_uniq_mo_total[1d] offset 6d)) without (job, instance) [1d:1d])",
+                        "expr": "last_over_time(sum(increase(agent_peer_id_uniq_mo_total[1d] offset 6d)) without (job, exported_job, version, instance) [1d:1d]) or last_over_time(sum(increase(agent:peer_id_uniq_mo_total[1d] offset 6d)) without (job, exported_job, version, instance) [1d:1d])\n\n\n\n",
                         "interval": "",
                         "legendFormat": "last week",
                         "refId": "B"
@@ -880,25 +821,7 @@
             {
                 "datasource": "Prometheus",
                 "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "red",
-                                    "value": null
-                                },
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
+                    "defaults": {},
                     "overrides": []
                 },
                 "gridPos": {
@@ -909,19 +832,8 @@
                 },
                 "id": 20,
                 "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "auto",
-                    "orientation": "auto",
-                    "reduceOptions": {
-                        "calcs": [
-                            "last"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "text": {},
-                    "textMode": "auto"
+                    "content": "Not available until July 29",
+                    "mode": "markdown"
                 },
                 "pluginVersion": "7.5.7",
                 "targets": [
@@ -997,30 +909,12 @@
                         }
                     }
                 ],
-                "type": "stat"
+                "type": "text"
             },
             {
                 "datasource": "Prometheus",
                 "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "red",
-                                    "value": null
-                                },
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
+                    "defaults": {},
                     "overrides": []
                 },
                 "gridPos": {
@@ -1031,19 +925,8 @@
                 },
                 "id": 12,
                 "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "auto",
-                    "orientation": "auto",
-                    "reduceOptions": {
-                        "calcs": [
-                            "last"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "text": {},
-                    "textMode": "auto"
+                    "content": "Not available until July 29",
+                    "mode": "markdown"
                 },
                 "pluginVersion": "7.5.7",
                 "targets": [
@@ -1119,7 +1002,7 @@
                         }
                     }
                 ],
-                "type": "stat"
+                "type": "text"
             },
             {
                 "aliasColors": {},
@@ -1169,14 +1052,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum(rate(agent_QUERY_total[5m])) without (job, instance)",
+                        "expr": "sum(rate(agent_QUERY_total[5m])) without (job, instance) or sum(rate(agent:QUERY_total[5m])) without (job, instance)",
                         "interval": "",
                         "legendFormat": "QUERY",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "sum(rate(agent_RESPONSE_total[5m])) without (job, instance)",
+                        "expr": "sum(rate(agent_RESPONSE_total[5m])) without (job, instance) or sum(rate(agent:RESPONSE_total[5m])) without (job, instance)\n\n",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "RESPONSE",
@@ -1184,7 +1067,7 @@
                     },
                     {
                         "exemplar": true,
-                        "expr": "sum(rate(agent_UPDATE_total[5m])) without (job, instance)",
+                        "expr": "sum(rate(agent_UPDATE_total[5m])) without (job, instance) or sum(rate(agent:UPDATE_total[5m])) without (job, instance)\n",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "UPDATE",
@@ -1282,7 +1165,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum by (type) (rate(agent_stream_total[5m]))",
+                        "expr": "sum by (type) (rate(agent_stream_total[5m])) or sum by (type) (rate(agent:stream_total[5m]))\n",
                         "interval": "",
                         "legendFormat": "",
                         "refId": "A"
@@ -1348,6 +1231,6 @@
         "timezone": "",
         "title": "Product Insights - Daily",
         "uid": "94uYVKD4z",
-        "version": 27
+        "version": 30
     }
 }

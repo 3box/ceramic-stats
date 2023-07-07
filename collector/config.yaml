@@ -13,12 +13,25 @@ exporters:
       insecure: true
 
 processors:
+  filter/prometheus:
+    metrics:
+      exclude:
+        match_type: strict
+        metric_names:
+        - cas_server_write_total_tsdb
+        - cas_server:write_total_tsdb
+
   filter/prometheusremotewrite:
     metrics:
       include:
-        match_type: regexp
+        match_type: strict
         metric_names:
-        - .*tsdb$
+        - cas_server_write_total_tsdb
+        - cas_server:write_total_tsdb
+        - agent_stream_cum_uniq_sum/agent_stream_cum_uniq_count
+        - agent_UPDATE_total
+        - agent:UPDATE_total
+        - hello_test
 
 extensions:
   health_check:
@@ -30,6 +43,7 @@ service:
   pipelines:
     metrics/prometheus:
       receivers: [otlp]
+      processors: [filter/prometheus]
       exporters: [prometheus]
     metrics/prometheusremotewrite:
       receivers: [otlp]

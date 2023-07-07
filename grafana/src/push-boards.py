@@ -42,13 +42,6 @@ BOARDS =  {
              'folder': 'Product',
                             },
 
-    'product-growth-monthly': {'prod': "YOf7nKv4k",
-                             'dev':'7P0Q6ccVk',
-                             'clay': 'GYkQkp54z',
-                             'qa': 'enmQzpc4z',
-             'folder': 'Product',
-                            },
-
     'product-insights-daily': {'prod': "94uYVKD4z",
                              'dev':'ZQJw65c4z',
                              'clay': '94uYVKD4z',
