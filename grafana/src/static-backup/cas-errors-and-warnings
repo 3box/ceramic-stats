@@ -9,10 +9,10 @@
         "url": "/d/Tqcpk_H4k/cas-errors-and-warnings",
         "expires": "0001-01-01T00:00:00Z",
         "created": "2022-10-31T15:04:27Z",
-        "updated": "2023-05-31T12:51:24Z",
+        "updated": "2023-07-05T13:53:06Z",
         "updatedBy": "3box",
         "createdBy": "3box",
-        "version": 29,
+        "version": 31,
         "hasAcl": false,
         "isFolder": false,
         "folderId": 31,
@@ -125,7 +125,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "increase(cas_anchor_anchor_success[780m])",
+                        "expr": "increase(cas_anchor_anchor_success[780m]) or increase(cas_anchor:anchor_success[780m])\n",
                         "interval": "",
                         "legendFormat": "Number of Successful Anchors in past 6.1 hrs",
                         "refId": "A"
@@ -274,7 +274,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "sum_over_time(cas_anchor_anchorBatch_failedRequestsCount_sum [366m])/sum_over_time(cas_anchor_anchorBatch_anchoredRequestsCount_sum [366m])",
+                        "expr": "sum_over_time(cas_anchor_anchorBatch_failedRequestsCount_sum [366m])/sum_over_time(cas_anchor_anchorBatch_anchoredRequestsCount_sum [366m]) or sum_over_time(cas_anchor:anchorBatch_failedRequestsCount_sum [366m])/sum_over_time(cas_anchor:anchorBatch_anchoredRequestsCount_sum [366m])\n\n\n\n",
                         "interval": "",
                         "legendFormat": "Failure/Success Ratio over trailing 6 hrs",
                         "refId": "A"
@@ -415,7 +415,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "increase(cas_server_request_not_created[1h])",
+                        "expr": "increase(cas_server_request_not_created[1h]) or increase(cas_server:request_not_created[1h])\n",
                         "interval": "",
                         "legendFormat": "Request not created past hour",
                         "refId": "A"
@@ -520,14 +520,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_already_anchored_requests[10m]) * 60",
+                        "expr": "rate(cas_anchor_already_anchored_requests[10m]) * 60 or rate(cas_anchor:already_anchored_requests[10m]) * 60\n",
                         "interval": "",
                         "legendFormat": "already anchored",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_conflicting_requests[10m]) * 60",
+                        "expr": "rate(cas_anchor_conflicting_requests[10m]) * 60 or rate(cas_anchor:conflicting_requests[10m]) * 60",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "conflicting",
@@ -535,7 +535,7 @@
                     },
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_reanchored[10m]) * 60",
+                        "expr": "rate(cas_anchor_reanchored[10m]) * 60 or rate(cas_anchor:reanchored[10m]) * 60\n",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "reanchored",
@@ -632,7 +632,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_failed_requests[10m]) * 60",
+                        "expr": "rate(cas_anchor_failed_requests[10m]) * 60 or rate(cas_anchor:failed_requests[10m]) * 60\n",
                         "interval": "",
                         "legendFormat": "failures per min",
                         "refId": "A"
@@ -747,14 +747,14 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_failed_load_stream[10m]) * 60",
+                        "expr": "rate(cas_anchor_failed_load_stream[10m]) * 60 or rate(cas_anchor:failed_load_stream[10m]) * 60\n",
                         "interval": "",
                         "legendFormat": "Failed load Stream",
                         "refId": "A"
                     },
                     {
                         "exemplar": true,
-                        "expr": "rate(cas_anchor_failed_load_tip[10m]) * 60",
+                        "expr": "rate(cas_anchor_failed_load_tip[10m]) * 60 or rate(cas_anchor:failed_load_tip[10m]) * 60",
                         "hide": false,
                         "interval": "",
                         "legendFormat": "Failed load Tip",
@@ -1171,7 +1171,7 @@
                 "targets": [
                     {
                         "exemplar": true,
-                        "expr": "cas_anchor_anchorBatch_failureRatio_sum",
+                        "expr": "cas_anchor_anchorBatch_failureRatio_sum or cas_anchor:anchorBatch_failureRatio_sum\n\n",
                         "interval": "",
                         "legendFormat": "",
                         "refId": "A"
@@ -1235,6 +1235,6 @@
         "timezone": "",
         "title": "CAS errors and warnings",
         "uid": "Tqcpk_H4k",
-        "version": 29
+        "version": 31
     }
 }
