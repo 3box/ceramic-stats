@@ -1,14 +1,15 @@
 FROM prom/prometheus
 
 ADD prometheus.yml /etc/prometheus/prometheus.yml
+ADD startup.sh /startup.sh
 
 USER root
 
+RUN chmod +x /startup.sh
+
 EXPOSE 9090
 
-CMD [ "--web.enable-admin-api", \
-      "--config.file=/etc/prometheus/prometheus.yml", \
-      "--storage.tsdb.path=/prometheus", \
-      "--storage.tsdb.retention.time=720d", \
-      "--web.console.libraries=/usr/share/prometheus/console_libraries", \
-      "--web.console.templates=/usr/share/prometheus/consoles" ] 
+# the startup script will replace env variables in the prometheus.yml 
+# and then run prometheus
+ENTRYPOINT ["/startup.sh"]
+
