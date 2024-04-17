@@ -1,6 +1,8 @@
 
 # Rough notes how to determine ceramic version on nodes
 
+(from 2022 - may or may not still apply)
+
 ### download a copy of the stats agent leveldb
 
 ssh to the bastion host, and mount the volume
