@@ -17,6 +17,10 @@ prod: `scp -r -i ~/.ssh/bastion-prod.pem ubuntu@3.139.84.211:/mnt/efs/tmp-stats/
 
 clay: `scp -r -i ~/.ssh/bastion-prod.pem ubuntu@18.219.215.231:/mnt/efs/tmp-stats/ tnet-jan-2`
 
+(if a partial download occurs use rsync to fix it)
+`rsync -avz --progress -e "ssh -i ~/.ssh/bastion-prod.pem" ubuntu@3.139.84.211:/mnt/efs/tmp-stats/ leveldb-prod/
+`
+
 ### extract the peerids from the leveldb
 
 `python3 ./export-peerids-from-leveldb.py > peerids.txt`
