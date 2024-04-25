@@ -657,7 +657,7 @@ function updateTopTen(id:string, label:string, cnt: number) {
 /**
  * Helper function for loading a CID from IPFS
  */
-async function _getFromIpfs(cid: CID | string): Promise<any> {
+async function _getFromIpfs(cid: CID | string | any): Promise<any> {
     const asCid = typeof cid === 'string' ? CID.parse(cid) : cid
 
     const asCidString = typeof cid === 'string' ? cid : cid.toString()

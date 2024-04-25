@@ -1,7 +1,4 @@
-FROM node:16
-
-RUN wget https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_amd64.deb
-RUN dpkg -i dumb-init_*.deb
+FROM node:20
 
 WORKDIR /usr/src/app
 COPY package*.json tsconfig*.json ./
@@ -18,5 +15,4 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 ENV ENV=$ENV
 
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD [ "node", "lib/agent.js" ]
