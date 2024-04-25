@@ -354,7 +354,7 @@ async function handleKeepalive(peer_id, messageData) {
     // original sampling method
     if (Math.floor(Math.random() * sample_base) == 1) {
 
-       Metrics.count(LABELS.version, 1, {'version': version})
+       Metrics.count(LABELS.version, 1, {'version': version, 'peerid': peer_id, 'ips':ips, 'client':client})
 
        // might not be that many unique peers 
        await mark(peer_id, LABELS.peer_id, false, false, {'version': messageData.ver})
