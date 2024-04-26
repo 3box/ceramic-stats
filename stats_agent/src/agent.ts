@@ -113,6 +113,7 @@ const top_ten_cnts = {}
 async function main() {
     db = await initDb()
     console.log('Connecting to ipfs at url', IPFS_API_URL)
+
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
     console.log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
@@ -139,7 +140,7 @@ async function createIpfs(url) {
       return ipfsClient.create({
         url: IPFS_API_URL,
         timeout: IPFS_BASE_TIMEOUT,
-        ipld: {codecs: [dagJose]},
+//        ipld: {codecs: [dagJose]},
       })
     } catch (err) {
       console.log(`Error starting IPFS client - is IPFS running on ${IPFS_API_URL}?`)
