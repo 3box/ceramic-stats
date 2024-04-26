@@ -3,14 +3,6 @@ receivers:
     protocols:
       grpc:
       http:
-  jaeger:
-    protocols:
-      grpc:
-        endpoint: "0.0.0.0:14250"
-      thrift_compact:
-        endpoint: "0.0.0.0:6831"
-      thrift_binary:
-        endpoint: "0.0.0.0:6832"
 
 exporters:
   prometheus:
@@ -19,11 +11,6 @@ exporters:
     endpoint: "http://localhost:9201/write"
     tls:
       insecure: true
-  jaeger:
-    endpoint: "jaeger-collector:14250"
-    tls:
-      insecure: true
-
 
 processors:
   filter/prometheus:
