@@ -28,10 +28,6 @@ processors:
         metric_names:
         - cas_server_write_total_tsdb
         - cas_server:write_total_tsdb
-        - agent_stream_cum_uniq_sum/agent_stream_cum_uniq_count
-        - agent_UPDATE_total
-        - agent:UPDATE_total
-        - hello_test
 
 extensions:
   health_check:

@@ -32,10 +32,6 @@ const error = debug('ceramic:ts-agent:error')
 const log = debug('ceramic:ts-agent:log')
 log.log = console.log.bind(console)
 
-Metrics.start(COLLECTOR_HOST, 'agent')
-Metrics.count('HELLO', 1, {'test_version': 2})
-Metrics.count('HELLO_tsdb', 1, {'test_version': 1})
-
 const DAY_TTL = 86400 * 1000
 const MO_TTL = 30 * DAY_TTL
 
@@ -111,6 +107,13 @@ const top_tens = {}
 const top_ten_cnts = {}
 
 async function main() {
+
+    const metrics_ready = Metrics.start(COLLECTOR_HOST, 'agent')
+    console.log(`result of metrics initialization: ${metrics_ready}`)
+
+    Metrics.count('HELLO', 1, {'test_version': 2})
+    Metrics.count('HELLO_tsdb', 1, {'test_version': 1})
+
     db = await initDb()
     console.log('Connecting to ipfs at url', IPFS_API_URL)
 
