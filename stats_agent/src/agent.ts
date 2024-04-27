@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash.clonedeep'
 import * as ipfsClient from 'ipfs-http-client'
-import * as u8a from 'uint8arrays'
+//import * as u8a from 'uint8arrays'
 import lru from 'lru_map'
 import * as dagJose from 'dag-jose'
 import debug from 'debug'
@@ -84,8 +84,8 @@ let cli
 
 let sample_base = 1
 let IPFS_CACHE_SIZE = 1024
-let IPFS_BASE_TIMEOUT = 4096  // set on create
-let IPFS_DAG_GET_TIMEOUT = 4096  // on dag.get
+let IPFS_BASE_TIMEOUT = 1024  // set on create
+let IPFS_DAG_GET_TIMEOUT = 1024  // on dag.get
 let IPFS_GET_RETRIES = Number(process.env.IPFS_GET_RETRIES) || 1  // default to no retry
 
 let REGION = process.env.AWS_REGION || 'us-east2'
@@ -113,6 +113,7 @@ const top_ten_cnts = {}
 async function main() {
     db = await initDb()
     console.log('Connecting to ipfs at url', IPFS_API_URL)
+
     ipfs = await createIpfs(IPFS_API_URL)
     await ipfs.pubsub.subscribe(IPFS_PUBSUB_TOPIC, handleMessage)
     console.log('Subscribed to pubsub topic', IPFS_PUBSUB_TOPIC)
@@ -139,7 +140,7 @@ async function createIpfs(url) {
       return ipfsClient.create({
         url: IPFS_API_URL,
         timeout: IPFS_BASE_TIMEOUT,
-        ipld: {codecs: [dagJose]},
+//        ipld: {codecs: [dagJose]},
       })
     } catch (err) {
       console.log(`Error starting IPFS client - is IPFS running on ${IPFS_API_URL}?`)
@@ -174,7 +175,7 @@ async function recordCumulativeMetrics() {
 async function handleMessage(message) {
     // dedupe
 
-    const seqno = u8a.toString(message.seqno, 'base16')
+    //const seqno = u8a.toString(message.seqno, 'base16')
 
     const peer_id = message.from
     let parsedMessageData
@@ -184,6 +185,7 @@ async function handleMessage(message) {
         parsedMessageData = JSON.parse(new TextDecoder('utf-8').decode(message.data))
     }
 
+/*
     const seen = handledMessages.get(seqno) as Array<string>
     if (seen) {
         let client = 'Unknown'
@@ -204,6 +206,7 @@ async function handleMessage(message) {
     } else {
         handledMessages.set(seqno, [message.from])
     }
+*/
 
 
     if (parsedMessageData.typ == 3) {
@@ -220,10 +223,10 @@ async function handleMessage(message) {
 
     const { stream, tip, model } = parsedMessageData
 
-    if (model) {
+    //if (model) {
        // handleModel(model)
-       console.log("Have a model!")
-    }
+    //   console.log("Have a model!")
+    // }
 
     try {
         // handleTip may provide cacao information
@@ -533,6 +536,7 @@ async function get_or_zero(key) {
         if (err.notFound) {
             return 0
         } else {
+            console.log("Error in get_or_zero")
             throw err
         }
     }
@@ -575,7 +579,7 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
     if (! seen_month) {
         Metrics.count(label + '_uniq_mo', 1, count_params) // for monthly uniq counts
         await db.put(mo_key, 1, {ttl: MO_TTL})
-
+/*
         // also add to cumulative overall metrics
         if (label in DYN_TABLES) {
            let dyn_table = DYN_TABLES[label]
@@ -593,11 +597,12 @@ async function mark(key, label, track_top_ten = false, track_histogram = false, 
              let cmd = new PutItemCommand(put_data)
              await cli.send(cmd)
              // recordCumulativeMetrics will only act if interval has elapsed
-             await recordCumulativeMetrics()
+             //await recordCumulativeMetrics()
            } catch (e) {
              console.log('Error logging to dynamodb: ' + e.message)
            }
         }
+*/
     }
 
     if (track_histogram) {
@@ -699,7 +704,8 @@ async function _getFromIpfs(cid: CID | string | any): Promise<any> {
 
             } else {
                 Metrics.count(AGENT_CID, 1, {'status': 'error'})
-                throw err
+                console.log(`IPFS error in dag.get: ${err.message}`)
+                // throw err
             }
         }
     }
