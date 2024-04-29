@@ -19,7 +19,7 @@ import initDb from './db.js'
 const IPFS_API_URL = process.env.IPFS_API_URL || 'http://localhost:5001'
 const IPFS_PUBSUB_TOPIC = process.env.IPFS_PUBSUB_TOPIC || '/ceramic/dev-unstable'
 
-const COLLECTOR_HOST = process.env.COLLECTOR_HOST || ''
+const COLLECTOR_HOST = process.env.COLLECTOR_HOST || 'localhost'
 const ENV = process.env.ENV
 console.log(`env is ${ENV}`)
 
@@ -108,7 +108,8 @@ const top_ten_cnts = {}
 
 async function main() {
 
-    const metrics_ready = Metrics.start(COLLECTOR_HOST, 'agent')
+    // write every 1.5 seconds to the collector host which is on same host
+    const metrics_ready = Metrics.start(COLLECTOR_HOST, 'agent', 0, null, false, 0, 1500, 1000)
     console.log(`result of metrics initialization: ${metrics_ready}`)
 
     Metrics.count('HELLO', 1, {'test_version': 2})
@@ -180,7 +181,7 @@ async function handleMessage(message) {
 
     //const seqno = u8a.toString(message.seqno, 'base16')
 
-    const peer_id = message.from
+    const peer_id = message.from.toString()
     let parsedMessageData
     if (typeof message.data == 'string') {
         parsedMessageData = JSON.parse(message.data)
