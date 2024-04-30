@@ -106,10 +106,14 @@ let last_day = new Date()
 const top_tens = {}
 const top_ten_cnts = {}
 
+const EXPORT_INTERVAL_MS = 1500  // 1.5 second interval
+const EXPORT_TIMEOUT_MS = 1000   // 1 second timeout is fine for shared host container
+
 async function main() {
 
     // write every 1.5 seconds to the collector host which is on same host
-    const metrics_ready = Metrics.start(COLLECTOR_HOST, 'agent', 0, null, false, 0, 1500, 1000)
+    const metrics_ready = Metrics.start(COLLECTOR_HOST, 'agent', 0, null,
+                                        false, 0, EXPORT_INTERVAL_MS, EXPORT_TIMEOUT_MS)
     console.log(`result of metrics initialization: ${metrics_ready}`)
 
     Metrics.count('HELLO', 1, {'test_version': 2})
@@ -220,7 +224,7 @@ async function handleMessage(message) {
         return
     }
     const operation = OPERATIONS[parsedMessageData.typ]
-    if (Math.floor(Math.random() * sample_base) == 1) {
+    if (Math.floor(Math.random() * sample_base) == 0) {
         await mark(peer_id, LABELS.peer_id)
     }
     Metrics.count(operation, 1)   // raw counts
