@@ -7,23 +7,11 @@ receivers:
 exporters:
   prometheus:
     endpoint: 0.0.0.0:8889
-  prometheusremotewrite:
-    endpoint: "http://localhost:9201/write"
-    tls:
-      insecure: true
 
 processors:
   filter/prometheus:
     metrics:
       exclude:
-        match_type: strict
-        metric_names:
-        - cas_server_write_total_tsdb
-        - cas_server:write_total_tsdb
-
-  filter/prometheusremotewrite:
-    metrics:
-      include:
         match_type: strict
         metric_names:
         - cas_server_write_total_tsdb
@@ -41,8 +29,3 @@ service:
       receivers: [otlp]
       processors: [filter/prometheus]
       exporters: [prometheus]
-    metrics/prometheusremotewrite:
-      receivers: [otlp]
-      processors: [filter/prometheusremotewrite]
-      exporters: [prometheusremotewrite]
-
