@@ -3,3 +3,8 @@ cas
 ceramic
 .idea
 venv
+*.log
+*.csv
+*.txt
+.env
+local
