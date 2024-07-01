@@ -2,6 +2,7 @@ import aiohttp
 import asyncio
 import asyncpg
 import json
+import os
 
 # Database connection parameters
 DB_HOST = os.environ.get('DB_HOST')
@@ -11,31 +12,38 @@ DB_PASSWORD = os.environ.get('DB_PASSWORD')
 DB_NAME = 'tsdb'
 
 # Endpoint URL
-ENDPOINT_URL = os.environ.get('CERAMIC_URL') + '/api/v0/feed/aggregation/'
+ENDPOINT_URL = os.environ.get('CERAMIC_URL') + '/api/v0/feed/aggregation/documents'
+print("Endpoint: " + ENDPOINT_URL)
 
 # Global variable to store data
 data_batch = []
 error_batch = []
 
 # Function to listen to the HTTPS endpoint
-async def fetch_data(session):
-    async with session.get(ENDPOINT_URL, ssl=False) as response:
-        if response.status == 200:
-            data = await response.json()
-            content = json.loads(data['content'])  # Extract and parse the content field
-            data_batch.append(content)
+async def listen_endpoint(session):
+    headers = {
+        'Accept': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36'
+    }
+    async with session.get(ENDPOINT_URL, headers=headers, ssl=False) as response:
+        async for line in response.content:
+            if line:
+                data = line.decode('utf-8').strip()
+                if data.startswith("data:"):
+                    data_json = json.loads(data[5:])
+                    content = json.loads(data_json['content'])
+                    data_batch.append(content)
 
-            # Process sampleRecentErrors
-            for error in content.get('sampleRecentErrors', []):
-                error_batch.append({
-                    'ts': content['ts'],
-                    'ceramic_node_id': content['ceramicNode']['id'],
-                    'error': error
-                })
+                    for error in content.get('sampleRecentErrors', []):
+                        error_batch.append({
+                            'ts': content['ts'],
+                            'ceramic_node_id': content['ceramicNode']['id'],
+                            'error': error
+                        })
 
-            print(f"Fetched data: {content}")
-        else:
-            print(f"Failed to fetch data: {response.status}")
+                    print(f"Received data: {content}")
+
 
 # Function to push data to PostgreSQL TimescaleDB
 async def push_data(pool):
@@ -107,9 +115,7 @@ async def main():
     )
     
     async with aiohttp.ClientSession() as session:
-        while True:
-            await fetch_data(session)
-            await asyncio.sleep(1)  # Sleep for 1 second between fetches
+        await listen_endpoint(session)
 
 async def batch_push():
     pool = await asyncpg.create_pool(
