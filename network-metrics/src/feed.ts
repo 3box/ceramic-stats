@@ -95,6 +95,10 @@ async function pushData(pool: Pool): Promise<void> {
         `;
 
         for (const d of dataBatch) {
+            if (! d.ceramicNode?.id) {
+                console.log(`Invalid entry: ${d}`)
+                continue;
+            }
             await client.query(insertQuery, [
                 d.ts,
                 d.ceramicNode.id,
@@ -136,19 +140,25 @@ async function pushData(pool: Pool): Promise<void> {
 }
 
 async function main() {
-    const pool = new Pool({
-        host: DB_HOST,
-        port: parseInt(DB_PORT),
-        database: DB_NAME,
-        user: DB_USER,
-        password: DB_PASSWORD
-    });
+    let pool = null;
+
+    if (process.env.DB_HOST) {
+        pool = new Pool({
+            host: process.env.DB_HOST,
+            port: parseInt(process.env.DB_PORT),
+            database: process.env.DB_NAME,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD
+        });
+    }
 
     await listenEndpoint();
 
-    setInterval(async () => {
-        await pushData(pool);
-    }, 10000); // Push data every 10 seconds
+    if (pool) {
+        setInterval(async () => {
+            await pushData(pool);
+        }, 10000); // Push data every 10 seconds
+    }
 }
 
 main().catch(err => {
