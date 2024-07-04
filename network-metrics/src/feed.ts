@@ -5,10 +5,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Database connection parameters
-const DB_HOST = process.env.DB_HOST;
-const DB_PORT = '5432';
+const DB_HOST = process.env.DB_HOST ?? '';
+const DB_PORT = 5432;
 const DB_USER = 'tsuser';
-const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_PASSWORD = process.env.DB_PASSWORDi ?? '';
 const DB_NAME = 'tsdb';
 
 const ENDPOINT_URL = process.env.CERAMIC_URL + '/api/v0/feed/aggregation/documents';
@@ -140,15 +140,15 @@ async function pushData(pool: Pool): Promise<void> {
 }
 
 async function main() {
-    let pool = null;
+    let pool: Pool | null = null;
 
-    if (process.env.DB_HOST) {
+    if (DB_HOST) {
         pool = new Pool({
-            host: process.env.DB_HOST,
-            port: parseInt(process.env.DB_PORT),
-            database: process.env.DB_NAME,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD
+            host: DB_HOST,
+            port: DB_PORT,
+            database: DB_NAME,
+            user: DB_USER,
+            password: DB_PASSWORD
         });
     }
 
