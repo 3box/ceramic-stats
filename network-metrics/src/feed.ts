@@ -8,10 +8,10 @@ dotenv.config();
 const DB_HOST = process.env.DB_HOST ?? '';
 const DB_PORT = 5432;
 const DB_USER = 'tsuser';
-const DB_PASSWORD = process.env.DB_PASSWORDi ?? '';
+const DB_PASSWORD = process.env.DB_PASSWORD ?? '';
 const DB_NAME = 'tsdb';
 
-const ENDPOINT_URL = process.env.CERAMIC_URL + '/api/v0/feed/aggregation/documents';
+const ENDPOINT_URL = `https://${process.env.CERAMIC_HOSTNAME}/api/v0/feed/aggregation/documents`;
 console.log("Endpoint: " + ENDPOINT_URL);
 
 interface DataBatch {
